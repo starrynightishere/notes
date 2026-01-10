@@ -1,0 +1,6216 @@
+\documentclass[11pt,a4paper]{book}
+
+%-------------------------------------------------
+% Packages
+%-------------------------------------------------
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+%-------------------------------------------------
+% Page Layout
+%-------------------------------------------------
+\geometry{
+    left=1.25in,
+    right=1.25in,
+    top=1.2in,
+    bottom=1.2in
+}
+
+\setstretch{1.15}
+
+%-------------------------------------------------
+% Section Formatting
+%-------------------------------------------------
+\titleformat{\chapter}
+  {\normalfont\Huge\bfseries}
+  {\thechapter.}{1em}{}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+%-------------------------------------------------
+% Metadata
+%-------------------------------------------------
+\title{\Huge The Thinking Book for Coding\\[0.5em]
+\Large Machine Learning \& Neural Networks}
+\author{Notes \& Practice}
+\date{}
+
+%-------------------------------------------------
+\begin{document}
+
+\maketitle
+\tableofcontents
+\cleardoublepage
+%=================================================
+\chapter{Chapter 1: Numbers, Lists, and Tables}
+%=================================================
+
+This chapter answers a simple but dangerous question:
+
+\begin{quote}
+What kinds of things can a computer actually hold?
+\end{quote}
+
+Confusion here causes confusion everywhere else.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+In memory, there are only \textbf{containers} holding \textbf{values}.
+
+The container has a \emph{shape}.  
+The values fill that shape.
+
+Never mix these two ideas.
+
+%=================================================
+\section{The Smallest Thing: A Number}
+%=================================================
+
+A number is:
+\begin{itemize}
+    \item A single value
+    \item No internal structure
+    \item No direction
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item 3
+    \item -1.5
+    \item 0
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item How many values does a number contain?
+    \item Can you index into a number?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Lists: Many Numbers in Order}
+%=================================================
+
+A list is:
+\begin{itemize}
+    \item A sequence of numbers
+    \item Ordered
+    \item All living together
+\end{itemize}
+
+Mental picture:
+\begin{quote}
+A row of boxes, each holding a number.
+\end{quote}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.2}
+
+Consider a list with 5 numbers.
+
+\begin{enumerate}
+    \item How many values exist?
+    \item Does the order matter?
+\end{enumerate}
+
+Explain without code.
+
+\vspace{4cm}
+
+%=================================================
+\section{Tables: Lists of Lists}
+%=================================================
+
+A table is:
+\begin{itemize}
+    \item A list of lists
+    \item Arranged in rows and columns
+    \item Rectangular
+\end{itemize}
+
+Mental picture:
+\begin{quote}
+A grid of boxes filled with numbers.
+\end{quote}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.3}
+
+Answer carefully:
+
+\begin{enumerate}
+    \item Is a table just a big list?
+    \item What extra structure does a table have?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{One Idea, Three Levels}
+%=================================================
+
+The same value can appear as:
+\begin{itemize}
+    \item A number
+    \item An element of a list
+    \item An entry in a table
+\end{itemize}
+
+What changes is \emph{context}, not value.
+
+%-------------------------------------------------
+
+\textbf{Problem 1.4}
+
+Explain why this sentence is correct:
+
+\begin{quote}
+``A table is not many numbers — it is numbers with structure.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape: The Silent Property}
+%=================================================
+
+Every container has a \textbf{shape}.
+
+\begin{itemize}
+    \item A number has shape $(\ )$
+    \item A list of length $n$ has shape $(n)$
+    \item A table with $r$ rows and $c$ columns has shape $(r,c)$
+\end{itemize}
+
+Shape tells you:
+\begin{itemize}
+    \item How many values exist
+    \item How they are arranged
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.5}
+
+Match each object to its shape:
+
+\begin{enumerate}
+    \item A single value
+    \item A list of 10 numbers
+    \item A table with 3 rows and 4 columns
+\end{enumerate}
+
+Write shapes only.
+
+\vspace{4cm}
+
+%=================================================
+\section{Why Shape Matters More Than Values}
+%=================================================
+
+Programs usually break because:
+\begin{itemize}
+    \item Shapes do not match
+    \item Not because values are wrong
+\end{itemize}
+
+Strong coders check shape first.
+
+%-------------------------------------------------
+
+\textbf{Problem 1.6}
+
+Explain why this causes trouble:
+
+\begin{quote}
+Trying to add a list of length 3 to a list of length 5.
+\end{quote}
+
+Think structurally.
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Seeing Objects}
+%=================================================
+
+\textbf{Drill 1.1}
+
+For each situation, list:
+\begin{itemize}
+    \item Objects that exist
+    \item Their shapes
+\end{itemize}
+
+\begin{enumerate}
+    \item Computing the average of 4 numbers
+    \item Storing exam marks of 10 students in 3 subjects
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking a list is the same as a table
+    \item Ignoring shape
+    \item Thinking values explain errors
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.7}
+
+Explain why this thought is dangerous:
+
+\begin{quote}
+``The numbers look right, so the code should work.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\textbf{Problem 1.8}
+
+Complete the sentence:
+
+\begin{quote}
+Before worrying about values, I should always check
+\underline{\hspace{5cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 1}
+%=================================================
+
+\textbf{Answer 1.1}
+
+One value.
+No indexing.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.2}
+
+Five values.
+Yes, order matters.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.3}
+
+More than a list.
+Row-column structure.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.4}
+
+Structure defines relationships.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.5}
+
+$(\ )$, $(10)$, $(3,4)$
+
+%-------------------------------------------------
+
+\textbf{Answer 1.6}
+
+No consistent pairing exists.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.7}
+
+Structure may still be wrong.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.8}
+
+Shape.
+
+%=================================================
+\chapter{Chapter 2: Shapes Are More Important Than Values}
+%=================================================
+
+Most programming errors in ML are not caused by wrong values.
+They are caused by wrong \textbf{shapes}.
+
+Strong coders think in shapes first, values second.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Every object in memory has:
+\begin{itemize}
+    \item A shape (structure)
+    \item Values (content)
+\end{itemize}
+
+Shape answers:
+\begin{quote}
+``How can things interact?''
+\end{quote}
+
+Values answer:
+\begin{quote}
+``What are the numbers?''
+\end{quote}
+
+Always ask the first question before the second.
+
+%=================================================
+\section{Why Shape Comes First}
+%=================================================
+
+Operations are defined on shapes.
+
+If shapes do not match:
+\begin{itemize}
+    \item The operation is undefined
+    \item The program must fail
+\end{itemize}
+
+Values cannot fix structural mismatch.
+
+%-------------------------------------------------
+
+\textbf{Problem 2.1}
+
+Answer without examples:
+
+\begin{enumerate}
+    \item Why can two correct-looking objects still fail to interact?
+    \item Why is shape a logical constraint?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape Compatibility}
+%=================================================
+
+Two objects can interact only if:
+\begin{itemize}
+    \item Their shapes allow pairing
+    \item The operation defines a valid pairing rule
+\end{itemize}
+
+Mental rule:
+\begin{quote}
+If you cannot explain how elements pair up, the operation is invalid.
+\end{quote}
+
+%-------------------------------------------------
+
+\textbf{Problem 2.2}
+
+Explain why this operation is unclear:
+
+\begin{quote}
+Add a list of length 3 to a table of shape $(3,2)$.
+\end{quote}
+
+What pairing problem arises?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape Is Independent of Meaning}
+%=================================================
+
+Shape does not care what numbers mean.
+
+A list of exam marks and a list of temperatures
+have the same shape.
+
+Operations only see structure.
+
+%-------------------------------------------------
+
+\textbf{Problem 2.3}
+
+Explain why this is true:
+
+\begin{quote}
+``A computer does not know what numbers represent.''
+\end{quote}
+
+How does this relate to shape checking?
+
+\vspace{4cm}
+
+%=================================================
+\section{Seeing Shapes Without Code}
+%=================================================
+
+You must learn to see shapes mentally.
+
+Practice describing shapes in words.
+
+%-------------------------------------------------
+
+\textbf{Problem 2.4}
+
+Describe the shape of each object:
+
+\begin{enumerate}
+    \item Exam scores of 50 students
+    \item Pixel values of a grayscale image
+    \item Weights connecting 10 inputs to 3 outputs
+\end{enumerate}
+
+Do not use symbols yet.
+
+\vspace{5cm}
+
+%=================================================
+\section{Operations Change Shape}
+%=================================================
+
+Rules transform shapes.
+
+Examples:
+\begin{itemize}
+    \item Summing a list removes a dimension
+    \item Stacking lists adds a dimension
+\end{itemize}
+
+Strong coders predict output shape before computing values.
+
+%-------------------------------------------------
+
+\textbf{Problem 2.5}
+
+For each action, state whether shape:
+\begin{itemize}
+    \item stays the same
+    \item becomes smaller
+    \item becomes larger
+\end{itemize}
+
+\begin{enumerate}
+    \item Adding two lists of equal length
+    \item Summing all elements of a table
+    \item Combining two tables side by side
+\end{enumerate}
+
+\vspace{5cm}
+
+%=================================================
+\section{Shape Mismatch Is Not a Bug — It Is a Signal}
+%=================================================
+
+Shape errors are helpful.
+They indicate incorrect thinking.
+
+Never silence shape errors.
+Understand them.
+
+%-------------------------------------------------
+
+\textbf{Problem 2.6}
+
+Explain why this mindset is wrong:
+
+\begin{quote}
+``I will just reshape it until the error disappears.''
+\end{quote}
+
+What danger does this hide?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Shape-Only Reasoning}
+%=================================================
+
+\textbf{Drill 2.1}
+
+Ignore values completely.
+
+For each situation:
+\begin{itemize}
+    \item Write only shapes
+    \item Predict output shape
+\end{itemize}
+
+\begin{enumerate}
+    \item Averaging marks of 20 students
+    \item Computing total sales for each of 12 months
+    \item Combining height and weight data for 100 people
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking reshape fixes logic
+    \item Confusing row vs column
+    \item Guessing shapes instead of deriving
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 2.7}
+
+Explain why this sentence is dangerous:
+
+\begin{quote}
+``It runs after reshaping, so it must be correct.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\textbf{Problem 2.8}
+
+Complete the sentence:
+
+\begin{quote}
+When debugging numerical code, the first thing I should verify is
+\underline{\hspace{6cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 2}
+%=================================================
+
+\textbf{Answer 2.1}
+
+Operations require pairing.
+Shape defines pairing.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.2}
+
+Unclear element correspondence.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.3}
+
+Computers see structure only.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.4}
+
+List.
+Grid.
+Table.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.5}
+
+Same.
+Smaller.
+Larger.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.6}
+
+Hides conceptual errors.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.7}
+
+Correct output is not guaranteed.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.8}
+
+Shape.
+
+%=================================================
+\chapter{Chapter 3: Flow of Computation — Thinking in Forward Passes}
+%=================================================
+
+So far, we have learned:
+\begin{itemize}
+    \item What objects exist
+    \item What shapes are
+\end{itemize}
+
+Now we answer the next fundamental question:
+
+\begin{quote}
+How do values move and change?
+\end{quote}
+
+This chapter teaches you to think in \textbf{forward passes}.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+A program is not executed line by line in your head.
+
+A program is:
+\begin{itemize}
+    \item Values flowing forward
+    \item Passing through rules
+    \item Becoming new values
+\end{itemize}
+
+This is exactly how neural networks work.
+
+%=================================================
+\section{What Is a Forward Pass?}
+%=================================================
+
+A forward pass means:
+\begin{quote}
+Start with inputs and repeatedly apply rules until an output appears.
+\end{quote}
+
+Nothing flows backward.
+Nothing jumps ahead.
+
+%-------------------------------------------------
+
+\textbf{Problem 3.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item What must exist before a forward pass begins?
+    \item What must exist after it ends?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Flow Is About Dependency}
+%=================================================
+
+A value can only be computed when all values it depends on exist.
+
+This creates a dependency graph.
+
+%-------------------------------------------------
+
+\textbf{Problem 3.2}
+
+Explain why this is impossible:
+
+\begin{quote}
+Compute the output before the input exists.
+\end{quote}
+
+Why is this a logical error, not a programming one?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step-by-Step Flow}
+%=================================================
+
+Consider this description:
+
+\begin{quote}
+Take two numbers.  
+Add them.  
+Multiply the result by 5.
+\end{quote}
+
+Each step creates a new value.
+
+%-------------------------------------------------
+
+\textbf{Problem 3.3}
+
+List what exists after each step.
+
+Do not use symbols.
+
+\vspace{4cm}
+
+%=================================================
+\section{Intermediate Values Matter}
+%=================================================
+
+Beginners often ignore intermediate values.
+
+Strong thinkers track them carefully.
+
+Every intermediate value:
+\begin{itemize}
+    \item Has a shape
+    \item Lives in memory
+    \item Can be inspected
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 3.4}
+
+Explain why this belief is dangerous:
+
+\begin{quote}
+``Only the final output matters.''
+\end{quote}
+
+Relate your answer to debugging.
+
+\vspace{4cm}
+
+%=================================================
+\section{Computation Graph (Without Math)}
+%=================================================
+
+A computation graph shows:
+\begin{itemize}
+    \item Nodes: values
+    \item Arrows: rules
+\end{itemize}
+
+This graph defines the forward pass.
+
+%-------------------------------------------------
+
+\textbf{Problem 3.5}
+
+Draw (mentally or on paper) a computation graph for:
+
+\begin{quote}
+Take three numbers.  
+Average them.  
+Subtract 1.
+\end{quote}
+
+What nodes exist?
+
+\vspace{5cm}
+
+%=================================================
+\section{Flow vs Code Order}
+%=================================================
+
+Code order is not the same as computation order.
+
+Computation order is defined by dependencies.
+
+%-------------------------------------------------
+
+\textbf{Problem 3.6}
+
+Explain why rearranging lines of code
+does not always change the computation.
+
+What actually controls execution?
+
+\vspace{4cm}
+
+%=================================================
+\section{Predicting Output Before Computing}
+%=================================================
+
+Strong coders predict:
+\begin{itemize}
+    \item Output shape
+    \item Output type
+\end{itemize}
+
+Before any numbers are computed.
+
+%-------------------------------------------------
+
+\textbf{Problem 3.7}
+
+Suppose:
+\begin{itemize}
+    \item Input: list of 10 numbers
+    \item Rule: average
+\end{itemize}
+
+\begin{enumerate}
+    \item What is the output shape?
+    \item Does any other shape make sense?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Flow Errors}
+%=================================================
+
+Many bugs are flow bugs:
+\begin{itemize}
+    \item Using a value before it exists
+    \item Overwriting a needed value
+    \item Losing intermediate results
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 3.8}
+
+Explain why this is a problem:
+
+\begin{quote}
+Overwriting an intermediate value too early.
+\end{quote}
+
+Give a conceptual reason.
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Forward Pass Thinking}
+%=================================================
+
+\textbf{Drill 3.1}
+
+For each description:
+\begin{itemize}
+    \item List inputs
+    \item List intermediate values
+    \item List final output
+\end{itemize}
+
+\begin{enumerate}
+    \item Computing the sum of squares of three numbers
+    \item Normalizing a list by its maximum value
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking in lines instead of flow
+    \item Ignoring intermediate shapes
+    \item Treating code as magic
+\end{itemize}
+
+%-------------------------------------------------
+
+\textbf{Problem 3.9}
+
+Explain why this sentence reveals weak understanding:
+
+\begin{quote}
+``I don't know what happens in the middle.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\textbf{Problem 3.10}
+
+Complete the sentence:
+
+\begin{quote}
+A forward pass is best understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 3}
+%=================================================
+
+\textbf{Answer 3.1}
+
+Inputs exist.
+Output exists.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.2}
+
+Dependencies are violated.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.3}
+
+Inputs.
+Sum.
+Final value.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.4}
+
+Bugs hide in the middle.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.5}
+
+Inputs, average, adjusted value.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.6}
+
+Dependencies control execution.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.7}
+
+Single number.
+No.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.8}
+
+Needed information is lost.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.9}
+
+Flow is not understood.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.10}
+
+Flow of values through rules.
+
+%=================================================
+\chapter{Dot Products as Questions}
+%=================================================
+
+This chapter introduces the most important operation
+in Machine Learning and Neural Networks.
+
+It is not a formula.
+It is not a trick.
+
+It is a \textbf{question}.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+A dot product does not compute a number.
+
+A dot product asks:
+
+\begin{quote}
+``How much do these two things agree with each other?''
+\end{quote}
+
+Everything else comes later.
+
+%=================================================
+\section{What Objects Exist?}
+%=================================================
+
+Before anything happens, the following exist in memory:
+
+\begin{itemize}
+    \item One list of numbers
+    \item Another list of numbers
+\end{itemize}
+
+They must:
+\begin{itemize}
+    \item Have the same length
+    \item Represent quantities in the same order
+\end{itemize}
+
+Otherwise, the question makes no sense.
+
+%-------------------------------------------------
+\subsection*{Problem 4.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item Why must the two lists have the same length?
+    \item What breaks if they do not?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Dot Product Without Math Symbols}
+%=================================================
+
+Forget formulas.
+
+A dot product means:
+
+\begin{quote}
+Pair corresponding numbers, multiply them,
+and add the results.
+\end{quote}
+
+That is all.
+
+%-------------------------------------------------
+\subsection*{Problem 4.2}
+
+Describe the dot product process using only words.
+
+Do not use symbols or equations.
+
+\vspace{4cm}
+
+%=================================================
+\section{Dot Product as Alignment}
+%=================================================
+
+Think geometrically.
+
+\begin{itemize}
+    \item Large dot product $\rightarrow$ strong alignment
+    \item Zero dot product $\rightarrow$ no alignment
+    \item Negative dot product $\rightarrow$ opposition
+\end{itemize}
+
+The magnitude tells strength.
+The sign tells direction.
+
+%-------------------------------------------------
+\subsection*{Problem 4.3}
+
+Explain what each situation means:
+
+\begin{enumerate}
+    \item Large positive dot product
+    \item Dot product close to zero
+    \item Large negative dot product
+\end{enumerate}
+
+Answer conceptually.
+
+\vspace{4cm}
+
+%=================================================
+\section{Why Order Matters}
+%=================================================
+
+Dot products assume meaning is aligned by position.
+
+If order changes, meaning changes.
+
+%-------------------------------------------------
+\subsection*{Problem 4.4}
+
+Explain why this is dangerous:
+
+\begin{quote}
+``The same numbers but shuffled should give the same result.''
+\end{quote}
+
+What assumption is violated?
+
+\vspace{4cm}
+
+%=================================================
+\section{Dot Product as Decision Score}
+%=================================================
+
+In ML, dot products often represent:
+
+\begin{itemize}
+    \item How strongly features support a decision
+    \item How confident a model is
+\end{itemize}
+
+This is why they appear everywhere.
+
+%-------------------------------------------------
+\subsection*{Problem 4.5}
+
+Explain why a dot product is suitable as a decision score.
+
+Why not just sum the inputs?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape Perspective}
+%=================================================
+
+From a shape point of view:
+
+\begin{itemize}
+    \item Input shape: $(n)$
+    \item Weight shape: $(n)$
+    \item Output shape: $(\ )$
+\end{itemize}
+
+A dot product collapses a dimension.
+
+%-------------------------------------------------
+\subsection*{Problem 4.6}
+
+Why does the output have no dimension?
+
+Explain without using math.
+
+\vspace{4cm}
+
+%=================================================
+\section{Dot Product Is Not Symmetric in Meaning}
+%=================================================
+
+Mathematically, $a \cdot b = b \cdot a$.
+
+But conceptually:
+\begin{itemize}
+    \item One list often represents data
+    \item The other represents importance
+\end{itemize}
+
+Roles matter.
+
+%-------------------------------------------------
+\subsection*{Problem 4.7}
+
+Explain why swapping inputs and weights
+changes interpretation even if the number stays the same.
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Seeing Dot Products}
+%=================================================
+
+\subsection*{Drill 4.1}
+
+For each scenario:
+\begin{itemize}
+    \item Identify the two lists
+    \item State the question being asked
+\end{itemize}
+
+\begin{enumerate}
+    \item Predicting exam performance from subject scores
+    \item Deciding spam vs non-spam from word counts
+    \item A neuron computing its activation
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Treating dot product as a magic formula
+    \item Ignoring order
+    \item Forgetting shape compatibility
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 4.8}
+
+Explain why this mindset is wrong:
+
+\begin{quote}
+``I just multiply and sum because the formula says so.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 4.9}
+
+Complete the sentence:
+
+\begin{quote}
+A dot product is best understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 4}
+%=================================================
+
+\textbf{Answer 4.1}
+
+Each position must correspond.
+Otherwise pairing is undefined.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.2}
+
+Pair, multiply, add.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.3}
+
+Agreement, independence, opposition.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.4}
+
+Positional meaning is broken.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.5}
+
+Weights control importance.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.6}
+
+All contributions combine into one result.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.7}
+
+Roles define interpretation.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.8}
+
+Meaning is lost.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.9}
+
+A measure of alignment.
+
+%=================================================
+\chapter{Matrix Multiplication — Many Dot Products at Once}
+%=================================================
+
+Matrix multiplication is not a new idea.
+It is the \textbf{same dot product repeated many times}.
+
+This chapter teaches you to see:
+\begin{quote}
+Many questions asked at once.
+\end{quote}
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Think of matrix multiplication as:
+
+\begin{itemize}
+    \item One table asking questions
+    \item Another table providing answers
+    \item Each output answering one question
+\end{itemize}
+
+No symbols yet. Only meaning.
+
+%=================================================
+\section{What Objects Exist?}
+%=================================================
+
+Before multiplication, the following exist:
+
+\begin{itemize}
+    \item An input table (data)
+    \item A weight table (rules)
+\end{itemize}
+
+Each row of the output corresponds to:
+\begin{quote}
+One dot product between a row and a column.
+\end{quote}
+
+%-------------------------------------------------
+\subsection*{Problem 5.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item What two kinds of objects interact?
+    \item What does one output number represent?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Row Meets Column}
+%=================================================
+
+Matrix multiplication always pairs:
+\begin{itemize}
+    \item A row from the first matrix
+    \item A column from the second matrix
+\end{itemize}
+
+Each pairing produces one number.
+
+%-------------------------------------------------
+\subsection*{Problem 5.2}
+
+Explain why this pairing rule is necessary.
+
+What ambiguity would exist otherwise?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape Compatibility Rule}
+%=================================================
+
+The inner dimensions must match.
+
+This is not a formula rule.
+It is a \textbf{pairing rule}.
+
+%-------------------------------------------------
+\subsection*{Problem 5.3}
+
+Explain why this operation is invalid:
+
+\begin{quote}
+Multiplying a $(3,4)$ table with a $(5,2)$ table.
+\end{quote}
+
+What pairing fails?
+
+\vspace{4cm}
+
+%=================================================
+\section{What the Output Represents}
+%=================================================
+
+The output table contains:
+\begin{itemize}
+    \item One row per input row
+    \item One column per output feature
+\end{itemize}
+
+Each entry answers:
+\begin{quote}
+How much does this input support this output feature?
+\end{quote}
+
+%-------------------------------------------------
+\subsection*{Problem 5.4}
+
+Explain why output shape depends on:
+\begin{itemize}
+    \item Number of input rows
+    \item Number of output columns
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\section{Matrix Multiplication as Layer Computation}
+%=================================================
+
+In neural networks:
+\begin{itemize}
+    \item Rows represent data points
+    \item Columns represent neurons
+\end{itemize}
+
+Matrix multiplication computes all neuron responses at once.
+
+%-------------------------------------------------
+\subsection*{Problem 5.5}
+
+Explain why matrix multiplication is ideal for neural networks.
+
+Why not compute neurons one by one?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape Transformation View}
+%=================================================
+
+From a shape perspective:
+
+\begin{itemize}
+    \item Input shape: $(n, d)$
+    \item Weight shape: $(d, k)$
+    \item Output shape: $(n, k)$
+\end{itemize}
+
+Nothing else is possible.
+
+%-------------------------------------------------
+\subsection*{Problem 5.6}
+
+Explain why the output cannot have any other shape.
+
+What logical constraint enforces this?
+
+\vspace{4cm}
+
+%=================================================
+\section{Matrix Multiplication Is Not Symmetric}
+%=================================================
+
+Even if numbers look similar,
+swapping matrices changes meaning.
+
+Roles matter:
+\begin{itemize}
+    \item Data flows forward
+    \item Weights shape the flow
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 5.7}
+
+Explain why swapping data and weights
+breaks interpretation even if dimensions match.
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Seeing the Operation}
+%=================================================
+
+\subsection*{Drill 5.1}
+
+For each scenario:
+\begin{itemize}
+    \item Identify input table
+    \item Identify weight table
+    \item State what each output entry means
+\end{itemize}
+
+\begin{enumerate}
+    \item Classifying emails using word counts
+    \item Mapping pixel values to image features
+    \item A fully connected neural network layer
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Memorizing dimension rules without meaning
+    \item Ignoring row-column roles
+    \item Treating matrices as magic blocks
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 5.8}
+
+Explain why this thought is dangerous:
+
+\begin{quote}
+``As long as dimensions match, the multiplication is correct.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 5.9}
+
+Complete the sentence:
+
+\begin{quote}
+Matrix multiplication is best understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 5}
+%=================================================
+
+\textbf{Answer 5.1}
+
+Data and rules.
+One compatibility score.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.2}
+
+Without pairing, meaning is unclear.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.3}
+
+Inner dimensions do not pair.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.4}
+
+Each row and column defines one question.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.5}
+
+Parallel computation.
+Efficiency and clarity.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.6}
+
+Pairing constraints fix shape.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.7}
+
+Roles define semantics.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.8}
+
+Meaning may still be wrong.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.9}
+
+Many dot products at once.
+%=================================================
+\chapter{Broadcasting — Controlled Repetition}
+%=================================================
+
+Broadcasting is one of the most powerful ideas
+in numerical computing.
+
+It is also one of the most misunderstood.
+
+This chapter teaches you to see broadcasting as
+\textbf{controlled repetition}, not magic.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Broadcasting does \emph{not} create new values.
+
+Broadcasting means:
+\begin{quote}
+One smaller object is reused many times
+in a well-defined pattern.
+\end{quote}
+
+Nothing is guessed.
+Nothing is arbitrary.
+
+%=================================================
+\section{Why Broadcasting Exists}
+%=================================================
+
+Without broadcasting:
+\begin{itemize}
+    \item We would write many loops
+    \item We would repeat ourselves
+    \item Code would be harder to read
+\end{itemize}
+
+Broadcasting exists to express intent clearly.
+
+%-------------------------------------------------
+\subsection*{Problem 6.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item What problem does broadcasting solve?
+    \item Why is repetition sometimes necessary?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{The Core Idea}
+%=================================================
+
+Broadcasting follows this rule:
+
+\begin{quote}
+If an object is missing a dimension,
+it can be repeated along that dimension.
+\end{quote}
+
+But only if repetition is unambiguous.
+
+%-------------------------------------------------
+\subsection*{Problem 6.2}
+
+Explain what this sentence means:
+
+\begin{quote}
+``Broadcasting works only when the repetition is obvious.''
+\end{quote}
+
+What would make repetition ambiguous?
+
+\vspace{4cm}
+
+%=================================================
+\section{Row-wise and Column-wise Thinking}
+%=================================================
+
+Most broadcasting happens in one of two ways:
+
+\begin{itemize}
+    \item A row applied to every row
+    \item A column applied to every column
+\end{itemize}
+
+You must know \emph{which one} is happening.
+
+%-------------------------------------------------
+\subsection*{Problem 6.3}
+
+Explain the difference between:
+
+\begin{itemize}
+    \item Adding one value to every element
+    \item Adding one row to every row
+\end{itemize}
+
+Why are these conceptually different?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape-Based Reasoning}
+%=================================================
+
+Broadcasting decisions are made using shape only.
+
+Values are irrelevant.
+
+%-------------------------------------------------
+\subsection*{Problem 6.4}
+
+Explain why broadcasting can be predicted
+\emph{before} seeing any numbers.
+
+What information is sufficient?
+
+\vspace{4cm}
+
+%=================================================
+\section{When Broadcasting Is Invalid}
+%=================================================
+
+Broadcasting fails when:
+\begin{itemize}
+    \item Shapes conflict
+    \item No clear repetition rule exists
+\end{itemize}
+
+These failures are helpful signals.
+
+%-------------------------------------------------
+\subsection*{Problem 6.5}
+
+Explain why this operation should fail:
+
+\begin{quote}
+Adding a list of length 3 to a table of shape $(4,5)$.
+\end{quote}
+
+What repetition would be required?
+Why is it unclear?
+
+\vspace{4cm}
+
+%=================================================
+\section{Broadcasting in Machine Learning}
+%=================================================
+
+Broadcasting is used constantly in ML:
+
+\begin{itemize}
+    \item Adding bias to every data point
+    \item Scaling features
+    \item Normalizing inputs
+\end{itemize}
+
+This is why understanding it is critical.
+
+%-------------------------------------------------
+\subsection*{Problem 6.6}
+
+Explain how broadcasting allows:
+\begin{itemize}
+    \item One bias vector
+    \item To affect many data points
+\end{itemize}
+
+Why is this conceptually correct?
+
+\vspace{4cm}
+
+%=================================================
+\section{Broadcasting vs Loops}
+%=================================================
+
+Broadcasting replaces loops conceptually,
+not computationally.
+
+It expresses:
+\begin{quote}
+What should happen,
+not how to iterate.
+\end{quote}
+
+%-------------------------------------------------
+\subsection*{Problem 6.7}
+
+Explain why broadcasting is clearer
+than writing explicit loops.
+
+What does it communicate to the reader?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Broadcasting Vision}
+%=================================================
+
+\subsection*{Drill 6.1}
+
+For each situation:
+\begin{itemize}
+    \item Identify the smaller object
+    \item Identify how it is repeated
+\end{itemize}
+
+\begin{enumerate}
+    \item Subtracting the mean from each column of a table
+    \item Adding a bias to a neural network layer output
+    \item Scaling each feature by a constant factor
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Letting broadcasting happen accidentally
+    \item Not checking intended repetition
+    \item Assuming broadcasting always helps
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 6.8}
+
+Explain why this mindset is dangerous:
+
+\begin{quote}
+``If it broadcasts, it must be what I want.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 6.9}
+
+Complete the sentence:
+
+\begin{quote}
+Broadcasting should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 6}
+%=================================================
+
+\textbf{Answer 6.1}
+
+Avoid repetition.
+Express intent.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.2}
+
+Repetition must be unique.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.3}
+
+Different structural meanings.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.4}
+
+Shape alone.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.5}
+
+No clear alignment exists.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.6}
+
+Bias applies equally to all.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.7}
+
+Intent is explicit.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.8}
+
+Accidental logic errors.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.9}
+
+Controlled repetition.
+%=================================================
+\chapter{Forward Pass of a Neural Network — From Data to Prediction}
+%=================================================
+
+This chapter is the first time we assemble
+everything into a single coherent system.
+
+Nothing new is introduced.
+Everything is reused.
+
+If this chapter is clear,
+neural networks will never feel mysterious again.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+A neural network is not:
+\begin{itemize}
+    \item A black box
+    \item A complicated algorithm
+\end{itemize}
+
+A neural network \textbf{is}:
+\begin{itemize}
+    \item A sequence of transformations
+    \item Applied to data
+    \item Moving forward step by step
+\end{itemize}
+
+This sequence is called the \textbf{forward pass}.
+
+%=================================================
+\section{What Exists Before the Forward Pass}
+%=================================================
+
+Before computation begins, memory contains:
+
+\begin{itemize}
+    \item Input data (table)
+    \item Weight tables (one per layer)
+    \item Bias vectors (one per layer)
+\end{itemize}
+
+Nothing else.
+
+%-------------------------------------------------
+\subsection*{Problem 7.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item Which of these objects change during a forward pass?
+    \item Which remain fixed?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Single Neuron Revisited}
+%=================================================
+
+A single neuron performs:
+
+\begin{itemize}
+    \item Dot product (question)
+    \item Add bias (shift)
+    \item Apply activation (nonlinearity)
+\end{itemize}
+
+This is the smallest unit of a network.
+
+%-------------------------------------------------
+\subsection*{Problem 7.2}
+
+Explain why all three steps are necessary.
+
+What would break if one is missing?
+
+\vspace{4cm}
+
+%=================================================
+\section{From One Neuron to One Layer}
+%=================================================
+
+A layer is:
+\begin{quote}
+Many neurons applied in parallel to the same input.
+\end{quote}
+
+This is exactly matrix multiplication plus broadcasting.
+
+%-------------------------------------------------
+\subsection*{Problem 7.3}
+
+Explain why neurons in the same layer:
+\begin{itemize}
+    \item Share the same input
+    \item Have different weights
+\end{itemize}
+
+What does this allow the layer to learn?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shape Flow Through a Layer}
+%=================================================
+
+Let:
+\begin{itemize}
+    \item Input shape: $(n, d)$
+    \item Weights shape: $(d, k)$
+    \item Bias shape: $(k)$
+\end{itemize}
+
+Then:
+\begin{itemize}
+    \item Linear output shape: $(n, k)$
+    \item Activated output shape: $(n, k)$
+\end{itemize}
+
+Nothing else is possible.
+
+%-------------------------------------------------
+\subsection*{Problem 7.4}
+
+Explain why bias must have shape $(k)$
+and not $(n, k)$.
+
+What repetition is being implied?
+
+\vspace{4cm}
+
+%=================================================
+\section{Activation as Shape-Preserving Rule}
+%=================================================
+
+Activation functions:
+\begin{itemize}
+    \item Do not change shape
+    \item Change values only
+\end{itemize}
+
+They are applied element-wise.
+
+%-------------------------------------------------
+\subsection*{Problem 7.5}
+
+Explain why activation functions must preserve shape.
+
+What would break otherwise?
+
+\vspace{4cm}
+
+%=================================================
+\section{Stacking Layers}
+%=================================================
+
+A deep network is:
+\begin{quote}
+The output of one layer becoming the input of the next.
+\end{quote}
+
+Nothing more.
+
+%-------------------------------------------------
+\subsection*{Problem 7.6}
+
+Explain why shape compatibility between layers
+is a strict requirement.
+
+What error would occur if violated?
+
+\vspace{4cm}
+
+%=================================================
+\section{End of the Forward Pass}
+%=================================================
+
+The final layer produces:
+\begin{itemize}
+    \item Scores
+    \item Probabilities
+    \item Predictions
+\end{itemize}
+
+Depending on the task.
+
+%-------------------------------------------------
+\subsection*{Problem 7.7}
+
+Explain why the last layer
+often uses a different activation
+than hidden layers.
+
+\vspace{4cm}
+
+%=================================================
+\section{Forward Pass Is Deterministic}
+%=================================================
+
+Given:
+\begin{itemize}
+    \item Same input
+    \item Same weights
+\end{itemize}
+
+The forward pass always produces the same output.
+
+Learning does not happen here.
+
+%-------------------------------------------------
+\subsection*{Problem 7.8}
+
+Explain why the forward pass alone
+cannot improve performance.
+
+What is missing?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Full Forward Pass}
+%=================================================
+
+\subsection*{Drill 7.1}
+
+For a two-layer neural network:
+
+\begin{itemize}
+    \item Input shape: $(n, d)$
+    \item Hidden units: $h$
+    \item Output units: $k$
+\end{itemize}
+
+List:
+\begin{enumerate}
+    \item All weight shapes
+    \item All bias shapes
+    \item Shape after each step
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Forgetting bias
+    \item Mixing up row and column meanings
+    \item Thinking activations change structure
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 7.9}
+
+Explain why this sentence is dangerous:
+
+\begin{quote}
+``The network output looks reasonable.''
+\end{quote}
+
+What should be checked first instead?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 7.10}
+
+Complete the sentence:
+
+\begin{quote}
+A neural network forward pass is best understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 7}
+%=================================================
+
+\textbf{Answer 7.1}
+
+Inputs flow.
+Weights stay fixed.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.2}
+
+Each adds expressive power.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.3}
+
+Different features are extracted.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.4}
+
+Bias is shared across rows.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.5}
+
+Flow must remain compatible.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.6}
+
+Matrix multiplication fails.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.7}
+
+Output meaning differs.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.8}
+
+No learning signal.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.9}
+
+Structure may still be wrong.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.10}
+
+A sequence of shape-preserving transformations.
+%=================================================
+\chapter{Loss — Turning Predictions into Responsibility}
+%=================================================
+
+A neural network does not know whether it is correct.
+
+The \textbf{loss} is how we tell it:
+\begin{quote}
+``This is how bad your prediction was.''
+\end{quote}
+
+This chapter teaches you to see loss as
+\textbf{responsibility assignment}, not a formula.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Loss is:
+\begin{itemize}
+    \item A single number
+    \item Summarizing how wrong the prediction is
+    \item Connecting output to learning
+\end{itemize}
+
+Without loss, learning cannot happen.
+
+%=================================================
+\section{What Exists Before Loss Is Computed}
+%=================================================
+
+At the end of the forward pass, memory contains:
+
+\begin{itemize}
+    \item Predictions (output of the network)
+    \item True targets (given by data)
+\end{itemize}
+
+Loss compares these two.
+
+%-------------------------------------------------
+\subsection*{Problem 8.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item Why do we need both predictions and targets?
+    \item Why can loss not be computed earlier?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Loss as a Measure of Disagreement}
+%=================================================
+
+Loss answers the question:
+\begin{quote}
+``How far is the prediction from what it should be?''
+\end{quote}
+
+Different tasks require different notions of distance.
+
+%-------------------------------------------------
+\subsection*{Problem 8.2}
+
+Explain why:
+\begin{itemize}
+    \item Classification
+    \item Regression
+\end{itemize}
+need different loss functions.
+
+What differs conceptually?
+
+\vspace{4cm}
+
+%=================================================
+\section{Scalar Nature of Loss}
+%=================================================
+
+No matter how large the network,
+the loss is always a single number.
+
+This is critical.
+
+%-------------------------------------------------
+\subsection*{Problem 8.3}
+
+Explain why learning requires
+the loss to be a single scalar.
+
+What would break if it were a table?
+
+\vspace{4cm}
+
+%=================================================
+\section{Loss Aggregates Responsibility}
+%=================================================
+
+Loss combines:
+\begin{itemize}
+    \item Errors across outputs
+    \item Errors across data points
+\end{itemize}
+
+Into one quantity.
+
+%-------------------------------------------------
+\subsection*{Problem 8.4}
+
+Explain why aggregation is necessary.
+
+Why not learn separately from each output value?
+
+\vspace{4cm}
+
+%=================================================
+\section{Example: Squared Error (Conceptual)}
+%=================================================
+
+Squared error measures:
+\begin{quote}
+Magnitude of deviation.
+\end{quote}
+
+Large mistakes are penalized more.
+
+%-------------------------------------------------
+\subsection*{Problem 8.5}
+
+Explain why squaring the error:
+\begin{itemize}
+    \item Emphasizes large mistakes
+    \item Produces smooth behavior
+\end{itemize}
+
+Why are both desirable?
+
+\vspace{4cm}
+
+%=================================================
+\section{Example: Classification Loss (Conceptual)}
+%=================================================
+
+Classification loss measures:
+\begin{quote}
+Confidence in the correct class.
+\end{quote}
+
+Not just correctness.
+
+%-------------------------------------------------
+\subsection*{Problem 8.6}
+
+Explain why predicting the correct class
+with low confidence
+should still be penalized.
+
+What behavior are we encouraging?
+
+\vspace{4cm}
+
+%=================================================
+\section{Loss Does Not Update Weights}
+%=================================================
+
+Loss itself:
+\begin{itemize}
+    \item Does not change weights
+    \item Does not know how to fix errors
+\end{itemize}
+
+It only measures.
+
+%-------------------------------------------------
+\subsection*{Problem 8.7}
+
+Explain why loss alone cannot cause learning.
+
+What additional mechanism is required?
+
+\vspace{4cm}
+
+%=================================================
+\section{Loss as the Start of Blame Assignment}
+%=================================================
+
+Loss is the starting point for answering:
+\begin{quote}
+``Who is responsible for this error?''
+\end{quote}
+
+This leads to gradients.
+
+%-------------------------------------------------
+\subsection*{Problem 8.8}
+
+Explain why loss must come
+\emph{before} backpropagation.
+
+What direction does information flow?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Thinking in Loss}
+%=================================================
+
+\subsection*{Drill 8.1}
+
+For each scenario:
+\begin{itemize}
+    \item Identify prediction
+    \item Identify target
+    \item State what the loss measures
+\end{itemize}
+
+\begin{enumerate}
+    \item Predicting house prices
+    \item Classifying handwritten digits
+    \item Predicting next word in a sentence
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking lower loss means perfect model
+    \item Using loss without understanding task meaning
+    \item Mixing loss and optimization
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 8.9}
+
+Explain why this sentence is misleading:
+
+\begin{quote}
+``The loss is small, so the model understands the data.''
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 8.10}
+
+Complete the sentence:
+
+\begin{quote}
+Loss should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 8}
+%=================================================
+
+\textbf{Answer 8.1}
+
+Comparison is required.
+Prediction must exist.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.2}
+
+Error meaning differs.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.3}
+
+Optimization requires direction.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.4}
+
+Learning needs a single objective.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.5}
+
+Encourages stability and correction.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.6}
+
+Encourages confident correctness.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.7}
+
+Gradients and updates.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.8}
+
+Loss initiates responsibility.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.9}
+
+Generalization is not guaranteed.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.10}
+
+A measure of responsibility.
+%=================================================
+\chapter{Gradients — Assigning Blame Precisely}
+%=================================================
+
+Loss tells us \emph{how bad} the prediction was.
+
+Gradients tell us:
+\begin{quote}
+``Who is responsible, and by how much?''
+\end{quote}
+
+This chapter teaches you to see gradients as
+\textbf{blame assignment}, not symbols.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+A gradient is not a formula.
+
+A gradient answers this question:
+\begin{quote}
+``If I change this thing a little,
+how will the loss change?''
+\end{quote}
+
+That is all it means.
+
+%=================================================
+\section{What Exists When Gradients Are Computed}
+%=================================================
+
+At this moment, memory contains:
+
+\begin{itemize}
+    \item Input data
+    \item All intermediate values from the forward pass
+    \item Final loss (a single number)
+\end{itemize}
+
+Nothing new is introduced.
+
+%-------------------------------------------------
+\subsection*{Problem 9.1}
+
+Answer in words:
+
+\begin{enumerate}
+    \item Why must the forward pass be completed first?
+    \item What information does the loss provide?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradient as Sensitivity}
+%=================================================
+
+The gradient of loss with respect to something measures:
+
+\begin{quote}
+How sensitive the loss is to that thing.
+\end{quote}
+
+High sensitivity means:
+\begin{itemize}
+    \item Small changes matter a lot
+\end{itemize}
+
+Low sensitivity means:
+\begin{itemize}
+    \item Changes barely affect the loss
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 9.2}
+
+Explain why sensitivity is a better word than ``slope''
+when thinking about gradients in neural networks.
+
+\vspace{4cm}
+
+%=================================================
+\section{Local Responsibility}
+%=================================================
+
+Each parameter is responsible only for:
+\begin{quote}
+The part of the computation it directly influences.
+\end{quote}
+
+Gradients assign blame locally.
+
+%-------------------------------------------------
+\subsection*{Problem 9.3}
+
+Explain why it makes no sense to blame
+a parameter for parts of the computation it never touched.
+
+How does this simplify learning?
+
+\vspace{4cm}
+
+%=================================================
+\section{Direction and Magnitude}
+%=================================================
+
+A gradient contains two pieces of information:
+
+\begin{itemize}
+    \item Direction: increase or decrease
+    \item Magnitude: how strongly
+\end{itemize}
+
+Both matter.
+
+%-------------------------------------------------
+\subsection*{Problem 9.4}
+
+Explain why knowing only the sign of the gradient
+is not enough for effective learning.
+
+What does magnitude control?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradients Are Computed Everywhere}
+%=================================================
+
+Gradients are computed with respect to:
+
+\begin{itemize}
+    \item Weights
+    \item Biases
+    \item Intermediate values
+\end{itemize}
+
+Not just parameters.
+
+%-------------------------------------------------
+\subsection*{Problem 9.5}
+
+Explain why gradients with respect to
+intermediate values are necessary.
+
+What role do they play?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradient Flow}
+%=================================================
+
+Gradients flow:
+\begin{itemize}
+    \item From loss
+    \item Back toward inputs
+\end{itemize}
+
+Opposite direction of the forward pass.
+
+%-------------------------------------------------
+\subsection*{Problem 9.6}
+
+Explain why gradients must flow backward.
+
+Why would forward flow make no sense?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradients Do Not Update Parameters}
+%=================================================
+
+Gradients only measure responsibility.
+
+They do not change anything.
+
+Updates come later.
+
+%-------------------------------------------------
+\subsection*{Problem 9.7}
+
+Explain why separating:
+\begin{itemize}
+    \item Gradient computation
+    \item Parameter update
+\end{itemize}
+is a good design decision.
+
+\vspace{4cm}
+
+%=================================================
+\section{Zero Gradient Means No Learning}
+%=================================================
+
+If a gradient is zero:
+\begin{itemize}
+    \item That parameter receives no blame
+    \item It will not change
+\end{itemize}
+
+This can be good or bad.
+
+%-------------------------------------------------
+\subsection*{Problem 9.8}
+
+Explain one situation where:
+\begin{itemize}
+    \item Zero gradient is desirable
+    \item Zero gradient is harmful
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Blame Thinking}
+%=================================================
+
+\subsection*{Drill 9.1}
+
+For each situation:
+\begin{itemize}
+    \item Identify what is blamed
+    \item Identify what is not blamed
+\end{itemize}
+
+\begin{enumerate}
+    \item A neuron output saturates
+    \item A bias shifts all outputs equally
+    \item A weight connected to a rarely active feature
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking gradients are magic numbers
+    \item Forgetting they depend on data
+    \item Confusing gradients with updates
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 9.9}
+
+Explain why this sentence reveals confusion:
+
+\begin{quote}
+``The gradient updated the weights.''
+\end{quote}
+
+What actually happened?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 9.10}
+
+Complete the sentence:
+
+\begin{quote}
+A gradient should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 9}
+%=================================================
+
+\textbf{Answer 9.1}
+
+Loss requires predictions.
+Loss measures error.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.2}
+
+Sensitivity captures complex dependence.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.3}
+
+Local influence limits blame.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.4}
+
+Magnitude controls step size.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.5}
+
+They propagate responsibility.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.6}
+
+Blame flows from outcome to cause.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.7}
+
+Separation improves clarity and flexibility.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.8}
+
+Desirable: correct saturation.
+Harmful: dead units.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.9}
+
+Gradients were used to update.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.10}
+
+A measure of sensitivity.
+%=================================================
+\chapter{Backpropagation — How Blame Flows Through the Network}
+%=================================================
+
+Backpropagation is not a trick.
+It is not an algorithm invented for neural networks.
+
+Backpropagation is simply:
+\begin{quote}
+The chain rule applied to a flow of computation.
+\end{quote}
+
+This chapter shows how all previous ideas
+combine into one inevitable process.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Forward pass:
+\begin{itemize}
+    \item Values flow forward
+    \item Computation builds outputs
+\end{itemize}
+
+Backward pass:
+\begin{itemize}
+    \item Blame flows backward
+    \item Responsibility is assigned
+\end{itemize}
+
+Nothing else happens.
+
+%=================================================
+\section{What Exists Before Backprop Starts}
+%=================================================
+
+Before backpropagation begins, memory contains:
+
+\begin{itemize}
+    \item Inputs
+    \item All intermediate values from the forward pass
+    \item Final loss (a single scalar)
+\end{itemize}
+
+No gradients exist yet.
+
+%-------------------------------------------------
+\subsection*{Problem 10.1}
+
+Explain why:
+\begin{enumerate}
+    \item The forward pass must be completed first
+    \item Intermediate values must be stored
+\end{enumerate}
+
+What would be impossible otherwise?
+
+\vspace{4cm}
+
+%=================================================
+\section{Backprop Is Local}
+%=================================================
+
+Backpropagation works by computing
+\textbf{local responsibility} at each step.
+
+Each operation answers:
+\begin{quote}
+``How did my output affect the loss?''
+\end{quote}
+
+%-------------------------------------------------
+\subsection*{Problem 10.2}
+
+Explain why backpropagation:
+\begin{itemize}
+    \item Never looks at the whole network at once
+    \item Only needs local information
+\end{itemize}
+
+Why is this computationally powerful?
+
+\vspace{4cm}
+
+%=================================================
+\section{Chain Rule Without Symbols}
+%=================================================
+
+The chain rule says:
+
+\begin{quote}
+If A affects B, and B affects C,
+then A affects C through B.
+\end{quote}
+
+Backprop just applies this repeatedly.
+
+%-------------------------------------------------
+\subsection*{Problem 10.3}
+
+Explain this sentence in your own words:
+
+\begin{quote}
+``Responsibility is multiplied as it flows backward.''
+\end{quote}
+
+What is being multiplied conceptually?
+
+\vspace{4cm}
+
+%=================================================
+\section{Backward Flow Mirrors Forward Flow}
+%=================================================
+
+Every operation in the forward pass
+has a corresponding backward responsibility computation.
+
+Nothing is skipped.
+Nothing is added.
+
+%-------------------------------------------------
+\subsection*{Problem 10.4}
+
+Explain why backpropagation follows
+the reverse order of the forward pass.
+
+What dependency enforces this order?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradients for Intermediate Values}
+%=================================================
+
+Backprop computes gradients with respect to:
+\begin{itemize}
+    \item Outputs
+    \item Intermediate values
+    \item Parameters
+\end{itemize}
+
+Intermediate gradients are temporary,
+but essential.
+
+%-------------------------------------------------
+\subsection*{Problem 10.5}
+
+Explain why intermediate gradients:
+\begin{itemize}
+    \item Are needed
+    \item Are not stored after training
+\end{itemize}
+
+What role do they serve?
+
+\vspace{4cm}
+
+%=================================================
+\section{Efficiency of Backpropagation}
+%=================================================
+
+Naively computing gradients would be extremely expensive.
+
+Backpropagation avoids repetition by:
+\begin{itemize}
+    \item Reusing intermediate results
+    \item Sharing computations
+\end{itemize}
+
+This makes deep learning possible.
+
+%-------------------------------------------------
+\subsection*{Problem 10.6}
+
+Explain why backpropagation scales linearly
+with the number of parameters,
+not exponentially.
+
+\vspace{4cm}
+
+%=================================================
+\section{Backprop Does Not Learn}
+%=================================================
+
+Backpropagation:
+\begin{itemize}
+    \item Computes gradients
+    \item Assigns blame
+\end{itemize}
+
+It does not update parameters.
+
+%-------------------------------------------------
+\subsection*{Problem 10.7}
+
+Explain why separating:
+\begin{itemize}
+    \item Backpropagation
+    \item Optimization
+\end{itemize}
+is important.
+
+What flexibility does this provide?
+
+\vspace{4cm}
+
+%=================================================
+\section{Failure Modes}
+%=================================================
+
+Backpropagation can fail when:
+\begin{itemize}
+    \item Gradients vanish
+    \item Gradients explode
+    \item Activations saturate
+\end{itemize}
+
+These are not bugs.
+They are consequences.
+
+%-------------------------------------------------
+\subsection*{Problem 10.8}
+
+Explain how:
+\begin{itemize}
+    \item Activation choice
+    \item Initialization
+\end{itemize}
+affect backpropagation.
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Full Backward Pass}
+%=================================================
+
+\subsection*{Drill 10.1}
+
+For a two-layer neural network:
+
+\begin{itemize}
+    \item Input $\rightarrow$ Layer 1 $\rightarrow$ Layer 2 $\rightarrow$ Loss
+\end{itemize}
+
+Describe:
+\begin{enumerate}
+    \item The order in which gradients are computed
+    \item What information is needed at each step
+\end{enumerate}
+
+Do not use formulas.
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking backprop is learning
+    \item Forgetting stored forward values
+    \item Confusing gradients with updates
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 10.9}
+
+Explain why this sentence is wrong:
+
+\begin{quote}
+``Backpropagation updated the network.''
+\end{quote}
+
+What actually happened?
+
+\vspace{4cm}
+
+%=================================================
+\section{Final Reflection}
+%=================================================
+
+\subsection*{Problem 10.10}
+
+Complete the sentence:
+
+\begin{quote}
+Backpropagation should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+If your answer mentions ``magic'',
+revisit Chapters 3--9.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 10}
+%=================================================
+
+\textbf{Answer 10.1}
+
+Dependencies require it.
+Values are reused.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.2}
+
+Local influence only.
+Efficient reuse.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.3}
+
+Sensitivities compound.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.4}
+
+Dependencies reverse.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.5}
+
+They pass blame forward.
+No long-term value.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.6}
+
+Dynamic programming reuse.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.7}
+
+Any optimizer can be used.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.8}
+
+They control gradient flow.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.9}
+
+Gradients were computed.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.10}
+
+The chain rule applied to computation flow.
+
+%=================================================
+\chapter{Translating Thought into Code — From Pseudocode to NumPy}
+%=================================================
+
+Up to now, you have learned how computation works
+\emph{without writing code}.
+
+This chapter does not teach programming syntax.
+
+This chapter teaches:
+\begin{quote}
+How to turn a clear thought into a correct program.
+\end{quote}
+
+Code is only a translation.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Strong programmers do not think in code.
+
+They think in:
+\begin{itemize}
+    \item Objects
+    \item Shapes
+    \item Flow
+\end{itemize}
+
+Then they write code to match that picture.
+
+%=================================================
+\section{The Translation Pipeline}
+%=================================================
+
+Every correct program follows this pipeline:
+
+\begin{enumerate}
+    \item Describe the computation in words
+    \item Identify objects and shapes
+    \item Write pseudocode
+    \item Translate pseudocode into real code
+\end{enumerate}
+
+Skipping steps causes bugs.
+
+%-------------------------------------------------
+\subsection*{Problem 11.1}
+
+Explain why writing code directly
+(without pseudocode)
+often leads to confusion.
+
+Which step is missing?
+
+\vspace{4cm}
+
+%=================================================
+\section{Pseudocode Is Shape-Aware}
+%=================================================
+
+Good pseudocode always answers:
+\begin{itemize}
+    \item What objects exist?
+    \item What are their shapes?
+    \item How do they change?
+\end{itemize}
+
+Pseudocode ignores syntax completely.
+
+%-------------------------------------------------
+\subsection*{Problem 11.2}
+
+Write pseudocode (English, not math) for:
+
+\begin{quote}
+Compute the output of one neural network layer.
+\end{quote}
+
+Mention shapes explicitly.
+
+\vspace{4cm}
+
+%=================================================
+\section{Why NumPy Feels Hard to Beginners}
+%=================================================
+
+NumPy is not hard.
+
+What is hard is:
+\begin{itemize}
+    \item Thinking in arrays
+    \item Letting go of loops
+\end{itemize}
+
+NumPy assumes you already understand shapes and flow.
+
+%-------------------------------------------------
+\subsection*{Problem 11.3}
+
+Explain why a beginner who thinks in loops
+will struggle with NumPy.
+
+What mental shift is required?
+
+\vspace{4cm}
+
+%=================================================
+\section{One Rule for Reading Code}
+%=================================================
+
+When reading numerical code:
+\begin{quote}
+Ignore values. Track shapes.
+\end{quote}
+
+If shapes make sense,
+values usually do too.
+
+%-------------------------------------------------
+\subsection*{Problem 11.4}
+
+Explain why debugging by printing values
+without checking shapes
+often fails.
+
+What illusion does it create?
+
+\vspace{4cm}
+
+%=================================================
+\section{From Pseudocode to NumPy (Conceptual)}
+%=================================================
+
+Consider this pseudocode:
+
+\begin{quote}
+Take input table.  
+Multiply by weights.  
+Add bias.  
+Apply activation.
+\end{quote}
+
+This maps directly to:
+\begin{itemize}
+    \item Matrix multiplication
+    \item Broadcasting
+    \item Element-wise operation
+\end{itemize}
+
+No loops are required conceptually.
+
+%-------------------------------------------------
+\subsection*{Problem 11.5}
+
+Explain why this computation
+should not be written using explicit loops.
+
+What does broadcasting express better?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reading Code Backward}
+%=================================================
+
+Strong coders can read code backward.
+
+They start from:
+\begin{itemize}
+    \item Output
+    \item Then trace dependencies backward
+\end{itemize}
+
+This mirrors backprop thinking.
+
+%-------------------------------------------------
+\subsection*{Problem 11.6}
+
+Explain why reading code backward
+is often more informative than reading it forward.
+
+What questions does it answer?
+
+\vspace{4cm}
+
+%=================================================
+\section{Common Translation Errors}
+%=================================================
+
+Most bugs come from:
+\begin{itemize}
+    \item Shape mismatch
+    \item Wrong broadcasting assumption
+    \item Forgotten bias
+\end{itemize}
+
+Not from math.
+
+%-------------------------------------------------
+\subsection*{Problem 11.7}
+
+Explain why forgetting a bias term
+is a conceptual error, not a coding error.
+
+What does the model lose?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Thought to Code}
+%=================================================
+
+\subsection*{Drill 11.1}
+
+For each description:
+
+\begin{itemize}
+    \item Describe the computation
+    \item List objects and shapes
+    \item Write pseudocode (no syntax)
+\end{itemize}
+
+\begin{enumerate}
+    \item Linear regression prediction
+    \item Single hidden-layer neural network forward pass
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Discipline Rule}
+%=================================================
+
+Never write NumPy code unless:
+\begin{itemize}
+    \item You can explain it in words
+    \item You can predict all shapes
+\end{itemize}
+
+This rule prevents most bugs.
+
+%-------------------------------------------------
+\subsection*{Problem 11.8}
+
+Explain why violating this rule
+leads to fragile code.
+
+What happens when the model changes?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 11.9}
+
+Complete the sentence:
+
+\begin{quote}
+Writing ML code should feel like
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 11}
+%=================================================
+
+\textbf{Answer 11.1}
+
+The thinking step is skipped.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.2}
+
+Inputs, weights, bias, activation with shapes.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.3}
+
+Array thinking replaces iteration thinking.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.4}
+
+Correct-looking values hide structural errors.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.5}
+
+Broadcasting expresses intent clearly.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.6}
+
+Dependencies become clear.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.7}
+
+Model expressiveness is reduced.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.8}
+
+Changes break assumptions.
+
+%-------------------------------------------------
+
+\textbf{Answer 11.9}
+
+Translating a clear picture into symbols.
+
+%=================================================
+\chapter{The First Real NumPy Program — One Layer, Fully Explained}
+%=================================================
+
+This chapter contains your first real numerical code.
+
+Nothing here should feel surprising.
+If it does, stop and return to earlier chapters.
+
+We will implement:
+\begin{quote}
+A single neural network layer forward pass.
+\end{quote}
+
+One line at a time.
+With full meaning.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+This code is not doing anything new.
+
+It is translating this sentence into symbols:
+
+\begin{quote}
+Take input data, apply weights, add bias, apply activation.
+\end{quote}
+
+%=================================================
+\section{What We Are Building}
+%=================================================
+
+We will compute:
+
+\begin{itemize}
+    \item Input shape: $(n, d)$
+    \item Weight shape: $(d, k)$
+    \item Bias shape: $(k)$
+    \item Output shape: $(n, k)$
+\end{itemize}
+
+Nothing else.
+
+%=================================================
+\section{Objects Before Code Exists}
+%=================================================
+
+Before writing code, we identify objects:
+
+\begin{itemize}
+    \item Input data table
+    \item Weight table
+    \item Bias vector
+    \item Activation rule
+\end{itemize}
+
+If you cannot name these,
+you are not ready to code.
+
+%-------------------------------------------------
+\subsection*{Problem 12.1}
+
+Write down:
+\begin{enumerate}
+    \item Each object
+    \item Its shape
+    \item Its role
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\section{Importing NumPy}
+%=================================================
+
+NumPy gives us:
+\begin{itemize}
+    \item Arrays
+    \item Vectorized operations
+\end{itemize}
+
+It does not give us understanding.
+
+\begin{verbatim}
+import numpy as np
+\end{verbatim}
+
+This line introduces no computation.
+Only tools.
+
+%-------------------------------------------------
+\subsection*{Problem 12.2}
+
+Explain why importing a library
+does not mean computation has started.
+
+What exists after this line?
+
+\vspace{4cm}
+
+%=================================================
+\section{Creating the Input}
+%=================================================
+
+We create a table of inputs.
+
+\begin{verbatim}
+X = np.array([[1.0, 2.0, 3.0],
+              [4.0, 5.0, 6.0]])
+\end{verbatim}
+
+Shape: $(2, 3)$
+
+Two data points.
+Three features.
+
+%-------------------------------------------------
+\subsection*{Problem 12.3}
+
+Explain what each row represents
+and what each column represents.
+
+Why is this distinction critical?
+
+\vspace{4cm}
+
+%=================================================
+\section{Creating Weights}
+%=================================================
+
+Weights define how inputs are combined.
+
+\begin{verbatim}
+W = np.array([[0.1, 0.2],
+              [0.3, 0.4],
+              [0.5, 0.6]])
+\end{verbatim}
+
+Shape: $(3, 2)$
+
+Three inputs.
+Two outputs.
+
+%-------------------------------------------------
+\subsection*{Problem 12.4}
+
+Explain why:
+\begin{itemize}
+    \item Rows of weights correspond to inputs
+    \item Columns correspond to neurons
+\end{itemize}
+
+What would break if this were reversed?
+
+\vspace{4cm}
+
+%=================================================
+\section{Creating the Bias}
+%=================================================
+
+Bias shifts outputs.
+
+\begin{verbatim}
+b = np.array([0.1, 0.2])
+\end{verbatim}
+
+Shape: $(2)$
+
+One bias per output neuron.
+
+%-------------------------------------------------
+\subsection*{Problem 12.5}
+
+Explain why bias does not depend on $n$.
+
+What repetition is being implied?
+
+\vspace{4cm}
+
+%=================================================
+\section{Linear Combination}
+%=================================================
+
+Now the key computation:
+
+\begin{verbatim}
+Z = X @ W + b
+\end{verbatim}
+
+This line performs:
+\begin{itemize}
+    \item Matrix multiplication
+    \item Broadcasting
+\end{itemize}
+
+Shape of $Z$: $(2, 2)$
+
+%-------------------------------------------------
+\subsection*{Problem 12.6}
+
+Explain this line in words.
+Mention:
+\begin{itemize}
+    \item What pairs with what
+    \item How bias is applied
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\section{Activation Function}
+%=================================================
+
+We now apply a nonlinearity.
+
+\begin{verbatim}
+A = np.maximum(0, Z)
+\end{verbatim}
+
+This is ReLU.
+
+It:
+\begin{itemize}
+    \item Preserves shape
+    \item Changes values
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 12.7}
+
+Explain why ReLU is applied element-wise.
+
+What would break if it mixed elements?
+
+\vspace{4cm}
+
+%=================================================
+\section{End of Forward Pass}
+%=================================================
+
+After this, $A$ is the output of the layer.
+
+Nothing else happens.
+
+Learning has not occurred.
+
+%-------------------------------------------------
+\subsection*{Problem 12.8}
+
+Explain why this code alone
+cannot improve predictions over time.
+
+What component is missing?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Rewrite Without Code}
+%=================================================
+
+\subsection*{Drill 12.1}
+
+Rewrite the entire program:
+\begin{itemize}
+    \item In words
+    \item In pseudocode
+\end{itemize}
+
+Do not use Python syntax.
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Beginner Errors}
+%=================================================
+
+\begin{itemize}
+    \item Swapping dimensions accidentally
+    \item Forgetting bias
+    \item Applying activation incorrectly
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 12.9}
+
+Explain why a wrong shape
+is worse than a wrong value.
+
+Which error is easier to detect?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 12.10}
+
+Complete the sentence:
+
+\begin{quote}
+Writing NumPy code should feel like
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 12}
+%=================================================
+
+\textbf{Answer 12.1}
+
+Objects and roles.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.2}
+
+Only names and tools exist.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.3}
+
+Rows are samples.
+Columns are features.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.4}
+
+Pairing defines meaning.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.5}
+
+Bias applies uniformly.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.6}
+
+Each row meets each neuron.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.7}
+
+Independence of units.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.8}
+
+No learning signal.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.9}
+
+Shape errors break logic.
+
+%-------------------------------------------------
+
+\textbf{Answer 12.10}
+
+A direct translation of thought.
+
+%=================================================
+\chapter{Gradient Descent — Turning Blame into Change}
+%=================================================
+
+Gradients tell us \emph{who is responsible}.
+Gradient descent tells us \emph{what to do about it}.
+
+This chapter explains learning as
+\textbf{controlled correction}, not optimization magic.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Learning means:
+\begin{itemize}
+    \item Detect an error
+    \item Identify responsibility
+    \item Make a small correction
+\end{itemize}
+
+Gradient descent performs this correction repeatedly.
+
+%=================================================
+\section{What Exists Before an Update}
+%=================================================
+
+Before parameters are updated, we have:
+
+\begin{itemize}
+    \item Parameters (weights and biases)
+    \item Gradients of loss with respect to parameters
+    \item A learning rate
+\end{itemize}
+
+Nothing else is needed.
+
+%-------------------------------------------------
+\subsection*{Problem 13.1}
+
+Explain why:
+\begin{itemize}
+    \item Gradients must exist first
+    \item Loss alone is insufficient
+\end{itemize}
+
+What information is missing without gradients?
+
+\vspace{4cm}
+
+%=================================================
+\section{The Update Rule (Conceptual)}
+%=================================================
+
+Gradient descent applies this idea:
+
+\begin{quote}
+Change parameters in the direction
+that reduces loss.
+\end{quote}
+
+Not instantly.
+Gradually.
+
+%-------------------------------------------------
+\subsection*{Problem 13.2}
+
+Explain why updates must be:
+\begin{itemize}
+    \item Small
+    \item Repeated
+\end{itemize}
+
+What would happen with large, single-step updates?
+
+\vspace{4cm}
+
+%=================================================
+\section{Why We Move Opposite to the Gradient}
+%=================================================
+
+The gradient points toward:
+\begin{quote}
+Greatest increase in loss.
+\end{quote}
+
+To reduce loss,
+we must move in the opposite direction.
+
+%-------------------------------------------------
+\subsection*{Problem 13.3}
+
+Explain this sentence in your own words:
+
+\begin{quote}
+``The gradient shows where things get worse.''
+\end{quote}
+
+Why is the opposite direction better?
+
+\vspace{4cm}
+
+%=================================================
+\section{Learning Rate as Trust}
+%=================================================
+
+The learning rate controls:
+\begin{itemize}
+    \item How much we trust the gradient
+    \item How fast we change parameters
+\end{itemize}
+
+It does not come from theory.
+It comes from caution.
+
+%-------------------------------------------------
+\subsection*{Problem 13.4}
+
+Explain why:
+\begin{itemize}
+    \item Too large learning rate is dangerous
+    \item Too small learning rate is inefficient
+\end{itemize}
+
+Relate this to stability.
+
+\vspace{4cm}
+
+%=================================================
+\section{One Parameter at a Time (Conceptually)}
+%=================================================
+
+Although many parameters exist,
+each update follows the same rule locally.
+
+Each parameter:
+\begin{itemize}
+    \item Checks its gradient
+    \item Adjusts itself
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 13.5}
+
+Explain why gradient descent
+does not require understanding
+the full network at once.
+
+Why is locality important?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradient Descent Is Iterative}
+%=================================================
+
+One update does not make a model good.
+
+Learning requires:
+\begin{itemize}
+    \item Many forward passes
+    \item Many backward passes
+    \item Many updates
+\end{itemize}
+
+This is training.
+
+%-------------------------------------------------
+\subsection*{Problem 13.6}
+
+Explain why learning cannot happen in one step,
+even with perfect gradients.
+
+What is being approximated?
+
+\vspace{4cm}
+
+%=================================================
+\section{Stopping Criterion}
+%=================================================
+
+Training stops when:
+\begin{itemize}
+    \item Loss stops improving
+    \item Updates become negligible
+    \item Overfitting begins
+\end{itemize}
+
+No rule is perfect.
+
+%-------------------------------------------------
+\subsection*{Problem 13.7}
+
+Explain why:
+\begin{itemize}
+    \item Lower loss is not always better
+\end{itemize}
+
+What trade-off appears?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradient Descent Is Not Intelligent}
+%=================================================
+
+Gradient descent:
+\begin{itemize}
+    \item Does not plan
+    \item Does not understand data
+    \item Follows local information only
+\end{itemize}
+
+Yet it works remarkably well.
+
+%-------------------------------------------------
+\subsection*{Problem 13.8}
+
+Explain why using only local information
+can still lead to good solutions.
+
+What assumptions are we relying on?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: One Update Step}
+%=================================================
+
+\subsection*{Drill 13.1}
+
+For a single parameter $w$:
+
+\begin{itemize}
+    \item List what must be known
+    \item Describe how $w$ changes
+\end{itemize}
+
+Do not use formulas.
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking learning rate is accuracy
+    \item Expecting monotonic loss decrease
+    \item Confusing convergence with correctness
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 13.9}
+
+Explain why this sentence is misleading:
+
+\begin{quote}
+``The model converged, so it must be correct.''
+\end{quote}
+
+What else should be checked?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 13.10}
+
+Complete the sentence:
+
+\begin{quote}
+Gradient descent should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 13}
+%=================================================
+
+\textbf{Answer 13.1}
+
+Direction information is missing.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.2}
+
+Stability and control.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.3}
+
+It points uphill.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.4}
+
+Overshoot vs stagnation.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.5}
+
+Local responsibility suffices.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.6}
+
+Loss surface is approximated.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.7}
+
+Generalization trade-off.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.8}
+
+Smoothness assumptions.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.9}
+
+Validation is required.
+
+%-------------------------------------------------
+
+\textbf{Answer 13.10}
+
+Iterative error correction.
+
+%=================================================
+\chapter{Batch, Mini-batch, and Stochastic Learning — How Data Is Fed}
+%=================================================
+
+Learning is not only about
+\begin{itemize}
+    \item what updates we make
+    \item how big the updates are
+\end{itemize}
+
+It is also about:
+\begin{quote}
+How much data we use to decide each update.
+\end{quote}
+
+This chapter explains training as
+\textbf{controlled exposure to data}.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Think of learning as listening to data.
+
+You can:
+\begin{itemize}
+    \item Listen to everyone at once
+    \item Listen to a few people
+    \item Listen to one person at a time
+\end{itemize}
+
+Each choice changes the learning behavior.
+
+%=================================================
+\section{Three Ways to Feed Data}
+%=================================================
+
+There are exactly three fundamental modes:
+
+\begin{itemize}
+    \item Batch Gradient Descent
+    \item Stochastic Gradient Descent
+    \item Mini-batch Gradient Descent
+\end{itemize}
+
+All modern training is a variation of these.
+
+%=================================================
+\section{Batch Gradient Descent}
+%=================================================
+
+Batch learning means:
+\begin{quote}
+Use the entire dataset to compute one update.
+\end{quote}
+
+All data points vote before parameters change.
+
+%-------------------------------------------------
+\subsection*{Problem 14.1}
+
+Explain why batch gradient descent:
+\begin{itemize}
+    \item Produces stable updates
+    \item Can be very slow
+\end{itemize}
+
+What causes both effects?
+
+\vspace{4cm}
+
+%=================================================
+\section{Stochastic Gradient Descent}
+%=================================================
+
+Stochastic learning means:
+\begin{quote}
+Update parameters using one data point at a time.
+\end{quote}
+
+Learning becomes noisy.
+
+%-------------------------------------------------
+\subsection*{Problem 14.2}
+
+Explain why SGD updates:
+\begin{itemize}
+    \item Are noisy
+    \item Can escape bad regions
+\end{itemize}
+
+How can noise help learning?
+
+\vspace{4cm}
+
+%=================================================
+\section{Mini-batch Gradient Descent}
+%=================================================
+
+Mini-batch learning means:
+\begin{quote}
+Use a small group of data points per update.
+\end{quote}
+
+This balances stability and speed.
+
+%-------------------------------------------------
+\subsection*{Problem 14.3}
+
+Explain why mini-batches are preferred in practice.
+
+Which advantages of batch and SGD do they combine?
+
+\vspace{4cm}
+
+%=================================================
+\section{Gradient Variance Perspective}
+%=================================================
+
+Different data feeding strategies
+change the variance of gradient estimates.
+
+\begin{itemize}
+    \item Batch: low variance
+    \item SGD: high variance
+    \item Mini-batch: controlled variance
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 14.4}
+
+Explain why high variance gradients:
+\begin{itemize}
+    \item Make learning unstable
+    \item Can improve exploration
+\end{itemize}
+
+Why is balance important?
+
+\vspace{4cm}
+
+%=================================================
+\section{Computational Perspective}
+%=================================================
+
+Modern hardware prefers:
+\begin{itemize}
+    \item Vectorized operations
+    \item Parallel computation
+\end{itemize}
+
+Mini-batches align with hardware.
+
+%-------------------------------------------------
+\subsection*{Problem 14.5}
+
+Explain why mini-batches are more efficient
+than single-sample updates on GPUs.
+
+What computation pattern is exploited?
+
+\vspace{4cm}
+
+%=================================================
+\section{Epochs and Iterations}
+%=================================================
+
+Definitions:
+\begin{itemize}
+    \item One epoch: one full pass over the dataset
+    \item One iteration: one parameter update
+\end{itemize}
+
+These are not the same.
+
+%-------------------------------------------------
+\subsection*{Problem 14.6}
+
+Explain why:
+\begin{itemize}
+    \item One epoch can contain many iterations
+\end{itemize}
+
+How does batch size affect this?
+
+\vspace{4cm}
+
+%=================================================
+\section{Shuffling Data}
+%=================================================
+
+Data is usually shuffled before batching.
+
+This prevents learning artifacts.
+
+%-------------------------------------------------
+\subsection*{Problem 14.7}
+
+Explain why not shuffling data
+can introduce bias in learning.
+
+Give a conceptual example.
+
+\vspace{4cm}
+
+%=================================================
+\section{Choosing Batch Size}
+%=================================================
+
+Batch size affects:
+\begin{itemize}
+    \item Memory usage
+    \item Gradient noise
+    \item Generalization
+\end{itemize}
+
+There is no universal best value.
+
+%-------------------------------------------------
+\subsection*{Problem 14.8}
+
+Explain why:
+\begin{itemize}
+    \item Very large batches may generalize poorly
+    \item Very small batches may be unstable
+\end{itemize}
+
+What trade-off is being managed?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Data Feeding Strategy}
+%=================================================
+
+\subsection*{Drill 14.1}
+
+For each scenario, choose a strategy
+and justify it:
+
+\begin{enumerate}
+    \item Small dataset, simple model
+    \item Huge dataset, deep network
+    \item Online learning from streaming data
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Confusing epoch with iteration
+    \item Thinking batch size affects model capacity
+    \item Ignoring data order effects
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 14.9}
+
+Explain why batch size
+does not change what the model \emph{can} represent,
+only how it learns.
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 14.10}
+
+Complete the sentence:
+
+\begin{quote}
+Data feeding strategy should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 14}
+%=================================================
+
+\textbf{Answer 14.1}
+
+More information per update.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.2}
+
+Noise comes from sampling.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.3}
+
+Speed and stability.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.4}
+
+Exploration vs instability.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.5}
+
+Parallel matrix operations.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.6}
+
+Batching creates multiple updates.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.7}
+
+Order creates correlation.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.8}
+
+Stability–generalization trade-off.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.9}
+
+Learning dynamics only.
+
+%-------------------------------------------------
+
+\textbf{Answer 14.10}
+
+Controlling learning noise.
+%=================================================
+\chapter{Overfitting, Underfitting, and Generalization — When Learning Goes Wrong}
+%=================================================
+
+A model can fail in two opposite ways:
+\begin{itemize}
+    \item It can learn too little
+    \item It can learn too much
+\end{itemize}
+
+Understanding this chapter is the difference between
+\textbf{training a model} and \textbf{building a useful one}.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Learning is not about memorization.
+
+Learning is about:
+\begin{quote}
+Capturing the underlying pattern without copying the noise.
+\end{quote}
+
+Generalization lives in this balance.
+
+%=================================================
+\section{What Does It Mean to Learn?}
+%=================================================
+
+A model learns if it:
+\begin{itemize}
+    \item Performs well on unseen data
+    \item Not just on training data
+\end{itemize}
+
+Training performance alone is meaningless.
+
+%-------------------------------------------------
+\subsection*{Problem 15.1}
+
+Explain why:
+\begin{itemize}
+    \item Low training loss does not guarantee a good model
+\end{itemize}
+
+What is missing from this evaluation?
+
+\vspace{4cm}
+
+%=================================================
+\section{Underfitting}
+%=================================================
+
+Underfitting occurs when:
+\begin{itemize}
+    \item The model is too simple
+    \item It cannot capture the true pattern
+\end{itemize}
+
+Both training and test performance are poor.
+
+%-------------------------------------------------
+\subsection*{Problem 15.2}
+
+Explain why increasing training time
+does not fix underfitting.
+
+What limitation is being hit?
+
+\vspace{4cm}
+
+%=================================================
+\section{Overfitting}
+%=================================================
+
+Overfitting occurs when:
+\begin{itemize}
+    \item The model fits training data extremely well
+    \item But fails on new data
+\end{itemize}
+
+The model learns noise.
+
+%-------------------------------------------------
+\subsection*{Problem 15.3}
+
+Explain why a highly flexible model
+is more prone to overfitting.
+
+What freedom causes trouble?
+
+\vspace{4cm}
+
+%=================================================
+\section{Bias--Variance Trade-off}
+%=================================================
+
+Model error comes from two sources:
+\begin{itemize}
+    \item Bias: error from simplicity
+    \item Variance: error from sensitivity to data
+\end{itemize}
+
+Improving one often worsens the other.
+
+%-------------------------------------------------
+\subsection*{Problem 15.4}
+
+Explain why:
+\begin{itemize}
+    \item Simple models have high bias, low variance
+    \item Complex models have low bias, high variance
+\end{itemize}
+
+Use intuition, not formulas.
+
+\vspace{4cm}
+
+%=================================================
+\section{Train, Validation, and Test Sets}
+%=================================================
+
+Data is split to diagnose learning behavior:
+
+\begin{itemize}
+    \item Training set: learning
+    \item Validation set: tuning
+    \item Test set: final evaluation
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 15.5}
+
+Explain why:
+\begin{itemize}
+    \item Test data must never influence training
+\end{itemize}
+
+What illusion would that create?
+
+\vspace{4cm}
+
+%=================================================
+\section{Learning Curves}
+%=================================================
+
+Learning curves show:
+\begin{itemize}
+    \item Training performance vs data size
+    \item Validation performance vs data size
+\end{itemize}
+
+They diagnose model problems.
+
+%-------------------------------------------------
+\subsection*{Problem 15.6}
+
+Explain how learning curves can tell the difference
+between underfitting and overfitting.
+
+What patterns would you expect?
+
+\vspace{4cm}
+
+%=================================================
+\section{When Overfitting Is Likely}
+%=================================================
+
+Overfitting is more likely when:
+\begin{itemize}
+    \item Data is scarce
+    \item Model is large
+    \item Noise is high
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 15.7}
+
+Explain why small datasets
+make overfitting more likely.
+
+What does the model mistake for signal?
+
+\vspace{4cm}
+
+%=================================================
+\section{Generalization as Stability}
+%=================================================
+
+A model generalizes if:
+\begin{quote}
+Small changes in data do not cause large changes in predictions.
+\end{quote}
+
+Generalization is stability.
+
+%-------------------------------------------------
+\subsection*{Problem 15.8}
+
+Explain why stable models
+tend to generalize better.
+
+What does instability indicate?
+
+\vspace{4cm}
+
+%=================================================
+\section{Fixing Underfitting}
+%=================================================
+
+To reduce underfitting:
+\begin{itemize}
+    \item Increase model capacity
+    \item Add features
+    \item Reduce regularization
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 15.9}
+
+Explain why adding more data
+does not usually fix underfitting.
+
+What must change instead?
+
+\vspace{4cm}
+
+%=================================================
+\section{Fixing Overfitting}
+%=================================================
+
+To reduce overfitting:
+\begin{itemize}
+    \item Add more data
+    \item Reduce model capacity
+    \item Use regularization
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 15.10}
+
+Explain why regularization
+helps generalization.
+
+What behavior is it discouraging?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Diagnose the Problem}
+%=================================================
+
+\subsection*{Drill 15.1}
+
+For each scenario, identify the issue:
+
+\begin{enumerate}
+    \item High training accuracy, low test accuracy
+    \item Low training accuracy, low test accuracy
+    \item Training improves, validation stagnates
+\end{enumerate}
+
+Suggest one fix for each.
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Chasing training accuracy
+    \item Tuning on test data
+    \item Increasing model size blindly
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 15.11}
+
+Explain why this sentence is dangerous:
+
+\begin{quote}
+``The model fits the data perfectly.''
+\end{quote}
+
+What question should be asked next?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 15.12}
+
+Complete the sentence:
+
+\begin{quote}
+Generalization should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 15}
+%=================================================
+
+\textbf{Answer 15.1}
+
+Generalization is unmeasured.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.2}
+
+Model capacity is insufficient.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.3}
+
+Too many degrees of freedom.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.4}
+
+Flexibility vs stability.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.5}
+
+Information leakage.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.6}
+
+Diverging curves indicate overfitting.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.7}
+
+Noise appears as pattern.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.8}
+
+Robustness to variation.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.9}
+
+Model expressiveness must change.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.10}
+
+Discourages complexity.
+
+%-------------------------------------------------
+
+\textbf{Answer 15.11}
+
+Does it generalize?
+
+%-------------------------------------------------
+
+\textbf{Answer 15.12}
+
+Stable pattern learning.
+%=================================================
+\chapter{Regularization — Controlling Model Complexity}
+%=================================================
+
+Regularization is not a trick to improve scores.
+
+Regularization is a design choice:
+\begin{quote}
+``I prefer a simpler explanation unless the data strongly demands complexity.''
+\end{quote}
+
+This chapter teaches you to see regularization as
+\textbf{controlled restraint}.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Without regularization:
+\begin{itemize}
+    \item The model tries to explain everything
+    \item Including noise
+\end{itemize}
+
+With regularization:
+\begin{itemize}
+    \item The model is gently discouraged from overreacting
+\end{itemize}
+
+Regularization adds friction to learning.
+
+%=================================================
+\section{Why Regularization Is Needed}
+%=================================================
+
+Most models are flexible enough to:
+\begin{itemize}
+    \item Fit true patterns
+    \item Fit noise
+\end{itemize}
+
+Data alone does not tell the model which to prefer.
+
+%-------------------------------------------------
+\subsection*{Problem 16.1}
+
+Explain why:
+\begin{itemize}
+    \item Perfect training fit is suspicious
+\end{itemize}
+
+What additional assumption is missing?
+
+\vspace{4cm}
+
+%=================================================
+\section{Regularization as Preference}
+%=================================================
+
+Regularization encodes a preference for:
+\begin{itemize}
+    \item Smaller weights
+    \item Smoother functions
+    \item Simpler explanations
+\end{itemize}
+
+This preference competes with data fit.
+
+%-------------------------------------------------
+\subsection*{Problem 16.2}
+
+Explain why preferring smaller weights
+often leads to smoother models.
+
+What behavior is being discouraged?
+
+\vspace{4cm}
+
+%=================================================
+\section{Penalty-Based Regularization}
+%=================================================
+
+The most common approach is to modify the loss:
+
+\begin{quote}
+Loss = Data Error + Complexity Penalty
+\end{quote}
+
+The model must now balance two objectives.
+
+%-------------------------------------------------
+\subsection*{Problem 16.3}
+
+Explain why adding a penalty to the loss
+is a natural place to enforce simplicity.
+
+What role does loss already play?
+
+\vspace{4cm}
+
+%=================================================
+\section{$L_2$ Regularization (Weight Decay)}
+%=================================================
+
+$L_2$ regularization penalizes:
+\begin{quote}
+Large weights, regardless of sign.
+\end{quote}
+
+It gently pulls weights toward zero.
+
+%-------------------------------------------------
+\subsection*{Problem 16.4}
+
+Explain why:
+\begin{itemize}
+    \item $L_2$ regularization rarely drives weights exactly to zero
+\end{itemize}
+
+What kind of shrinkage does it cause?
+
+\vspace{4cm}
+
+%=================================================
+\section{$L_1$ Regularization (Sparsity)}
+%=================================================
+
+$L_1$ regularization penalizes:
+\begin{quote}
+The absolute size of weights.
+\end{quote}
+
+This encourages sparsity.
+
+%-------------------------------------------------
+\subsection*{Problem 16.5}
+
+Explain why $L_1$ regularization
+can drive some weights exactly to zero.
+
+What interpretation does this enable?
+
+\vspace{4cm}
+
+%=================================================
+\section{Geometric View (Conceptual)}
+%=================================================
+
+Regularization changes the shape of the solution space.
+
+\begin{itemize}
+    \item $L_2$: round constraint
+    \item $L_1$: sharp corners
+\end{itemize}
+
+Geometry influences solutions.
+
+%-------------------------------------------------
+\subsection*{Problem 16.6}
+
+Explain why sharp corners
+make sparse solutions more likely.
+
+Use intuition, not diagrams.
+
+\vspace{4cm}
+
+%=================================================
+\section{Regularization Strength}
+%=================================================
+
+The regularization coefficient controls:
+\begin{itemize}
+    \item How strongly simplicity is enforced
+\end{itemize}
+
+Too little does nothing.
+Too much prevents learning.
+
+%-------------------------------------------------
+\subsection*{Problem 16.7}
+
+Explain why:
+\begin{itemize}
+    \item Excessive regularization causes underfitting
+\end{itemize}
+
+What signal is being suppressed?
+
+\vspace{4cm}
+
+%=================================================
+\section{Regularization Is Not a Fix-All}
+%=================================================
+
+Regularization cannot:
+\begin{itemize}
+    \item Create information
+    \item Fix poor features
+\end{itemize}
+
+It only controls behavior.
+
+%-------------------------------------------------
+\subsection*{Problem 16.8}
+
+Explain why regularization
+cannot compensate for insufficient data.
+
+What is fundamentally missing?
+
+\vspace{4cm}
+
+%=================================================
+\section{Implicit Regularization}
+%=================================================
+
+Some choices regularize implicitly:
+\begin{itemize}
+    \item Early stopping
+    \item Limited training time
+    \item Noise in SGD
+\end{itemize}
+
+Not all regularization is explicit.
+
+%-------------------------------------------------
+\subsection*{Problem 16.9}
+
+Explain why early stopping
+acts like regularization.
+
+What behavior is being prevented?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Choosing Regularization}
+%=================================================
+
+\subsection*{Drill 16.1}
+
+For each scenario, choose a regularization strategy
+and justify it:
+
+\begin{enumerate}
+    \item High-dimensional data, few samples
+    \item Many features, desire interpretability
+    \item Deep network, large dataset
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Thinking regularization improves training accuracy
+    \item Using too strong penalties blindly
+    \item Forgetting to tune regularization strength
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 16.10}
+
+Explain why regularization
+often increases training loss
+but improves test performance.
+
+What trade-off is being made?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 16.11}
+
+Complete the sentence:
+
+\begin{quote}
+Regularization should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 16}
+%=================================================
+
+\textbf{Answer 16.1}
+
+Noise can be memorized.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.2}
+
+Extreme sensitivity is discouraged.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.3}
+
+Loss already guides learning.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.4}
+
+Smooth shrinkage toward zero.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.5}
+
+Feature selection.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.6}
+
+Corners attract solutions.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.7}
+
+Signal is overwhelmed.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.8}
+
+Information is missing.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.9}
+
+Complexity growth is halted.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.10}
+
+Bias–variance trade-off.
+
+%-------------------------------------------------
+
+\textbf{Answer 16.11}
+
+Controlled simplicity.
+%=================================================
+\chapter{Evaluation Metrics — Measuring What Actually Matters}
+%=================================================
+
+Training produces a model.
+Evaluation tells us whether it is useful.
+
+A metric is not a score.
+A metric is a \textbf{question}.
+
+This chapter teaches you to ask the right questions.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+A metric answers:
+\begin{quote}
+``In what way do I care about being wrong?''
+\end{quote}
+
+Different problems care about different mistakes.
+
+%=================================================
+\section{Why Loss Is Not Enough}
+%=================================================
+
+Loss is optimized during training.
+
+Metrics are used to:
+\begin{itemize}
+    \item Evaluate usefulness
+    \item Compare models
+    \item Make decisions
+\end{itemize}
+
+They serve different purposes.
+
+%-------------------------------------------------
+\subsection*{Problem 17.1}
+
+Explain why:
+\begin{itemize}
+    \item A model with lower loss
+    \item May not be better in practice
+\end{itemize}
+
+What mismatch can occur?
+
+\vspace{4cm}
+
+%=================================================
+\section{Regression Metrics}
+%=================================================
+
+Regression measures:
+\begin{quote}
+How far predictions are from true values.
+\end{quote}
+
+Common ideas:
+\begin{itemize}
+    \item Absolute error
+    \item Squared error
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 17.2}
+
+Explain why:
+\begin{itemize}
+    \item Squared error penalizes large mistakes more
+    \item Absolute error treats all deviations linearly
+\end{itemize}
+
+When might each be preferred?
+
+\vspace{4cm}
+
+%=================================================
+\section{Scale Matters}
+%=================================================
+
+Some metrics depend on the scale of data.
+
+Others do not.
+
+%-------------------------------------------------
+\subsection*{Problem 17.3}
+
+Explain why comparing errors
+without considering scale
+can be misleading.
+
+Give a conceptual example.
+
+\vspace{4cm}
+
+%=================================================
+\section{Classification Accuracy}
+%=================================================
+
+Accuracy measures:
+\begin{quote}
+Fraction of correct predictions.
+\end{quote}
+
+It is simple — and often misleading.
+
+%-------------------------------------------------
+\subsection*{Problem 17.4}
+
+Explain why high accuracy
+can hide poor model behavior.
+
+What assumption does accuracy make?
+
+\vspace{4cm}
+
+%=================================================
+\section{Confusion Matrix Thinking}
+%=================================================
+
+Classification errors are not all equal.
+
+A confusion matrix separates:
+\begin{itemize}
+    \item Correct positives
+    \item Correct negatives
+    \item False positives
+    \item False negatives
+\end{itemize}
+
+This structure matters.
+
+%-------------------------------------------------
+\subsection*{Problem 17.5}
+
+Explain why knowing
+\begin{itemize}
+    \item Which errors occur
+\end{itemize}
+is more informative than accuracy alone.
+
+\vspace{4cm}
+
+%=================================================
+\section{Precision and Recall}
+%=================================================
+
+Precision answers:
+\begin{quote}
+``When I predict positive, how often am I right?''
+\end{quote}
+
+Recall answers:
+\begin{quote}
+``When the truth is positive, how often do I catch it?''
+\end{quote}
+
+They trade off.
+
+%-------------------------------------------------
+\subsection*{Problem 17.6}
+
+Explain why improving precision
+often reduces recall.
+
+What decision threshold is involved?
+
+\vspace{4cm}
+
+%=================================================
+\section{F-Score as Balance}
+%=================================================
+
+The F-score combines:
+\begin{itemize}
+    \item Precision
+    \item Recall
+\end{itemize}
+
+Into one number.
+
+%-------------------------------------------------
+\subsection*{Problem 17.7}
+
+Explain why a single combined metric
+can hide important behavior.
+
+When is this acceptable?
+
+\vspace{4cm}
+
+%=================================================
+\section{Metrics Reflect Values}
+%=================================================
+
+Choosing a metric means choosing:
+\begin{itemize}
+    \item Which errors matter more
+    \item What trade-offs are acceptable
+\end{itemize}
+
+Metrics encode values.
+
+%-------------------------------------------------
+\subsection*{Problem 17.8}
+
+Explain why different applications
+require different metrics
+even for the same task.
+
+\vspace{4cm}
+
+%=================================================
+\section{Threshold Dependence}
+%=================================================
+
+Many metrics depend on:
+\begin{itemize}
+    \item Decision threshold
+\end{itemize}
+
+Changing threshold changes behavior.
+
+%-------------------------------------------------
+\subsection*{Problem 17.9}
+
+Explain why evaluating a classifier
+without considering threshold choice
+is incomplete.
+
+What flexibility is being ignored?
+
+\vspace{4cm}
+
+%=================================================
+\section{Metrics on Validation vs Test}
+%=================================================
+
+Metrics guide tuning on validation data.
+
+Test metrics are reported once.
+
+%-------------------------------------------------
+\subsection*{Problem 17.10}
+
+Explain why repeatedly checking
+test metrics during development
+invalidates evaluation.
+
+What bias is introduced?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Metric Selection}
+%=================================================
+
+\subsection*{Drill 17.1}
+
+For each scenario, choose an appropriate metric
+and justify it:
+
+\begin{enumerate}
+    \item Medical diagnosis
+    \item Spam filtering
+    \item House price prediction
+\end{enumerate}
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Optimizing the wrong metric
+    \item Reporting only one number
+    \item Ignoring class imbalance
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 17.11}
+
+Explain why this sentence is dangerous:
+
+\begin{quote}
+``The accuracy is 95\%, so the model is excellent.''
+\end{quote}
+
+What should be asked next?
+
+\vspace{4cm}
+
+%=================================================
+\section{Reflection Check}
+%=================================================
+
+\subsection*{Problem 17.12}
+
+Complete the sentence:
+
+\begin{quote}
+An evaluation metric should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 17}
+%=================================================
+
+\textbf{Answer 17.1}
+
+Optimization objective differs from usefulness.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.2}
+
+Sensitivity to outliers differs.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.3}
+
+Relative error matters.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.4}
+
+Balanced classes are assumed.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.5}
+
+Error types have different costs.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.6}
+
+Threshold shifts trade-off.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.7}
+
+Details are collapsed.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.8}
+
+Costs differ by context.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.9}
+
+Operating point matters.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.10}
+
+Information leakage.
+
+%-------------------------------------------------
+
+\textbf{Answer 17.11}
+
+What errors exist?
+
+%-------------------------------------------------
+
+\textbf{Answer 17.12}
+
+A question about usefulness.
+%=================================================
+\chapter{The Complete Training Loop — From Data to Decisions}
+%=================================================
+
+All of Machine Learning fits into a single loop.
+
+If you understand this chapter,
+you understand the entire discipline at a structural level.
+
+This chapter turns fragments into a system.
+
+%=================================================
+\section*{Mental Picture to Fix}
+%=================================================
+
+Training is not a single action.
+
+Training is a cycle:
+\begin{quote}
+Predict $\rightarrow$ Measure $\rightarrow$ Assign Blame $\rightarrow$ Update $\rightarrow$ Repeat
+\end{quote}
+
+Every modern ML system follows this loop.
+
+%=================================================
+\section{What Exists Before Training Begins}
+%=================================================
+
+Before training starts, we have:
+
+\begin{itemize}
+    \item A dataset
+    \item A model structure
+    \item Initial parameters
+    \item A loss function
+    \item An optimizer
+    \item Evaluation metrics
+\end{itemize}
+
+Nothing is learned yet.
+
+%-------------------------------------------------
+\subsection*{Problem 18.1}
+
+Explain why training cannot begin
+unless \emph{all} of these exist.
+
+Which role does each play?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 1: Data Enters the Model}
+%=================================================
+
+Training begins by selecting a batch of data.
+
+Data is never absorbed all at once.
+It is experienced gradually.
+
+%-------------------------------------------------
+\subsection*{Problem 18.2}
+
+Explain why training data is fed in portions
+rather than all at once.
+
+What problems does batching avoid?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 2: Forward Pass}
+%=================================================
+
+The model produces predictions
+using its current parameters.
+
+This step is deterministic.
+
+%-------------------------------------------------
+\subsection*{Problem 18.3}
+
+Explain why the forward pass
+does not involve learning.
+
+What assumption is being tested here?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 3: Loss Computation}
+%=================================================
+
+Predictions are compared to targets.
+
+Loss compresses all error into one number.
+
+%-------------------------------------------------
+\subsection*{Problem 18.4}
+
+Explain why loss must be computed
+after predictions but before gradients.
+
+What logical order is enforced?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 4: Backpropagation}
+%=================================================
+
+Blame flows backward through the network.
+
+Each parameter receives responsibility.
+
+%-------------------------------------------------
+\subsection*{Problem 18.5}
+
+Explain why backpropagation
+cannot skip any layer.
+
+What dependency would break?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 5: Parameter Update}
+%=================================================
+
+Parameters are updated using gradients
+and a learning rule.
+
+This is the only step that changes the model.
+
+%-------------------------------------------------
+\subsection*{Problem 18.6}
+
+Explain why separating:
+\begin{itemize}
+    \item Gradient computation
+    \item Parameter update
+\end{itemize}
+is crucial for flexibility.
+
+What would be lost otherwise?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 6: Evaluation}
+%=================================================
+
+Periodically, the model is evaluated
+using metrics on validation data.
+
+This guides decisions.
+
+%-------------------------------------------------
+\subsection*{Problem 18.7}
+
+Explain why evaluation
+should not influence gradients.
+
+What illusion would that create?
+
+\vspace{4cm}
+
+%=================================================
+\section{Step 7: Repeat}
+%=================================================
+
+The loop repeats for:
+\begin{itemize}
+    \item Many iterations
+    \item Many epochs
+\end{itemize}
+
+Learning emerges gradually.
+
+%-------------------------------------------------
+\subsection*{Problem 18.8}
+
+Explain why learning appears smooth
+even though updates are discrete.
+
+What is being approximated?
+
+\vspace{4cm}
+
+%=================================================
+\section{Stopping the Loop}
+%=================================================
+
+Training stops based on:
+\begin{itemize}
+    \item Validation performance
+    \item Resource limits
+    \item Overfitting signals
+\end{itemize}
+
+There is no perfect rule.
+
+%-------------------------------------------------
+\subsection*{Problem 18.9}
+
+Explain why stopping too late
+can be as harmful as stopping too early.
+
+What balance is required?
+
+\vspace{4cm}
+
+%=================================================
+\section{The Loop Is Model-Agnostic}
+%=================================================
+
+This loop applies to:
+\begin{itemize}
+    \item Linear models
+    \item Neural networks
+    \item Large-scale systems
+\end{itemize}
+
+Only components change.
+
+%-------------------------------------------------
+\subsection*{Problem 18.10}
+
+Explain why this loop
+does not depend on the type of model.
+
+What abstraction makes this possible?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training as Scientific Method}
+%=================================================
+
+Training mirrors science:
+
+\begin{itemize}
+    \item Hypothesis (model)
+    \item Experiment (data)
+    \item Measurement (loss/metrics)
+    \item Revision (update)
+\end{itemize}
+
+This is why ML works.
+
+%-------------------------------------------------
+\subsection*{Problem 18.11}
+
+Explain why thinking of training
+as experimentation leads to better practice.
+
+What mindset does it enforce?
+
+\vspace{4cm}
+
+%=================================================
+\section{Training Drill: Full Loop Trace}
+%=================================================
+
+\subsection*{Drill 18.1}
+
+Trace one full training iteration:
+
+\begin{enumerate}
+    \item Data selection
+    \item Forward pass
+    \item Loss computation
+    \item Backpropagation
+    \item Update
+    \item Evaluation (if any)
+\end{enumerate}
+
+Describe what changes
+and what remains fixed at each step.
+
+\vspace{6cm}
+
+%=================================================
+\section{Common Traps}
+%=================================================
+
+\begin{itemize}
+    \item Treating training as magic
+    \item Ignoring evaluation signals
+    \item Changing many things at once
+\end{itemize}
+
+%-------------------------------------------------
+\subsection*{Problem 18.12}
+
+Explain why changing:
+\begin{itemize}
+    \item Model
+    \item Data
+    \item Optimizer
+\end{itemize}
+all at once
+makes debugging impossible.
+
+\vspace{4cm}
+
+%=================================================
+\section{Final Reflection}
+%=================================================
+
+\subsection*{Problem 18.13}
+
+Complete the sentence:
+
+\begin{quote}
+Machine Learning training should be understood as
+\underline{\hspace{7cm}}.
+\end{quote}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 18}
+%=================================================
+
+\textbf{Answer 18.1}
+
+Each plays a distinct role.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.2}
+
+Stability and efficiency.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.3}
+
+Model behavior is tested.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.4}
+
+Dependency order.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.5}
+
+Blame propagation breaks.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.6}
+
+Optimizer flexibility.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.7}
+
+Evaluation bias.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.8}
+
+Continuous optimization.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.9}
+
+Bias–variance balance.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.10}
+
+Abstract interfaces.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.11}
+
+Disciplined experimentation.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.12}
+
+Confounding effects.
+
+%-------------------------------------------------
+
+\textbf{Answer 18.13}
+
+An iterative scientific process.
+\end{document}
