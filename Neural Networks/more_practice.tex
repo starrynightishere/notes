@@ -1,0 +1,2584 @@
+\documentclass[11pt]{book}
+
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{Neural Networks Practice Workbook}
+\date{}
+\maketitle
+
+\tableofcontents
+\clearpage
+
+%=================================================
+\chapter{Numbers, Shapes, and Forward Thinking}
+%=================================================
+
+\section*{How to Use This Workbook}
+
+\begin{itemize}
+    \item Write every solution by hand
+    \item Do not skip explanations
+    \item Check answers only after attempting
+\end{itemize}
+
+This book is not for reading.  
+It is for \textbf{thinking on paper}.
+
+%=================================================
+\section{Warm-Up: Scalars Are Not Scary}
+%=================================================
+
+\subsection*{Problem 1.1 — Scalar Computation}
+
+Given:
+\[
+z = 3x + 2
+\]
+
+\begin{enumerate}
+    \item Compute $z$ when $x = 1$
+    \item Compute $z$ when $x = -2$
+\end{enumerate}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+\[
+z(1) = 5, \quad z(-2) = -4
+\]
+
+%=================================================
+\section{Vectors: Multiple Numbers at Once}
+%=================================================
+
+\subsection*{Problem 1.2 — Dot Product by Hand}
+
+Given:
+\[
+w = \begin{bmatrix} 2 \\ -1 \\ 3 \end{bmatrix},
+\quad
+x = \begin{bmatrix} 1 \\ 0 \\ -2 \end{bmatrix}
+\]
+
+\begin{enumerate}
+    \item Compute $w^T x$
+    \item Write the computation as a sum
+\end{enumerate}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+\[
+w^T x = 2(1) + (-1)(0) + 3(-2) = -4
+\]
+
+%=================================================
+\section{Shapes Before Numbers (Critical)}
+%=================================================
+
+\subsection*{Problem 1.3 — Shape Reasoning}
+
+Let:
+\[
+w \in \mathbb{R}^4, \quad x \in \mathbb{R}^4
+\]
+
+\begin{enumerate}
+    \item What is the shape of $w^T x$?
+    \item What is the shape of $x w^T$?
+\end{enumerate}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+\[
+w^T x \in \mathbb{R}, \quad x w^T \in \mathbb{R}^{4 \times 4}
+\]
+
+%=================================================
+\section{Bias: A Silent Player}
+%=================================================
+
+\subsection*{Problem 1.4 — Bias Intuition}
+
+A neuron computes:
+\[
+z = w^T x + b
+\]
+
+Explain in words:
+\begin{itemize}
+    \item What happens if $b = 0$
+    \item What happens if $b \neq 0$
+\end{itemize}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Bias shifts the output independently of input.
+
+%=================================================
+\section{Forward Pass as a Pipeline}
+%=================================================
+
+\subsection*{Problem 1.5 — Step Decomposition}
+
+Given:
+\[
+a = \max(0, w^T x + b)
+\]
+
+Break this into:
+\begin{enumerate}
+    \item Linear step
+    \item Nonlinear step
+\end{enumerate}
+
+Name each intermediate variable.
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+\[
+z = w^T x + b, \quad a = \max(0, z)
+\]
+
+%=================================================
+\section{Layer Thinking}
+%=================================================
+
+\subsection*{Problem 1.6 — Many Neurons}
+
+Suppose a layer has:
+\begin{itemize}
+    \item Input dimension $d$
+    \item Output dimension $m$
+\end{itemize}
+
+Answer:
+\begin{enumerate}
+    \item Shape of $W$
+    \item Shape of $b$
+    \item Shape of output
+\end{enumerate}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+\[
+W \in \mathbb{R}^{m \times d}, \quad
+b \in \mathbb{R}^m, \quad
+\text{output} \in \mathbb{R}^m
+\]
+
+%=================================================
+\section{Batch Thinking (Preview)}
+%=================================================
+
+\subsection*{Problem 1.7 — One vs Many Inputs}
+
+Explain why processing one input at a time is inefficient.
+
+What advantage does batching provide?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Batching allows parallel computation and stable gradients.
+
+%=================================================
+\section{Mastery Drill (Very Important)}
+%=================================================
+
+\subsection*{Problem 1.8 — Explain Without Symbols}
+
+Explain the forward pass of a neural network:
+\begin{itemize}
+    \item Without equations
+    \item Without code
+\end{itemize}
+
+If you can do this clearly, you understand it.
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+A neural network repeatedly combines inputs with weights, shifts them, applies nonlinear filters, and passes results forward.
+
+%=================================================
+\chapter{Loss Functions \& Error Thinking}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+A model produces predictions.  
+A loss function produces judgement.
+
+If loss is misunderstood:
+\begin{itemize}
+    \item Learning fails
+    \item Gradients mislead
+    \item Debugging becomes impossible
+\end{itemize}
+
+This chapter builds \textbf{loss intuition}, not formulas.
+
+%=================================================
+\section{Prediction vs Truth}
+%=================================================
+
+\subsection*{Problem 2.1 — Identify the Roles}
+
+You are given:
+\[
+\hat{y} = 2.7, \quad y = 3.0
+\]
+
+Answer:
+\begin{enumerate}
+    \item Which quantity is produced by the model?
+    \item Which quantity is provided by data?
+    \item Which one changes during training?
+\end{enumerate}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Prediction: $\hat{y}$ \\
+Target: $y$ \\
+Only $\hat{y}$ changes.
+
+%=================================================
+\section{Why Loss Must Be a Scalar}
+%=================================================
+
+\subsection*{Problem 2.2 — Scalar Necessity (Critical)}
+
+Explain why:
+\begin{itemize}
+    \item Loss must be a single number
+\end{itemize}
+
+Why can we not optimize a vector of errors directly?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Optimization requires comparing states using a single value.
+
+%=================================================
+\section{Squared Error Loss}
+%=================================================
+
+\subsection*{Problem 2.3 — Compute by Hand}
+
+Given:
+\[
+\hat{y} = 1.5, \quad y = 2.0
+\]
+
+\begin{enumerate}
+    \item Compute squared error loss
+    \item Compute absolute error
+    \item Which one penalizes large errors more?
+\end{enumerate}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+\[
+(1.5-2)^2 = 0.25, \quad |1.5-2| = 0.5
+\]
+
+Squared error penalizes large errors more.
+
+%=================================================
+\section{Loss as a Surface}
+%=================================================
+
+\subsection*{Problem 2.4 — Geometry of Loss}
+
+Imagine loss as a function of parameter $w$.
+
+Explain:
+\begin{itemize}
+    \item What the horizontal axis represents
+    \item What the vertical axis represents
+\end{itemize}
+
+Why is this called a \textbf{loss landscape}?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Axes are parameters; height is loss value.
+
+%=================================================
+\section{Batch Loss Thinking}
+%=================================================
+
+\subsection*{Problem 2.5 — Average vs Sum}
+
+Given losses for 4 samples:
+\[
+L_1, L_2, L_3, L_4
+\]
+
+Explain why we compute:
+\[
+L = \frac{1}{4}\sum_{i=1}^4 L_i
+\]
+
+Why not just sum?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Averaging keeps loss independent of batch size.
+
+%=================================================
+\section{Regression vs Classification}
+%=================================================
+
+\subsection*{Problem 2.6 — Mismatch Detection}
+
+Explain why squared error:
+\begin{itemize}
+    \item Works well for regression
+    \item Works poorly for classification
+\end{itemize}
+
+What assumption breaks?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Classification concerns probabilities, not distances.
+
+%=================================================
+\section{Accuracy Is Not a Loss (Trap)}
+%=================================================
+
+\subsection*{Problem 2.7 — GATE Trap}
+
+Explain why:
+\begin{itemize}
+    \item Accuracy cannot be used for training
+\end{itemize}
+
+What mathematical property does it lack?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Accuracy is not differentiable.
+
+%=================================================
+\section{Sensitivity Thinking}
+%=================================================
+
+\subsection*{Problem 2.8 — Small Change Test}
+
+Suppose:
+\[
+\hat{y} = 2.0 \rightarrow 2.01
+\]
+
+Explain:
+\begin{itemize}
+    \item Why loss should change smoothly
+\end{itemize}
+
+What would break if it didn’t?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Smooth change allows gradient-based learning.
+
+%=================================================
+\section{Explain Without Math (Very Important)}
+%=================================================
+
+\subsection*{Problem 2.9 — Verbal Mastery}
+
+Explain loss functions:
+\begin{itemize}
+    \item Without equations
+    \item Without code
+\end{itemize}
+
+Pretend you are teaching a beginner.
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Loss measures how bad a prediction is compared to truth.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 2.10 — Complete the Sentence}
+
+\begin{quote}
+A loss function should be thought of as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+\subsection*{Answer}
+
+A numerical judgement of prediction quality.
+%=================================================
+\chapter{Numerical Gradients — Learning Direction by Hand}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+A loss tells us \emph{how bad} a prediction is.
+
+A gradient tells us:
+\begin{quote}
+Which way to change parameters to reduce that loss.
+\end{quote}
+
+This chapter builds gradient intuition \textbf{without calculus}.
+
+%=================================================
+\section{What Does “Learning” Actually Mean?}
+%=================================================
+
+\subsection*{Problem 3.1 — Learning as Adjustment}
+
+Explain learning in one sentence, without math.
+
+Then answer:
+\begin{itemize}
+    \item What quantity do we adjust?
+    \item What signal tells us how to adjust it?
+\end{itemize}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Learning adjusts parameters using feedback from loss changes.
+
+%=================================================
+\section{Finite Differences}
+%=================================================
+
+\subsection*{Problem 3.2 — Measuring Change}
+
+Let loss be a function of a single parameter $w$.
+
+Explain in words what this means:
+\[
+L(w + \varepsilon) - L(w)
+\]
+
+What information does this difference contain?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+It shows how loss responds to a small increase in $w$.
+
+%=================================================
+\section{Central Difference Approximation}
+%=================================================
+
+We estimate gradient as:
+\[
+\frac{dL}{dw} \approx
+\frac{L(w + \varepsilon) - L(w - \varepsilon)}{2\varepsilon}
+\]
+
+This compares \emph{both sides} of $w$.
+
+%=================================================
+\section{Problem 3.3 — Why Two Sides?}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Using both $w+\varepsilon$ and $w-\varepsilon$ is better than one side
+\end{itemize}
+
+What error is reduced?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+It cancels asymmetry and reduces approximation error.
+
+%=================================================
+\section{Compute a Numerical Gradient by Hand}
+%=================================================
+
+\subsection*{Problem 3.4 — Explicit Computation}
+
+Given:
+\[
+L(w) = (2w - 4)^2
+\]
+
+Let:
+\[
+w = 1.0, \quad \varepsilon = 0.01
+\]
+
+\begin{enumerate}
+    \item Compute $L(w+\varepsilon)$
+    \item Compute $L(w-\varepsilon)$
+    \item Estimate $\frac{dL}{dw}$
+\end{enumerate}
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+You should obtain a positive gradient, indicating loss increases with $w$.
+
+%=================================================
+\section{Direction Matters More Than Value}
+%=================================================
+
+\subsection*{Problem 3.5 — Interpret the Sign}
+
+If:
+\[
+\frac{dL}{dw} > 0
+\]
+
+Explain:
+\begin{itemize}
+    \item Which direction should $w$ move?
+    \item Why?
+\end{itemize}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Decrease $w$ to reduce loss.
+
+%=================================================
+\section{Learning Rate Intuition}
+%=================================================
+
+\subsection*{Problem 3.6 — Step Size}
+
+Explain what happens if:
+\begin{itemize}
+    \item The learning rate is too large
+    \item The learning rate is too small
+\end{itemize}
+
+Why is there a trade-off?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Large steps overshoot; small steps learn slowly.
+
+%=================================================
+\section{Multiple Parameters}
+%=================================================
+
+\subsection*{Problem 3.7 — Scaling Up}
+
+Suppose loss depends on:
+\[
+w_1, w_2, w_3
+\]
+
+Explain why:
+\begin{itemize}
+    \item Each parameter needs its own numerical gradient
+\end{itemize}
+
+What happens to computation cost?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Each parameter affects loss independently; cost grows linearly.
+
+%=================================================
+\section{Numerical Gradients as a Diagnostic Tool}
+%=================================================
+
+\subsection*{Problem 3.8 — Why We Still Use Them}
+
+Explain why numerical gradients are useful:
+\begin{itemize}
+    \item Even though they are slow
+\end{itemize}
+
+What do they help verify?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+They verify correctness of analytical gradients.
+
+%=================================================
+\section{Explain Without Math (Very Important)}
+%=================================================
+
+\subsection*{Problem 3.9 — Verbal Gradient}
+
+Explain what a gradient is:
+\begin{itemize}
+    \item Without equations
+    \item Without the word “derivative”
+\end{itemize}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+A signal that tells which way to change parameters to reduce error.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 3.10 — Complete the Sentence}
+
+\begin{quote}
+A numerical gradient should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+\subsection*{Answer}
+
+A finite-change estimate of how loss responds to parameter changes.
+%=================================================
+\chapter{Local Derivatives \& Chain Rule Drills}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+Every neural network gradient reduces to:
+\begin{quote}
+Multiply local derivatives along a path.
+\end{quote}
+
+This chapter builds:
+\begin{itemize}
+    \item Chain rule fluency
+    \item Directional confidence
+    \item Backward-thinking habits
+\end{itemize}
+
+No neural networks yet — only \textbf{clean mechanics}.
+
+%=================================================
+\section{Single-Chain Warm-Up}
+%=================================================
+
+\subsection*{Problem 4.1 — One Path}
+
+Given:
+\[
+x \xrightarrow{f} y \xrightarrow{g} L
+\]
+
+Where:
+\[
+y = 3x, \quad L = y^2
+\]
+
+\begin{enumerate}
+    \item Compute $\frac{dL}{dx}$
+    \item Write every intermediate derivative
+\end{enumerate}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+\[
+\frac{dL}{dy} = 2y, \quad \frac{dy}{dx} = 3
+\Rightarrow \frac{dL}{dx} = 6y
+\]
+
+%=================================================
+\section{Why Local Derivatives Matter}
+%=================================================
+
+\subsection*{Problem 4.2 — Local Knowledge}
+
+Explain why:
+\begin{itemize}
+    \item Each function only needs its own derivative
+\end{itemize}
+
+Why is global knowledge unnecessary?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Chain rule composes local sensitivities.
+
+%=================================================
+\section{Breaking Expressions Into Graphs}
+%=================================================
+
+\subsection*{Problem 4.3 — Decomposition}
+
+Given:
+\[
+L = (2x + 1)^2
+\]
+
+\begin{enumerate}
+    \item Introduce intermediate variables
+    \item Draw the computation graph
+\end{enumerate}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+\[
+z = 2x + 1, \quad L = z^2
+\]
+
+%=================================================
+\section{Backward Thinking (Key Skill)}
+%=================================================
+
+\subsection*{Problem 4.4 — Reverse Order}
+
+Explain why gradients must be computed:
+\begin{itemize}
+    \item From output to input
+\end{itemize}
+
+What dependency forces this direction?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Each gradient depends on downstream gradients.
+
+%=================================================
+\section{Multi-Step Chain}
+%=================================================
+
+\subsection*{Problem 4.5 — Longer Chain}
+
+Given:
+\[
+x \rightarrow a = x + 1 \rightarrow b = 2a \rightarrow c = b^2 \rightarrow L = c + 3
+\]
+
+\begin{enumerate}
+    \item Compute $\frac{dL}{dx}$
+    \item List local derivatives in order
+\end{enumerate}
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+Multiply all local derivatives along the chain.
+
+%=================================================
+\section{Branching Paths (Important)}
+%=================================================
+
+\subsection*{Problem 4.6 — Gradient Accumulation}
+
+Given:
+\[
+L = xy + x
+\]
+
+\begin{enumerate}
+    \item Compute $\frac{\partial L}{\partial x}$
+    \item Explain why gradients add
+\end{enumerate}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+\[
+\frac{\partial L}{\partial x} = y + 1
+\]
+
+Gradients add due to linearity.
+
+%=================================================
+\section{Chain Rule Without Symbols}
+%=================================================
+
+\subsection*{Problem 4.7 — Verbal Chain Rule}
+
+Explain the chain rule:
+\begin{itemize}
+    \item Without equations
+    \item Without derivatives
+\end{itemize}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Change in output equals change passed backward through each step.
+
+%=================================================
+\section{Common Errors (GATE Traps)}
+%=================================================
+
+\subsection*{Problem 4.8 — Spot the Mistake}
+
+A student writes:
+\[
+\frac{d}{dx}(f(g(x))) = f'(x)g'(x)
+\]
+
+Explain why this is wrong.
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+$f'$ must be evaluated at $g(x)$.
+
+%=================================================
+\section{Prepare for Backprop}
+%=================================================
+
+\subsection*{Problem 4.9 — Neural Preview}
+
+Explain how:
+\begin{itemize}
+    \item Backprop is just repeated chain rule
+\end{itemize}
+
+What will be automated later?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Local derivative multiplication.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 4.10 — Complete the Sentence}
+
+\begin{quote}
+Backpropagation works because \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+\subsection*{Answer}
+
+Gradients decompose into local derivatives.
+%=================================================
+\chapter{Backprop Through Simple Networks (By Hand)}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+You now know:
+\begin{itemize}
+    \item Loss functions
+    \item Numerical gradients
+    \item Chain rule mechanics
+\end{itemize}
+
+This chapter combines them into:
+\begin{quote}
+A real neural computation with real gradients.
+\end{quote}
+
+Everything is scalar or low-dimensional — by design.
+
+%=================================================
+\section{The Simplest “Neural Network”}
+%=================================================
+
+Consider a single neuron with squared loss:
+\[
+z = wx + b, \quad
+\hat{y} = z, \quad
+L = (\hat{y} - y)^2
+\]
+
+This is a complete learning system.
+
+%=================================================
+\section{Problem 5.1 — Draw the Computation Graph}
+%=================================================
+
+\subsection*{Task}
+
+\begin{enumerate}
+    \item List all intermediate variables
+    \item Draw arrows showing dependencies
+\end{enumerate}
+
+Why is this graph necessary for backprop?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Intermediates: $x,w,b,z,\hat{y},L$.
+Graph shows dependency order for gradients.
+
+%=================================================
+\section{Backward Pass: Step by Step}
+%=================================================
+
+\subsection*{Problem 5.2 — Local Derivatives}
+
+Compute the following:
+\[
+\frac{\partial L}{\partial \hat{y}}, \quad
+\frac{\partial \hat{y}}{\partial z}, \quad
+\frac{\partial z}{\partial w}, \quad
+\frac{\partial z}{\partial b}
+\]
+
+Write each derivative explicitly.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+\[
+\frac{\partial L}{\partial \hat{y}} = 2(\hat{y}-y), \quad
+\frac{\partial \hat{y}}{\partial z} = 1, \quad
+\frac{\partial z}{\partial w} = x, \quad
+\frac{\partial z}{\partial b} = 1
+\]
+
+%=================================================
+\section{Problem 5.3 — Full Gradients}
+%=================================================
+
+Using the chain rule, compute:
+\[
+\frac{\partial L}{\partial w}, \quad
+\frac{\partial L}{\partial b}
+\]
+
+Show every multiplication.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+\[
+\frac{\partial L}{\partial w}
+=
+2(\hat{y}-y)\cdot 1 \cdot x,
+\quad
+\frac{\partial L}{\partial b}
+=
+2(\hat{y}-y)
+\]
+
+%=================================================
+\section{Numerical Check (Very Important)}
+%=================================================
+
+\subsection*{Problem 5.4 — Gradient Sanity}
+
+Explain how you would:
+\begin{itemize}
+    \item Verify the above gradients using numerical gradients
+\end{itemize}
+
+Why is this step critical in practice?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Compare analytical gradients with finite differences.
+
+%=================================================
+\section{Add a Nonlinearity}
+%=================================================
+
+Now introduce ReLU:
+\[
+z = wx + b, \quad
+a = \max(0,z), \quad
+L = (a - y)^2
+\]
+
+%=================================================
+\section{Problem 5.5 — Piecewise Thinking}
+%=================================================
+
+Explain why the gradient depends on:
+\begin{itemize}
+    \item Whether $z > 0$ or $z \le 0$
+\end{itemize}
+
+What happens to learning when $z \le 0$?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Gradient is zero when ReLU is inactive.
+
+%=================================================
+\section{Problem 5.6 — Full Backprop with ReLU}
+%=================================================
+
+Assume $z > 0$.
+
+Compute:
+\[
+\frac{\partial L}{\partial w}, \quad
+\frac{\partial L}{\partial b}
+\]
+
+Show the ReLU derivative explicitly.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+ReLU derivative is 1 when active; chain rule applies as before.
+
+%=================================================
+\section{Two Inputs (Vector Case)}
+%=================================================
+
+Now let:
+\[
+z = w_1 x_1 + w_2 x_2 + b
+\]
+
+Loss is still:
+\[
+L = (z - y)^2
+\]
+
+%=================================================
+\section{Problem 5.7 — Gradient per Weight}
+%=================================================
+
+Compute:
+\[
+\frac{\partial L}{\partial w_1}, \quad
+\frac{\partial L}{\partial w_2}
+\]
+
+Explain why they are different.
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Each weight scales a different input.
+
+%=================================================
+\section{Gradient Accumulation Insight}
+%=================================================
+
+\subsection*{Problem 5.8 — Why Bias Is Special}
+
+Explain why:
+\begin{itemize}
+    \item Bias gradient does not depend on input values
+\end{itemize}
+
+What role does bias play geometrically?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Bias shifts the activation threshold.
+
+%=================================================
+\section{Explain Without Math (Critical)}
+%=================================================
+
+\subsection*{Problem 5.9 — Verbal Backprop}
+
+Explain backpropagation through a single neuron:
+\begin{itemize}
+    \item Without equations
+    \item Without symbols
+\end{itemize}
+
+Pretend you are teaching a beginner.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+Error is sent backward and scaled by how much each parameter contributed.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 5.10 — Complete the Sentence}
+
+\begin{quote}
+Backpropagation through a neuron is simply \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+\subsection*{Answer}
+
+Applying the chain rule to the neuron’s computation.
+%=================================================
+\chapter{Backprop Through Layers — Shape \& Flow}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+So far you have:
+\begin{itemize}
+    \item Backpropagated through a single neuron
+\end{itemize}
+
+Real neural networks consist of:
+\begin{itemize}
+    \item Layers of neurons
+    \item Matrix operations
+    \item Repeated patterns
+\end{itemize}
+
+This chapter teaches you how gradients:
+\begin{quote}
+Flow backward through layers while preserving shape.
+\end{quote}
+
+%=================================================
+\section{Two-Layer Network Setup}
+%=================================================
+
+Consider a simple two-layer network:
+
+\[
+X \in \mathbb{R}^{n \times d}
+\]
+
+\[
+Z_1 = X W_1^T + b_1, \quad
+A_1 = \text{ReLU}(Z_1)
+\]
+
+\[
+Z_2 = A_1 W_2^T + b_2, \quad
+\hat{y} = Z_2
+\]
+
+Loss:
+\[
+L = \frac{1}{n}\sum_{i=1}^n (\hat{y}_i - y_i)^2
+\]
+
+%=================================================
+\section{Problem 6.1 — Shape Sanity Check (Critical)}
+%=================================================
+
+Assume:
+\begin{itemize}
+    \item $X \in \mathbb{R}^{n \times d}$
+    \item Hidden layer size $m$
+    \item Output size $1$
+\end{itemize}
+
+Determine the shapes of:
+\begin{enumerate}
+    \item $W_1, b_1$
+    \item $Z_1, A_1$
+    \item $W_2, b_2$
+    \item $Z_2$
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\[
+W_1 \in \mathbb{R}^{m \times d}, \quad
+b_1 \in \mathbb{R}^{m}
+\]
+
+\[
+Z_1, A_1 \in \mathbb{R}^{n \times m}
+\]
+
+\[
+W_2 \in \mathbb{R}^{1 \times m}, \quad
+b_2 \in \mathbb{R}
+\]
+
+\[
+Z_2 \in \mathbb{R}^{n \times 1}
+\]
+
+%=================================================
+\section{Backward Pass Overview}
+%=================================================
+
+Backprop proceeds in reverse order:
+\[
+L \rightarrow Z_2 \rightarrow A_1 \rightarrow Z_1 \rightarrow W_1
+\]
+
+Each step uses:
+\begin{itemize}
+    \item Local derivative
+    \item Shape matching
+\end{itemize}
+
+%=================================================
+\section{Problem 6.2 — First Backward Step}
+%=================================================
+
+Compute:
+\[
+\frac{\partial L}{\partial Z_2}
+\]
+
+What is its shape?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\[
+\frac{\partial L}{\partial Z_2}
+=
+\frac{2}{n}(\hat{y} - y),
+\quad
+\text{shape } (n \times 1)
+\]
+
+%=================================================
+\section{Backprop into Second Layer Parameters}
+%=================================================
+
+Gradients:
+\[
+\frac{\partial L}{\partial W_2} = 
+\left(\frac{\partial L}{\partial Z_2}\right)^T A_1
+\]
+
+\[
+\frac{\partial L}{\partial b_2} =
+\sum_{i=1}^n \frac{\partial L}{\partial Z_{2,i}}
+\]
+
+%=================================================
+\section{Problem 6.3 — Why This Formula?}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item $A_1$ appears in $\frac{\partial L}{\partial W_2}$
+\end{itemize}
+
+What did $W_2$ multiply during the forward pass?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Weights scale activations; gradients reflect that dependency.
+
+%=================================================
+\section{Backprop into Hidden Activations}
+%=================================================
+
+\[
+\frac{\partial L}{\partial A_1}
+=
+\frac{\partial L}{\partial Z_2} W_2
+\]
+
+Explain why this is a matrix multiplication.
+
+%=================================================
+\section{Problem 6.4 — Shape Flow}
+%=================================================
+
+Verify the shape of:
+\[
+\frac{\partial L}{\partial A_1}
+\]
+
+Why must it match the shape of $A_1$?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Both are $(n \times m)$ to propagate gradients correctly.
+
+%=================================================
+\section{ReLU Gate}
+%=================================================
+
+Elementwise derivative:
+\[
+\frac{\partial A_1}{\partial Z_1}
+=
+\mathbb{1}(Z_1 > 0)
+\]
+
+This acts as a gradient gate.
+
+%=================================================
+\section{Problem 6.5 — Gradient Blocking}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item When gradients are blocked by ReLU
+\end{itemize}
+
+What implication does this have for learning?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Inactive neurons receive zero gradient.
+
+%=================================================
+\section{Backprop into First Layer Parameters}
+%=================================================
+
+\[
+\frac{\partial L}{\partial Z_1}
+=
+\frac{\partial L}{\partial A_1}
+\odot
+\mathbb{1}(Z_1 > 0)
+\]
+
+\[
+\frac{\partial L}{\partial W_1}
+=
+\left(\frac{\partial L}{\partial Z_1}\right)^T X
+\]
+
+\[
+\frac{\partial L}{\partial b_1}
+=
+\sum_{i=1}^n \frac{\partial L}{\partial Z_{1,i}}
+\]
+
+%=================================================
+\section{Problem 6.6 — Pattern Recognition}
+%=================================================
+
+Explain the pattern:
+\begin{itemize}
+    \item Why gradients w.r.t. weights always involve the previous layer
+\end{itemize}
+
+Why does this repeat in every network?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Weights connect layers; gradients reflect that connection.
+
+%=================================================
+\section{Common Shape Errors (GATE + Debugging)}
+%=================================================
+
+\subsection*{Problem 6.7 — Spot the Bug}
+
+A student writes:
+\[
+\frac{\partial L}{\partial W_1} = X^T \frac{\partial L}{\partial Z_1}
+\]
+
+Explain why this may be wrong.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Transpose order matters; shape mismatch may occur.
+
+%=================================================
+\section{Explain Without Math}
+%=================================================
+
+\subsection*{Problem 6.8 — Verbal Layer Backprop}
+
+Explain backprop through layers:
+\begin{itemize}
+    \item Without equations
+    \item Without matrix notation
+\end{itemize}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Error flows backward, scaled by each layer’s contribution.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 6.9 — Complete the Sentence}
+
+\begin{quote}
+Backpropagation through layers works because \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each layer applies the chain rule while preserving shape.
+%=================================================
+\chapter{Training Loops \& Debugging — Making Learning Reliable}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+Up to now, you learned:
+\begin{itemize}
+    \item How gradients are computed
+\end{itemize}
+
+But training succeeds or fails because of:
+\begin{itemize}
+    \item Update rules
+    \item Learning rates
+    \item Numerical stability
+\end{itemize}
+
+This chapter builds the habit of:
+\begin{quote}
+Thinking like a debugger, not a gambler.
+\end{quote}
+
+%=================================================
+\section{The Minimal Training Loop}
+%=================================================
+
+A complete training loop contains:
+
+\begin{enumerate}
+    \item Forward pass
+    \item Loss computation
+    \item Backward pass
+    \item Parameter update
+\end{enumerate}
+
+Missing any step means no learning.
+
+%=================================================
+\section{Problem 7.1 — Identify the Loop}
+%=================================================
+
+Explain the role of each step:
+\begin{itemize}
+    \item Forward pass
+    \item Loss
+    \item Backward pass
+    \item Update
+\end{itemize}
+
+What breaks if one is missing?
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each step enables the next; removing one halts learning.
+
+%=================================================
+\section{Learning Rate: The Most Dangerous Hyperparameter}
+%=================================================
+
+Learning rate $\eta$ controls:
+\begin{itemize}
+    \item Step size in parameter space
+\end{itemize}
+
+Most failures are learning-rate failures.
+
+%=================================================
+\section{Problem 7.2 — Learning Rate Extremes}
+%=================================================
+
+Explain what happens if:
+\begin{itemize}
+    \item $\eta$ is too large
+    \item $\eta$ is too small
+\end{itemize}
+
+What do loss curves look like in each case?
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Too large: divergence or oscillation.  
+Too small: painfully slow convergence.
+
+%=================================================
+\section{Loss Curves as Diagnostics}
+%=================================================
+
+Loss curves are not decoration.
+
+They are:
+\begin{quote}
+Signals from the learning process.
+\end{quote}
+
+%=================================================
+\section{Problem 7.3 — Curve Interpretation}
+%=================================================
+
+Match each behavior to a cause:
+\begin{itemize}
+    \item Loss is NaN
+    \item Loss decreases then increases
+    \item Loss flatlines
+\end{itemize}
+
+What is likely wrong in each case?
+
+\vspace{7cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+NaN: numerical instability.  
+Increase: overfitting or large learning rate.  
+Flat: gradients too small or learning rate too low.
+
+%=================================================
+\section{Gradient Magnitudes}
+%=================================================
+
+Healthy gradients:
+\begin{itemize}
+    \item Are not zero
+    \item Are not exploding
+\end{itemize}
+
+Monitoring gradient norms is essential.
+
+%=================================================
+\section{Problem 7.4 — Gradient Checks}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Zero gradients halt learning
+    \item Exploding gradients destabilize updates
+\end{itemize}
+
+What does each indicate?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Zero gradients: dead paths.  
+Exploding gradients: unstable computation.
+
+%=================================================
+\section{Debugging Strategy (Very Important)}
+%=================================================
+
+When training fails, check in order:
+
+\begin{enumerate}
+    \item Shapes
+    \item Loss values
+    \item Gradient magnitudes
+    \item Learning rate
+\end{enumerate}
+
+Never guess randomly.
+
+%=================================================
+\section{Problem 7.5 — First Response}
+%=================================================
+
+Training loss is NaN after 2 iterations.
+
+List:
+\begin{itemize}
+    \item Three things to check immediately
+\end{itemize}
+
+Why this order?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Check learning rate, inputs, numerical operations.
+
+%=================================================
+\section{Overfitting vs Underfitting}
+%=================================================
+
+Two curves matter:
+\begin{itemize}
+    \item Training loss
+    \item Validation loss
+\end{itemize}
+
+Understanding their relationship is crucial.
+
+%=================================================
+\section{Problem 7.6 — Curve Diagnosis}
+%=================================================
+
+Explain each case:
+\begin{enumerate}
+    \item Training ↓, Validation ↑
+    \item Both high
+    \item Both low
+\end{enumerate}
+
+What action would you take?
+
+\vspace{7cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+(1) Overfitting → regularize  
+(2) Underfitting → increase capacity  
+(3) Good fit
+
+%=================================================
+\section{One-Batch Overfitting Test}
+%=================================================
+
+A critical debugging trick:
+
+\begin{quote}
+Can the model overfit a single batch?
+\end{quote}
+
+If not, something is broken.
+
+%=================================================
+\section{Problem 7.7 — Why This Works}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Failing to overfit one batch signals a bug
+\end{itemize}
+
+What assumption is being tested?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Model capacity and gradient correctness.
+
+%=================================================
+\section{Explain Without Math}
+%=================================================
+
+\subsection*{Problem 7.8 — Verbal Debugging}
+
+Explain how you debug a training failure:
+\begin{itemize}
+    \item Without equations
+    \item Without code
+\end{itemize}
+
+Imagine mentoring a beginner.
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Check signals step by step instead of guessing.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 7.9 — Complete the Sentence}
+
+\begin{quote}
+A stable training loop is one where \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss decreases predictably under controlled updates.
+%=================================================
+\chapter{Initialization \& Regularization Drills — Keeping Signals Alive}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+You can have:
+\begin{itemize}
+    \item Correct gradients
+    \item Correct loss
+    \item Correct training loop
+\end{itemize}
+
+And still:
+\begin{quote}
+Nothing learns.
+\end{quote}
+
+This chapter explains why.
+
+%=================================================
+\section{The Signal Propagation Problem}
+%=================================================
+
+A deep network repeatedly applies:
+\[
+\text{Linear} \rightarrow \text{Nonlinearity}
+\]
+
+If signals:
+\begin{itemize}
+    \item Explode → training diverges
+    \item Vanish → gradients disappear
+\end{itemize}
+
+Learning fails.
+
+%=================================================
+\section{Problem 8.1 — Thought Experiment}
+%=================================================
+
+Suppose:
+\begin{itemize}
+    \item All weights are initialized to very large values
+\end{itemize}
+
+Predict:
+\begin{itemize}
+    \item What happens to activations?
+    \item What happens to gradients?
+\end{itemize}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Activations explode; gradients become unstable.
+
+%=================================================
+\section{Zero Initialization (Classic Trap)}
+%=================================================
+
+Initializing all weights to zero seems safe — but isn’t.
+
+%=================================================
+\section{Problem 8.2 — Symmetry Breaking}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Zero initialization prevents learning
+\end{itemize}
+
+What symmetry is never broken?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+All neurons learn identical features.
+
+%=================================================
+\section{Variance Matters More Than Mean}
+%=================================================
+
+Weights should be:
+\begin{itemize}
+    \item Zero-mean
+    \item Carefully scaled
+\end{itemize}
+
+Variance controls signal flow.
+
+%=================================================
+\section{Problem 8.3 — Depth Effect}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Small variances cause vanishing signals
+    \item Large variances cause exploding signals
+\end{itemize}
+
+Why does depth amplify this effect?
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each layer multiplies variance.
+
+%=================================================
+\section{Popular Initialization Schemes}
+%=================================================
+
+\begin{itemize}
+    \item Xavier (tanh, sigmoid)
+    \item He initialization (ReLU)
+\end{itemize}
+
+Both aim to preserve variance.
+
+%=================================================
+\section{Problem 8.4 — Matching Activation}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Initialization depends on activation function
+\end{itemize}
+
+What breaks if mismatched?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Signal statistics drift across layers.
+
+%=================================================
+\section{Regularization Revisited}
+%=================================================
+
+Regularization controls:
+\begin{itemize}
+    \item Model capacity
+    \item Sensitivity to noise
+\end{itemize}
+
+It complements initialization.
+
+%=================================================
+\section{Problem 8.5 — Weight Decay Intuition}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Penalizing large weights stabilizes training
+\end{itemize}
+
+What geometry does this enforce?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+It constrains parameter magnitude.
+
+%=================================================
+\section{Dropout as Noise Injection}
+%=================================================
+
+Dropout forces:
+\begin{itemize}
+    \item Redundancy
+    \item Robust feature usage
+\end{itemize}
+
+%=================================================
+\section{Problem 8.6 — Dropout Thinking}
+%=================================================
+
+Explain why dropout:
+\begin{itemize}
+    \item Reduces co-adaptation
+\end{itemize}
+
+What dependency is being discouraged?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Reliance on specific neurons.
+
+%=================================================
+\section{Early Training Signals}
+%=================================================
+
+Early epochs reveal:
+\begin{itemize}
+    \item Whether initialization worked
+\end{itemize}
+
+Watch activations and gradients.
+
+%=================================================
+\section{Problem 8.7 — Early Warning Signs}
+%=================================================
+
+List:
+\begin{itemize}
+    \item Two signs of vanishing gradients
+    \item Two signs of exploding gradients
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Vanishing: near-zero updates, flat loss.  
+Exploding: NaNs, huge loss spikes.
+
+%=================================================
+\section{Explain Without Math}
+%=================================================
+
+\subsection*{Problem 8.8 — Verbal Signal Flow}
+
+Explain initialization:
+\begin{itemize}
+    \item Without equations
+    \item Without probability
+\end{itemize}
+
+Explain what we are trying to preserve.
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+We want signals to neither die nor explode as they pass through layers.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 8.9 — Complete the Sentence}
+
+\begin{quote}
+Initialization should be thought of as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Setting up healthy signal flow before learning begins.
+%=================================================
+\chapter{Mini-Batch Thinking \& Stochasticity — Why Noise Helps Learning}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+So far, we implicitly assumed:
+\begin{itemize}
+    \item Gradients are computed on all data
+\end{itemize}
+
+In reality:
+\begin{itemize}
+    \item Datasets are large
+    \item Full gradients are expensive
+\end{itemize}
+
+This chapter explains:
+\begin{quote}
+Why noisy gradients often learn better than exact ones.
+\end{quote}
+
+%=================================================
+\section{Three Gradient Regimes}
+%=================================================
+
+There are three ways to compute gradients:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Method & Batch Size & Gradient Quality \\
+\hline
+Full Batch GD & $N$ & Exact, expensive \\
+Stochastic GD & $1$ & Very noisy \\
+Mini-Batch GD & $B$ & Approximate, efficient \\
+\hline
+\end{tabular}
+\end{center}
+
+Mini-batches balance speed and stability.
+
+%=================================================
+\section{Problem 9.1 — Why Not Full Batch?}
+%=================================================
+
+Explain why computing gradients using the entire dataset:
+\begin{itemize}
+    \item Is slow
+    \item Can be memory-intensive
+\end{itemize}
+
+What resource limits this approach?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Memory bandwidth and computation time.
+
+%=================================================
+\section{Noise as a Feature}
+%=================================================
+
+Mini-batch gradients contain noise.
+
+This noise:
+\begin{itemize}
+    \item Helps escape sharp minima
+    \item Improves generalization
+\end{itemize}
+
+Noise is not always harmful.
+
+%=================================================
+\section{Problem 9.2 — Sharp vs Flat Minima}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Noisy gradients avoid sharp minima
+\end{itemize}
+
+Why are flat minima preferred?
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Flat minima are more robust to perturbations.
+
+%=================================================
+\section{Epochs and Shuffling}
+%=================================================
+
+One \textbf{epoch} means:
+\begin{quote}
+One full pass through the dataset.
+\end{quote}
+
+Shuffling ensures:
+\begin{itemize}
+    \item Each mini-batch is representative
+\end{itemize}
+
+%=================================================
+\section{Problem 9.3 — Why Shuffling Matters}
+%=================================================
+
+Explain what goes wrong if:
+\begin{itemize}
+    \item Data is not shuffled
+\end{itemize}
+
+What bias is introduced?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Correlated updates and biased gradients.
+
+%=================================================
+\section{Batch Size Trade-offs}
+%=================================================
+
+Batch size affects:
+\begin{itemize}
+    \item Gradient variance
+    \item Memory usage
+    \item Hardware efficiency
+\end{itemize}
+
+There is no universally optimal batch size.
+
+%=================================================
+\section{Problem 9.4 — Extreme Cases}
+%=================================================
+
+Explain the behavior when:
+\begin{enumerate}
+    \item Batch size = 1
+    \item Batch size = $N$
+\end{enumerate}
+
+Why are both extremes problematic?
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Too noisy vs too slow and rigid.
+
+%=================================================
+\section{Why GPUs Love Mini-Batches}
+%=================================================
+
+GPUs excel at:
+\begin{itemize}
+    \item Parallel matrix operations
+\end{itemize}
+
+Mini-batches:
+\begin{itemize}
+    \item Increase arithmetic intensity
+    \item Improve utilization
+\end{itemize}
+
+%=================================================
+\section{Problem 9.5 — Hardware Intuition}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Larger batches improve GPU throughput
+\end{itemize}
+
+What operation dominates runtime?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Matrix multiplications.
+
+%=================================================
+\section{Stochasticity vs Determinism}
+%=================================================
+
+Stochastic training:
+\begin{itemize}
+    \item Explores parameter space
+    \item Avoids brittle solutions
+\end{itemize}
+
+Deterministic training:
+\begin{itemize}
+    \item Can overfit sharp minima
+\end{itemize}
+
+%=================================================
+\section{Problem 9.6 — Learning Dynamics}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item SGD trajectories look noisy but converge
+\end{itemize}
+
+Why is this acceptable?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Expected gradient still points downhill.
+
+%=================================================
+\section{Explain Without Math}
+%=================================================
+
+\subsection*{Problem 9.7 — Verbal SGD}
+
+Explain mini-batch training:
+\begin{itemize}
+    \item Without equations
+    \item Without probability
+\end{itemize}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+We learn by taking many small, noisy steps that average out.
+
+%=================================================
+\section{Mastery Drill}
+%=================================================
+
+\subsection*{Problem 9.8 — Complete the Sentence}
+
+\begin{quote}
+Mini-batch training works well because \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+It balances efficiency, noise, and generalization.
+%=================================================
+\chapter{Capstone Debugging \& Reasoning — From Symptoms to Causes}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+Up to now, you learned:
+\begin{itemize}
+    \item Forward computation
+    \item Loss and gradients
+    \item Backpropagation
+    \item Training loops
+    \item Initialization and stochasticity
+\end{itemize}
+
+This chapter answers the final question:
+\begin{quote}
+Can you reason end-to-end when things go wrong?
+\end{quote}
+
+There are no new concepts here.
+Only synthesis.
+
+%=================================================
+\section{How to Use This Chapter}
+%=================================================
+
+For each problem:
+\begin{itemize}
+    \item Do not jump to fixes
+    \item Identify symptoms
+    \item Trace causes backward
+    \item Propose minimal interventions
+\end{itemize}
+
+This is how experts think.
+
+%=================================================
+\section{Scenario 1 — Loss Is NaN}
+%=================================================
+
+\subsection*{Problem 10.1}
+
+A neural network reports:
+\begin{itemize}
+    \item Loss becomes NaN after 3 iterations
+\end{itemize}
+
+Answer:
+\begin{enumerate}
+    \item List three possible causes
+    \item Order them by likelihood
+    \item State the first thing you would check
+\end{enumerate}
+
+\vspace{8cm}
+
+\subsection*{Answer}
+
+Likely causes: learning rate too large, numerical overflow,
+invalid operations (log, division).
+
+%=================================================
+\section{Scenario 2 — Loss Never Decreases}
+%=================================================
+
+\subsection*{Problem 10.2}
+
+Training loss remains flat for 100 epochs.
+
+Explain:
+\begin{itemize}
+    \item Three distinct reasons this could happen
+    \item One test to isolate each reason
+\end{itemize}
+
+\vspace{8cm}
+
+\subsection*{Answer}
+
+Possible causes: zero gradients, tiny learning rate,
+dead activations.
+
+%=================================================
+\section{Scenario 3 — Training Improves, Validation Fails}
+%=================================================
+
+\subsection*{Problem 10.3}
+
+Training loss decreases steadily.  
+Validation loss increases.
+
+Answer:
+\begin{enumerate}
+    \item What phenomenon is this?
+    \item Two interventions to try
+    \item Which one you try first and why
+\end{enumerate}
+
+\vspace{8cm}
+
+\subsection*{Answer}
+
+Overfitting; add regularization or reduce capacity.
+
+%=================================================
+\section{Scenario 4 — Model Cannot Overfit One Batch}
+%=================================================
+
+\subsection*{Problem 10.4}
+
+A model fails to overfit a single mini-batch.
+
+Explain:
+\begin{itemize}
+    \item Why this is alarming
+    \item What assumption is violated
+\end{itemize}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Implies a bug in gradient computation or update logic.
+
+%=================================================
+\section{Scenario 5 — Training Is Extremely Slow}
+%=================================================
+
+\subsection*{Problem 10.5}
+
+Loss decreases, but very slowly.
+
+Explain:
+\begin{itemize}
+    \item Two possible causes
+    \item One diagnostic for each
+\end{itemize}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Small learning rate or poor initialization.
+
+%=================================================
+\section{Shape Debugging (Silent Killer)}
+%=================================================
+
+\subsection*{Problem 10.6}
+
+A model runs without error but learns nothing.
+
+Explain how:
+\begin{itemize}
+    \item Silent shape broadcasting bugs can cause this
+\end{itemize}
+
+What habit prevents this?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Explicit shape checking at every layer.
+
+%=================================================
+\section{Gradient Reasoning Drill}
+%=================================================
+
+\subsection*{Problem 10.7}
+
+Suppose gradients are:
+\begin{itemize}
+    \item Extremely small in early layers
+    \item Reasonable in later layers
+\end{itemize}
+
+Explain:
+\begin{itemize}
+    \item What phenomenon this indicates
+    \item Two architectural or training fixes
+\end{itemize}
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+Vanishing gradients; use better initialization or activations.
+
+%=================================================
+\section{Explain Without Math (Critical)}
+%=================================================
+
+\subsection*{Problem 10.8}
+
+Explain your full debugging strategy:
+\begin{itemize}
+    \item Without equations
+    \item Without code
+\end{itemize}
+
+Imagine mentoring a junior researcher.
+
+\vspace{8cm}
+
+\subsection*{Answer}
+
+Observe symptoms, isolate causes, test systematically.
+
+%=================================================
+\section{Final Mastery Drill}
+%=================================================
+
+\subsection*{Problem 10.9}
+
+Complete the sentence:
+
+\begin{quote}
+A neural network fails not because it is complex, but because \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+\subsection*{Answer}
+
+Signals, gradients, or updates are mismanaged.
+
+\end{document}
