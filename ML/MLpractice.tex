@@ -1,0 +1,3025 @@
+
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\geometry{margin=1in}
+
+\title{\textbf{Machine Learning Practice Book}\\
+(Geometry $\rightarrow$ Probability $\rightarrow$ Optimization)}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section*{How to Use This Book}
+%=================================================
+
+This is a \textbf{practice-first book}.
+
+Rules:
+\begin{itemize}
+    \item Always attempt problems before looking at answers
+    \item Refer back to the theory notes whenever stuck
+    \item Write full reasoning, not just formulas
+\end{itemize}
+
+The goal is not speed.
+The goal is \textbf{fundamental strength}.
+
+%=================================================
+\section{Chapter 1: Learning as Function Approximation}
+%=================================================
+
+Machine Learning is the study of approximating unknown functions from data.
+
+This chapter builds intuition \textbf{before algorithms}.
+
+%-------------------------------------------------
+\subsection*{Warm-Up: Thinking Without Math}
+%-------------------------------------------------
+
+\textbf{Problem 1.1}
+
+You are given noisy measurements of temperature over time.
+
+\begin{enumerate}
+    \item What is the \emph{input}?
+    \item What is the \emph{output}?
+    \item What does the unknown function represent physically?
+\end{enumerate}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.2}
+
+Explain in words the difference between:
+\begin{itemize}
+    \item Memorizing data
+    \item Learning a function
+\end{itemize}
+
+Why is memorization dangerous?
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Guided Problem: Geometry First}
+%=================================================
+
+\textbf{Problem 1.3 (Guided)}
+
+Suppose data points satisfy approximately:
+\[
+y \approx 2x + 1
+\]
+
+but each measurement has noise.
+
+\begin{enumerate}
+    \item What class of functions would you choose to model this data?
+    \item Why is this choice reasonable \emph{before} seeing any math?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+Ignore data points.
+Think about the \textbf{shape} you expect the function to have.
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Core Practice: Linear Regression Geometry}
+%=================================================
+
+\textbf{Problem 1.4}
+
+Given data:
+\[
+(x_1,y_1), (x_2,y_2), \dots, (x_n,y_n)
+\]
+
+We model:
+\[
+y = \beta_0 + \beta_1 x
+\]
+
+\begin{enumerate}
+    \item Sketch what this model represents geometrically.
+    \item Explain what changing $\beta_0$ does geometrically.
+    \item Explain what changing $\beta_1$ does geometrically.
+\end{enumerate}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 1.5 (Very Important)}
+
+Why does linear regression minimize:
+\[
+\sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2
+\]
+
+and not:
+\[
+\sum_{i=1}^n |y_i - \beta_0 - \beta_1 x_i|
+\]
+
+Answer using:
+\begin{itemize}
+    \item Geometry
+    \item Optimization
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Trap Awareness}
+%=================================================
+
+\textbf{Problem 1.6 (GATE Style)}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item Linear regression always implies causation
+    \item Linear regression finds the best line in a geometric sense
+    \item Squared loss guarantees a unique solution
+    \item Noise-free data always gives zero training error
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Very Important)}
+%=================================================
+
+\textbf{Problem 1.7}
+
+Write (in words):
+
+\begin{quote}
+What does it mean to \emph{learn} in machine learning?
+\end{quote}
+
+If you cannot explain this clearly,
+pause and revisit the theory notes.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 1}
+%=================================================
+
+\textbf{Answer 1.1}
+
+Input: time.  
+Output: temperature.  
+Function: physical relationship + noise.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.2}
+
+Memorization fits data points exactly.  
+Learning captures the underlying pattern and ignores noise.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.3}
+
+A linear function.
+Because the relationship appears approximately straight.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.4}
+
+$\beta_0$ shifts the line up/down.  
+$\beta_1$ rotates the line.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.5}
+
+Squared loss:
+\begin{itemize}
+    \item Is differentiable
+    \item Leads to projection in vector spaces
+    \item Gives closed-form solutions
+\end{itemize}
+
+Absolute loss does not.
+
+%-------------------------------------------------
+
+\textbf{Answer 1.6}
+
+Correct: (2), (4)
+
+%-------------------------------------------------
+
+\textbf{Answer 1.7}
+
+Learning means approximating an unknown function
+that generalizes beyond observed data.
+%=================================================
+\section{Chapter 2: Linear Regression as Projection}
+%=================================================
+
+This chapter explains the deepest idea in linear regression:
+
+\begin{quote}
+Learning = projecting data onto a subspace.
+\end{quote}
+
+If this chapter clicks, many ML algorithms will feel
+like variations of the same geometric idea.
+
+%=================================================
+\subsection*{Warm-Up: Thinking in Vectors}
+%=================================================
+
+\textbf{Problem 2.1}
+
+Suppose you have vectors:
+\[
+y \in \mathbb{R}^n, \quad x_1, x_2 \in \mathbb{R}^n
+\]
+
+You are told that $y$ is approximately a combination of $x_1$ and $x_2$.
+
+\begin{enumerate}
+    \item What does this mean geometrically?
+    \item Where does the approximation live?
+\end{enumerate}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 2.2}
+
+Explain in words:
+\begin{quote}
+What is a subspace?
+\end{quote}
+
+Why is the column space of a matrix a subspace?
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Guided Problem: From Line to Matrix}
+%=================================================
+
+\textbf{Problem 2.3 (Guided)}
+
+In simple linear regression:
+\[
+y_i \approx \beta_0 + \beta_1 x_i
+\]
+
+we rewrite this in matrix form:
+\[
+y \approx X\beta
+\]
+
+\begin{enumerate}
+    \item What does each column of $X$ represent?
+    \item What does the vector $X\beta$ represent geometrically?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+Forget statistics.
+Think only in terms of vectors and spans.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Core Geometry: Projection}
+%=================================================
+
+\textbf{Problem 2.4 (Very Important)}
+
+Given:
+\[
+X \in \mathbb{R}^{n \times d}, \quad y \in \mathbb{R}^n
+\]
+
+Linear regression finds $\hat{y} = X\hat{\beta}$ such that:
+\[
+\|y - \hat{y}\|^2 \text{ is minimized.}
+\]
+
+\begin{enumerate}
+    \item What geometric operation is this?
+    \item Onto what object is $y$ being projected?
+\end{enumerate}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 2.5}
+
+At the optimum, the error vector:
+\[
+e = y - X\hat{\beta}
+\]
+
+satisfies a special orthogonality condition.
+
+\begin{enumerate}
+    \item Orthogonal to what?
+    \item Why must this be true for a minimum?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Normal Equation Without Memorization}
+%=================================================
+
+\textbf{Problem 2.6 (Guided)}
+
+Using only geometry (no calculus):
+
+Explain why the condition:
+\[
+X^T (y - X\hat{\beta}) = 0
+\]
+
+must hold.
+
+\textbf{Guided Hint:}
+
+Orthogonality in $\mathbb{R}^n$ can be written using dot products.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Rank and Uniqueness}
+%=================================================
+
+\textbf{Problem 2.7}
+
+Suppose the columns of $X$ are linearly dependent.
+
+\begin{enumerate}
+    \item What happens to the column space?
+    \item Is the projection $\hat{y}$ still unique?
+    \item Is $\hat{\beta}$ unique?
+\end{enumerate}
+
+Explain carefully.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Ridge Regression (Preview)}
+%=================================================
+
+\textbf{Problem 2.8}
+
+When $X^TX$ is nearly singular, ordinary least squares becomes unstable.
+
+\begin{enumerate}
+    \item What does “nearly singular” mean geometrically?
+    \item Why does adding $\lambda I$ fix the problem?
+\end{enumerate}
+
+Do not compute anything.
+Explain using geometry.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 2.9}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item $X^TX$ is always invertible
+    \item Least squares finds the closest vector in column space
+    \item Error vector is orthogonal to each column of $X$
+    \item Ridge regression changes the column space
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 2.10}
+
+Complete this sentence in your own words:
+
+\begin{quote}
+Linear regression works because it is really doing \underline{\hspace{5cm}}.
+\end{quote}
+
+If your answer does not include geometry,
+revisit the notes before moving on.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 2}
+%=================================================
+
+\textbf{Answer 2.1}
+
+$y$ lies near the plane spanned by $x_1$ and $x_2$.
+The approximation is its projection.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.2}
+
+A subspace is closed under addition and scalar multiplication.
+Column space is formed by all linear combinations of columns.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.3}
+
+Columns are basis vectors.
+$X\beta$ is a point in the column space.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.4}
+
+Orthogonal projection onto the column space of $X$.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.5}
+
+Orthogonal to the column space.
+Otherwise, a closer point exists.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.6}
+
+Orthogonality means zero dot product with each column,
+which is exactly $X^T(y - X\hat{\beta}) = 0$.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.7}
+
+Column space is unchanged.
+Projection is unique.
+Coefficients are not unique.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.8}
+
+Near singularity means nearly dependent directions.
+$\lambda I$ stabilizes inversion by spreading directions apart.
+
+%-------------------------------------------------
+
+\textbf{Answer 2.9}
+
+Correct: (2), (3)
+
+%-------------------------------------------------
+
+\textbf{Answer 2.10}
+
+Projection.
+
+
+%=================================================
+\section{Chapter 3: Probability, Noise, and Why Loss Functions Exist}
+%=================================================
+
+Up to now, learning was geometric:
+projection onto a subspace.
+
+Now we ask a deeper question:
+
+\begin{quote}
+Why is squared error the right thing to minimize?
+\end{quote}
+
+The answer comes from probability.
+
+%=================================================
+\subsection*{Warm-Up: Thinking About Noise}
+%=================================================
+
+\textbf{Problem 3.1}
+
+Suppose two people measure the same physical quantity
+using imperfect instruments.
+
+\begin{enumerate}
+    \item Will they obtain identical values?
+    \item Where does the variation come from?
+    \item Should the underlying law be blamed for the variation?
+\end{enumerate}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 3.2}
+
+Explain in words the difference between:
+\begin{itemize}
+    \item Deterministic error
+    \item Random noise
+\end{itemize}
+
+Why does machine learning usually model noise as random?
+
+\vspace{3cm}
+
+%=================================================
+\subsection{From Geometry to Probability}
+%=================================================
+
+\textbf{Problem 3.3 (Guided)}
+
+Recall the regression model:
+\[
+y_i = \beta_0 + \beta_1 x_i + \varepsilon_i
+\]
+
+\begin{enumerate}
+    \item Which part is the model?
+    \item Which part represents uncertainty?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+One part you control.
+One part you never will.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Gaussian Noise Assumption}
+%=================================================
+
+\textbf{Problem 3.4}
+
+Suppose the noise satisfies:
+\[
+\varepsilon_i \sim \mathcal{N}(0,\sigma^2)
+\]
+
+\begin{enumerate}
+    \item What does the mean represent?
+    \item What does the variance represent?
+    \item Is this assumption about truth or convenience?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Likelihood (Core Concept)}
+%=================================================
+
+\textbf{Problem 3.5 (Very Important)}
+
+Given a single data point $(x_i,y_i)$, write the probability:
+\[
+P(y_i \mid x_i, \beta)
+\]
+
+under the Gaussian noise assumption.
+
+\begin{enumerate}
+    \item What quantity is random?
+    \item What quantity is fixed but unknown?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{From Likelihood to Optimization}
+%=================================================
+
+\textbf{Problem 3.6 (Guided)}
+
+For independent data points, the likelihood is:
+\[
+\mathcal{L}(\beta) =
+\prod_{i=1}^n
+\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(
+-\frac{(y_i - \beta_0 - \beta_1 x_i)^2}{2\sigma^2}
+\right)
+\]
+
+\begin{enumerate}
+    \item Why is there a product?
+    \item Why is maximizing likelihood reasonable?
+\end{enumerate}
+
+\textbf{Guided Hint:}
+
+Independence means probabilities multiply.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Log-Likelihood and Squared Loss}
+%=================================================
+
+\textbf{Problem 3.7 (Magic Moment)}
+
+Take the logarithm of the likelihood in Problem 3.6.
+
+\begin{enumerate}
+    \item What happens to the product?
+    \item What term controls the maximization?
+\end{enumerate}
+
+Explain why maximizing likelihood is equivalent to minimizing:
+\[
+\sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2
+\]
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Meaning of the Solution}
+%=================================================
+
+\textbf{Problem 3.8}
+
+Explain in words:
+
+\begin{quote}
+What does the least-squares solution represent probabilistically?
+\end{quote}
+
+Is it:
+\begin{itemize}
+    \item The true function?
+    \item The most likely function?
+    \item The average function?
+\end{itemize}
+
+Choose carefully and justify.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Beyond Gaussian Noise}
+%=================================================
+
+\textbf{Problem 3.9}
+
+Suppose noise follows a Laplace distribution.
+
+\begin{enumerate}
+    \item Would squared loss still be optimal?
+    \item What loss might appear instead?
+\end{enumerate}
+
+You are not required to derive anything.
+Reason qualitatively.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 3.10}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item Least squares assumes Gaussian noise
+    \item Gaussian noise guarantees correct predictions
+    \item Maximum likelihood produces a point estimate
+    \item Log-likelihood changes the optimizer
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 3.11}
+
+Complete the sentence:
+
+\begin{quote}
+Squared error appears in machine learning because \underline{\hspace{6cm}}.
+\end{quote}
+
+If your answer does not mention probability,
+return to the notes before proceeding.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 3}
+%=================================================
+
+\textbf{Answer 3.1}
+
+Measurements differ due to noise.
+The law is not wrong; observations are imperfect.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.2}
+
+Deterministic error follows a rule.
+Noise is unpredictable variation.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.3}
+
+Model: $\beta_0 + \beta_1 x_i$.
+Uncertainty: $\varepsilon_i$.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.4}
+
+Mean: unbiased noise.
+Variance: noise strength.
+Assumption is about convenience and realism.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.5}
+
+\[
+P(y_i|x_i,\beta)
+=
+\mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2)
+\]
+
+$y_i$ is random.
+$\beta$ is fixed but unknown.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.6}
+
+Product comes from independence.
+MLE chooses parameters that make data most probable.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.7}
+
+Log turns product into sum.
+Maximization depends on squared error term.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.8}
+
+The most likely function given the data.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.9}
+
+Squared loss is no longer optimal.
+Absolute loss would appear.
+
+%-------------------------------------------------
+
+\textbf{Answer 3.10}
+
+Correct: (1), (3)
+
+%-------------------------------------------------
+
+\textbf{Answer 3.11}
+
+Because it arises from Gaussian likelihood.
+%=================================================
+\section{Chapter 4: Classification — When Outputs Are Discrete}
+%=================================================
+
+In regression, outputs are continuous.
+In classification, outputs are discrete.
+
+This single difference forces
+a completely different modeling philosophy.
+
+%=================================================
+\subsection*{Warm-Up: Why Regression Fails}
+%=================================================
+
+\textbf{Problem 4.1}
+
+Suppose:
+\[
+y \in \{0,1\}
+\]
+
+You fit a linear regression model and obtain:
+\[
+\hat{y} = 1.3
+\]
+
+\begin{enumerate}
+    \item Why is this problematic?
+    \item Is the issue numerical or conceptual?
+\end{enumerate}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 4.2}
+
+Explain in words:
+
+Why does classification require
+\begin{itemize}
+    \item probabilities
+    \item not direct predictions
+\end{itemize}
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Probability View of Classification}
+%=================================================
+
+\textbf{Problem 4.3 (Guided)}
+
+In binary classification, we model:
+\[
+P(y=1 \mid x)
+\]
+
+\begin{enumerate}
+    \item What does this quantity represent?
+    \item Why is it more informative than a hard label?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+Decisions come later.
+Uncertainty comes first.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{From Linear Scores to Probabilities}
+%=================================================
+
+\textbf{Problem 4.4}
+
+Suppose we compute a score:
+\[
+z = w^T x + b
+\]
+
+\begin{enumerate}
+    \item What is the range of $z$?
+    \item Why can $z$ not be a probability?
+\end{enumerate}
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Sigmoid Function (Inevitable Choice)}
+%=================================================
+
+\textbf{Problem 4.5 (Magic Moment)}
+
+We want a function that maps:
+\[
+\mathbb{R} \rightarrow (0,1)
+\]
+
+Explain why the sigmoid function:
+\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]
+
+is a natural choice.
+
+Your explanation must mention:
+\begin{itemize}
+    \item monotonicity
+    \item limits at $\pm\infty$
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Logistic Regression Model}
+%=================================================
+
+\textbf{Problem 4.6}
+
+Logistic regression models:
+\[
+P(y=1 \mid x) = \sigma(w^T x + b)
+\]
+
+\begin{enumerate}
+    \item What is the decision boundary?
+    \item What does changing $b$ do geometrically?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Likelihood for Classification}
+%=================================================
+
+\textbf{Problem 4.7 (Guided)}
+
+Given data:
+\[
+(x_i, y_i), \quad y_i \in \{0,1\}
+\]
+
+Write the likelihood:
+\[
+P(y_i \mid x_i, w)
+\]
+
+for:
+\begin{itemize}
+    \item $y_i = 1$
+    \item $y_i = 0$
+\end{itemize}
+
+\textbf{Guided Hint:}
+
+Use:
+\[
+P(y \mid x) =
+\sigma(z)^y (1-\sigma(z))^{1-y}
+\]
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Cross-Entropy Loss Appears}
+%=================================================
+
+\textbf{Problem 4.8 (Very Important)}
+
+Take the log-likelihood of Problem 4.7.
+
+Show that minimizing negative log-likelihood
+is equivalent to minimizing:
+\[
+- \sum_{i=1}^n
+\left[
+y_i \log p_i + (1-y_i)\log(1-p_i)
+\right]
+\]
+
+Explain why squared loss does \emph{not} appear here.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Geometry of Logistic Regression}
+%=================================================
+
+\textbf{Problem 4.9}
+
+Explain carefully:
+
+\begin{enumerate}
+    \item Why is the decision boundary linear?
+    \item Why is the output non-linear?
+\end{enumerate}
+
+Use geometry, not algebra.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Optimization Difference}
+%=================================================
+
+\textbf{Problem 4.10}
+
+Why does logistic regression
+\begin{itemize}
+    \item not have a closed-form solution
+    \item require gradient-based optimization
+\end{itemize}
+
+Explain without computation.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 4.11}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item Logistic regression is a linear classifier
+    \item Logistic regression minimizes squared loss
+    \item Logistic regression outputs probabilities
+    \item Decision boundary depends on sigmoid shape
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 4.12}
+
+Complete the sentence:
+
+\begin{quote}
+Logistic regression is regression on \underline{\hspace{5cm}},
+not on labels.
+\end{quote}
+
+If this feels unclear,
+revisit Chapter 3 before moving on.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 4}
+%=================================================
+
+\textbf{Answer 4.1}
+
+Outputs exceed valid label range.
+Problem is conceptual.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.2}
+
+Classification must express uncertainty.
+Probabilities carry more information than labels.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.3}
+
+It represents belief that $y=1$ given $x$.
+It allows thresholding later.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.4}
+
+$z \in \mathbb{R}$.
+Probabilities must lie in $(0,1)$.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.5}
+
+Sigmoid is monotone and saturates to $0$ and $1$.
+It smoothly maps scores to probabilities.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.6}
+
+Boundary: $w^T x + b = 0$.
+$b$ shifts the boundary.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.7}
+
+\[
+P(y|x) = p^y (1-p)^{1-y}
+\]
+
+%-------------------------------------------------
+
+\textbf{Answer 4.8}
+
+Log-likelihood yields cross-entropy.
+Squared loss contradicts Bernoulli noise model.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.9}
+
+Boundary is linear in $x$.
+Sigmoid only affects confidence, not geometry.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.10}
+
+Likelihood is non-quadratic.
+Normal equations do not exist.
+
+%-------------------------------------------------
+
+\textbf{Answer 4.11}
+
+Correct: (1), (3)
+
+%-------------------------------------------------
+
+\textbf{Answer 4.12}
+
+Probabilities.
+%=================================================
+\section{Chapter 5: Bias--Variance Trade-off}
+%=================================================
+
+Every learning algorithm fails for one of two reasons:
+\begin{itemize}
+    \item It is too simple
+    \item It is too sensitive
+\end{itemize}
+
+This chapter explains this tension mathematically and intuitively.
+
+%=================================================
+\subsection*{Warm-Up: Failure Modes}
+%=================================================
+
+\textbf{Problem 5.1}
+
+You fit a model and observe:
+\begin{itemize}
+    \item Very low training error
+    \item Very high test error
+\end{itemize}
+
+\begin{enumerate}
+    \item What is this phenomenon called?
+    \item Is the model too simple or too complex?
+\end{enumerate}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 5.2}
+
+You fit a different model and observe:
+\begin{itemize}
+    \item High training error
+    \item High test error
+\end{itemize}
+
+\begin{enumerate}
+    \item What is happening now?
+    \item Would more data necessarily fix this?
+\end{enumerate}
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Bias and Variance (Concept First)}
+%=================================================
+
+\textbf{Problem 5.3}
+
+Explain in words:
+
+\begin{itemize}
+    \item What is \textbf{bias}?
+    \item What is \textbf{variance}?
+\end{itemize}
+
+Your explanation must not use formulas.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Mathematical Decomposition}
+%=================================================
+
+\textbf{Problem 5.4 (Guided)}
+
+Suppose:
+\[
+y = f(x) + \varepsilon, \quad \mathbb{E}[\varepsilon] = 0
+\]
+
+Consider the expected squared error:
+\[
+\mathbb{E}[(y - \hat{f}(x))^2]
+\]
+
+\begin{enumerate}
+    \item What does the expectation represent?
+    \item Over what randomness is it taken?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+Imagine retraining the model many times
+on different datasets.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Bias--Variance Decomposition}
+%=================================================
+
+\textbf{Problem 5.5 (Magic Moment)}
+
+Show that:
+\[
+\mathbb{E}[(y - \hat{f}(x))^2]
+=
+\underbrace{(\mathbb{E}[\hat{f}(x)] - f(x))^2}_{\text{Bias}^2}
++
+\underbrace{\mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2]}_{\text{Variance}}
++
+\underbrace{\sigma^2}_{\text{Noise}}
+\]
+
+You do \emph{not} need to derive this fully.
+Instead, explain:
+\begin{itemize}
+    \item What each term means
+    \item Which terms you can control
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{k-NN as a Bias--Variance Machine}
+%=================================================
+
+\textbf{Problem 5.6}
+
+Consider k-NN regression.
+
+\begin{enumerate}
+    \item What happens when $k=1$?
+    \item What happens when $k=n$?
+    \item Which extreme has high variance?
+    \item Which extreme has high bias?
+\end{enumerate}
+
+Explain using intuition, not formulas.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Model Complexity Curve}
+%=================================================
+
+\textbf{Problem 5.7}
+
+Sketch (mentally or on paper):
+\begin{itemize}
+    \item Training error vs model complexity
+    \item Test error vs model complexity
+\end{itemize}
+
+Explain why the test error curve is U-shaped.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Regularization as Bias Control}
+%=================================================
+
+\textbf{Problem 5.8}
+
+Ridge regression adds:
+\[
+\lambda \|\beta\|^2
+\]
+
+\begin{enumerate}
+    \item Which part of bias--variance does this affect?
+    \item Why does shrinking coefficients reduce variance?
+\end{enumerate}
+
+Explain geometrically.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Data vs Model}
+%=================================================
+
+\textbf{Problem 5.9}
+
+Which of the following fixes high variance?
+\begin{itemize}
+    \item More data
+    \item Simpler model
+    \item Stronger regularization
+\end{itemize}
+
+Which fixes high bias?
+
+Explain carefully.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 5.10}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item Increasing model complexity always improves performance
+    \item Bias comes from wrong assumptions
+    \item Variance comes from sensitivity to data
+    \item Noise can be eliminated with enough data
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 5.11}
+
+Complete the sentence:
+
+\begin{quote}
+Most machine learning failures happen because \underline{\hspace{6cm}}.
+\end{quote}
+
+Your answer should mention bias or variance explicitly.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 5}
+%=================================================
+
+\textbf{Answer 5.1}
+
+Overfitting.
+Model is too complex.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.2}
+
+Underfitting.
+More data alone does not fix bias.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.3}
+
+Bias: systematic error from wrong assumptions.  
+Variance: sensitivity to training data.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.4}
+
+Expectation is over different training sets and noise.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.5}
+
+Bias measures average error.
+Variance measures fluctuation.
+Noise is irreducible.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.6}
+
+$k=1$: memorization, high variance.  
+$k=n$: averaging, high bias.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.7}
+
+Training error decreases.
+Test error decreases then increases.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.8}
+
+Regularization increases bias slightly
+but reduces variance by stabilizing solutions.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.9}
+
+High variance: more data, simpler model, regularization.  
+High bias: more complex model.
+
+%-------------------------------------------------
+
+\textbf{Answer 5.10}
+
+Correct: (2), (3)
+
+%-------------------------------------------------
+
+\textbf{Answer 5.11}
+
+Because of imbalance between bias and variance.
+
+%=================================================
+\section{Chapter 6: k-NN and Naive Bayes — Two Opposite Worlds}
+%=================================================
+
+This chapter contrasts two algorithms that learn in fundamentally
+different ways:
+
+\begin{itemize}
+    \item k-NN: learning by geometry
+    \item Naive Bayes: learning by probability
+\end{itemize}
+
+Understanding both clarifies what learning \emph{is not}.
+
+%=================================================
+\subsection*{Warm-Up: Two Philosophies}
+%=================================================
+
+\textbf{Problem 6.1}
+
+Explain in words:
+
+\begin{enumerate}
+    \item What does it mean to learn by similarity?
+    \item What does it mean to learn by probability?
+\end{enumerate}
+
+Which feels more human? Which feels more mathematical?
+
+\vspace{3cm}
+
+%=================================================
+\subsection{k-Nearest Neighbours (Geometry Only)}
+%=================================================
+
+\textbf{Problem 6.2}
+
+Given a test point $x^\ast$, k-NN predicts its label using nearby points.
+
+\begin{enumerate}
+    \item What does “nearby” mean mathematically?
+    \item Where does linear algebra enter k-NN?
+\end{enumerate}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 6.3 (Guided)}
+
+k-NN has no explicit training phase.
+
+\begin{enumerate}
+    \item Where is the “model” stored?
+    \item Why is k-NN called a lazy learner?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+Ask: when does computation actually happen?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Bias--Variance in k-NN}
+%=================================================
+
+\textbf{Problem 6.4 (Very Important)}
+
+Consider k-NN classification.
+
+\begin{enumerate}
+    \item Why does small $k$ lead to high variance?
+    \item Why does large $k$ lead to high bias?
+\end{enumerate}
+
+Explain using intuition, not formulas.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Curse of Dimensionality}
+%=================================================
+
+\textbf{Problem 6.5}
+
+As dimension $d$ increases:
+
+\begin{enumerate}
+    \item What happens to distances between points?
+    \item Why does neighbourhood information degrade?
+\end{enumerate}
+
+Explain why k-NN struggles in high dimensions.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Probabilistic View of k-NN}
+%=================================================
+
+\textbf{Problem 6.6}
+
+k-NN can be viewed as estimating:
+\[
+P(y \mid x)
+\approx
+\frac{\text{number of neighbours of class } y}{k}
+\]
+
+\begin{enumerate}
+    \item Is this estimate parametric or non-parametric?
+    \item What happens as $n \to \infty$?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Naive Bayes (Probability Only)}
+%=================================================
+
+\textbf{Problem 6.7}
+
+Naive Bayes uses Bayes’ theorem:
+\[
+P(y \mid x) \propto P(x \mid y)P(y)
+\]
+
+\begin{enumerate}
+    \item What does $P(y)$ represent?
+    \item What does $P(x \mid y)$ represent?
+\end{enumerate}
+
+Explain without formulas.
+
+\vspace{3cm}
+
+%=================================================
+\subsection{The Naive Assumption}
+%=================================================
+
+\textbf{Problem 6.8 (Critical Thinking)}
+
+Naive Bayes assumes:
+\[
+P(x_1,\dots,x_d \mid y)
+=
+\prod_{j=1}^d P(x_j \mid y)
+\]
+
+\begin{enumerate}
+    \item What does this assumption mean?
+    \item Why is it almost always false?
+    \item Why does Naive Bayes still work?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Decision Rule and Logarithms}
+%=================================================
+
+\textbf{Problem 6.9}
+
+Naive Bayes predicts:
+\[
+\hat{y} = \arg\max_y
+\left[
+\log P(y) + \sum_j \log P(x_j \mid y)
+\right]
+\]
+
+\begin{enumerate}
+    \item Why do we use logarithms?
+    \item Does this change the decision boundary?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Geometry vs Probability}
+%=================================================
+
+\textbf{Problem 6.10}
+
+Compare k-NN and Naive Bayes:
+
+\begin{enumerate}
+    \item Which uses distances?
+    \item Which uses distributions?
+    \item Which needs more data?
+\end{enumerate}
+
+Explain conceptually.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 6.11}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item k-NN is a parametric model
+    \item Naive Bayes assumes feature independence
+    \item k-NN suffers from curse of dimensionality
+    \item Naive Bayes requires large datasets
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 6.12}
+
+Complete the sentence:
+
+\begin{quote}
+k-NN works because of \underline{\hspace{4cm}},
+while Naive Bayes works because of \underline{\hspace{4cm}}.
+\end{quote}
+
+If this feels vague,
+revisit the notes before proceeding.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 6}
+%=================================================
+
+\textbf{Answer 6.1}
+
+Similarity uses closeness.
+Probability uses uncertainty modeling.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.2}
+
+Nearness is defined by a distance metric.
+Inner products define distances.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.3}
+
+The dataset is the model.
+Computation happens at prediction time.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.4}
+
+Small $k$ memorizes noise.
+Large $k$ oversmooths structure.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.5}
+
+Distances concentrate.
+Local neighborhoods lose meaning.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.6}
+
+Non-parametric.
+Estimate converges with infinite data.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.7}
+
+Prior belief about classes.
+Likelihood of features given class.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.8}
+
+Independence given class.
+False in reality.
+Still works due to error cancellation.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.9}
+
+Log prevents underflow.
+Decision boundary is unchanged.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.10}
+
+k-NN uses geometry.
+Naive Bayes uses probability.
+Naive Bayes needs less data.
+
+%-------------------------------------------------
+
+\textbf{Answer 6.11}
+
+Correct: (2), (3)
+
+%-------------------------------------------------
+
+\textbf{Answer 6.12}
+
+Geometry, probability.
+
+%=================================================
+\section{Chapter 7: LDA and SVM — Optimal Decision Boundaries}
+%=================================================
+
+This chapter studies two algorithms that both produce
+\emph{linear decision boundaries},
+but for fundamentally different reasons.
+
+\begin{itemize}
+    \item LDA: boundaries come from probability
+    \item SVM: boundaries come from geometry
+\end{itemize}
+
+Understanding this contrast is a major milestone.
+
+%=================================================
+\subsection*{Warm-Up: What Is an Optimal Boundary?}
+%=================================================
+
+\textbf{Problem 7.1}
+
+Suppose two classes are linearly separable.
+
+\begin{enumerate}
+    \item Are there infinitely many separating lines?
+    \item If yes, what could “best” possibly mean?
+\end{enumerate}
+
+Explain in words.
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Linear Discriminant Analysis (Probability Shapes Geometry)}
+%=================================================
+
+\textbf{Problem 7.2}
+
+LDA assumes:
+\[
+x \mid y=k \sim \mathcal{N}(\mu_k, \Sigma)
+\]
+
+\begin{enumerate}
+    \item What does the mean $\mu_k$ represent geometrically?
+    \item What does the covariance $\Sigma$ represent?
+\end{enumerate}
+
+Explain using geometry, not formulas.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 7.3 (Guided)}
+
+Bayes classification assigns:
+\[
+\hat{y} = \arg\max_k P(y=k \mid x)
+\]
+
+\begin{enumerate}
+    \item Which terms depend on $x$?
+    \item Which terms affect the boundary shape?
+\end{enumerate}
+
+\textbf{Guided Hint (Strang Way):}
+
+Ignore constants.
+Focus on what varies with position.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Why LDA Produces Linear Boundaries}
+%=================================================
+
+\textbf{Problem 7.4 (Magic Moment)}
+
+Under the shared covariance assumption,
+show conceptually why the decision boundary becomes:
+\[
+w^T x + b = 0
+\]
+
+You are \emph{not} asked to derive the formula.
+Explain why quadratic terms cancel.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Scatter Matrices and Separation}
+%=================================================
+
+\textbf{Problem 7.5}
+
+Define in words:
+\begin{itemize}
+    \item Within-class scatter
+    \item Between-class scatter
+\end{itemize}
+
+What does LDA try to maximize?
+What does it try to minimize?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Optimization View of LDA}
+%=================================================
+
+\textbf{Problem 7.6 (Guided)}
+
+LDA maximizes:
+\[
+J(w) = \frac{w^T S_B w}{w^T S_W w}
+\]
+
+\begin{enumerate}
+    \item What does the numerator measure?
+    \item What does the denominator measure?
+    \item Why is this a sensible objective?
+\end{enumerate}
+
+\textbf{Guided Hint:}
+
+Think: separation vs compactness.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Support Vector Machines (Geometry Alone)}
+%=================================================
+
+\textbf{Problem 7.7}
+
+SVM assumes no probability model.
+
+\begin{enumerate}
+    \item What information does SVM use?
+    \item What information does it completely ignore?
+\end{enumerate}
+
+Explain why this is powerful.
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Margin Geometry}
+%=================================================
+
+\textbf{Problem 7.8 (Very Important)}
+
+The margin of a hyperplane is:
+\[
+\frac{2}{\|w\|}
+\]
+
+\begin{enumerate}
+    \item What does margin measure geometrically?
+    \item Why does maximizing margin improve robustness?
+\end{enumerate}
+
+Explain without algebra.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Why Only Support Vectors Matter}
+%=================================================
+
+\textbf{Problem 7.9}
+
+In SVM, only points closest to the boundary affect the solution.
+
+\begin{enumerate}
+    \item Why do far-away points not matter?
+    \item What does this say about robustness?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Soft Margin Intuition}
+%=================================================
+
+\textbf{Problem 7.10}
+
+Soft-margin SVM allows violations.
+
+\begin{enumerate}
+    \item What problem in real data does this address?
+    \item What does parameter $C$ control conceptually?
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Kernel Trick (Conceptual)}
+%=================================================
+
+\textbf{Problem 7.11}
+
+The kernel trick replaces:
+\[
+x_i^T x_j \rightarrow K(x_i,x_j)
+\]
+
+\begin{enumerate}
+    \item What does this achieve geometrically?
+    \item Why is explicit mapping unnecessary?
+\end{enumerate}
+
+Explain using inner-product intuition.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{LDA vs SVM (Deep Comparison)}
+%=================================================
+
+\textbf{Problem 7.12}
+
+Compare LDA and SVM:
+
+\begin{enumerate}
+    \item Which is generative?
+    \item Which is discriminative?
+    \item Which uses class distributions?
+    \item Which focuses on boundary points?
+\end{enumerate}
+
+Explain conceptually.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 7.13}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item LDA always produces linear boundaries
+    \item SVM maximizes classification accuracy
+    \item LDA requires Gaussian assumptions
+    \item SVM ignores non-support vectors
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 7.14}
+
+Complete the sentence:
+
+\begin{quote}
+LDA draws boundaries based on \underline{\hspace{4cm}},
+while SVM draws boundaries based on \underline{\hspace{4cm}}.
+\end{quote}
+
+If this feels fuzzy,
+revisit the lifetime notes before continuing.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 7}
+%=================================================
+
+\textbf{Answer 7.1}
+
+Yes.
+Best depends on an optimality criterion.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.2}
+
+Mean is class center.
+Covariance describes spread and shape.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.3}
+
+$x$-dependent terms define boundaries.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.4}
+
+Shared covariance cancels quadratic terms,
+leaving linear functions.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.5}
+
+Within-class: compactness.
+Between-class: separation.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.6}
+
+Numerator separates classes.
+Denominator penalizes spread.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.7}
+
+Uses labels and geometry.
+Ignores distributions.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.8}
+
+Margin measures confidence.
+Larger margin tolerates noise.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.9}
+
+They do not constrain the boundary.
+Only nearest points limit movement.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.10}
+
+Handles noise and overlap.
+$C$ balances margin vs violations.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.11}
+
+Creates nonlinear boundaries implicitly.
+Inner products encode geometry.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.12}
+
+LDA is generative.
+SVM is discriminative.
+
+%-------------------------------------------------
+
+\textbf{Answer 7.13}
+
+Correct: (1), (3), (4)
+
+%-------------------------------------------------
+
+\textbf{Answer 7.14}
+
+Probability, geometry.
+%=================================================
+\section{Chapter 8: Regularization, Generalization, and Model Choice}
+%=================================================
+
+This chapter answers the most important practical question:
+
+\begin{quote}
+Which model should I use, and why?
+\end{quote}
+
+The answer is never a formula.
+It is a reasoning process.
+
+%=================================================
+\subsection*{Warm-Up: Why Models Overfit}
+%=================================================
+
+\textbf{Problem 8.1}
+
+Suppose a model fits training data perfectly.
+
+\begin{enumerate}
+    \item Does this guarantee good test performance?
+    \item What unseen danger may still exist?
+\end{enumerate}
+
+Explain in words.
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Regularization as Constraint}
+%=================================================
+
+\textbf{Problem 8.2}
+
+Ridge regression minimizes:
+\[
+\|y - X\beta\|^2 + \lambda \|\beta\|^2
+\]
+
+\begin{enumerate}
+    \item What does the extra term penalize?
+    \item What geometric object does it constrain?
+\end{enumerate}
+
+Explain without computation.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Lasso vs Ridge (Geometry)}
+%=================================================
+
+\textbf{Problem 8.3 (Magic Geometry)}
+
+Lasso uses:
+\[
+\|\beta\|_1 \leq c
+\quad \text{while Ridge uses} \quad
+\|\beta\|_2 \leq c
+\]
+
+\begin{enumerate}
+    \item What is the shape of these constraints?
+    \item Why does Lasso encourage sparsity?
+\end{enumerate}
+
+Draw pictures if needed.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Bias--Variance Revisited}
+%=================================================
+
+\textbf{Problem 8.4}
+
+Explain how increasing $\lambda$ in ridge regression affects:
+\begin{itemize}
+    \item Bias
+    \item Variance
+\end{itemize}
+
+Why is this a trade-off?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Early Stopping}
+%=================================================
+
+\textbf{Problem 8.5}
+
+Training error decreases monotonically.
+Validation error often does not.
+
+\begin{enumerate}
+    \item Why does validation error eventually increase?
+    \item How does early stopping act like regularization?
+\end{enumerate}
+
+Explain intuitively.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Implicit Regularization}
+%=================================================
+
+\textbf{Problem 8.6}
+
+Some algorithms generalize well even without explicit penalties.
+
+\begin{enumerate}
+    \item How does SGD introduce randomness?
+    \item Why can this randomness help?
+\end{enumerate}
+
+Relate this to variance reduction.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Choosing a Model (Very Important)}
+%=================================================
+
+\textbf{Problem 8.7}
+
+For each scenario, choose a reasonable model and explain why:
+
+\begin{enumerate}
+    \item Very small dataset, high-dimensional features
+    \item Large dataset, simple linear relationship
+    \item Nonlinear decision boundary, little prior knowledge
+\end{enumerate}
+
+No formulas allowed.
+
+\vspace{5cm}
+
+%=================================================
+\subsection{Cross-Validation}
+%=================================================
+
+\textbf{Problem 8.8}
+
+Explain:
+\begin{itemize}
+    \item Why we split data into folds
+    \item What cross-validation estimates
+\end{itemize}
+
+What mistake does it help prevent?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{What Regularization Cannot Fix}
+%=================================================
+
+\textbf{Problem 8.9}
+
+Which of the following problems
+\emph{cannot} be fixed by regularization?
+
+\begin{enumerate}
+    \item Incorrect labels
+    \item Insufficient data
+    \item High variance
+    \item Wrong model assumptions
+\end{enumerate}
+
+Explain briefly.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Exam Traps (GATE Style)}
+%=================================================
+
+\textbf{Problem 8.10}
+
+Which statements are true?
+
+\begin{enumerate}
+    \item Increasing $\lambda$ always improves generalization
+    \item Lasso performs feature selection
+    \item Early stopping reduces overfitting
+    \item Regularization replaces data
+\end{enumerate}
+
+(Choose all that apply.)
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Final Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 8.11}
+
+Complete the sentence:
+
+\begin{quote}
+Choosing a machine learning model is really about \underline{\hspace{6cm}}.
+\end{quote}
+
+Your answer should mention bias, variance, or generalization.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 8}
+%=================================================
+
+\textbf{Answer 8.1}
+
+No.
+Overfitting may still occur.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.2}
+
+Penalizes large coefficients.
+Constrains solution space.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.3}
+
+Lasso: diamond.
+Ridge: circle.
+Corners promote sparsity.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.4}
+
+Bias increases.
+Variance decreases.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.5}
+
+Model starts fitting noise.
+Stopping early limits complexity.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.6}
+
+SGD adds noise to updates.
+Noise prevents sharp minima.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.7}
+
+Small data: Naive Bayes / regularized linear.
+Simple relation: linear regression.
+Nonlinear boundary: kernel methods / NN.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.8}
+
+Estimates test performance.
+Prevents tuning on test data.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.9}
+
+Incorrect labels and insufficient data.
+
+%-------------------------------------------------
+
+\textbf{Answer 8.10}
+
+Correct: (2), (3)
+
+%-------------------------------------------------
+
+\textbf{Answer 8.11}
+
+Managing bias--variance trade-off.
+%=================================================
+\section{Chapter 9: Mixed Reasoning Problems}
+%=================================================
+
+This chapter tests whether ideas have fused.
+
+No problem here belongs to a single topic.
+Each problem rewards conceptual connections.
+
+%=================================================
+\subsection*{Warm-Up: Identify the Dominant Lens}
+%=================================================
+
+\textbf{Problem 9.1}
+
+For each task, identify the dominant viewpoint:
+\begin{itemize}
+    \item Geometry
+    \item Probability
+    \item Optimization
+\end{itemize}
+
+\begin{enumerate}
+    \item Least squares regression
+    \item Naive Bayes classification
+    \item Support Vector Machines
+\end{enumerate}
+
+Explain briefly.
+
+\vspace{3cm}
+
+%=================================================
+\subsection{Regression + Probability}
+%=================================================
+
+\textbf{Problem 9.2}
+
+You fit linear regression using squared loss.
+
+\begin{enumerate}
+    \item What noise model are you implicitly assuming?
+    \item If the noise were heavy-tailed, what failure might occur?
+\end{enumerate}
+
+Explain without formulas.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 9.3}
+
+Two regression models give identical training error.
+One has much larger coefficient magnitudes.
+
+\begin{enumerate}
+    \item Which has higher variance?
+    \item Which is more sensitive to noise?
+\end{enumerate}
+
+Explain geometrically.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Classification + Geometry}
+%=================================================
+
+\textbf{Problem 9.4}
+
+Logistic regression and SVM both produce linear boundaries.
+
+\begin{enumerate}
+    \item What quantity does logistic regression optimize?
+    \item What quantity does SVM optimize?
+\end{enumerate}
+
+Why might their boundaries differ on the same data?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{k-NN + Bias--Variance}
+%=================================================
+
+\textbf{Problem 9.5}
+
+Consider a high-dimensional dataset with limited samples.
+
+\begin{enumerate}
+    \item Why is k-NN likely to fail?
+    \item Which part of bias--variance dominates?
+\end{enumerate}
+
+What model family would you prefer and why?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Naive Bayes vs Logistic Regression}
+%=================================================
+
+\textbf{Problem 9.6}
+
+Naive Bayes often performs well with small data.
+
+\begin{enumerate}
+    \item What strong assumption enables this?
+    \item Why does logistic regression usually need more data?
+\end{enumerate}
+
+Explain conceptually.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{LDA vs Logistic Regression}
+%=================================================
+
+\textbf{Problem 9.7}
+
+Both LDA and logistic regression can produce linear boundaries.
+
+\begin{enumerate}
+    \item Which assumes a data distribution?
+    \item Which directly models decision boundary?
+\end{enumerate}
+
+When would LDA outperform logistic regression?
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Regularization Across Models}
+%=================================================
+
+\textbf{Problem 9.8}
+
+Regularization appears in:
+\begin{itemize}
+    \item Ridge regression
+    \item Logistic regression
+    \item Neural networks
+\end{itemize}
+
+Explain:
+\begin{enumerate}
+    \item What common problem it addresses
+    \item How the mechanism differs across models
+\end{enumerate}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{GATE-Style Synthesis}
+%=================================================
+
+\textbf{Problem 9.9}
+
+A dataset is:
+\begin{itemize}
+    \item Small
+    \item High-dimensional
+    \item Slightly noisy
+\end{itemize}
+
+Which models are reasonable?
+Which are risky?
+
+Choose from:
+\begin{itemize}
+    \item k-NN
+    \item Naive Bayes
+    \item Linear regression
+    \item SVM
+\end{itemize}
+
+Justify each choice briefly.
+
+\vspace{4cm}
+
+%=================================================
+\subsection{One-Step-Deeper Thinking}
+%=================================================
+
+\textbf{Problem 9.10 (Very Important)}
+
+Explain why the following statement is false:
+
+\begin{quote}
+``A model with lower training error is always better.''
+\end{quote}
+
+Your explanation must use:
+\begin{itemize}
+    \item Bias
+    \item Variance
+    \item Generalization
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\subsection{Reflection (Magic Check)}
+%=================================================
+
+\textbf{Problem 9.11}
+
+Complete the sentence:
+
+\begin{quote}
+Machine learning models differ mainly in how they balance
+\underline{\hspace{5cm}} and \underline{\hspace{5cm}}.
+\end{quote}
+
+If this answer does not come instantly,
+pause and revisit earlier chapters.
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 9}
+%=================================================
+
+\textbf{Answer 9.1}
+
+Regression: geometry + optimization.  
+Naive Bayes: probability.  
+SVM: geometry.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.2}
+
+Gaussian noise.
+Sensitive to outliers.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.3}
+
+Larger coefficients imply higher variance.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.4}
+
+Logistic: likelihood.
+SVM: margin.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.5}
+
+Distances lose meaning.
+Variance dominates.
+Prefer regularized parametric models.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.6}
+
+Independence assumption.
+Logistic must estimate boundary directly.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.7}
+
+LDA assumes distributions.
+Logistic does not.
+LDA wins when assumptions hold.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.8}
+
+Controls variance.
+Mechanism depends on model structure.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.9}
+
+Naive Bayes: good.
+SVM: possible with care.
+k-NN: risky.
+Linear regression: risky unless regularized.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.10}
+
+Low training error may reflect overfitting.
+
+%-------------------------------------------------
+
+\textbf{Answer 9.11}
+
+Bias and variance.
+%=================================================
+\section{Chapter 10: Hard Mixed Problems}
+%=================================================
+
+These problems are deliberately compact.
+Each one tests multiple ideas at once.
+
+You should feel slightly uncomfortable.
+That is the correct signal.
+
+%=================================================
+\subsection*{Problem Set A: Explain Without Computing}
+%=================================================
+
+\textbf{Problem 10.1}
+
+Explain why the following statement is false:
+
+\begin{quote}
+``If data is linearly separable, logistic regression and SVM
+will always produce the same classifier.''
+\end{quote}
+
+Your explanation must reference:
+\begin{itemize}
+    \item Objective function
+    \item Geometry of solutions
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 10.2}
+
+Explain why squared loss is reasonable for regression
+but unreasonable for classification.
+
+Your explanation must reference:
+\begin{itemize}
+    \item Noise models
+    \item Output space
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\subsection*{Problem Set B: Counterexample Thinking}
+%=================================================
+
+\textbf{Problem 10.3}
+
+Give a situation where:
+\begin{itemize}
+    \item Training error is zero
+    \item Test error is very high
+\end{itemize}
+
+Describe:
+\begin{enumerate}
+    \item The dataset
+    \item The model
+    \item The failure mechanism
+\end{enumerate}
+
+No formulas allowed.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 10.4}
+
+Naive Bayes assumes conditional independence.
+
+Construct a scenario where:
+\begin{itemize}
+    \item This assumption is violated
+    \item Naive Bayes still performs well
+\end{itemize}
+
+Explain \emph{why} it works anyway.
+
+\vspace{4cm}
+
+%=================================================
+\subsection*{Problem Set C: Geometry Meets Probability}
+%=================================================
+
+\textbf{Problem 10.5}
+
+LDA and logistic regression both yield linear boundaries.
+
+\begin{enumerate}
+    \item Which one minimizes classification error directly?
+    \item Which one relies on distributional assumptions?
+\end{enumerate}
+
+Explain how two methods can agree geometrically
+but disagree statistically.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 10.6}
+
+Explain why adding regularization
+can improve test accuracy
+even though it worsens training accuracy.
+
+Your explanation must mention:
+\begin{itemize}
+    \item Bias
+    \item Variance
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\subsection*{Problem Set D: Model Choice Reasoning}
+%=================================================
+
+\textbf{Problem 10.7}
+
+You are given:
+\begin{itemize}
+    \item 30 samples
+    \item 1,000 features
+\end{itemize}
+
+Which of the following would you \emph{avoid} and why?
+
+\begin{itemize}
+    \item k-NN
+    \item Naive Bayes
+    \item Regularized logistic regression
+    \item SVM with linear kernel
+\end{itemize}
+
+Explain your reasoning in words.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 10.8}
+
+Explain why cross-validation is a model
+\emph{selection} tool, not a model \emph{training} tool.
+
+Why is confusing the two dangerous?
+
+\vspace{4cm}
+
+%=================================================
+\subsection*{Problem Set E: One-Level Deeper}
+%=================================================
+
+\textbf{Problem 10.9 (Very Important)}
+
+Explain why the following belief is misleading:
+
+\begin{quote}
+``More data always fixes overfitting.''
+\end{quote}
+
+Your explanation must reference:
+\begin{itemize}
+    \item Model assumptions
+    \item Irreducible noise
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\textbf{Problem 10.10}
+
+Explain why neural networks
+do not invalidate classical machine learning,
+but instead generalize it.
+
+Your explanation must reference:
+\begin{itemize}
+    \item Linear models
+    \item Feature learning
+\end{itemize}
+
+\vspace{4cm}
+
+%=================================================
+\section*{Answers — Chapter 10}
+%=================================================
+
+\textbf{Answer 10.1}
+
+Different objectives.
+SVM maximizes margin.
+Logistic maximizes likelihood.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.2}
+
+Squared loss assumes Gaussian noise.
+Classification outputs are Bernoulli.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.3}
+
+High-degree polynomial on small dataset.
+Memorization causes variance explosion.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.4}
+
+Features correlated but class-separating.
+Errors cancel out.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.5}
+
+Logistic minimizes likelihood-based loss.
+LDA assumes Gaussian distributions.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.6}
+
+Regularization reduces variance
+at cost of bias.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.7}
+
+Avoid k-NN.
+Distance becomes meaningless.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.8}
+
+Cross-validation estimates generalization.
+Training must not see validation data.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.9}
+
+Bad assumptions and noise persist.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.10}
+
+NNs learn representations automatically.
+
+%-------------------------------------------------
+
+\textbf{Answer 10.11}
+
+Understanding means knowing
+assumptions, geometry, failure modes.
+\end{document}
