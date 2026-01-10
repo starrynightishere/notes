@@ -1,0 +1,2228 @@
+\documentclass[11pt]{book}
+
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=1in}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    frame=single,
+    breaklines=true
+}
+
+\begin{document}
+
+\title{PyTorch from First Principles}
+\author{A First-Principles Path to Deep Learning}
+\date{}
+\maketitle
+
+\tableofcontents
+\clearpage
+
+%=================================================
+\chapter{Tensors, Memory, and Shapes}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+This chapter answers one question:
+\begin{quote}
+What is a \texttt{torch.Tensor}, really?
+\end{quote}
+
+Before gradients.  
+Before models.  
+Before training.
+
+You must see tensors as:
+\begin{itemize}
+    \item Numbers in memory
+    \item With shape
+    \item With rules
+\end{itemize}
+
+%=================================================
+\section{Tensor Is Not a Matrix (Mental Reset)}
+%=================================================
+
+A tensor is:
+\begin{quote}
+A block of numbers stored in memory with a shape interpretation.
+\end{quote}
+
+A matrix is just a:
+\[
+\text{2D tensor}
+\]
+
+PyTorch treats all of these uniformly.
+
+%=================================================
+\section{Creating Tensors}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+import torch
+
+x = torch.tensor([1.0, 2.0, 3.0])
+W = torch.randn(2, 3)
+b = torch.zeros(2)
+\end{lstlisting}
+
+Interpretation:
+\begin{itemize}
+    \item \texttt{x} is a vector in $\mathbb{R}^3$
+    \item \texttt{W} is a matrix in $\mathbb{R}^{2 \times 3}$
+    \item \texttt{b} is a vector in $\mathbb{R}^2$
+\end{itemize}
+
+Nothing here is ML yet.
+
+%=================================================
+\section{Problem 1.1 — Shape Reading (Critical)}
+%=================================================
+
+Given:
+\begin{lstlisting}[language=Python]
+A = torch.randn(4, 5)
+B = torch.randn(5)
+\end{lstlisting}
+
+Answer:
+\begin{enumerate}
+    \item Shape of \texttt{A}
+    \item Shape of \texttt{B}
+    \item Shape of \texttt{A @ B}
+\end{enumerate}
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+\[
+A \in \mathbb{R}^{4 \times 5}, \quad
+B \in \mathbb{R}^{5}, \quad
+A @ B \in \mathbb{R}^{4}
+\]
+
+%=================================================
+\section{Memory and Views (Very Important)}
+%=================================================
+
+PyTorch often returns:
+\begin{itemize}
+    \item Views, not copies
+\end{itemize}
+
+\begin{lstlisting}[language=Python]
+x = torch.arange(6)
+y = x.view(2, 3)
+\end{lstlisting}
+
+Both share memory.
+
+%=================================================
+\section{Problem 1.2 — View Intuition}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item Why changing \texttt{y} changes \texttt{x}
+\end{itemize}
+
+What does this imply for debugging?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+They reference the same memory block.
+
+%=================================================
+\section{Contiguity (Hidden Detail)}
+%=================================================
+
+Some operations require contiguous memory.
+
+\begin{lstlisting}[language=Python]
+x = torch.randn(3, 4)
+y = x.t()
+\end{lstlisting}
+
+\texttt{y} may not be contiguous.
+
+%=================================================
+\section{Problem 1.3 — Why This Matters}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Memory layout affects performance
+\end{itemize}
+
+Why should you care as a learner?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Non-contiguous memory may require copying.
+
+%=================================================
+\section{CPU vs GPU (Conceptual Only)}
+%=================================================
+
+A tensor lives on a:
+\begin{itemize}
+    \item CPU or GPU
+\end{itemize}
+
+\begin{lstlisting}[language=Python]
+x = torch.randn(3)
+x = x.to('cuda')
+\end{lstlisting}
+
+Only location changes.  
+Math does not.
+
+%=================================================
+\section{Problem 1.4 — Location Thinking}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item Why mixing CPU and GPU tensors fails
+\end{itemize}
+
+What rule is enforced?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Operations require tensors on the same device.
+
+%=================================================
+\section{Batch Dimension (Preview)}
+%=================================================
+
+A batch is just:
+\begin{quote}
+An extra leading dimension.
+\end{quote}
+
+\begin{lstlisting}[language=Python]
+X = torch.randn(32, 784)
+\end{lstlisting}
+
+Means:
+\begin{itemize}
+    \item 32 samples
+    \item Each with 784 features
+\end{itemize}
+
+%=================================================
+\section{Problem 1.5 — Batch Reasoning}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Batch size does not change the model
+\end{itemize}
+
+What changes instead?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Only the number of parallel inputs.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 1.6}
+
+Explain what a tensor is:
+\begin{itemize}
+    \item Without using PyTorch
+    \item Without using matrices
+\end{itemize}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+A structured block of numbers stored in memory.
+%=================================================
+\chapter{Forward Pass in Pure PyTorch — Math to Code Line-by-Line}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+This chapter answers:
+\begin{quote}
+How does a mathematical model become executable code?
+\end{quote}
+
+No training yet.  
+No gradients yet.  
+
+Only:
+\begin{itemize}
+    \item Forward computation
+    \item Shapes
+    \item Correctness
+\end{itemize}
+
+%=================================================
+\section{The Mathematical Model}
+%=================================================
+
+We start with a single linear layer:
+\[
+z = XW^T + b
+\]
+
+Where:
+\begin{itemize}
+    \item $X \in \mathbb{R}^{n \times d}$ (batch of inputs)
+    \item $W \in \mathbb{R}^{m \times d}$ (weights)
+    \item $b \in \mathbb{R}^{m}$ (bias)
+    \item $z \in \mathbb{R}^{n \times m}$
+\end{itemize}
+
+This is not ML yet.  
+It is linear algebra.
+
+%=================================================
+\section{Pure PyTorch Implementation}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+import torch
+
+# dimensions
+n, d, m = 4, 3, 2
+
+X = torch.randn(n, d)
+W = torch.randn(m, d)
+b = torch.randn(m)
+
+Z = X @ W.T + b
+\end{lstlisting}
+
+This code is a *direct transcription* of the equation.
+
+%=================================================
+\section{Problem 2.1 — Shape Verification (Critical)}
+%=================================================
+
+Verify the shape of:
+\begin{itemize}
+    \item \texttt{X}
+    \item \texttt{W}
+    \item \texttt{W.T}
+    \item \texttt{Z}
+\end{itemize}
+
+Explain why broadcasting works for \texttt{+ b}.
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+\[
+X:(n \times d),\;
+W:(m \times d),\;
+W^T:(d \times m),\;
+Z:(n \times m)
+\]
+
+Bias broadcasts across batch dimension.
+
+%=================================================
+\section{Adding a Nonlinearity}
+%=================================================
+
+We now apply ReLU:
+\[
+a = \max(0, z)
+\]
+
+PyTorch implementation:
+\begin{lstlisting}[language=Python]
+A = torch.clamp(Z, min=0)
+\end{lstlisting}
+
+This is elementwise.
+
+%=================================================
+\section{Problem 2.2 — Elementwise Thinking}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item ReLU does not change tensor shape
+\end{itemize}
+
+What kind of operation is this?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Elementwise nonlinearity.
+
+%=================================================
+\section{Building a Two-Layer Forward Pass}
+%=================================================
+
+Mathematically:
+\[
+Z_1 = XW_1^T + b_1,\quad
+A_1 = \text{ReLU}(Z_1)
+\]
+\[
+Z_2 = A_1W_2^T + b_2
+\]
+
+Pure PyTorch:
+\begin{lstlisting}[language=Python]
+W1 = torch.randn(m, d)
+b1 = torch.randn(m)
+
+W2 = torch.randn(1, m)
+b2 = torch.randn(1)
+
+Z1 = X @ W1.T + b1
+A1 = torch.clamp(Z1, min=0)
+
+Z2 = A1 @ W2.T + b2
+\end{lstlisting}
+
+This is a neural network forward pass.
+
+%=================================================
+\section{Problem 2.3 — Full Shape Trace}
+%=================================================
+
+Trace shapes of:
+\begin{itemize}
+    \item $Z_1, A_1, Z_2$
+\end{itemize}
+
+Why must $W_2$ have shape $(1 \times m)$?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+$Z_1, A_1:(n \times m)$,  
+$Z_2:(n \times 1)$.
+
+$W_2$ maps hidden units to output.
+
+%=================================================
+\section{Batch Size Is Not Magic}
+%=================================================
+
+Change:
+\begin{lstlisting}[language=Python]
+X = torch.randn(128, d)
+\end{lstlisting}
+
+Nothing else changes.
+
+The model does not care about batch size.
+
+%=================================================
+\section{Problem 2.4 — Batch Invariance}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item The same model works for batch size 1 or 128
+\end{itemize}
+
+What dimension is treated specially?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+The first dimension (batch) is independent.
+
+%=================================================
+\section{Common Forward-Pass Bugs}
+%=================================================
+
+Typical mistakes:
+\begin{itemize}
+    \item Forgetting transpose
+    \item Wrong bias shape
+    \item Accidental broadcasting
+\end{itemize}
+
+All are shape errors.
+
+%=================================================
+\section{Problem 2.5 — Bug Diagnosis}
+%=================================================
+
+A student writes:
+\[
+Z = W X^T + b
+\]
+
+Explain:
+\begin{itemize}
+    \item Why this is wrong
+    \item What shape mismatch occurs
+\end{itemize}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Order of multiplication is incorrect for batching.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 2.6}
+
+Explain the forward pass of a two-layer network:
+\begin{itemize}
+    \item Without equations
+    \item Without code
+\end{itemize}
+
+Focus on flow of information.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+Inputs are combined, filtered, transformed, and passed forward.
+%=================================================
+\chapter{Manual Gradients in PyTorch — Painful on Purpose}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+So far, you can:
+\begin{itemize}
+    \item Build forward passes in PyTorch
+\end{itemize}
+
+But learning requires:
+\begin{quote}
+Gradients.
+\end{quote}
+
+In this chapter:
+\begin{itemize}
+    \item We compute gradients by hand
+    \item We store them explicitly
+    \item We update parameters ourselves
+\end{itemize}
+
+This is not efficient.
+It is educational.
+
+%=================================================
+\section{The Simplest Trainable Model}
+%=================================================
+
+We start with:
+\[
+z = wx + b
+\]
+\[
+L = (z - y)^2
+\]
+
+Everything is scalar.
+
+%=================================================
+\section{Forward Pass in PyTorch}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+import torch
+
+# data
+x = torch.tensor(2.0)
+y = torch.tensor(5.0)
+
+# parameters
+w = torch.tensor(1.0)
+b = torch.tensor(0.0)
+
+# forward pass
+z = w * x + b
+loss = (z - y) ** 2
+\end{lstlisting}
+
+Nothing here uses autograd.
+
+%=================================================
+\section{Problem 3.1 — Manual Derivatives}
+%=================================================
+
+Compute by hand:
+\[
+\frac{dL}{dz}, \quad
+\frac{dz}{dw}, \quad
+\frac{dz}{db}
+\]
+
+Then compute:
+\[
+\frac{dL}{dw}, \quad
+\frac{dL}{db}
+\]
+
+Show every step.
+
+\vspace{7cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\[
+\frac{dL}{dz} = 2(z-y), \quad
+\frac{dz}{dw} = x, \quad
+\frac{dz}{db} = 1
+\]
+
+\[
+\frac{dL}{dw} = 2(z-y)x, \quad
+\frac{dL}{db} = 2(z-y)
+\]
+
+%=================================================
+\section{Manual Gradient Computation in Code}
+%=================================================
+
+We now implement the gradients ourselves.
+
+\begin{lstlisting}[language=Python]
+# manual gradients
+dL_dz = 2 * (z - y)
+dL_dw = dL_dz * x
+dL_db = dL_dz
+\end{lstlisting}
+
+These are plain tensors.
+
+%=================================================
+\section{Problem 3.2 — Learning Step}
+%=================================================
+
+Given learning rate $\eta = 0.1$:
+
+\begin{enumerate}
+    \item Write the update equations for $w$ and $b$
+    \item Apply one update step numerically
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\[
+w \leftarrow w - \eta \frac{dL}{dw}, \quad
+b \leftarrow b - \eta \frac{dL}{db}
+\]
+
+%=================================================
+\section{Extending to Vectors}
+%=================================================
+
+Now consider:
+\[
+z = w^T x + b
+\]
+
+Where:
+\[
+w, x \in \mathbb{R}^d
+\]
+
+%=================================================
+\section{Vector Forward Pass}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+x = torch.tensor([1.0, -2.0, 3.0])
+w = torch.tensor([0.5, -1.0, 2.0])
+b = torch.tensor(0.0)
+
+z = (w * x).sum() + b
+loss = (z - y) ** 2
+\end{lstlisting}
+
+%=================================================
+\section{Problem 3.3 — Vector Gradients}
+%=================================================
+
+Compute:
+\[
+\frac{\partial L}{\partial w_i}
+\]
+
+Explain why:
+\[
+\frac{\partial L}{\partial w} = 2(z-y)x
+\]
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each weight scales one input; gradients follow contribution.
+
+%=================================================
+\section{Two-Layer Network (Still Manual)}
+%=================================================
+
+We now add:
+\[
+z_1 = w_1^T x + b_1
+\]
+\[
+a_1 = \max(0, z_1)
+\]
+\[
+z_2 = w_2 a_1 + b_2
+\]
+\[
+L = (z_2 - y)^2
+\]
+
+Still scalar output.
+
+%=================================================
+\section{Problem 3.4 — Chain Rule Explosion}
+%=================================================
+
+List all partial derivatives required to compute:
+\[
+\frac{dL}{dw_1}
+\]
+
+Do not compute values — only dependencies.
+
+\vspace{7cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+$L \rightarrow z_2 \rightarrow a_1 \rightarrow z_1 \rightarrow w_1$
+
+%=================================================
+\section{Why This Is Painful (By Design)}
+%=================================================
+
+Manual gradients:
+\begin{itemize}
+    \item Are verbose
+    \item Are error-prone
+    \item Do not scale
+\end{itemize}
+
+But they force:
+\begin{itemize}
+    \item Correct mental models
+    \item Respect for chain rule
+\end{itemize}
+
+%=================================================
+\section{Numerical Gradient Check}
+%=================================================
+
+Even with manual gradients, we verify:
+
+\begin{lstlisting}[language=Python]
+eps = 1e-4
+w_eps = w.clone()
+w_eps[0] += eps
+
+z_eps = (w_eps * x).sum() + b
+loss_eps = (z_eps - y) ** 2
+
+numerical_grad = (loss_eps - loss) / eps
+\end{lstlisting}
+
+Compare to manual gradient.
+
+%=================================================
+\section{Problem 3.5 — Why This Matters}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Gradient checking is essential before trusting automation
+\end{itemize}
+
+What kind of bugs does it catch?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Implementation and chain-rule errors.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 3.6}
+
+Explain how learning happens:
+\begin{itemize}
+    \item Without using autograd
+    \item Without using frameworks
+\end{itemize}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parameters are nudged using error sensitivity.
+%=================================================
+\chapter{Autograd Is Just the Chain Rule — Demystified}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+You have already:
+\begin{itemize}
+    \item Computed gradients manually
+    \item Applied the chain rule step by step
+\end{itemize}
+
+This chapter answers:
+\begin{quote}
+What exactly does PyTorch autograd automate?
+\end{quote}
+
+Short answer:
+\begin{quote}
+The bookkeeping.
+\end{quote}
+
+%=================================================
+\section{The One New Idea: Computation Graphs}
+%=================================================
+
+Whenever you write:
+\begin{lstlisting}[language=Python]
+z = w * x + b
+\end{lstlisting}
+
+PyTorch builds a:
+\begin{quote}
+Directed acyclic graph of operations.
+\end{quote}
+
+Nodes:
+\begin{itemize}
+    \item Tensors
+\end{itemize}
+
+Edges:
+\begin{itemize}
+    \item Operations
+\end{itemize}
+
+You already used this idea on paper.
+
+%=================================================
+\section{Enabling Gradient Tracking}
+%=================================================
+
+Gradients are tracked only if requested.
+
+\begin{lstlisting}[language=Python]
+w = torch.tensor(1.0, requires_grad=True)
+b = torch.tensor(0.0, requires_grad=True)
+x = torch.tensor(2.0)
+\end{lstlisting}
+
+Only \texttt{w} and \texttt{b} will receive gradients.
+
+%=================================================
+\section{Problem 4.1 — What Gets a Gradient?}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item \texttt{x.grad} is \texttt{None}
+    \item \texttt{w.grad} is not
+\end{itemize}
+
+What determines this behavior?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Only tensors with \texttt{requires\_grad=True} accumulate gradients.
+
+%=================================================
+\section{Backward Pass in One Line}
+%=================================================
+
+Given:
+\begin{lstlisting}[language=Python]
+z = w * x + b
+loss = (z - y) ** 2
+loss.backward()
+\end{lstlisting}
+
+PyTorch:
+\begin{itemize}
+    \item Traverses the graph backward
+    \item Applies local derivatives
+    \item Accumulates gradients
+\end{itemize}
+
+Exactly what you did manually.
+
+%=================================================
+\section{Problem 4.2 — Backward Order}
+%=================================================
+
+Explain why gradients are computed:
+\begin{itemize}
+    \item From loss backward to parameters
+\end{itemize}
+
+What dependency enforces this order?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Each gradient depends on downstream gradients.
+
+%=================================================
+\section{Inspecting Gradients}
+%=================================================
+
+After calling \texttt{backward()}:
+
+\begin{lstlisting}[language=Python]
+print(w.grad)
+print(b.grad)
+\end{lstlisting}
+
+These match your manual gradients.
+
+%=================================================
+\section{Problem 4.3 — Accumulation Trap}
+%=================================================
+
+Run:
+\begin{lstlisting}[language=Python]
+loss.backward()
+loss.backward()
+\end{lstlisting}
+
+Explain:
+\begin{itemize}
+    \item Why gradients double
+\end{itemize}
+
+What must you do before the next backward pass?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Gradients accumulate; must zero them explicitly.
+
+%=================================================
+\section{Zeroing Gradients}
+%=================================================
+
+Typical pattern:
+\begin{lstlisting}[language=Python]
+w.grad.zero_()
+b.grad.zero_()
+\end{lstlisting}
+
+This resets accumulation.
+
+%=================================================
+\section{Leaf Tensors (Important Detail)}
+%=================================================
+
+Only \textbf{leaf tensors} store gradients.
+
+\begin{lstlisting}[language=Python]
+z = w * x
+print(z.grad)  # None
+\end{lstlisting}
+
+Why?
+Because gradients are propagated, not stored, for intermediates.
+
+%=================================================
+\section{Problem 4.4 — Leaf Definition}
+%=================================================
+
+Explain what a leaf tensor is:
+\begin{itemize}
+    \item In your own words
+\end{itemize}
+
+Why do parameters need to be leaves?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Leaf tensors are created by the user and store gradients.
+
+%=================================================
+\section{Stopping Gradient Tracking}
+%=================================================
+
+Sometimes you want no gradients.
+
+\begin{lstlisting}[language=Python]
+with torch.no_grad():
+    z = w * x + b
+\end{lstlisting}
+
+Used during evaluation.
+
+%=================================================
+\section{Problem 4.5 — Why Disable Gradients?}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item We disable gradient tracking during inference
+\end{itemize}
+
+What does this save?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+Memory and computation.
+
+%=================================================
+\section{Comparing Manual vs Autograd}
+%=================================================
+
+Autograd:
+\begin{itemize}
+    \item Builds graph automatically
+    \item Applies chain rule correctly
+    \item Scales to large models
+\end{itemize}
+
+Manual gradients:
+\begin{itemize}
+    \item Build intuition
+    \item Catch bugs
+\end{itemize}
+
+You now understand both.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 4.6}
+
+Explain autograd:
+\begin{itemize}
+    \item Without equations
+    \item Without using the word “automatic”
+\end{itemize}
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+It records operations and sends error signals backward.
+%=================================================
+\chapter{Training Loops, Optimizers, and Stability — Doing It Right}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+You now know:
+\begin{itemize}
+    \item Forward passes
+    \item Autograd
+\end{itemize}
+
+But learning only happens when:
+\begin{quote}
+Gradients are used correctly inside a training loop.
+\end{quote}
+
+This chapter builds:
+\begin{itemize}
+    \item A correct training loop
+    \item Optimizer intuition
+    \item Stability habits
+\end{itemize}
+
+%=================================================
+\section{The Minimal Correct Training Loop}
+%=================================================
+
+A correct loop must do \emph{all} of the following:
+
+\begin{enumerate}
+    \item Forward pass
+    \item Loss computation
+    \item Backward pass
+    \item Gradient zeroing
+    \item Parameter update
+\end{enumerate}
+
+Missing any step breaks learning.
+
+%=================================================
+\section{Single-Step Training Example}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+# forward
+z = X @ W.T + b
+loss = ((z - y) ** 2).mean()
+
+# backward
+loss.backward()
+
+# update
+with torch.no_grad():
+    W -= lr * W.grad
+    b -= lr * b.grad
+
+# reset
+W.grad.zero_()
+b.grad.zero_()
+\end{lstlisting}
+
+This is full gradient descent.
+
+%=================================================
+\section{Problem 5.1 — Identify Each Role}
+%=================================================
+
+For each line above, explain:
+\begin{itemize}
+    \item What it does
+    \item Why it must be there
+\end{itemize}
+
+What breaks if gradients are not zeroed?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Gradients accumulate across steps, causing incorrect updates.
+
+%=================================================
+\section{Learning Rate Is the Most Sensitive Knob}
+%=================================================
+
+The learning rate controls:
+\begin{itemize}
+    \item Step size in parameter space
+\end{itemize}
+
+Most failures are learning-rate failures.
+
+%=================================================
+\section{Problem 5.2 — Loss Curve Reasoning}
+%=================================================
+
+Explain what you expect if:
+\begin{itemize}
+    \item Learning rate is too large
+    \item Learning rate is too small
+\end{itemize}
+
+Sketch the loss curve shape in each case.
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Too large: oscillation or divergence.  
+Too small: very slow decrease.
+
+%=================================================
+\section{Why Optimizers Exist}
+%=================================================
+
+Vanilla gradient descent:
+\begin{itemize}
+    \item Uses only current gradient
+\end{itemize}
+
+Optimizers:
+\begin{itemize}
+    \item Use gradient history
+    \item Improve convergence
+\end{itemize}
+
+But they do not fix bad setups.
+
+%=================================================
+\section{SGD Optimizer in PyTorch}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+optimizer = torch.optim.SGD([W, b], lr=0.1)
+
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+\end{lstlisting}
+
+This replaces manual updates.
+
+%=================================================
+\section{Problem 5.3 — Compare Manual vs Optimizer}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item What optimizer.step() really does
+    \item Why optimizer.zero\_grad() is still required
+\end{itemize}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+It applies stored gradients; gradients still accumulate otherwise.
+
+%=================================================
+\section{Momentum (Conceptual)}
+%=================================================
+
+Momentum:
+\begin{itemize}
+    \item Accumulates gradient direction
+    \item Dampens oscillations
+\end{itemize}
+
+It adds memory to updates.
+
+%=================================================
+\section{Problem 5.4 — Why Momentum Helps}
+%=================================================
+
+Explain why momentum:
+\begin{itemize}
+    \item Speeds up convergence in valleys
+\end{itemize}
+
+What geometric situation benefits?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Long narrow valleys with zig-zag gradients.
+
+%=================================================
+\section{Numerical Stability Habits}
+%=================================================
+
+Good training habits:
+\begin{itemize}
+    \item Monitor loss every iteration
+    \item Check gradient magnitudes
+    \item Stop if NaNs appear
+\end{itemize}
+
+Never let training silently fail.
+
+%=================================================
+\section{Problem 5.5 — NaN Emergency Protocol}
+%=================================================
+
+Loss becomes NaN at step 10.
+
+List:
+\begin{itemize}
+    \item Three immediate checks
+\end{itemize}
+
+Which do you check first and why?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Learning rate, input values, invalid operations.
+
+%=================================================
+\section{One-Batch Overfitting Test (Again)}
+%=================================================
+
+A crucial debugging trick:
+\begin{quote}
+Can your model overfit one batch?
+\end{quote}
+
+If not, something is broken.
+
+%=================================================
+\section{Problem 5.6 — Why This Test Works}
+%=================================================
+
+Explain what failure to overfit one batch implies about:
+\begin{itemize}
+    \item Gradients
+    \item Updates
+\end{itemize}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Indicates bugs in gradient flow or update logic.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 5.7}
+
+Explain a training loop:
+\begin{itemize}
+    \item Without equations
+    \item Without PyTorch terms
+\end{itemize}
+
+Focus on cause and effect.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+Predictions are evaluated, errors measured, and parameters nudged repeatedly.
+%=================================================
+\chapter{\texttt{nn.Module} from the Inside — No Blind Faith}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+So far, you have:
+\begin{itemize}
+    \item Written forward passes by hand
+    \item Updated parameters manually
+    \item Used optimizers explicitly
+\end{itemize}
+
+This chapter answers:
+\begin{quote}
+What does \texttt{nn.Module} actually add — and what does it not?
+\end{quote}
+
+Spoiler:
+\begin{itemize}
+    \item It does \emph{not} add new math
+    \item It adds structure, bookkeeping, and safety
+\end{itemize}
+
+%=================================================
+\section{What \texttt{nn.Module} Is (Conceptually)}
+%=================================================
+
+An \texttt{nn.Module} is:
+\begin{itemize}
+    \item A container for parameters
+    \item A container for submodules
+    \item A convention for forward computation
+\end{itemize}
+
+Nothing more.
+
+%=================================================
+\section{The Simplest Custom Module}
+%=================================================
+
+We reimplement a linear layer ourselves.
+
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+
+class MyLinear(nn.Module):
+    def __init__(self, in_dim, out_dim):
+        super().__init__()
+        self.W = nn.Parameter(torch.randn(out_dim, in_dim))
+        self.b = nn.Parameter(torch.zeros(out_dim))
+
+    def forward(self, x):
+        return x @ self.W.T + self.b
+\end{lstlisting}
+
+Every line here corresponds to something you already know.
+
+%=================================================
+\section{Problem 6.1 — Identify Responsibilities}
+%=================================================
+
+Explain the role of:
+\begin{itemize}
+    \item \texttt{nn.Parameter}
+    \item \texttt{super()\_\_init\_\_()}
+    \item \texttt{forward()}
+\end{itemize}
+
+What would break if one were missing?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Parameters register tensors for optimization; forward defines computation.
+
+%=================================================
+\section{Why \texttt{nn.Parameter} Exists}
+%=================================================
+
+Only tensors wrapped in \texttt{nn.Parameter}:
+\begin{itemize}
+    \item Appear in \texttt{model.parameters()}
+    \item Are updated by optimizers
+\end{itemize}
+
+Everything else is ignored.
+
+%=================================================
+\section{Problem 6.2 — Silent Bug Detection}
+%=================================================
+
+Suppose you write:
+\begin{lstlisting}[language=Python]
+self.W = torch.randn(out_dim, in_dim)
+\end{lstlisting}
+
+Explain:
+\begin{itemize}
+    \item Why training silently fails
+\end{itemize}
+
+What does the optimizer never see?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+The tensor is not registered as a parameter.
+
+%=================================================
+\section{Forward Is Just a Function}
+%=================================================
+
+Calling:
+\begin{lstlisting}[language=Python]
+y = model(x)
+\end{lstlisting}
+
+Is equivalent to:
+\begin{lstlisting}[language=Python]
+y = model.forward(x)
+\end{lstlisting}
+
+The first form enables hooks and tracing.
+
+%=================================================
+\section{Problem 6.3 — Why Call Syntax Exists}
+%=================================================
+
+Explain why PyTorch prefers:
+\begin{itemize}
+    \item \texttt{model(x)} over \texttt{model.forward(x)}
+\end{itemize}
+
+What extra machinery is enabled?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Hooks, pre/post processing, and tracing.
+
+%=================================================
+\section{Parameters vs Buffers}
+%=================================================
+
+Not all tensors should be learned.
+
+Buffers:
+\begin{itemize}
+    \item Are stored in the module
+    \item Are not optimized
+\end{itemize}
+
+\begin{lstlisting}[language=Python]
+self.register_buffer("running_mean", torch.zeros(dim))
+\end{lstlisting}
+
+Used in BatchNorm, etc.
+
+%=================================================
+\section{Problem 6.4 — Parameter or Buffer?}
+%=================================================
+
+Classify each:
+\begin{itemize}
+    \item Weights
+    \item Biases
+    \item Running statistics
+\end{itemize}
+
+Why must buffers move with the model?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Weights/biases are parameters; statistics are buffers.
+
+%=================================================
+\section{Composing Modules}
+%=================================================
+
+Modules can contain modules.
+
+\begin{lstlisting}[language=Python]
+class MLP(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = MyLinear(3, 5)
+        self.fc2 = MyLinear(5, 1)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        return self.fc2(x)
+\end{lstlisting}
+
+This mirrors your earlier forward passes.
+
+%=================================================
+\section{Problem 6.5 — Hierarchy Reasoning}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item How parameters of submodules are found
+\end{itemize}
+
+Why does the optimizer still work?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+PyTorch recursively registers parameters.
+
+%=================================================
+\section{Model State}
+%=================================================
+
+Two key concepts:
+\begin{itemize}
+    \item \texttt{state\_dict()}
+    \item \texttt{load\_state\_dict()}
+\end{itemize}
+
+They capture:
+\begin{itemize}
+    \item Parameters
+    \item Buffers
+\end{itemize}
+
+%=================================================
+\section{Problem 6.6 — Saving Models Correctly}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Saving \texttt{state\_dict} is preferred to saving the whole model
+\end{itemize}
+
+What dependency does this avoid?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Avoids code-structure dependency and pickle issues.
+
+%=================================================
+\section{Training vs Evaluation Mode}
+%=================================================
+
+Some modules behave differently.
+
+\begin{lstlisting}[language=Python]
+model.train()
+model.eval()
+\end{lstlisting}
+
+Dropout and BatchNorm depend on this.
+
+%=================================================
+\section{Problem 6.7 — Mode Switching}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Forgetting \texttt{model.eval()} breaks evaluation
+\end{itemize}
+
+What statistics are wrong?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Batch statistics vs running statistics mismatch.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 6.8}
+
+Explain \texttt{nn.Module}:
+\begin{itemize}
+    \item Without PyTorch terms
+    \item Without programming jargon
+\end{itemize}
+
+Explain what problem it solves.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+It organizes learned values and computations consistently.
+%=================================================
+\chapter{Datasets, DataLoaders, and Batching — Feeding the Model Correctly}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+Until now, we assumed:
+\begin{itemize}
+    \item Data magically appears as tensors
+\end{itemize}
+
+In real systems:
+\begin{itemize}
+    \item Data lives on disk
+    \item Must be loaded, batched, shuffled
+\end{itemize}
+
+This chapter answers:
+\begin{quote}
+How does data safely reach the model?
+\end{quote}
+
+%=================================================
+\section{Dataset vs DataLoader (Core Distinction)}
+%=================================================
+
+Two roles:
+\begin{itemize}
+    \item \textbf{Dataset}: knows how to fetch one sample
+    \item \textbf{DataLoader}: knows how to batch and iterate
+\end{itemize}
+
+Never mix these responsibilities.
+
+%=================================================
+\section{The Dataset Abstraction}
+%=================================================
+
+A Dataset must implement:
+\begin{itemize}
+    \item \texttt{\_\_len\_\_()}
+    \item \texttt{\_\_getitem\_\_()}
+\end{itemize}
+
+That’s it.
+
+%=================================================
+\section{Minimal Custom Dataset}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+from torch.utils.data import Dataset
+
+class SimpleDataset(Dataset):
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, idx):
+        return self.X[idx], self.y[idx]
+\end{lstlisting}
+
+This returns \emph{one} sample.
+
+%=================================================
+\section{Problem 7.1 — Dataset Responsibility}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Dataset should not batch data
+\end{itemize}
+
+What breaks if it does?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Batching logic must remain external for flexibility.
+
+%=================================================
+\section{The DataLoader}
+%=================================================
+
+The DataLoader handles:
+\begin{itemize}
+    \item Batching
+    \item Shuffling
+    \item Parallel loading
+\end{itemize}
+
+\begin{lstlisting}[language=Python]
+from torch.utils.data import DataLoader
+
+loader = DataLoader(
+    dataset,
+    batch_size=32,
+    shuffle=True
+)
+\end{lstlisting}
+
+%=================================================
+\section{Problem 7.2 — Why Shuffle?}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Shuffling is critical during training
+\end{itemize}
+
+What bias does it prevent?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Prevents correlated gradient updates.
+
+%=================================================
+\section{What a Batch Really Is}
+%=================================================
+
+If Dataset returns:
+\[
+(x_i, y_i)
+\]
+
+DataLoader returns:
+\[
+(X, y)
+\]
+
+Where:
+\[
+X \in \mathbb{R}^{B \times d}
+\]
+
+Batching is stacking.
+
+%=================================================
+\section{Problem 7.3 — Shape Prediction}
+%=================================================
+
+If:
+\begin{itemize}
+    \item One sample is $(784,)$
+    \item Batch size is $64$
+\end{itemize}
+
+What is the batch shape?
+
+\vspace{4cm}
+
+\subsection*{Answer}
+
+$(64, 784)$
+
+%=================================================
+\section{Iterating Over Data}
+%=================================================
+
+Typical training loop:
+
+\begin{lstlisting}[language=Python]
+for X, y in loader:
+    preds = model(X)
+    loss = loss_fn(preds, y)
+\end{lstlisting}
+
+Each iteration:
+\begin{itemize}
+    \item Processes one batch
+\end{itemize}
+
+%=================================================
+\section{Problem 7.4 — Epoch Meaning}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item What one epoch means when using DataLoader
+\end{itemize}
+
+How many updates occur per epoch?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+One full pass through the dataset; updates = number of batches.
+
+%=================================================
+\section{Parallel Data Loading}
+%=================================================
+
+DataLoader can use multiple workers.
+
+\begin{lstlisting}[language=Python]
+DataLoader(dataset, num_workers=4)
+\end{lstlisting}
+
+This speeds up loading.
+
+%=================================================
+\section{Problem 7.5 — Why Not Infinite Workers?}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Too many workers can hurt performance
+\end{itemize}
+
+What resource becomes bottleneck?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+CPU, memory bandwidth, or disk I/O.
+
+%=================================================
+\section{Train vs Validation Loaders}
+%=================================================
+
+Different goals:
+\begin{itemize}
+    \item Training: shuffle
+    \item Validation: do not shuffle
+\end{itemize}
+
+Why?
+Because evaluation must be deterministic.
+
+%=================================================
+\section{Problem 7.6 — Evaluation Discipline}
+%=================================================
+
+Explain why:
+\begin{itemize}
+    \item Validation should not shuffle
+\end{itemize}
+
+What comparison becomes invalid otherwise?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Epoch-to-epoch comparison.
+
+%=================================================
+\section{Common Data Bugs}
+%=================================================
+
+Frequent mistakes:
+\begin{itemize}
+    \item Wrong labels
+    \item Mismatched shapes
+    \item Mixing train and test data
+\end{itemize}
+
+Models often get blamed incorrectly.
+
+%=================================================
+\section{Problem 7.7 — First Debug Step}
+%=================================================
+
+Training fails.
+
+What is the \emph{first} thing you inspect in the data pipeline?
+
+Why?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Inspect a single batch manually.
+
+%=================================================
+\section{Explain Without Code (Critical)}
+%=================================================
+
+\subsection*{Problem 7.8}
+
+Explain the data pipeline:
+\begin{itemize}
+    \item Without PyTorch terms
+    \item Without programming jargon
+\end{itemize}
+
+Explain the flow clearly.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+Data is fetched, grouped, and fed repeatedly to the model.
+%=================================================
+\chapter{Build, Train, Debug a Full Model — End-to-End Mastery}
+%=================================================
+
+\section*{Purpose of This Chapter}
+
+You now understand:
+\begin{itemize}
+    \item Tensors and shapes
+    \item Forward passes
+    \item Gradients and autograd
+    \item Training loops
+    \item Modules
+    \item Data pipelines
+\end{itemize}
+
+This chapter answers the final question:
+\begin{quote}
+Can you build, train, and debug a full model without confusion?
+\end{quote}
+
+No new concepts are introduced.
+Only integration.
+
+%=================================================
+\section{The Task (Concrete and Simple)}
+%=================================================
+
+We consider a supervised learning task:
+\begin{itemize}
+    \item Input: vectors in $\mathbb{R}^d$
+    \item Output: scalar regression value
+\end{itemize}
+
+The goal is not performance.
+The goal is correctness and clarity.
+
+%=================================================
+\section{Model Definition}
+%=================================================
+
+We build a simple MLP.
+
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+
+class SimpleMLP(nn.Module):
+    def __init__(self, d, h):
+        super().__init__()
+        self.fc1 = nn.Linear(d, h)
+        self.fc2 = nn.Linear(h, 1)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        return self.fc2(x)
+\end{lstlisting}
+
+This is just a structured forward pass.
+
+%=================================================
+\section{Problem 8.1 — Shape Sanity Check}
+%=================================================
+
+If:
+\begin{itemize}
+    \item Input shape is $(B, d)$
+    \item Hidden size is $h$
+\end{itemize}
+
+What are the shapes of:
+\begin{itemize}
+    \item Output of \texttt{fc1}
+    \item Output of \texttt{fc2}
+\end{itemize}
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+$(B, h)$ and $(B, 1)$.
+
+%=================================================
+\section{Dataset and Loader}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+from torch.utils.data import Dataset, DataLoader
+
+class ToyDataset(Dataset):
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, idx):
+        return self.X[idx], self.y[idx]
+\end{lstlisting}
+
+DataLoader handles batching.
+
+%=================================================
+\section{Problem 8.2 — Responsibility Check}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item Why batching does not belong in \texttt{Dataset}
+\end{itemize}
+
+What flexibility does this separation give?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Batch size and shuffling can be changed externally.
+
+%=================================================
+\section{Training Setup}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+model = SimpleMLP(d=10, h=32)
+loss_fn = nn.MSELoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+\end{lstlisting}
+
+Nothing here is magical.
+
+%=================================================
+\section{Training Loop}
+%=================================================
+
+\begin{lstlisting}[language=Python]
+for epoch in range(epochs):
+    for X_batch, y_batch in loader:
+        preds = model(X_batch)
+        loss = loss_fn(preds, y_batch)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+\end{lstlisting}
+
+This is the complete learning cycle.
+
+%=================================================
+\section{Problem 8.3 — Order Matters}
+%=================================================
+
+Explain why this order is essential:
+\begin{enumerate}
+    \item zero gradients
+    \item backward
+    \item step
+\end{enumerate}
+
+What breaks if reordered?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Gradients accumulate or stale gradients are applied.
+
+%=================================================
+\section{First Debugging Rule}
+%=================================================
+
+Before full training, always test:
+
+\begin{quote}
+Can the model overfit a single batch?
+\end{quote}
+
+If not, do not proceed.
+
+%=================================================
+\section{Problem 8.4 — Overfit-One-Batch Test}
+%=================================================
+
+Explain:
+\begin{itemize}
+    \item Why this test isolates bugs
+\end{itemize}
+
+What assumptions are being verified?
+
+\vspace{6cm}
+
+\subsection*{Answer}
+
+Checks gradient flow, parameter updates, and model capacity.
+
+%=================================================
+\section{Typical Failure Scenarios}
+%=================================================
+
+Common symptoms:
+\begin{itemize}
+    \item Loss is NaN
+    \item Loss does not decrease
+    \item Validation loss increases
+\end{itemize}
+
+Each has a small set of causes.
+
+%=================================================
+\section{Problem 8.5 — Symptom to Cause}
+%=================================================
+
+Match symptom to likely cause:
+\begin{itemize}
+    \item NaN loss
+    \item Flat loss
+    \item Diverging loss
+\end{itemize}
+
+Propose one fix for each.
+
+\vspace{7cm}
+
+\subsection*{Answer}
+
+NaN: learning rate too large.  
+Flat: learning rate too small or dead gradients.  
+Diverging: unstable updates.
+
+%=================================================
+\section{Shape Debugging Discipline}
+%=================================================
+
+Never assume shapes.
+
+Always verify:
+\begin{itemize}
+    \item Input batch shape
+    \item Output shape
+    \item Loss shape
+\end{itemize}
+
+Most silent bugs are shape bugs.
+
+%=================================================
+\section{Problem 8.6 — Silent Failure}
+%=================================================
+
+Explain how:
+\begin{itemize}
+    \item Broadcasting can hide shape errors
+\end{itemize}
+
+What habit prevents this?
+
+\vspace{5cm}
+
+\subsection*{Answer}
+
+Explicit shape assertions.
+
+%=================================================
+\section{Explain Without Code (Final Test)}
+%=================================================
+
+\subsection*{Problem 8.7}
+
+Explain the full ML pipeline:
+\begin{itemize}
+    \item From data to trained model
+    \item Without equations
+    \item Without code
+\end{itemize}
+
+Explain it as if teaching a beginner.
+
+\vspace{8cm}
+
+\subsection*{Answer}
+
+Data is fed in batches, predictions are made, errors measured, and parameters adjusted repeatedly.
+
+\end{document}
