@@ -1,0 +1,5706 @@
+\documentclass[11pt]{book}
+
+%================ PACKAGES =================
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+%================ DOCUMENT =================
+\begin{document}
+
+\frontmatter
+\title{\textbf{Practice Book for Machine Learning \& Neural Networks}\\
+\large From First Principles to Mastery}
+\author{}
+\date{}
+\maketitle
+
+\tableofcontents
+
+%=================================================
+\mainmatter
+\chapter{Shapes, Flow, and Linear Models}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Most ML mistakes are not mathematical.
+
+They are:
+\begin{itemize}
+    \item Shape mistakes
+    \item Flow misunderstandings
+    \item Confusion about what depends on what
+\end{itemize}
+
+This chapter eliminates those forever.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Every ML computation is:
+\begin{quote}
+\textbf{Data flowing through functions with well-defined shapes.}
+\end{quote}
+
+If you know:
+\begin{itemize}
+    \item What flows
+    \item In what order
+    \item With what shape
+\end{itemize}
+
+%=================================================
+\section{Problem Set 1 — Thinking in Shapes}
+%=================================================
+
+\subsection*{Problem 1.1 (Very Important)}
+
+You are given:
+\begin{itemize}
+    \item Input data matrix $X$ with shape $(n, d)$
+    \item Weight vector $w$ with shape $(d,)$
+    \item Bias $b$ (scalar)
+\end{itemize}
+
+\begin{enumerate}
+    \item What is the shape of $Xw$?
+    \item What does each element of $Xw$ represent?
+    \item Why must $w$ have length $d$?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer (Reveal After Attempt)}
+
+\begin{itemize}
+    \item Shape is $(n,)$
+    \item One prediction per data point
+    \item Each feature must contribute once
+\end{itemize}
+
+%=================================================
+\section{Problem Set 2 — Flow Before Formula}
+%=================================================
+
+\subsection*{Problem 1.2}
+
+Consider linear regression:
+\[
+\hat{y} = Xw + b
+\]
+
+Answer in words:
+\begin{enumerate}
+    \item What enters first?
+    \item What is transformed?
+    \item What comes out?
+\end{enumerate}
+
+\textbf{Do NOT write equations.}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Data enters
+    \item Weighted combination happens
+    \item Predictions come out
+\end{itemize}
+
+%=================================================
+\section{Problem Set 3 — Dependency Thinking}
+%=================================================
+
+\subsection*{Problem 1.3}
+
+Mark each quantity as:
+\begin{itemize}
+    \item Depends on data
+    \item Depends on parameters
+    \item Depends on both
+\end{itemize}
+
+\begin{enumerate}
+    \item Prediction $\hat{y}$
+    \item Loss $L$
+    \item Gradient $\nabla_w L$
+    \item Learning rate $\eta$
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item $\hat{y}$ → both
+    \item $L$ → both
+    \item $\nabla_w L$ → both
+    \item $\eta$ → neither
+\end{itemize}
+
+%=================================================
+\section{Problem Set 4 — Geometry Intuition}
+%=================================================
+
+\subsection*{Problem 1.4}
+
+In linear regression:
+
+\begin{enumerate}
+    \item What geometric object does each row of $X$ represent?
+    \item What does $w$ represent geometrically?
+    \item What does prediction measure?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item A point (or vector) in $\mathbb{R}^d$
+    \item A direction
+    \item Projection onto that direction
+\end{itemize}
+
+%=================================================
+\section{Problem Set 5 — GATE Trap Training}
+%=================================================
+
+\subsection*{Problem 1.5}
+
+True or False (justify):
+
+\begin{quote}
+If $X$ has shape $(100, 5)$, then increasing model complexity means increasing the number of rows.
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Rows are data.
+Complexity comes from parameters.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 1.6}
+
+Complete the sentence:
+
+\begin{quote}
+Before writing any ML code, I should be able to clearly state \\
+\underline{\hspace{9cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Objects, shapes, and flow.
+
+
+%=================================================
+\chapter{Loss Functions — Measuring Error Correctly}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+A model does not know what is right or wrong.
+
+\textbf{Loss is the only language you have to communicate correctness.}
+
+If the loss is poorly chosen:
+\begin{itemize}
+    \item The model learns the wrong thing
+    \item Training may look successful
+    \item Results may be useless
+\end{itemize}
+
+This chapter makes loss feel \emph{inevitable}, not arbitrary.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Loss is:
+\begin{quote}
+A single number that summarizes how bad the prediction is.
+\end{quote}
+
+It is:
+\begin{itemize}
+    \item Scalar
+    \item Task-dependent
+    \item The starting point of learning
+\end{itemize}
+
+%=================================================
+\section{Problem Set 1 — What Loss Really Compares}
+%=================================================
+
+\subsection*{Problem 2.1 (Foundational)}
+
+You are given:
+\begin{itemize}
+    \item True target $y$
+    \item Prediction $\hat{y}$
+\end{itemize}
+
+Answer in words:
+\begin{enumerate}
+    \item What does loss compare?
+    \item Why must loss involve both $y$ and $\hat{y}$?
+    \item Why can loss not be computed before prediction?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Reality vs model output
+    \item Error is a comparison
+    \item Prediction must exist first
+\end{itemize}
+
+%=================================================
+\section{Problem Set 2 — Scalar Nature of Loss}
+%=================================================
+
+\subsection*{Problem 2.2}
+
+True or False (justify):
+
+\begin{quote}
+A good loss function should return a vector so we know which data point is wrong.
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Optimization requires a single objective.
+Gradients distribute responsibility later.
+
+%=================================================
+\section{Problem Set 3 — Squared Error Intuition}
+%=================================================
+
+\subsection*{Problem 2.3}
+
+Squared error loss:
+\[
+L = (y - \hat{y})^2
+\]
+
+Answer conceptually:
+\begin{enumerate}
+    \item Why square the error?
+    \item What happens to large mistakes?
+    \item Why is smoothness important?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Removes sign, emphasizes magnitude
+    \item Large errors dominate
+    \item Enables gradients
+\end{itemize}
+
+%=================================================
+\section{Problem Set 4 — Absolute Error Comparison}
+%=================================================
+
+\subsection*{Problem 2.4}
+
+Absolute error loss:
+\[
+L = |y - \hat{y}|
+\]
+
+Compare to squared error:
+
+\begin{enumerate}
+    \item Which penalizes outliers more?
+    \item Which is more robust to noise?
+    \item Which is harder to optimize?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Squared error penalizes more
+    \item Absolute error is more robust
+    \item Absolute error is non-smooth
+\end{itemize}
+
+%=================================================
+\section{Problem Set 5 — Task–Loss Matching}
+%=================================================
+
+\subsection*{Problem 2.5}
+
+For each task, state \textbf{why} squared error is or is not appropriate:
+
+\begin{enumerate}
+    \item Predicting house prices
+    \item Predicting class labels (0 or 1)
+    \item Predicting temperature
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Yes — magnitude matters
+    \item No — probability matters
+    \item Yes — continuous quantity
+\end{itemize}
+
+%=================================================
+\section{Problem Set 6 — Loss vs Accuracy (GATE Trap)}
+%=================================================
+
+\subsection*{Problem 2.6}
+
+True or False (justify):
+
+\begin{quote}
+If accuracy is high, loss must be low.
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Confidence matters.
+Loss measures more than correctness.
+
+%=================================================
+\section{Problem Set 7 — Loss and Learning}
+%=================================================
+
+\subsection*{Problem 2.7}
+
+Answer clearly:
+
+\begin{enumerate}
+    \item Does loss change model parameters?
+    \item If not, what role does it play?
+\end{enumerate}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item No
+    \item It provides a signal for gradients
+\end{itemize}
+
+%=================================================
+\section{Problem Set 8 — Geometry of Error}
+%=================================================
+
+\subsection*{Problem 2.8}
+
+In linear regression:
+
+\begin{enumerate}
+    \item What geometric quantity does squared error measure?
+    \item What is being minimized geometrically?
+\end{enumerate}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Distance from prediction line
+    \item Projection error
+\end{itemize}
+
+%=================================================
+\section{GATE-Level Concept Trap}
+%=================================================
+
+\subsection*{Problem 2.9}
+
+Explain why this statement is misleading:
+
+\begin{quote}
+``We choose loss because it gives the best accuracy.''
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss encodes learning behavior,
+not evaluation preference.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 2.10}
+
+Complete the sentence:
+
+\begin{quote}
+A loss function should be chosen based on \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+The meaning of error in the task.
+
+%=================================================
+\chapter{Gradients — Who Is Responsible for the Error?}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Loss tells us \emph{that} we are wrong.
+
+Gradients tell us:
+\begin{quote}
+``Who contributed to the mistake, and by how much.''
+\end{quote}
+
+Without gradients, learning is impossible.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A gradient answers:
+\begin{quote}
+If I change this parameter slightly, how does the loss change?
+\end{quote}
+
+It measures \textbf{sensitivity}.
+
+%=================================================
+\section{Problem Set 1 — Sensitivity Intuition}
+%=================================================
+
+\subsection*{Problem 3.1 (Foundational)}
+
+You slightly increase a parameter $w$.
+
+\begin{enumerate}
+    \item If loss increases, what does that say about $w$?
+    \item If loss decreases, what does that say about $w$?
+    \item If loss does not change, what does that say?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item $w$ contributes negatively
+    \item $w$ contributes positively
+    \item $w$ is locally irrelevant
+\end{itemize}
+
+%=================================================
+\section{Problem Set 2 — Direction, Not Value}
+%=================================================
+
+\subsection*{Problem 3.2}
+
+True or False (justify):
+
+\begin{quote}
+The gradient tells us the best value of a parameter.
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+It gives direction of improvement, not the solution.
+
+%=================================================
+\section{Problem Set 3 — Local Nature of Gradients}
+%=================================================
+
+\subsection*{Problem 3.3}
+
+Explain why gradients are:
+\begin{itemize}
+    \item Local
+    \item Not global guarantees
+\end{itemize}
+
+What assumption is being made?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+They describe behavior near current point only.
+
+%=================================================
+\section{Problem Set 4 — One Parameter at a Time}
+%=================================================
+
+\subsection*{Problem 3.4}
+
+Even in a huge network,
+each gradient concerns only one parameter.
+
+Explain why this is powerful.
+
+What would be impossible otherwise?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Local updates scale to large systems.
+
+%=================================================
+\section{Problem Set 5 — Zero Gradient Cases}
+%=================================================
+
+\subsection*{Problem 3.5}
+
+Describe a situation where:
+\begin{itemize}
+    \item Loss is high
+    \item Gradient is zero
+\end{itemize}
+
+Why is this dangerous?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Flat regions or saturation.
+
+Learning stalls.
+
+%=================================================
+\section{Problem Set 6 — Gradient Sign vs Magnitude}
+%=================================================
+
+\subsection*{Problem 3.6}
+
+Explain why:
+\begin{itemize}
+    \item Sign of gradient determines direction
+    \item Magnitude determines step urgency
+\end{itemize}
+
+What happens if magnitude is very large?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Large steps risk instability.
+
+%=================================================
+\section{Problem Set 7 — Gradients and Geometry}
+%=================================================
+
+\subsection*{Problem 3.7}
+
+Geometrically, the gradient points:
+\begin{itemize}
+    \item Along what direction?
+\end{itemize}
+
+Why is this useful for optimization?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Direction of steepest increase.
+
+%=================================================
+\section{Problem Set 8 — Chain Dependency Preview}
+%=================================================
+
+\subsection*{Problem 3.8}
+
+In a network:
+\[
+x \rightarrow h \rightarrow \hat{y} \rightarrow L
+\]
+
+Explain why:
+\begin{itemize}
+    \item $w$ affecting $h$ must consider everything after $h$
+\end{itemize}
+
+This is a preview of backprop.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Later effects propagate backward.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 3.9}
+
+Explain why this statement is wrong:
+
+\begin{quote}
+``If the gradient is small, the model is good.''
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Flat regions exist.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 3.10}
+
+Complete the sentence:
+
+\begin{quote}
+A gradient should be understood as \\
+\underline{\hspace{9cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Sensitivity of loss to change.
+
+%=================================================
+\section*{End of Chapter Reflection}
+%=================================================
+
+If gradients now feel like:
+\begin{itemize}
+    \item Responsibility signals
+    \item Directional information
+    \item Local measurements
+\end{itemize}
+%=================================================
+\chapter{Gradient Descent — Turning Responsibility into Change}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Gradients alone do nothing.
+
+They only describe sensitivity.
+
+\textbf{Gradient descent is the rule that turns information into motion.}
+
+This chapter builds instinct for:
+\begin{itemize}
+    \item Why updates look the way they do
+    \item Why learning is gradual
+    \item Why instability happens
+\end{itemize}
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Gradient descent repeats one idea:
+
+\begin{quote}
+Make a small change that reduces the loss.
+\end{quote}
+
+Not a perfect change.  
+Not a clever change.  
+A \emph{safe} change.
+
+%=================================================
+\section{Problem Set 1 — The Update Rule (Conceptual)}
+%=================================================
+
+\subsection*{Problem 4.1 (Foundational)}
+
+Suppose:
+\begin{itemize}
+    \item Gradient of loss w.r.t. $w$ is positive
+\end{itemize}
+
+Answer in words:
+\begin{enumerate}
+    \item Should $w$ be increased or decreased?
+    \item Why?
+\end{enumerate}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Decrease $w$.
+
+Positive gradient means increasing $w$ increases loss.
+
+%=================================================
+\section{Problem Set 2 — Why Small Steps?}
+%=================================================
+
+\subsection*{Problem 4.2}
+
+Explain why gradient descent:
+\begin{itemize}
+    \item Uses many small steps
+    \item Instead of one large step
+\end{itemize}
+
+Relate this to uncertainty about the loss surface.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss surface is locally known.
+Large steps risk overshooting.
+
+%=================================================
+\section{Problem Set 3 — Learning Rate as Trust}
+%=================================================
+
+\subsection*{Problem 4.3}
+
+The learning rate $\eta$ controls step size.
+
+Explain why:
+\begin{itemize}
+    \item Very large $\eta$ causes divergence
+    \item Very small $\eta$ causes slow learning
+\end{itemize}
+
+Use intuition, not equations.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Too much trust vs too little trust in gradients.
+
+%=================================================
+\section{Problem Set 4 — One Parameter at a Time}
+%=================================================
+
+\subsection*{Problem 4.4}
+
+Even with millions of parameters,
+each update has the same form.
+
+Explain why gradient descent:
+\begin{itemize}
+    \item Scales to large models
+    \item Does not require global coordination
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each parameter updates locally using its own gradient.
+
+%=================================================
+\section{Problem Set 5 — Loss Does Not Always Decrease}
+%=================================================
+
+\subsection*{Problem 4.5}
+
+True or False (justify):
+
+\begin{quote}
+After every gradient descent step, loss must decrease.
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Noise, curvature, and step size can increase loss temporarily.
+
+%=================================================
+\section{Problem Set 6 — Flat and Steep Regions}
+%=================================================
+
+\subsection*{Problem 4.6}
+
+Explain why learning:
+\begin{itemize}
+    \item Slows down in flat regions
+    \item Can become unstable in steep regions
+\end{itemize}
+
+What role does gradient magnitude play?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Small gradients stall learning.
+Large gradients cause overshoot.
+
+%=================================================
+\section{Problem Set 7 — Geometry of Descent}
+%=================================================
+
+\subsection*{Problem 4.7}
+
+Geometrically, gradient descent:
+\begin{itemize}
+    \item Moves in which direction?
+    \item Relative to level curves of the loss?
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Perpendicular to level curves, downhill.
+
+%=================================================
+\section{Problem Set 8 — Iteration vs Convergence}
+%=================================================
+
+\subsection*{Problem 4.8}
+
+Explain why:
+\begin{itemize}
+    \item More iterations do not guarantee better results
+\end{itemize}
+
+What other factors matter?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Learning rate, noise, overfitting.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 4.9}
+
+Explain why this statement is misleading:
+
+\begin{quote}
+``Gradient descent always finds the global minimum.''
+\end{quote}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Non-convex surfaces exist.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 4.10}
+
+Complete the sentence:
+
+\begin{quote}
+Gradient descent should be understood as \\
+\underline{\hspace{9cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Iterative, cautious error correction.
+
+%=================================================
+\section*{End of Chapter Reflection}
+%=================================================
+
+If gradient descent now feels like:
+\begin{itemize}
+    \item Controlled movement
+    \item Trust-based updating
+    \item A physical process
+\end{itemize}
+%=================================================
+\chapter{Batch, Mini-batch, and Stochastic Learning}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Gradient descent tells us \emph{how} to update.
+
+This chapter tells us:
+\begin{quote}
+How much evidence we use before each update.
+\end{quote}
+
+This single choice affects:
+\begin{itemize}
+    \item Speed
+    \item Stability
+    \item Generalization
+\end{itemize}
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Think of learning as listening to data.
+
+You can:
+\begin{itemize}
+    \item Listen to everyone before deciding
+    \item Listen to one person at a time
+    \item Listen to a small group
+\end{itemize}
+
+Each produces a different learning behavior.
+
+%=================================================
+\section{Problem Set 1 — Batch Gradient Descent}
+%=================================================
+
+\subsection*{Problem 5.1 (Foundational)}
+
+Batch gradient descent means:
+\begin{quote}
+Compute gradients using the entire dataset.
+\end{quote}
+
+Explain why batch updates are:
+\begin{itemize}
+    \item Stable
+    \item Slow
+\end{itemize}
+
+What causes both properties?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+All data contributes, reducing noise,
+but computation is expensive.
+
+%=================================================
+\section{Problem Set 2 — Stochastic Gradient Descent}
+%=================================================
+
+\subsection*{Problem 5.2}
+
+Stochastic Gradient Descent (SGD) updates
+using one data point at a time.
+
+Explain why SGD:
+\begin{itemize}
+    \item Produces noisy updates
+    \item Can escape poor local regions
+\end{itemize}
+
+Why can noise be helpful?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Single samples give noisy gradients.
+Noise enables exploration.
+
+%=================================================
+\section{Problem Set 3 — Mini-batch Gradient Descent}
+%=================================================
+
+\subsection*{Problem 5.3}
+
+Mini-batch learning uses a small group of samples.
+
+Explain why mini-batches:
+\begin{itemize}
+    \item Balance noise and stability
+    \item Are preferred in practice
+\end{itemize}
+
+What do they combine from batch and SGD?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+They reduce variance while remaining efficient.
+
+%=================================================
+\section{Problem Set 4 — Gradient Variance}
+%=================================================
+
+\subsection*{Problem 5.4}
+
+Arrange the following in order of
+\textbf{increasing gradient variance}:
+
+\begin{itemize}
+    \item Batch GD
+    \item Mini-batch GD
+    \item SGD
+\end{itemize}
+
+Explain your reasoning.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Batch $<$ Mini-batch $<$ SGD
+
+%=================================================
+\section{Problem Set 5 — Hardware Reality}
+%=================================================
+
+\subsection*{Problem 5.5}
+
+Explain why modern hardware (GPUs/TPUs):
+\begin{itemize}
+    \item Prefer mini-batches
+    \item Dislike single-sample updates
+\end{itemize}
+
+What computation pattern is exploited?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parallel matrix operations are efficient.
+
+%=================================================
+\section{Problem Set 6 — Epochs vs Iterations}
+%=================================================
+
+\subsection*{Problem 5.6}
+
+Define in words:
+\begin{itemize}
+    \item One iteration
+    \item One epoch
+\end{itemize}
+
+Explain why:
+\begin{itemize}
+    \item One epoch can contain many iterations
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Iterations are updates.
+Epochs are full data passes.
+
+%=================================================
+\section{Problem Set 7 — Shuffling Data}
+%=================================================
+
+\subsection*{Problem 5.7}
+
+Explain why training data is usually shuffled
+before forming mini-batches.
+
+What goes wrong if data is ordered?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Order introduces bias and correlation.
+
+%=================================================
+\section{Problem Set 8 — Batch Size Trade-off}
+%=================================================
+
+\subsection*{Problem 5.8}
+
+Explain why:
+\begin{itemize}
+    \item Very large batches may generalize poorly
+    \item Very small batches may be unstable
+\end{itemize}
+
+What balance is being managed?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Stability vs exploration.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 5.9}
+
+True or False (justify):
+
+\begin{quote}
+Increasing batch size increases model capacity.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Batch size affects learning dynamics, not expressiveness.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 5.10}
+
+Complete the sentence:
+
+\begin{quote}
+Batch size should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A control on learning noise and stability.
+
+%=================================================
+\section*{End of Chapter Reflection}
+%=================================================
+
+If batch size now feels like:
+\begin{itemize}
+    \item A behavioral control
+    \item Not a magic hyperparameter
+\end{itemize}
+%=================================================
+\chapter{Overfitting, Underfitting, and Generalization}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Training a model is easy.
+
+Building a model that works on unseen data is hard.
+
+This chapter gives you the ability to:
+\begin{itemize}
+    \item Name the failure mode
+    \item Understand why it happens
+    \item Apply the correct fix
+\end{itemize}
+
+No guessing. No folklore.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A model should:
+\begin{quote}
+Learn the pattern, not the noise.
+\end{quote}
+
+Generalization is about \textbf{stability under change}.
+
+%=================================================
+\section{Problem Set 1 — What Does Learning Mean?}
+%=================================================
+
+\subsection*{Problem 6.1 (Foundational)}
+
+Answer in words:
+
+\begin{enumerate}
+    \item What does it mean for a model to learn?
+    \item Why is training accuracy alone insufficient?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Learning means good performance on unseen data.
+Training accuracy measures memorization only.
+
+%=================================================
+\section{Problem Set 2 — Underfitting}
+%=================================================
+
+\subsection*{Problem 6.2}
+
+Underfitting occurs when:
+\begin{itemize}
+    \item Training error is high
+    \item Validation error is high
+\end{itemize}
+
+Explain why:
+\begin{itemize}
+    \item Training longer does not fix underfitting
+\end{itemize}
+
+What limitation is being hit?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Model capacity is insufficient to represent the pattern.
+
+%=================================================
+\section{Problem Set 3 — Overfitting}
+%=================================================
+
+\subsection*{Problem 6.3}
+
+Overfitting occurs when:
+\begin{itemize}
+    \item Training error is very low
+    \item Validation error is high
+\end{itemize}
+
+Explain why:
+\begin{itemize}
+    \item Flexible models are more prone to overfitting
+\end{itemize}
+
+What freedom causes trouble?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Too many degrees of freedom allow noise fitting.
+
+%=================================================
+\section{Problem Set 4 — Bias--Variance Intuition}
+%=================================================
+
+\subsection*{Problem 6.4}
+
+Explain intuitively:
+
+\begin{itemize}
+    \item Why simple models have high bias, low variance
+    \item Why complex models have low bias, high variance
+\end{itemize}
+
+Use reasoning, not equations.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Simple models are stable but limited.
+Complex models are expressive but sensitive.
+
+%=================================================
+\section{Problem Set 5 — Learning Curves}
+%=================================================
+
+\subsection*{Problem 6.5}
+
+You plot:
+\begin{itemize}
+    \item Training error vs data size
+    \item Validation error vs data size
+\end{itemize}
+
+Explain how learning curves can tell you:
+\begin{itemize}
+    \item Whether the model is underfitting
+    \item Whether the model is overfitting
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Underfitting: both errors high and close.
+Overfitting: training low, validation high.
+
+%=================================================
+\section{Problem Set 6 — Data Size Effects}
+%=================================================
+
+\subsection*{Problem 6.6}
+
+Explain why:
+\begin{itemize}
+    \item Adding more data helps overfitting
+    \item Adding more data often does not help underfitting
+\end{itemize}
+
+What is missing in each case?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Overfitting lacks examples.
+Underfitting lacks model capacity.
+
+%=================================================
+\section{Problem Set 7 — Stability View}
+%=================================================
+
+\subsection*{Problem 6.7}
+
+A model generalizes well if:
+\begin{quote}
+Small changes in data do not cause large changes in predictions.
+\end{quote}
+
+Explain why this notion of stability
+captures the idea of generalization.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Robustness indicates pattern learning, not noise fitting.
+
+%=================================================
+\section{Problem Set 8 — Fixing the Right Problem}
+%=================================================
+
+\subsection*{Problem 6.8}
+
+For each scenario, identify the failure
+and suggest one fix:
+
+\begin{enumerate}
+    \item Low training accuracy, low validation accuracy
+    \item High training accuracy, low validation accuracy
+    \item Training improves, validation worsens
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Underfitting → increase capacity
+    \item Overfitting → regularization or data
+    \item Overfitting → early stopping
+\end{itemize}
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 6.9}
+
+Explain why this statement is dangerous:
+
+\begin{quote}
+``We just need to tune hyperparameters more.''
+\end{quote}
+
+What diagnostic step is missing?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Failure mode identification is missing.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 6.10}
+
+Complete the sentence:
+
+\begin{quote}
+Generalization should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Stable performance on unseen data.
+
+
+%=================================================
+\chapter{Regularization — Controlling Complexity Deliberately}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Data alone cannot tell a model:
+\begin{quote}
+``Which explanation is simpler.''
+\end{quote}
+
+Regularization encodes this preference.
+
+This chapter trains you to use regularization
+as a \textbf{precision tool}, not blind tuning.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Regularization adds:
+\begin{quote}
+Friction against complexity.
+\end{quote}
+
+The model must justify every large weight.
+
+%=================================================
+\section{Problem Set 1 — Why Regularization Is Needed}
+%=================================================
+
+\subsection*{Problem 7.1 (Foundational)}
+
+Explain why:
+\begin{itemize}
+    \item Perfect training accuracy is suspicious
+\end{itemize}
+
+What assumption is being violated?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Noise is being treated as signal.
+
+%=================================================
+\section{Problem Set 2 — Loss + Penalty}
+%=================================================
+
+\subsection*{Problem 7.2}
+
+Regularization modifies loss:
+
+\[
+\text{Total Loss} = \text{Data Loss} + \text{Penalty}
+\]
+
+Explain why loss is the natural place
+to enforce simplicity.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss already controls learning direction.
+
+%=================================================
+\section{Problem Set 3 — $L_2$ Regularization}
+%=================================================
+
+\subsection*{Problem 7.3}
+
+$L_2$ regularization penalizes $\|w\|^2$.
+
+Explain why:
+\begin{itemize}
+    \item Large weights are discouraged
+    \item Weights rarely become exactly zero
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Quadratic penalty shrinks smoothly.
+
+%=================================================
+\section{Problem Set 4 — $L_1$ Regularization}
+%=================================================
+
+\subsection*{Problem 7.4}
+
+$L_1$ regularization penalizes $\|w\|_1$.
+
+Explain why:
+\begin{itemize}
+    \item Some weights become exactly zero
+    \item This aids interpretability
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Sharp penalty corners promote sparsity.
+
+%=================================================
+\section{Problem Set 5 — Geometry Intuition}
+%=================================================
+
+\subsection*{Problem 7.5}
+
+Explain geometrically why:
+\begin{itemize}
+    \item $L_1$ produces sparse solutions
+    \item $L_2$ produces smooth solutions
+\end{itemize}
+
+No diagrams. Use words.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Corners vs round constraints.
+
+%=================================================
+\section{Problem Set 6 — Regularization Strength}
+%=================================================
+
+\subsection*{Problem 7.6}
+
+Explain why:
+\begin{itemize}
+    \item Too little regularization has no effect
+    \item Too much causes underfitting
+\end{itemize}
+
+What signal is suppressed?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+True pattern strength is overwhelmed.
+
+%=================================================
+\section{Problem Set 7 — Implicit Regularization}
+%=================================================
+
+\subsection*{Problem 7.7}
+
+Explain why each acts as regularization:
+
+\begin{itemize}
+    \item Early stopping
+    \item Noisy SGD
+    \item Limited model size
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+They restrict complexity growth.
+
+%=================================================
+\section{Problem Set 8 — What Regularization Cannot Do}
+%=================================================
+
+\subsection*{Problem 7.8}
+
+Explain why regularization:
+\begin{itemize}
+    \item Cannot fix missing features
+    \item Cannot create information
+\end{itemize}
+
+What is fundamentally required instead?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Better data or representations.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 7.9}
+
+True or False (justify):
+
+\begin{quote}
+Stronger regularization always improves generalization.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Excessive regularization destroys signal.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 7.10}
+
+Complete the sentence:
+
+\begin{quote}
+Regularization should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A controlled preference for simplicity.
+%=================================================
+\chapter{Evaluation Metrics — Measuring What Actually Matters}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Training minimizes loss.
+
+Evaluation answers:
+\begin{quote}
+``Is this model useful for my purpose?''
+\end{quote}
+
+Loss and metrics are related,
+but they are \textbf{not the same thing}.
+
+This chapter prevents one of the most common ML mistakes:
+optimizing the wrong objective.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A metric is:
+\begin{quote}
+A question you ask the model.
+\end{quote}
+
+Different questions lead to different conclusions
+about the same predictions.
+
+%=================================================
+\section{Problem Set 1 — Loss vs Metric}
+%=================================================
+
+\subsection*{Problem 8.1 (Foundational)}
+
+Answer in words:
+
+\begin{enumerate}
+    \item Why do we optimize loss but report metrics?
+    \item Why is loss often unsuitable for final evaluation?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss guides learning.
+Metrics judge usefulness and decisions.
+
+%=================================================
+\section{Problem Set 2 — Regression Metrics}
+%=================================================
+
+\subsection*{Problem 8.2}
+
+Consider predicting house prices.
+
+Explain the difference between:
+\begin{itemize}
+    \item Mean Squared Error (MSE)
+    \item Mean Absolute Error (MAE)
+\end{itemize}
+
+Answer:
+\begin{enumerate}
+    \item Which penalizes large errors more?
+    \item Which is more robust to outliers?
+    \item When might each be preferred?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+MSE penalizes large errors more.
+MAE is more robust.
+Choice depends on risk tolerance.
+
+%=================================================
+\section{Problem Set 3 — Scale Awareness}
+%=================================================
+
+\subsection*{Problem 8.3}
+
+Explain why error values
+cannot be interpreted without knowing the scale of targets.
+
+Give a concrete example.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Absolute error depends on magnitude of targets.
+
+%=================================================
+\section{Problem Set 4 — Accuracy Trap}
+%=================================================
+
+\subsection*{Problem 8.4}
+
+True or False (justify):
+
+\begin{quote}
+High accuracy always indicates a good classifier.
+\end{quote}
+
+Describe a scenario where accuracy is misleading.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+False.
+
+Class imbalance can inflate accuracy.
+
+%=================================================
+\section{Problem Set 5 — Confusion Matrix Thinking}
+%=================================================
+
+\subsection*{Problem 8.5}
+
+Explain why knowing:
+\begin{itemize}
+    \item False positives
+    \item False negatives
+\end{itemize}
+is more informative than accuracy alone.
+
+What different risks do they represent?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Different errors have different real-world costs.
+
+%=================================================
+\section{Problem Set 6 — Precision and Recall}
+%=================================================
+
+\subsection*{Problem 8.6}
+
+Define in words:
+\begin{itemize}
+    \item Precision
+    \item Recall
+\end{itemize}
+
+Explain why improving one often worsens the other.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Threshold trade-off.
+
+%=================================================
+\section{Problem Set 7 — F-Score Intuition}
+%=================================================
+
+\subsection*{Problem 8.7}
+
+Explain why combining precision and recall
+into a single number:
+\begin{itemize}
+    \item Can be convenient
+    \item Can hide important behavior
+\end{itemize}
+
+When is this acceptable?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Convenience vs loss of detail.
+
+%=================================================
+\section{Problem Set 8 — Metrics Encode Values}
+%=================================================
+
+\subsection*{Problem 8.8}
+
+Explain why metric choice is:
+\begin{itemize}
+    \item A value judgment
+    \item Application-dependent
+\end{itemize}
+
+Give two tasks that require different priorities.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Error costs differ by context.
+
+%=================================================
+\section{Problem Set 9 — Threshold Dependence}
+%=================================================
+
+\subsection*{Problem 8.9}
+
+Explain why evaluating a classifier
+without considering the decision threshold
+is incomplete.
+
+What flexibility is being ignored?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Operating point selection is ignored.
+
+%=================================================
+\section{Problem Set 10 — Validation vs Test}
+%=================================================
+
+\subsection*{Problem 8.10}
+
+Explain why:
+\begin{itemize}
+    \item Validation metrics guide decisions
+    \item Test metrics should be used once
+\end{itemize}
+
+What bias appears if this rule is violated?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Information leakage and over-optimism.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 8.11}
+
+Explain why this statement is dangerous:
+
+\begin{quote}
+``Our model achieved 95\% accuracy.''
+\end{quote}
+
+What questions must follow?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Class balance and error types must be examined.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 8.12}
+
+Complete the sentence:
+
+\begin{quote}
+An evaluation metric should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A question about what errors matter.
+%=================================================
+\chapter{The Full Training Loop — From Data to Decisions}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+So far, you have studied:
+\begin{itemize}
+    \item Models
+    \item Loss
+    \item Gradients
+    \item Optimization
+    \item Data handling
+    \item Generalization
+    \item Metrics
+\end{itemize}
+
+This chapter answers the question:
+\begin{quote}
+How does everything actually work together in time?
+\end{quote}
+
+This is the chapter that turns knowledge into a system.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Training is a loop:
+
+\begin{center}
+\textbf{
+Data $\rightarrow$ Prediction $\rightarrow$ Loss $\rightarrow$ Gradients $\rightarrow$ Update $\rightarrow$ Repeat
+}
+\end{center}
+
+Every ML algorithm is a variation of this loop.
+
+%=================================================
+\section{Problem Set 1 — What Must Exist Before Training}
+%=================================================
+
+\subsection*{Problem 9.1 (Foundational)}
+
+Before training begins, list in words:
+\begin{enumerate}
+    \item What objects must exist
+    \item What decisions must already be made
+\end{enumerate}
+
+Why can training not start without them?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Data, model structure, loss, optimizer, metrics.
+Training needs a complete specification.
+
+%=================================================
+\section{Problem Set 2 — One Iteration, Step by Step}
+%=================================================
+
+\subsection*{Problem 9.2}
+
+Describe one training iteration in order.
+Do \textbf{not} use equations.
+
+Include:
+\begin{itemize}
+    \item What changes
+    \item What stays fixed
+\end{itemize}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Data batch selected → predictions made → loss computed → gradients computed → parameters updated.
+Data and rules stay fixed; parameters change.
+
+%=================================================
+\section{Problem Set 3 — Forward vs Backward}
+%=================================================
+
+\subsection*{Problem 9.3}
+
+Explain the difference between:
+\begin{itemize}
+    \item Forward pass
+    \item Backward pass
+\end{itemize}
+
+Why must they occur in this order?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Forward computes outputs.
+Backward assigns responsibility based on loss.
+
+%=================================================
+\section{Problem Set 4 — Where Learning Actually Happens}
+%=================================================
+
+\subsection*{Problem 9.4}
+
+Identify exactly:
+\begin{itemize}
+    \item Which step changes the model
+    \item Which steps do not
+\end{itemize}
+
+Why is this distinction important?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Only parameter update changes the model.
+Other steps measure or prepare information.
+
+%=================================================
+\section{Problem Set 5 — Epochs and Progress}
+%=================================================
+
+\subsection*{Problem 9.5}
+
+Explain why:
+\begin{itemize}
+    \item One iteration rarely improves a model meaningfully
+    \item Many epochs are required
+\end{itemize}
+
+What is being approximated over time?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss surface is explored gradually.
+Learning is cumulative.
+
+%=================================================
+\section{Problem Set 6 — Training vs Evaluation}
+%=================================================
+
+\subsection*{Problem 9.6}
+
+Explain why:
+\begin{itemize}
+    \item Evaluation must not influence training updates
+\end{itemize}
+
+What illusion is created if this rule is violated?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Optimism bias and information leakage.
+
+%=================================================
+\section{Problem Set 7 — Stopping the Loop}
+%=================================================
+
+\subsection*{Problem 9.7}
+
+List three reasons to stop training.
+Explain why stopping too late is dangerous.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Overfitting, convergence, resource limits.
+Late stopping memorizes noise.
+
+%=================================================
+\section{Problem Set 8 — Model-Agnostic Nature}
+%=================================================
+
+\subsection*{Problem 9.8}
+
+Explain why the same training loop applies to:
+\begin{itemize}
+    \item Linear regression
+    \item Neural networks
+    \item Deep models
+\end{itemize}
+
+What abstraction makes this possible?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+All models define predictions, loss, and gradients.
+
+%=================================================
+\section{Problem Set 9 — Scientific Thinking}
+%=================================================
+
+\subsection*{Problem 9.9}
+
+Explain how the training loop mirrors
+the scientific method.
+
+Why does this mindset lead to better practice?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Hypothesis, experiment, measurement, revision.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 9.10}
+
+Explain why this statement is wrong:
+
+\begin{quote}
+``Once training starts, the process is automatic.''
+\end{quote}
+
+What decisions still matter?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Monitoring, diagnostics, and stopping decisions remain.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 9.11}
+
+Complete the sentence:
+
+\begin{quote}
+The ML training loop should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+An iterative, controlled learning process.
+
+%=================================================
+\chapter{Linear Models Revisited — Geometry, Optimization, and Traps}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Linear models are not “simple”.
+
+They are:
+\begin{itemize}
+    \item The cleanest case of learning
+    \item The place where geometry is exact
+    \item The source of most GATE traps
+\end{itemize}
+
+If something is unclear here,
+it will be unclear everywhere else.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A linear model is:
+\begin{quote}
+Projection + shift.
+\end{quote}
+
+Everything else is interpretation.
+
+%=================================================
+\section{Problem Set 1 — Linear Regression as Projection}
+%=================================================
+
+\subsection*{Problem 10.1 (Foundational)}
+
+Consider linear regression:
+\[
+\hat{y} = Xw
+\]
+
+Explain geometrically:
+\begin{enumerate}
+    \item What space does $Xw$ live in?
+    \item What does the optimal $\hat{y}$ represent?
+    \item What is the error vector geometrically?
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\begin{itemize}
+    \item Column space of $X$
+    \item Projection of $y$
+    \item Orthogonal residual
+\end{itemize}
+
+%=================================================
+\section{Problem Set 2 — Normal Equations}
+%=================================================
+
+\subsection*{Problem 10.2}
+
+The normal equations are:
+\[
+X^T X w = X^T y
+\]
+
+Explain in words:
+\begin{itemize}
+    \item Why multiplying by $X^T$ appears
+    \item What orthogonality condition is enforced
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Residual is orthogonal to column space.
+
+%=================================================
+\section{Problem Set 3 — Rank and Identifiability}
+%=================================================
+
+\subsection*{Problem 10.3}
+
+Explain what happens when:
+\begin{itemize}
+    \item Columns of $X$ are linearly dependent
+\end{itemize}
+
+Answer:
+\begin{enumerate}
+    \item Is the solution unique?
+    \item Does prediction remain unique?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parameters are not unique.
+Projection (prediction) is unique.
+
+%=================================================
+\section{Problem Set 4 — Gradient Descent vs Closed Form}
+%=================================================
+
+\subsection*{Problem 10.4}
+
+Linear regression has:
+\begin{itemize}
+    \item A closed-form solution
+    \item A gradient descent solution
+\end{itemize}
+
+Explain why:
+\begin{itemize}
+    \item Both give the same answer (in theory)
+    \item Gradient descent is still widely used
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Closed form is expensive or unstable.
+GD scales better.
+
+%=================================================
+\section{Problem Set 5 — Convexity}
+%=================================================
+
+\subsection*{Problem 10.5}
+
+Explain why the squared-error loss
+for linear regression is:
+\begin{itemize}
+    \item Convex
+\end{itemize}
+
+Why does this guarantee a unique minimum?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Single bowl-shaped surface.
+
+%=================================================
+\section{Problem Set 6 — Bias Term Geometry}
+%=================================================
+
+\subsection*{Problem 10.6}
+
+Explain geometrically:
+\begin{itemize}
+    \item What adding a bias term does
+\end{itemize}
+
+Why does adding a column of ones help?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Allows translation of the projection plane.
+
+%=================================================
+\section{Problem Set 7 — Ridge Regression Intuition}
+%=================================================
+
+\subsection*{Problem 10.7}
+
+Ridge regression modifies the loss:
+\[
+\|y - Xw\|^2 + \lambda \|w\|^2
+\]
+
+Explain:
+\begin{itemize}
+    \item Why this fixes rank deficiency
+    \item What geometric constraint is imposed
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Adds stability; shrinks weights toward origin.
+
+%=================================================
+\section{Problem Set 8 — Probabilistic Interpretation}
+%=================================================
+
+\subsection*{Problem 10.8}
+
+Assume:
+\[
+y = Xw + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0,\sigma^2 I)
+\]
+
+Explain why:
+\begin{itemize}
+    \item Least squares is maximum likelihood
+\end{itemize}
+
+What assumption makes this true?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Gaussian noise assumption.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 10.9}
+
+Explain why each statement is wrong:
+
+\begin{enumerate}
+    \item Linear regression implies causation
+    \item More features always improve performance
+    \item Zero training error implies good generalization
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Correlation vs causation.
+Overfitting.
+Generalization is unmeasured.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 10.10}
+
+Complete the sentence:
+
+\begin{quote}
+Linear regression should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Projection under a chosen metric.
+%=================================================
+\chapter{Logistic Regression — Geometry Meets Probability}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Logistic regression is often misunderstood as:
+\begin{quote}
+``Linear regression with a sigmoid.''
+\end{quote}
+
+That description is shallow.
+
+Logistic regression is:
+\begin{itemize}
+    \item A probabilistic model
+    \item A geometric separator
+    \item An optimization problem
+\end{itemize}
+
+This chapter prepares you directly for neural networks.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Logistic regression answers:
+\begin{quote}
+``How confident am I that this point belongs to class 1?''
+\end{quote}
+
+Not just:
+\begin{quote}
+``Which side of the line is it on?''
+\end{quote}
+
+%=================================================
+\section{Problem Set 1 — Why Linear Regression Fails}
+%=================================================
+
+\subsection*{Problem 11.1 (Foundational)}
+
+Explain why linear regression is unsuitable
+for binary classification.
+
+Address:
+\begin{itemize}
+    \item Output range
+    \item Interpretation
+    \item Sensitivity to outliers
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Linear outputs are unbounded,
+not probabilistic,
+and distort decision thresholds.
+
+%=================================================
+\section{Problem Set 2 — The Sigmoid Function}
+%=================================================
+
+\subsection*{Problem 11.2}
+
+The sigmoid function is:
+\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]
+
+Explain:
+\begin{enumerate}
+    \item Why sigmoid outputs lie in $(0,1)$
+    \item Why this range matters
+    \item What happens for large $|z|$
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Exponentials dominate,
+outputs saturate near 0 or 1,
+interpretable as probability.
+
+%=================================================
+\section{Problem Set 3 — Geometry of the Decision Boundary}
+%=================================================
+
+\subsection*{Problem 11.3}
+
+Logistic regression predicts:
+\[
+P(y=1|x) = \sigma(w^T x + b)
+\]
+
+Explain geometrically:
+\begin{itemize}
+    \item What equation defines the decision boundary
+    \item Why it is linear
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Boundary is $w^T x + b = 0$,
+a hyperplane.
+
+%=================================================
+\section{Problem Set 4 — Why Cross-Entropy Loss}
+%=================================================
+
+\subsection*{Problem 11.4}
+
+Logistic regression uses loss:
+\[
+L = -\left[y\log p + (1-y)\log(1-p)\right]
+\]
+
+Explain why squared error is a poor choice here,
+and why cross-entropy is better.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Cross-entropy matches Bernoulli likelihood
+and penalizes confident wrong predictions.
+
+%=================================================
+\section{Problem Set 5 — Probabilistic Interpretation}
+%=================================================
+
+\subsection*{Problem 11.5}
+
+Assume:
+\[
+y \sim \text{Bernoulli}(p), \quad p=\sigma(w^T x)
+\]
+
+Explain why minimizing cross-entropy
+is equivalent to maximum likelihood estimation.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Loss is negative log-likelihood.
+
+%=================================================
+\section{Problem Set 6 — Gradient Behavior}
+%=================================================
+
+\subsection*{Problem 11.6}
+
+Explain why:
+\begin{itemize}
+    \item Logistic regression has no closed-form solution
+    \item Gradient descent must be used
+\end{itemize}
+
+What property breaks the normal equations?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Nonlinearity destroys quadratic structure.
+
+%=================================================
+\section{Problem Set 7 — Confidence vs Classification}
+%=================================================
+
+\subsection*{Problem 11.7}
+
+Explain the difference between:
+\begin{itemize}
+    \item Predicted probability
+    \item Predicted class label
+\end{itemize}
+
+Why is threshold choice important?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Probability is continuous;
+label is thresholded.
+
+%=================================================
+\section{Problem Set 8 — Saturation and Learning}
+%=================================================
+
+\subsection*{Problem 11.8}
+
+Explain why:
+\begin{itemize}
+    \item Sigmoid saturation leads to slow learning
+\end{itemize}
+
+Relate this to gradient magnitude.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Gradients vanish near 0 and 1.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 11.9}
+
+Explain why each statement is wrong:
+
+\begin{enumerate}
+    \item Logistic regression is a linear classifier
+    \item Logistic regression outputs class labels
+    \item Logistic loss equals squared error
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Boundary is linear, model is probabilistic.
+Outputs probabilities.
+Loss is cross-entropy.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 11.10}
+
+Complete the sentence:
+
+\begin{quote}
+Logistic regression should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A probabilistic linear decision model.
+%=================================================
+\chapter{From Logistic Regression to Neural Networks — The First Neuron}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Most confusion about neural networks comes from
+thinking they are fundamentally different from classical ML.
+
+They are not.
+
+A neural network begins with:
+\begin{quote}
+One logistic regression unit.
+\end{quote}
+
+This chapter removes the mystery completely.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A neuron computes:
+\[
+\text{input} \;\longrightarrow\; \text{weighted sum} \;\longrightarrow\; \text{nonlinearity}
+\]
+
+Nothing more.
+Nothing less.
+
+%=================================================
+\section{Problem Set 1 — Logistic Regression Revisited}
+%=================================================
+
+\subsection*{Problem 12.1 (Foundational)}
+
+Recall logistic regression:
+\[
+p = \sigma(w^T x + b)
+\]
+
+Answer in words:
+\begin{enumerate}
+    \item What is the role of $w^T x$?
+    \item What is the role of $b$?
+    \item What is the role of $\sigma$?
+\end{enumerate}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Weighted evidence,
+baseline shift,
+probability mapping.
+
+%=================================================
+\section{Problem Set 2 — Rename the Objects}
+%=================================================
+
+\subsection*{Problem 12.2}
+
+Rewrite the logistic regression equation
+using neural network terminology:
+
+\begin{itemize}
+    \item $x$ becomes \underline{\hspace{3cm}}
+    \item $w$ becomes \underline{\hspace{3cm}}
+    \item $b$ becomes \underline{\hspace{3cm}}
+    \item $\sigma(\cdot)$ becomes \underline{\hspace{3cm}}
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Input, weights, bias, activation function.
+
+%=================================================
+\section{Problem Set 3 — The First Neuron}
+%=================================================
+
+\subsection*{Problem 12.3}
+
+A neuron computes:
+\[
+z = w^T x + b, \quad a = \phi(z)
+\]
+
+Explain:
+\begin{itemize}
+    \item Why $z$ is called a pre-activation
+    \item Why $\phi$ is necessary
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Linear score,
+nonlinearity enables expressive power.
+
+%=================================================
+\section{Problem Set 4 — Why Nonlinearity Matters}
+%=================================================
+
+\subsection*{Problem 12.4}
+
+Explain why stacking linear layers
+\emph{without} nonlinearity
+does not increase model power.
+
+What happens mathematically?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Composition of linear maps is linear.
+
+%=================================================
+\section{Problem Set 5 — Geometry of a Neuron}
+%=================================================
+
+\subsection*{Problem 12.5}
+
+Geometrically, a neuron:
+\begin{itemize}
+    \item Defines what kind of boundary?
+    \item Applies what transformation to space?
+\end{itemize}
+
+How does activation change this picture?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Hyperplane + nonlinear warping.
+
+%=================================================
+\section{Problem Set 6 — Neuron as a Function}
+%=================================================
+
+\subsection*{Problem 12.6}
+
+Explain why a neuron should be viewed as:
+\begin{quote}
+A function with parameters.
+\end{quote}
+
+Why is this perspective crucial for learning?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parameters define behavior; gradients adjust them.
+
+%=================================================
+\section{Problem Set 7 — From One Neuron to Many}
+%=================================================
+
+\subsection*{Problem 12.7}
+
+Explain what changes when we go from:
+\begin{itemize}
+    \item One neuron
+    \item To many neurons in a layer
+\end{itemize}
+
+What stays the same conceptually?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parallel computation of different features.
+
+%=================================================
+\section{Problem Set 8 — Output Interpretation}
+%=================================================
+
+\subsection*{Problem 12.8}
+
+Explain why:
+\begin{itemize}
+    \item A single sigmoid neuron suits binary classification
+    \item Regression uses different activations
+\end{itemize}
+
+What decides the choice?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Task semantics and output constraints.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 12.9}
+
+Explain why each statement is misleading:
+
+\begin{enumerate}
+    \item A neuron is a black box
+    \item Neural networks are biologically accurate
+    \item More neurons always improve performance
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Neuron is explicit math.
+Biology is inspiration, not model.
+Overfitting exists.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 12.10}
+
+Complete the sentence:
+
+\begin{quote}
+A neural network begins as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Logistic regression with composition.
+
+%=================================================
+\chapter{Multilayer Perceptrons — Depth, Composition, and Representation}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+A single neuron can only create:
+\begin{quote}
+One linear boundary + nonlinearity.
+\end{quote}
+
+Real-world patterns are not that simple.
+
+Depth allows:
+\begin{itemize}
+    \item Hierarchical features
+    \item Progressive abstraction
+    \item Efficient representation
+\end{itemize}
+
+This chapter explains \emph{why depth matters} — mathematically.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A multilayer network is:
+\[
+f(x) = f_L(f_{L-1}(\dots f_1(x)))
+\]
+
+Learning is adjusting \textbf{composed functions}.
+
+%=================================================
+\section{Problem Set 1 — From One Layer to Many}
+%=================================================
+
+\subsection*{Problem 13.1 (Foundational)}
+
+Explain the difference between:
+\begin{itemize}
+    \item A single-layer model
+    \item A multilayer perceptron
+\end{itemize}
+
+Focus on \textbf{representation}, not training.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Single layer creates one transformation.
+Multiple layers create hierarchical transformations.
+
+%=================================================
+\section{Problem Set 2 — Composition Intuition}
+%=================================================
+
+\subsection*{Problem 13.2}
+
+Explain why composing simple functions
+can represent complex functions.
+
+Use a real-world analogy.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Simple steps combine into complex behavior.
+
+%=================================================
+\section{Problem Set 3 — Geometry of Hidden Layers}
+%=================================================
+
+\subsection*{Problem 13.3}
+
+Each hidden layer:
+\begin{itemize}
+    \item Applies a linear transformation
+    \item Followed by nonlinearity
+\end{itemize}
+
+Explain geometrically:
+\begin{itemize}
+    \item What happens to the input space after each layer
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Space is repeatedly warped and folded.
+
+%=================================================
+\section{Problem Set 4 — Why Depth Beats Width}
+%=================================================
+
+\subsection*{Problem 13.4}
+
+Explain why:
+\begin{itemize}
+    \item Some functions need exponentially many neurons
+    \item If depth is restricted to one layer
+\end{itemize}
+
+What advantage does depth provide?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Depth enables reuse and hierarchical composition.
+
+%=================================================
+\section{Problem Set 5 — Universal Approximation (Carefully)}
+%=================================================
+
+\subsection*{Problem 13.5}
+
+State the universal approximation idea in words.
+
+Explain why:
+\begin{itemize}
+    \item It does not mean ``one hidden layer is enough in practice''
+\end{itemize}
+
+What is ignored in the theorem?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Efficiency and learnability are ignored.
+
+%=================================================
+\section{Problem Set 6 — Parameter Explosion}
+%=================================================
+
+\subsection*{Problem 13.6}
+
+Explain why deeper networks:
+\begin{itemize}
+    \item Often use fewer parameters than very wide networks
+\end{itemize}
+
+How does reuse play a role?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Intermediate features are reused across layers.
+
+%=================================================
+\section{Problem Set 7 — Training vs Representation}
+%=================================================
+
+\subsection*{Problem 13.7}
+
+Explain why:
+\begin{itemize}
+    \item A network can represent a function
+    \item But still fail to learn it
+\end{itemize}
+
+What two problems are being confused?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Expressiveness vs optimization.
+
+%=================================================
+\section{Problem Set 8 — Layer Roles}
+%=================================================
+
+\subsection*{Problem 13.8}
+
+Describe typical roles of:
+\begin{itemize}
+    \item Early layers
+    \item Middle layers
+    \item Final layers
+\end{itemize}
+
+Why does this pattern appear?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Low-level → mid-level → task-specific features.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 13.9}
+
+Explain why each statement is misleading:
+
+\begin{enumerate}
+    \item Deeper always means better
+    \item Universal approximation solves learning
+    \item More parameters imply more intelligence
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Optimization, data, and generalization still matter.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 13.10}
+
+Complete the sentence:
+
+\begin{quote}
+Depth in neural networks should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Function composition for efficient representation.
+%=================================================
+\chapter{Backpropagation — Credit Assignment Through the Network}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Neural networks are trained by answering one question repeatedly:
+
+\begin{quote}
+Who is responsible for the error, and by how much?
+\end{quote}
+
+Backpropagation is the \textbf{only systematic way}
+to answer this question in composed functions.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Backpropagation is:
+\begin{itemize}
+    \item NOT a new optimization algorithm
+    \item NOT specific to neural networks
+\end{itemize}
+
+It is simply:
+\begin{quote}
+Efficient application of the chain rule to a computation graph.
+\end{quote}
+
+%=================================================
+\section{Problem Set 1 — Why Backprop Is Needed}
+%=================================================
+
+\subsection*{Problem 14.1 (Foundational)}
+
+Consider a network:
+\[
+x \rightarrow h \rightarrow \hat{y} \rightarrow L
+\]
+
+Explain why:
+\begin{itemize}
+    \item The loss depends on $w_1$ only through $h$
+    \item Direct differentiation is inefficient
+\end{itemize}
+
+What difficulty does depth introduce?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each parameter influences loss indirectly.
+Naive differentiation repeats work exponentially.
+
+%=================================================
+\section{Problem Set 2 — Chain Rule Refresher}
+%=================================================
+
+\subsection*{Problem 14.2}
+
+Let:
+\[
+z = f(y), \quad y = g(x)
+\]
+
+Write $\frac{dz}{dx}$ using the chain rule.
+
+Explain in words what this formula means.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\[
+\frac{dz}{dx} = \frac{dz}{dy}\frac{dy}{dx}
+\]
+
+Sensitivity multiplies through dependencies.
+
+%=================================================
+\section{Problem Set 3 — Local Gradients}
+%=================================================
+
+\subsection*{Problem 14.3}
+
+Explain why backprop computes:
+\begin{itemize}
+    \item Local derivatives
+    \item Then multiplies them
+\end{itemize}
+
+Why is this numerically and conceptually powerful?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each component only needs local knowledge.
+Reuse avoids recomputation.
+
+%=================================================
+\section{Problem Set 4 — Computation Graph View}
+%=================================================
+
+\subsection*{Problem 14.4}
+
+Explain what a computation graph represents.
+
+Why is it helpful to:
+\begin{itemize}
+    \item Separate forward computation
+    \item From backward gradient flow
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Graph captures dependencies.
+Forward computes values; backward assigns responsibility.
+
+%=================================================
+\section{Problem Set 5 — One Neuron Backprop}
+%=================================================
+
+\subsection*{Problem 14.5}
+
+Consider:
+\[
+z = w^T x + b,\quad a = \phi(z),\quad L = \ell(a)
+\]
+
+Write (symbolically):
+\begin{itemize}
+    \item $\frac{\partial L}{\partial a}$
+    \item $\frac{\partial a}{\partial z}$
+    \item $\frac{\partial z}{\partial w}$
+\end{itemize}
+
+Explain how they combine.
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+\[
+\frac{\partial L}{\partial w}
+=
+\frac{\partial L}{\partial a}
+\frac{\partial a}{\partial z}
+\frac{\partial z}{\partial w}
+\]
+
+%=================================================
+\section{Problem Set 6 — Backward Signal Meaning}
+%=================================================
+
+\subsection*{Problem 14.6}
+
+Explain what the quantity:
+\[
+\frac{\partial L}{\partial z}
+\]
+represents intuitively.
+
+Why is it often called an \emph{error signal}?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+It measures how changing pre-activation affects loss.
+
+%=================================================
+\section{Problem Set 7 — Layer-wise Credit Assignment}
+%=================================================
+
+\subsection*{Problem 14.7}
+
+Explain why:
+\begin{itemize}
+    \item Each layer receives error from the layer above
+    \item Then redistributes it to the layer below
+\end{itemize}
+
+Why does this resemble responsibility passing?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Each layer contributed to downstream error.
+
+%=================================================
+\section{Problem Set 8 — Efficiency of Backprop}
+%=================================================
+
+\subsection*{Problem 14.8}
+
+Explain why backprop:
+\begin{itemize}
+    \item Has the same computational complexity as the forward pass
+\end{itemize}
+
+Why is this surprising?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Intermediate values are reused.
+No exponential blowup.
+
+%=================================================
+\section{Problem Set 9 — What Backprop Is NOT}
+%=================================================
+
+\subsection*{Problem 14.9}
+
+Explain why backprop:
+\begin{itemize}
+    \item Does not choose learning rates
+    \item Does not minimize loss by itself
+    \item Does not guarantee convergence
+\end{itemize}
+
+What role does it actually play?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+It computes gradients only.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 14.10}
+
+Explain why this statement is wrong:
+
+\begin{quote}
+``Backpropagation is the optimization algorithm of neural networks.''
+\end{quote}
+
+What two concepts are being confused?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Backprop computes gradients.
+Optimization uses them.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 14.11}
+
+Complete the sentence:
+
+\begin{quote}
+Backpropagation should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Efficient gradient computation via the chain rule.
+%=================================================
+\chapter{Activation Functions — Shaping Information Flow}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Without activation functions:
+\begin{quote}
+Deep networks collapse into linear models.
+\end{quote}
+
+With the wrong activation functions:
+\begin{quote}
+Learning becomes unstable or impossible.
+\end{quote}
+
+This chapter explains:
+\begin{itemize}
+    \item Why activations are necessary
+    \item How they affect gradients
+    \item Why ReLU changed everything
+\end{itemize}
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+An activation function:
+\begin{quote}
+Controls how signals and gradients flow through the network.
+\end{quote}
+
+It is a \textbf{gate}, not a decoration.
+
+%=================================================
+\section{Problem Set 1 — Why Nonlinearity Is Mandatory}
+%=================================================
+
+\subsection*{Problem 15.1 (Foundational)}
+
+Explain why:
+\begin{itemize}
+    \item A network with only linear layers is still linear
+\end{itemize}
+
+What mathematical property causes this?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Composition of linear functions is linear.
+
+%=================================================
+\section{Problem Set 2 — Desired Properties of Activations}
+%=================================================
+
+\subsection*{Problem 15.2}
+
+List and explain three desirable properties
+of an activation function for deep learning.
+
+Hint: think about gradients and stability.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Nonlinearity, differentiability, stable gradients.
+
+%=================================================
+\section{Problem Set 3 — Sigmoid Activation}
+%=================================================
+
+\subsection*{Problem 15.3}
+
+The sigmoid function:
+\[
+\sigma(z) = \frac{1}{1 + e^{-z}}
+\]
+
+Explain:
+\begin{itemize}
+    \item Why sigmoid saturates
+    \item What happens to gradients at extremes
+\end{itemize}
+
+Why is this problematic in deep networks?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Gradients vanish near 0 and 1.
+
+%=================================================
+\section{Problem Set 4 — Tanh Activation}
+%=================================================
+
+\subsection*{Problem 15.4}
+
+Tanh is defined as:
+\[
+\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
+\]
+
+Explain:
+\begin{itemize}
+    \item How tanh improves over sigmoid
+    \item What problem still remains
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Zero-centered outputs help,
+but saturation remains.
+
+%=================================================
+\section{Problem Set 5 — ReLU Activation}
+%=================================================
+
+\subsection*{Problem 15.5}
+
+ReLU is defined as:
+\[
+\text{ReLU}(z) = \max(0, z)
+\]
+
+Explain why ReLU:
+\begin{itemize}
+    \item Reduces vanishing gradients
+    \item Enables deeper networks
+\end{itemize}
+
+What trade-off does it introduce?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Linear for positive inputs;
+zero gradient for negative inputs.
+
+%=================================================
+\section{Problem Set 6 — Dead Neurons}
+%=================================================
+
+\subsection*{Problem 15.6}
+
+Explain what a \emph{dead ReLU neuron} is.
+
+Why does it stop learning permanently?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Always negative input leads to zero gradient.
+
+%=================================================
+\section{Problem Set 7 — Variants of ReLU}
+%=================================================
+
+\subsection*{Problem 15.7}
+
+Explain how each variant addresses ReLU's weakness:
+\begin{itemize}
+    \item Leaky ReLU
+    \item Parametric ReLU
+    \item ELU
+\end{itemize}
+
+What is the common idea?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Allow small negative gradients.
+
+%=================================================
+\section{Problem Set 8 — Activation and Gradient Flow}
+%=================================================
+
+\subsection*{Problem 15.8}
+
+Explain why activation choice:
+\begin{itemize}
+    \item Directly affects backpropagation
+\end{itemize}
+
+How does it influence learning speed?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Controls gradient magnitude propagation.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 15.9}
+
+Explain why each statement is misleading:
+
+\begin{enumerate}
+    \item Sigmoid is obsolete
+    \item ReLU always outperforms others
+    \item Activation choice does not matter
+\end{enumerate}
+
+\vspace{6cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Context and task determine suitability.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 15.10}
+
+Complete the sentence:
+
+\begin{quote}
+An activation function should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A controller of signal and gradient flow.
+%=================================================
+\chapter{Initialization — Starting Learning on the Right Foot}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Even with:
+\begin{itemize}
+    \item Correct architecture
+    \item Correct loss
+    \item Correct optimizer
+\end{itemize}
+
+a poor initialization can cause:
+\begin{itemize}
+    \item Vanishing gradients
+    \item Exploding gradients
+    \item Dead neurons
+    \item Extremely slow learning
+\end{itemize}
+
+This chapter explains why initialization is not cosmetic,
+but structural.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Initialization determines:
+\begin{quote}
+How signals and gradients propagate \emph{before learning begins}.
+\end{quote}
+
+Learning can only refine what initialization allows.
+
+%=================================================
+\section{Problem Set 1 — Why Initialization Matters}
+%=================================================
+
+\subsection*{Problem 16.1 (Foundational)}
+
+Explain why:
+\begin{itemize}
+    \item All-zero initialization fails for neural networks
+\end{itemize}
+
+What symmetry is created?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+All neurons receive identical gradients and remain identical.
+
+%=================================================
+\section{Problem Set 2 — Signal Propagation}
+%=================================================
+
+\subsection*{Problem 16.2}
+
+Consider a deep network at initialization.
+
+Explain why:
+\begin{itemize}
+    \item Activations may shrink layer by layer
+    \item Activations may blow up layer by layer
+\end{itemize}
+
+What controls this behavior?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Weight scale and activation function.
+
+%=================================================
+\section{Problem Set 3 — Gradient Propagation}
+%=================================================
+
+\subsection*{Problem 16.3}
+
+Explain why:
+\begin{itemize}
+    \item Gradients can vanish
+    \item Gradients can explode
+\end{itemize}
+
+Relate this to repeated multiplication.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Chain rule multiplies many terms.
+
+%=================================================
+\section{Problem Set 4 — Desired Initialization Goal}
+%=================================================
+
+\subsection*{Problem 16.4}
+
+State the goal of good initialization in words.
+
+Complete the sentence:
+
+\begin{quote}
+A good initialization keeps \underline{\hspace{5cm}} approximately constant across layers.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Activation and gradient variance.
+
+%=================================================
+\section{Problem Set 5 — Xavier Initialization}
+%=================================================
+
+\subsection*{Problem 16.5}
+
+Xavier (Glorot) initialization sets:
+\[
+\text{Var}(w) = \frac{1}{n_{\text{in}}}
+\quad \text{or} \quad
+\frac{2}{n_{\text{in}} + n_{\text{out}}}
+\]
+
+Explain:
+\begin{itemize}
+    \item What assumptions this makes
+    \item Which activations it suits best
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Assumes symmetric activations like tanh.
+
+%=================================================
+\section{Problem Set 6 — He Initialization}
+%=================================================
+
+\subsection*{Problem 16.6}
+
+He initialization uses:
+\[
+\text{Var}(w) = \frac{2}{n_{\text{in}}}
+\]
+
+Explain why this is better suited for ReLU.
+
+What property of ReLU is being compensated?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+ReLU zeroes half the activations.
+
+%=================================================
+\section{Problem Set 7 — Bias Initialization}
+%=================================================
+
+\subsection*{Problem 16.7}
+
+Explain why:
+\begin{itemize}
+    \item Biases are often initialized to zero
+    \item This does not cause symmetry problems
+\end{itemize}
+
+Why is this different from weights?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Bias does not couple neurons.
+
+%=================================================
+\section{Problem Set 8 — Initialization vs Optimization}
+%=================================================
+
+\subsection*{Problem 16.8}
+
+Explain why:
+\begin{itemize}
+    \item Good initialization does not guarantee success
+    \item Bad initialization almost guarantees failure
+\end{itemize}
+
+What role does optimization still play?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Initialization enables learning;
+optimization performs it.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 16.9}
+
+Explain why this statement is wrong:
+
+\begin{quote}
+Initialization only affects early iterations.
+\end{quote}
+
+What long-term effect does it have?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Early dynamics shape reachable regions.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 16.10}
+
+Complete the sentence:
+
+\begin{quote}
+Initialization should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Setting the conditions for stable signal flow.
+%=================================================
+\chapter{Optimizers — Momentum, Adaptivity, and Geometry}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Plain gradient descent is:
+\begin{itemize}
+    \item Correct
+    \item Conceptually clean
+\end{itemize}
+
+But in practice it is often:
+\begin{itemize}
+    \item Slow
+    \item Oscillatory
+    \item Sensitive to learning rate
+\end{itemize}
+
+Optimizers modify \emph{how} gradients are used,
+not \emph{what} gradients mean.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+An optimizer:
+\begin{quote}
+Decides how to interpret gradient information over time.
+\end{quote}
+
+It shapes the learning trajectory.
+
+%=================================================
+\section{Problem Set 1 — Why Plain Gradient Descent Struggles}
+%=================================================
+
+\subsection*{Problem 17.1 (Foundational)}
+
+Explain why plain gradient descent:
+\begin{itemize}
+    \item Zig-zags in narrow valleys
+    \item Makes slow progress along flat directions
+\end{itemize}
+
+What geometric property causes this?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Ill-conditioned curvature (different scales).
+
+%=================================================
+\section{Problem Set 2 — Momentum Intuition}
+%=================================================
+
+\subsection*{Problem 17.2}
+
+Momentum updates:
+\[
+v_t = \beta v_{t-1} + \nabla L_t
+\]
+
+Explain momentum using a physical analogy.
+
+Why does it reduce oscillations?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Velocity accumulates consistent direction,
+damps back-and-forth motion.
+
+%=================================================
+\section{Problem Set 3 — Momentum vs Learning Rate}
+%=================================================
+
+\subsection*{Problem 17.3}
+
+Explain how momentum:
+\begin{itemize}
+    \item Interacts with learning rate
+    \item Can allow larger learning rates safely
+\end{itemize}
+
+Why are they not redundant?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Momentum smooths direction;
+learning rate scales step size.
+
+%=================================================
+\section{Problem Set 4 — Adaptive Learning Rates}
+%=================================================
+
+\subsection*{Problem 17.4}
+
+Explain why using:
+\begin{itemize}
+    \item One global learning rate
+\end{itemize}
+can be problematic when parameters have different sensitivities.
+
+What idea motivates adaptive optimizers?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Different parameters need different step sizes.
+
+%=================================================
+\section{Problem Set 5 — AdaGrad}
+%=================================================
+
+\subsection*{Problem 17.5}
+
+AdaGrad scales updates by accumulated squared gradients.
+
+Explain:
+\begin{itemize}
+    \item Why frequently-updated parameters slow down
+    \item Why learning can stall eventually
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Accumulated denominator grows unbounded.
+
+%=================================================
+\section{Problem Set 6 — RMSProp}
+%=================================================
+
+\subsection*{Problem 17.6}
+
+RMSProp modifies AdaGrad by:
+\begin{itemize}
+    \item Using exponential moving averages
+\end{itemize}
+
+Explain why this fixes AdaGrad’s main weakness.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Forgets old gradients, keeps scale bounded.
+
+%=================================================
+\section{Problem Set 7 — Adam Optimizer}
+%=================================================
+
+\subsection*{Problem 17.7}
+
+Adam combines:
+\begin{itemize}
+    \item Momentum
+    \item Adaptive scaling
+\end{itemize}
+
+Explain what each component contributes.
+
+Why is bias correction needed?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Momentum smooths direction;
+adaptivity scales steps;
+bias correction handles early estimates.
+
+%=================================================
+\section{Problem Set 8 — When Adam Fails}
+%=================================================
+
+\subsection*{Problem 17.8}
+
+Explain why Adam:
+\begin{itemize}
+    \item Can generalize worse than SGD in some tasks
+\end{itemize}
+
+What property of SGD may be beneficial?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+SGD noise acts as implicit regularization.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 17.9}
+
+Explain why this statement is misleading:
+
+\begin{quote}
+``Adam is always better than SGD.''
+\end{quote}
+
+What trade-off is being ignored?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Speed vs generalization.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 17.10}
+
+Complete the sentence:
+
+\begin{quote}
+An optimizer should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A rule for using gradient history.
+%=================================================
+\chapter{Normalization — Making Deep Learning Stable}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Deep networks failed historically not because:
+\begin{itemize}
+    \item The idea was wrong
+    \item The math was wrong
+\end{itemize}
+
+but because:
+\begin{quote}
+Training was unstable.
+\end{quote}
+
+Normalization techniques changed deep learning by
+\textbf{controlling signal statistics during training}.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Normalization aims to:
+\begin{quote}
+Keep activations in a healthy numerical range.
+\end{quote}
+
+This stabilizes:
+\begin{itemize}
+    \item Forward signal flow
+    \item Backward gradient flow
+\end{itemize}
+
+%=================================================
+\section{Problem Set 1 — What Goes Wrong Without Normalization}
+%=================================================
+
+\subsection*{Problem 18.1 (Foundational)}
+
+Explain why, in deep networks:
+\begin{itemize}
+    \item Activation distributions drift during training
+\end{itemize}
+
+What causes this drift?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Earlier layers change, altering inputs to later layers.
+
+%=================================================
+\section{Problem Set 2 — Internal Covariate Shift}
+%=================================================
+
+\subsection*{Problem 18.2}
+
+The term \emph{internal covariate shift} refers to:
+\begin{quote}
+Changing input distributions for internal layers.
+\end{quote}
+
+Explain why this:
+\begin{itemize}
+    \item Slows learning
+    \item Makes optimization harder
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Layers must constantly re-adapt to new distributions.
+
+%=================================================
+\section{Problem Set 3 — Batch Normalization Idea}
+%=================================================
+
+\subsection*{Problem 18.3}
+
+Batch Normalization (BatchNorm) normalizes:
+\begin{itemize}
+    \item Pre-activations within a mini-batch
+\end{itemize}
+
+Explain why normalization is applied:
+\begin{itemize}
+    \item Before the activation function
+\end{itemize}
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Activation nonlinearity amplifies scale issues.
+
+%=================================================
+\section{Problem Set 4 — BatchNorm Formula (Conceptual)}
+%=================================================
+
+\subsection*{Problem 18.4}
+
+BatchNorm computes:
+\[
+\hat{z} = \frac{z - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}
+\]
+
+Explain the role of:
+\begin{itemize}
+    \item Mean subtraction
+    \item Variance scaling
+    \item Small $\epsilon$
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Centers, scales, and prevents division by zero.
+
+%=================================================
+\section{Problem Set 5 — Learnable Parameters}
+%=================================================
+
+\subsection*{Problem 18.5}
+
+BatchNorm introduces parameters:
+\[
+y = \gamma \hat{z} + \beta
+\]
+
+Explain why:
+\begin{itemize}
+    \item Normalization does not reduce model expressiveness
+\end{itemize}
+
+What do $\gamma$ and $\beta$ allow?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Model can recover original scale and shift.
+
+%=================================================
+\section{Problem Set 6 — Regularization Effect}
+%=================================================
+
+\subsection*{Problem 18.6}
+
+Explain why BatchNorm:
+\begin{itemize}
+    \item Acts as implicit regularization
+\end{itemize}
+
+What source of noise is introduced?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Mini-batch statistics introduce stochasticity.
+
+%=================================================
+\section{Problem Set 7 — Train vs Inference}
+%=================================================
+
+\subsection*{Problem 18.7}
+
+Explain why BatchNorm behaves differently during:
+\begin{itemize}
+    \item Training
+    \item Inference
+\end{itemize}
+
+Why can we not use batch statistics at test time?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Batch statistics unavailable or unreliable at test time.
+
+%=================================================
+\section{Problem Set 8 — Limitations of BatchNorm}
+%=================================================
+
+\subsection*{Problem 18.8}
+
+Explain why BatchNorm:
+\begin{itemize}
+    \item Fails with very small batch sizes
+    \item Is problematic for recurrent networks
+\end{itemize}
+
+What assumption is violated?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Reliable batch statistics assumption fails.
+
+%=================================================
+\section{Problem Set 9 — Layer Normalization}
+%=================================================
+
+\subsection*{Problem 18.9}
+
+LayerNorm normalizes:
+\begin{itemize}
+    \item Across features within one sample
+\end{itemize}
+
+Explain why this:
+\begin{itemize}
+    \item Removes dependence on batch size
+\end{itemize}
+
+Where is LayerNorm preferred?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Used in RNNs and Transformers.
+
+%=================================================
+\section{Problem Set 10 — Comparison}
+%=================================================
+
+\subsection*{Problem 18.10}
+
+Compare BatchNorm and LayerNorm in terms of:
+\begin{itemize}
+    \item What is normalized
+    \item Dependency on batch size
+    \item Typical use cases
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+BatchNorm: across batch; LayerNorm: across features.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 18.11}
+
+Explain why this statement is misleading:
+
+\begin{quote}
+``Normalization removes the need for careful initialization.''
+\end{quote}
+
+What still matters?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Initialization affects early dynamics.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 18.12}
+
+Complete the sentence:
+
+\begin{quote}
+Normalization should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Stabilizing signal and gradient statistics during learning.
+%=================================================
+\chapter{Loss Landscapes \& Deep Geometry — Why Optimization Works}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+At first glance, deep learning should fail:
+
+\begin{itemize}
+    \item Non-convex loss surfaces
+    \item Millions of parameters
+    \item No global guarantees
+\end{itemize}
+
+Yet in practice, it works remarkably well.
+
+This chapter explains \textbf{why non-convex does not mean hopeless}.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+A loss surface is:
+\begin{quote}
+A geometric object in a very high-dimensional space.
+\end{quote}
+
+High-dimensional geometry behaves very differently
+from low-dimensional intuition.
+
+%=================================================
+\section{Problem Set 1 — What Is a Loss Landscape?}
+%=================================================
+
+\subsection*{Problem 19.1 (Foundational)}
+
+Define in words:
+\begin{itemize}
+    \item What a loss landscape represents
+\end{itemize}
+
+What are:
+\begin{itemize}
+    \item The axes?
+    \item The height?
+\end{itemize}
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Axes are parameters.
+Height is loss value.
+
+%=================================================
+\section{Problem Set 2 — Convex vs Non-Convex}
+%=================================================
+
+\subsection*{Problem 19.2}
+
+Explain why:
+\begin{itemize}
+    \item Linear regression has a convex loss
+    \item Neural networks have non-convex loss
+\end{itemize}
+
+What introduces non-convexity?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Nonlinear composition introduces non-convexity.
+
+%=================================================
+\section{Problem Set 3 — Local Minima Fear}
+%=================================================
+
+\subsection*{Problem 19.3}
+
+Explain why early deep learning feared:
+\begin{itemize}
+    \item Getting stuck in poor local minima
+\end{itemize}
+
+What low-dimensional intuition caused this fear?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+2D intuition exaggerates local minima issues.
+
+%=================================================
+\section{Problem Set 4 — High-Dimensional Reality}
+%=================================================
+
+\subsection*{Problem 19.4}
+
+Explain why, in high dimensions:
+\begin{itemize}
+    \item Most critical points are saddle points
+    \item True bad local minima are rare
+\end{itemize}
+
+What happens to curvature directions?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Mixed curvature directions dominate.
+
+%=================================================
+\section{Problem Set 5 — Saddle Points}
+%=================================================
+
+\subsection*{Problem 19.5}
+
+Explain why saddle points:
+\begin{itemize}
+    \item Slow down gradient descent
+    \item Are easier to escape with noise
+\end{itemize}
+
+What role does SGD play?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Noise helps escape flat saddles.
+
+%=================================================
+\section{Problem Set 6 — Flat vs Sharp Minima}
+%=================================================
+
+\subsection*{Problem 19.6}
+
+Explain the difference between:
+\begin{itemize}
+    \item Flat minima
+    \item Sharp minima
+\end{itemize}
+
+Which generalizes better, and why?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Flat minima are robust to perturbations.
+
+%=================================================
+\section{Problem Set 7 — Why SGD Helps}
+%=================================================
+
+\subsection*{Problem 19.7}
+
+Explain why stochastic gradient descent:
+\begin{itemize}
+    \item Does not exactly follow steepest descent
+    \item Tends to find flatter regions
+\end{itemize}
+
+What geometric bias does noise introduce?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Noise biases toward wide valleys.
+
+%=================================================
+\section{Problem Set 8 — Overparameterization Paradox}
+%=================================================
+
+\subsection*{Problem 19.8}
+
+Explain the paradox:
+\begin{quote}
+More parameters can make optimization easier.
+\end{quote}
+
+How does dimensionality change the landscape?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+More directions allow smoother descent paths.
+
+%=================================================
+\section{Problem Set 9 — Why Exact Minima Are Unnecessary}
+%=================================================
+
+\subsection*{Problem 19.9}
+
+Explain why:
+\begin{itemize}
+    \item Finding a global minimum is unnecessary
+\end{itemize}
+
+What property matters more?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Generalization, not optimality.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 19.10}
+
+Explain why this statement is misleading:
+
+\begin{quote}
+``Non-convex optimization is intractable.''
+\end{quote}
+
+What context is being ignored?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+High-dimensional structure and noise.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 19.11}
+
+Complete the sentence:
+
+\begin{quote}
+Deep learning works in spite of non-convexity because \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+High-dimensional geometry favors usable solutions.
+%=================================================
+\chapter{Regularization in Deep Networks — Forcing Generalization}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+In classical ML, regularization was:
+\begin{itemize}
+    \item $L_1$, $L_2$ penalties
+\end{itemize}
+
+In deep learning, regularization is broader:
+\begin{itemize}
+    \item Noise
+    \item Randomness
+    \item Constraints on representations
+\end{itemize}
+
+This chapter unifies all of them under one idea:
+\begin{quote}
+Prevent the network from relying on fragile coincidences.
+\end{quote}
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Regularization in deep learning means:
+\begin{quote}
+Make learning robust to small changes.
+\end{quote}
+
+Robustness implies generalization.
+
+%=================================================
+\section{Problem Set 1 — Why Deep Nets Overfit Easily}
+%=================================================
+
+\subsection*{Problem 20.1 (Foundational)}
+
+Explain why deep neural networks:
+\begin{itemize}
+    \item Can fit random labels
+\end{itemize}
+
+What does this say about their capacity?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+They are extremely expressive.
+Capacity is not the limiting factor.
+
+%=================================================
+\section{Problem Set 2 — Dropout Intuition}
+%=================================================
+
+\subsection*{Problem 20.2}
+
+Dropout randomly removes neurons during training.
+
+Explain why dropout:
+\begin{itemize}
+    \item Prevents co-adaptation of features
+    \item Encourages redundancy
+\end{itemize}
+
+Use a conceptual explanation.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Features cannot rely on specific partners.
+
+%=================================================
+\section{Problem Set 3 — Dropout as Model Averaging}
+%=================================================
+
+\subsection*{Problem 20.3}
+
+Explain why dropout can be viewed as:
+\begin{quote}
+Training an ensemble of subnetworks.
+\end{quote}
+
+Why is this ensemble cheap?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Subnetworks share parameters.
+
+%=================================================
+\section{Problem Set 4 — Train vs Test in Dropout}
+%=================================================
+
+\subsection*{Problem 20.4}
+
+Explain why:
+\begin{itemize}
+    \item Dropout is applied only during training
+    \item We scale activations at test time
+\end{itemize}
+
+What consistency is being preserved?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Expected activation magnitude.
+
+%=================================================
+\section{Problem Set 5 — Noise as Regularization}
+%=================================================
+
+\subsection*{Problem 20.5}
+
+Explain why injecting noise into:
+\begin{itemize}
+    \item Inputs
+    \item Activations
+    \item Gradients
+\end{itemize}
+
+can improve generalization.
+
+What does noise force the model to learn?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Stable, robust features.
+
+%=================================================
+\section{Problem Set 6 — Data Augmentation}
+%=================================================
+
+\subsection*{Problem 20.6}
+
+Explain why data augmentation:
+\begin{itemize}
+    \item Acts as implicit regularization
+\end{itemize}
+
+Why is it often better than explicit penalties?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Encodes invariances directly.
+
+%=================================================
+\section{Problem Set 7 — Early Stopping Revisited}
+%=================================================
+
+\subsection*{Problem 20.7}
+
+Explain why early stopping:
+\begin{itemize}
+    \item Is a form of regularization
+\end{itemize}
+
+What growth is being stopped?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Complexity growth in parameters.
+
+%=================================================
+\section{Problem Set 8 — Weight Decay in Deep Nets}
+%=================================================
+
+\subsection*{Problem 20.8}
+
+Explain why:
+\begin{itemize}
+    \item Weight decay still matters in deep networks
+\end{itemize}
+
+How does it interact with modern optimizers?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Controls parameter scale and smoothness.
+
+%=================================================
+\section{Problem Set 9 — Regularization Trade-offs}
+%=================================================
+
+\subsection*{Problem 20.9}
+
+Explain why:
+\begin{itemize}
+    \item Too much regularization causes underfitting
+\end{itemize}
+
+How do you detect this in practice?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Training and validation both degrade.
+
+%=================================================
+\section{GATE-Level Traps}
+%=================================================
+
+\subsection*{Problem 20.10}
+
+Explain why this statement is misleading:
+
+\begin{quote}
+``Regularization is only needed when overfitting is observed.''
+\end{quote}
+
+What proactive role does it play?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+It shapes learning dynamics from the start.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 20.11}
+
+Complete the sentence:
+
+\begin{quote}
+Regularization in deep learning should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Forcing robustness against fragile solutions.
+%=================================================
+\chapter{From Theory to Code}
+%=================================================
+
+\section*{Why This Chapter Exists}
+
+Many learners fail not because they lack theory,
+but because they cannot translate:
+
+\begin{center}
+\textbf{Math $\longrightarrow$ Tensors $\longrightarrow$ Code}
+\end{center}
+
+This chapter builds that translation skill
+\emph{slowly, visually, and mechanically}.
+
+No libraries yet.
+No shortcuts.
+Just understanding.
+
+%=================================================
+\section{Mental Model to Fix}
+%=================================================
+
+Think of code as:
+\begin{quote}
+A concrete execution of the training loop.
+\end{quote}
+
+Everything you write in code already exists
+in your mathematical notes.
+
+%=================================================
+\section{Problem Set 1 — Scalars, Vectors, Tensors}
+%=================================================
+
+\subsection*{Problem 21.1 (Foundational)}
+
+Match the mathematical object to its coding interpretation:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Math & Code Concept \\
+\hline
+Scalar & \underline{\hspace{4cm}} \\
+Vector & \underline{\hspace{4cm}} \\
+Matrix & \underline{\hspace{4cm}} \\
+Tensor & \underline{\hspace{4cm}} \\
+\hline
+\end{tabular}
+\end{center}
+
+Explain why tensors are the natural generalization.
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Scalar $\rightarrow$ single number \\
+Vector $\rightarrow$ 1D array \\
+Matrix $\rightarrow$ 2D array \\
+Tensor $\rightarrow$ N-dimensional array
+
+%=================================================
+\section{Problem Set 2 — Shapes Are the First Debugger}
+%=================================================
+
+\subsection*{Problem 21.2}
+
+Explain why:
+\begin{itemize}
+    \item Shape mismatches are the most common bugs
+    \item Tracking dimensions prevents logic errors
+\end{itemize}
+
+Why is thinking in shapes more important than syntax?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Shapes encode mathematical validity.
+
+%=================================================
+\section{Problem Set 3 — The Forward Pass in Code}
+%=================================================
+
+\subsection*{Problem 21.3}
+
+A neuron computes:
+\[
+z = w^T x + b,\quad a = \phi(z)
+\]
+
+Explain how this becomes:
+\begin{itemize}
+    \item A dot product
+    \item A broadcasted addition
+    \item An elementwise nonlinearity
+\end{itemize}
+
+No code. Only explanation.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Linear algebra operations map directly to array ops.
+
+%=================================================
+\section{Problem Set 4 — Batching Is Just Stacking}
+%=================================================
+
+\subsection*{Problem 21.4}
+
+Explain why:
+\begin{itemize}
+    \item A batch is just stacked inputs
+    \item Matrix multiplication replaces many dot products
+\end{itemize}
+
+What efficiency is gained?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parallel computation via linear algebra.
+
+%=================================================
+\section{Problem Set 5 — Loss in Code}
+%=================================================
+
+\subsection*{Problem 21.5}
+
+Explain why loss functions in code:
+\begin{itemize}
+    \item Return a scalar
+\end{itemize}
+
+Why must everything reduce to a single number?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Optimization requires a single objective value.
+
+%=================================================
+\section{Problem Set 6 — Autograd Demystified}
+%=================================================
+
+\subsection*{Problem 21.6}
+
+Explain what automatic differentiation does:
+
+\begin{itemize}
+    \item During the forward pass
+    \item During the backward pass
+\end{itemize}
+
+What information is being stored?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Forward stores intermediate values.
+Backward applies chain rule.
+
+%=================================================
+\section{Problem Set 7 — Parameters vs Data}
+%=================================================
+
+\subsection*{Problem 21.7}
+
+Explain the difference between:
+\begin{itemize}
+    \item Parameters
+    \item Data
+\end{itemize}
+
+Why does only one receive gradients?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Parameters are optimized; data is fixed.
+
+%=================================================
+\section{Problem Set 8 — The Training Loop in Pseudocode}
+%=================================================
+
+\subsection*{Problem 21.8}
+
+Fill in the missing conceptual steps:
+
+\begin{quote}
+Initialize parameters \\
+\underline{\hspace{8cm}} \\
+Compute loss \\
+\underline{\hspace{8cm}} \\
+Update parameters
+\end{quote}
+
+Explain each step in words.
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Forward pass \\
+Backward pass
+
+%=================================================
+\section{Problem Set 9 — Debugging Mindset}
+%=================================================
+
+\subsection*{Problem 21.9}
+
+Explain why debugging ML code should start with:
+\begin{itemize}
+    \item Checking shapes
+    \item Checking magnitudes
+    \item Checking loss trends
+\end{itemize}
+
+Why is this better than tweaking hyperparameters?
+
+\vspace{5cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Logic errors precede tuning errors.
+
+%=================================================
+\section{GATE-Level Trap}
+%=================================================
+
+\subsection*{Problem 21.10}
+
+Explain why this statement is dangerous:
+
+\begin{quote}
+``I understand the theory, but coding is different.''
+\end{quote}
+
+What false separation is being made?
+
+\vspace{4cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+Code is execution of theory.
+
+%=================================================
+\section{Mastery Check}
+%=================================================
+
+\subsection*{Problem 21.11}
+
+Complete the sentence:
+
+\begin{quote}
+Machine learning code should be understood as \\
+\underline{\hspace{10cm}}.
+\end{quote}
+
+\vspace{3cm}
+
+%-------------------------------------------------
+
+\subsection*{Answer}
+
+A concrete implementation of the training loop.
+
+\end{document}
