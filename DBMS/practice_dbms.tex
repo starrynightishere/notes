@@ -1,0 +1,2091 @@
+\documentclass[12pt,a4paper]{book}
+
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\geometry{
+    left=1.25in,
+    right=1.25in,
+    top=1in,
+    bottom=1in
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{GATE DBMS 2026}
+\fancyhead[R]{Chapter \thechapter}
+\fancyfoot[C]{\thepage}
+
+\onehalfspacing
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+\begin{document}
+
+% --
+% FRONT MATTER
+% --
+\frontmatter
+
+\title{\textbf{Database Management Systems Practice Problems}}
+\maketitle
+\tableofcontents
+
+\chapter{Practice Set 1: ER Model (GATE Level)}
+
+\section{Instructions}
+
+Attempt each question before reading the solution.  
+Focus on eliminating incorrect options using definitions and logic.
+
+
+\section{Problem 1: Entity vs Attribute}
+
+Which of the following is most appropriately modeled as an \textbf{entity} rather than an attribute?
+
+\begin{enumerate}[label=\Alph*.]
+\item Age of a student
+\item Address of a student
+\item Phone number of a student
+\item Course offered by a department
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item Age of a student
+\item Address of a student
+\item Phone number of a student
+\item Course offered by a department
+\end{enumerate}
+\begin{itemize}
+    \item Age is a simple attribute
+    \item Address is a composite attribute
+    \item Phone number is a multi-valued attribute
+    \item Course has its own attributes such as CourseID, Title, Credits
+\end{itemize}
+
+Therefore, Course should be modeled as an entity.
+
+
+\section{Problem 2: Candidate Keys}
+
+Consider an entity set \texttt{EMPLOYEE} with attributes:
+\[
+(EmpID, AadhaarNo, Name)
+\]
+Both \texttt{EmpID} and \texttt{AadhaarNo} uniquely identify an employee.
+
+How many candidate keys exist?
+
+\begin{enumerate}[label=\Alph*.]
+\item 0
+\item 1
+\item 2
+\item 3
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item 0
+\item 1
+\item 2
+\item 3
+\end{enumerate}
+\begin{itemize}
+    \item Unique
+    \item Minimal
+\end{itemize}
+
+Both \{EmpID\} and \{AadhaarNo\} satisfy these conditions.
+The set \{EmpID, AadhaarNo\} is not minimal.
+
+Hence, there are two candidate keys.
+
+
+\section{Problem 3: Weak Entities}
+
+Which of the following statements about weak entities is TRUE?
+
+\begin{enumerate}[label=\Alph*.]
+\item A weak entity has no key at all
+\item A weak entity may exist without its owner
+\item A weak entity has a partial key
+\item A weak entity never has total participation
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item A weak entity has no key at all
+\item A weak entity may exist without its owner
+\item A weak entity has a partial key
+\item A weak entity never has total participation
+\end{enumerate}
+\begin{itemize}
+    \item Has a partial key
+    \item Depends on its owner entity
+    \item Participates totally in the identifying relationship
+\end{itemize}
+
+
+\section{Problem 4: Cardinality}
+
+A student can enroll in many courses, and a course can have many students.
+
+What is the cardinality of this relationship?
+
+\begin{enumerate}[label=\Alph*.]
+\item 1:1
+\item 1:N
+\item N:1
+\item M:N
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item 1:1
+\item 1:N
+\item N:1
+\item M:N
+\end{enumerate}
+
+
+\section{Problem 5: Relationship Attributes}
+
+A relationship \texttt{ENROLLS(Student, Course)} has an attribute \texttt{Grade}.
+
+Where should \texttt{Grade} be stored after ER to relational mapping?
+
+\begin{enumerate}[label=\Alph*.]
+\item STUDENT table
+\item COURSE table
+\item ENROLLS table
+\item Any table, at designer's choice
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item STUDENT table
+\item COURSE table
+\item ENROLLS table
+\item Any table, at designer's choice
+\end{enumerate}
+\begin{itemize}
+    \item A separate relation is created
+    \item Relationship attributes belong to this relation
+\end{itemize}
+
+
+\section{Problem 6: Participation Constraint}
+
+If participation of an entity in a relationship is \textbf{total}, it means:
+
+\begin{enumerate}[label=\Alph*.]
+\item Every entity participates at least once
+\item Entity participates exactly once
+\item Relationship must be one-to-one
+\item Entity cannot have attributes
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item Every entity participates at least once
+\item Entity participates exactly once
+\item Relationship must be one-to-one
+\item Entity cannot have attributes
+\end{enumerate}
+It does not restrict the maximum cardinality.
+
+
+\section{Problem 7: ER to Relational Mapping}
+
+Which type of relationship cannot be represented using only foreign keys?
+
+\begin{enumerate}[label=\Alph*.]
+\item One-to-one
+\item One-to-many
+\item Many-to-many
+\item Many-to-one
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item One-to-one
+\item One-to-many
+\item Many-to-many
+\item Many-to-one
+\end{enumerate}
+\begin{itemize}
+    \item A separate relation
+    \item Two foreign keys
+\end{itemize}
+
+
+\section{Problem 8: Constraint Representation}
+
+Which of the following constraints cannot be captured by an ER diagram alone?
+
+\begin{enumerate}[label=\Alph*.]
+\item Key constraint
+\item Cardinality constraint
+\item Participation constraint
+\item Domain constraint
+\end{enumerate}
+
+\subsection*{Answer}
+\begin{enumerate}[label=\Alph*.]
+\item Key constraint
+\item Cardinality constraint
+\item Participation constraint
+\item Domain constraint
+\end{enumerate}
+Domain constraints are enforced at the relational schema or SQL level.
+
+\chapter{Practice Set 2: ER to Relational Mapping}
+
+\section{Instructions}
+
+These problems test correctness of ER to relational conversion.
+Focus on keys, foreign keys, and relationship handling.
+
+
+
+\section{Problem 1: One-to-Many Mapping}
+
+Consider an ER diagram where:
+\begin{itemize}
+    \item DEPARTMENT has attributes (DeptID, DeptName)
+    \item STUDENT has attributes (RollNo, Name)
+    \item Each department has many students
+    \item Each student belongs to exactly one department
+\end{itemize}
+
+Which relational schema is correct?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item STUDENT(RollNo, Name), DEPARTMENT(DeptID, DeptName, RollNo)
+\item STUDENT(RollNo, Name, DeptID), DEPARTMENT(DeptID, DeptName)
+\item STUDENT(RollNo, Name), DEPARTMENT(DeptID, DeptName)
+\item STUDENT(RollNo, Name, DeptName)
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+In a one-to-many relationship:
+\begin{itemize}
+    \item The foreign key of the 1-side is placed in the N-side
+\end{itemize}
+
+Here:
+\begin{itemize}
+    \item DEPARTMENT is the 1-side
+    \item STUDENT is the N-side
+\end{itemize}
+
+Therefore, DeptID must appear in STUDENT.
+
+
+
+\section{Problem 2: Many-to-Many Mapping}
+
+STUDENT and COURSE are related through ENROLLS (M:N).
+
+Which relational mapping is correct?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item STUDENT(RollNo, CourseID)
+\item COURSE(CourseID, RollNo)
+\item ENROLLS(RollNo, CourseID)
+\item STUDENT(RollNo), COURSE(CourseID)
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+A many-to-many relationship requires:
+\begin{itemize}
+    \item A separate relation
+    \item Primary keys of both participating entities
+\end{itemize}
+
+
+
+\section{Problem 3: Relationship Attributes}
+
+An M:N relationship WORKS\_ON between EMPLOYEE and PROJECT has attribute Hours.
+
+How is this mapped?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Add Hours to EMPLOYEE
+\item Add Hours to PROJECT
+\item Create WORKS\_ON(EmpID, ProjID, Hours)
+\item Ignore Hours
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Attributes of an M:N relationship must be stored in the separate relationship table.
+
+
+
+\section{Problem 4: Weak Entity Mapping}
+
+DEPENDENT is a weak entity with:
+\begin{itemize}
+    \item Partial key: DependentName
+    \item Owner entity: EMPLOYEE(EmpID)
+\end{itemize}
+
+Which relation is correct?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item DEPENDENT(DependentName)
+\item DEPENDENT(EmpID)
+\item DEPENDENT(EmpID, DependentName)
+\item DEPENDENT(DependentName, Age)
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+A weak entity relation contains:
+\begin{itemize}
+    \item Owner entity primary key
+    \item Partial key
+\end{itemize}
+
+Together they form the composite primary key.
+
+
+
+\section{Problem 5: One-to-One Relationship}
+
+PERSON and PASSPORT have a one-to-one relationship.
+PASSPORT has total participation.
+
+What is the best mapping?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Add PassportNo to PERSON
+\item Add PersonID to PASSPORT
+\item Create a separate relation
+\item Ignore the relationship
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+For one-to-one relationships:
+\begin{itemize}
+    \item Place the foreign key in the entity with total participation
+\end{itemize}
+
+
+
+\section{Problem 6: Ternary Relationship}
+
+A ternary relationship SUPPLIES(Supplier, Part, Project) exists.
+
+How should it be mapped?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Three binary relationships
+\item One relation with three foreign keys
+\item Two relations only
+\item Ignore Project
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Ternary relationships must be mapped to a separate relation containing:
+\begin{itemize}
+    \item Primary keys of all participating entities
+\end{itemize}
+
+
+
+\section{Problem 7: Multi-Valued Attribute}
+
+STUDENT has a multi-valued attribute PhoneNo.
+
+Correct mapping is:
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item STUDENT(RollNo, PhoneNo)
+\item STUDENT(RollNo), PHONE(RollNo, PhoneNo)
+\item STUDENT(RollNo), PHONE(PhoneNo)
+\item STUDENT(RollNo, PhoneNo1, PhoneNo2)
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Multi-valued attributes require a separate relation containing:
+\begin{itemize}
+    \item Entity primary key
+    \item Attribute value
+\end{itemize}
+
+
+
+\section{Problem 8: Key Preservation}
+
+Which mapping always preserves the primary key of an entity?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Mapping of weak entities
+\item Mapping of strong entities
+\item Mapping of M:N relationships
+\item Mapping of ternary relationships
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Strong entities are mapped directly to relations with their primary keys preserved.
+\chapter{Practice Set 3: Relational Algebra}
+
+\section{Instructions}
+
+These problems test your understanding of relational algebra operators,
+their semantics, and result schemas.
+Pay special attention to projection, joins, and division.
+
+
+
+\section{Problem 1: Selection vs Projection}
+
+Given relation:
+\[
+R(A, B, C)
+\]
+
+Which of the following operations can \textbf{reduce the number of tuples}
+in the result?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Projection
+\item Selection
+\item Rename
+\item Cartesian product
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+\begin{itemize}
+    \item Selection filters tuples based on a condition
+    \item Projection removes attributes, not tuples (except duplicate elimination)
+    \item Rename does not change data
+    \item Cartesian product increases tuples
+\end{itemize}
+
+Hence, only selection directly reduces the number of tuples.
+
+
+
+\section{Problem 2: Projection and Duplicates}
+
+Let relation $R(A)$ contain the tuples:
+\[
+\{1, 1, 2, 3\}
+\]
+
+What is the cardinality of $\pi_A(R)$?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 1
+\item 2
+\item 3
+\item 4
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Projection removes duplicate tuples because relations are sets.
+
+\[
+\pi_A(R) = \{1,2,3\}
+\]
+
+Cardinality = 3.
+
+
+
+\section{Problem 3: Cartesian Product Cardinality}
+
+Given:
+\[
+|R| = 5,\quad |S| = 4
+\]
+
+What is the cardinality of $R \times S$?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 9
+\item 20
+\item 5
+\item 4
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+\[
+|R \times S| = |R| \times |S| = 5 \times 4 = 20
+\]
+
+
+
+\section{Problem 4: Natural Join Schema}
+
+Relations:
+\[
+R(A,B,C)
+\]
+\[
+S(B,C,D)
+\]
+
+What is the schema of $R \bowtie S$ (natural join)?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $(A,B,C,D)$
+\item $(A,B,C,B,C,D)$
+\item $(A,D)$
+\item $(B,C)$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: A}
+
+\subsection*{Explanation}
+
+Natural join:
+\begin{itemize}
+    \item Joins on common attributes
+    \item Removes duplicate columns
+\end{itemize}
+
+Common attributes are $B$ and $C$.
+
+Result schema:
+\[
+(A,B,C,D)
+\]
+
+
+
+\section{Problem 5: Join vs Cartesian Product}
+
+Which relational algebra operation is defined as:
+\[
+\sigma_{\theta}(R \times S)
+\]?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Selection
+\item Projection
+\item Theta join
+\item Natural join
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+By definition:
+\[
+R \bowtie_{\theta} S = \sigma_{\theta}(R \times S)
+\]
+
+This is a theta join.
+
+
+
+\section{Problem 6: Division Operator}
+
+Let:
+\[
+R(A,B) = \{(1,x),(1,y),(2,x)\}
+\]
+\[
+S(B) = \{x,y\}
+\]
+
+What is $R \div S$?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $\{1,2\}$
+\item $\{2\}$
+\item $\{1\}$
+\item $\emptyset$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Division returns values of $A$ that are paired with \textbf{all} values of $B$ in $S$.
+
+\begin{itemize}
+    \item $A=1$: has both $(1,x)$ and $(1,y)$
+    \item $A=2$: missing $(2,y)$
+\end{itemize}
+
+Result:
+\[
+\{1\}
+\]
+
+
+
+\section{Problem 7: Union Compatibility}
+
+Which condition is required for $R \cup S$ to be valid?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Same relation name
+\item Same number of tuples
+\item Same schema and compatible domains
+\item Same primary key
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Union requires:
+\begin{itemize}
+    \item Same number of attributes
+    \item Corresponding attributes from the same domains
+\end{itemize}
+
+
+
+\section{Problem 8: Closure Property}
+
+Which of the following statements is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Relational algebra is not closed
+\item Selection returns a boolean value
+\item Projection returns a relation
+\item Cartesian product returns a tuple
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Relational algebra is closed:
+\begin{itemize}
+    \item Inputs are relations
+    \item Outputs are also relations
+\end{itemize}
+
+Projection always returns a relation.
+
+
+
+\section{Common GATE Traps (Read Carefully)}
+
+\begin{itemize}
+    \item Forgetting that projection removes duplicates
+    \item Confusing natural join with Cartesian product
+    \item Treating division as set difference
+    \item Ignoring schema of intermediate results
+\end{itemize}
+\chapter{Practice Set 4: SQL Queries and Logic}
+
+\section{Instructions}
+
+These problems focus on SQL query semantics, not syntax memorization.
+Pay special attention to NULL values, join behavior, and subqueries.
+
+
+
+\section{Problem 1: NULL Logic}
+
+Consider table STUDENT(RollNo, Age).
+
+What is the result of the following query?
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT
+WHERE Age > 20 OR Age <= 20;
+\end{verbatim}
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item All tuples are returned
+\item Only tuples with Age > 20 are returned
+\item Only tuples with Age <= 20 are returned
+\item Tuples with Age = NULL are excluded
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: D}
+
+\subsection*{Explanation}
+
+For tuples with Age = NULL:
+\begin{itemize}
+    \item Age > 20 evaluates to UNKNOWN
+    \item Age <= 20 evaluates to UNKNOWN
+    \item UNKNOWN OR UNKNOWN = UNKNOWN
+\end{itemize}
+
+Only tuples for which the WHERE clause evaluates to TRUE are selected.
+Thus, tuples with NULL values are excluded.
+
+
+
+\section{Problem 2: COUNT and NULL}
+
+What is the output of the following query?
+
+\begin{verbatim}
+SELECT COUNT(Age)
+FROM STUDENT;
+\end{verbatim}
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Counts all rows
+\item Counts only rows with non-NULL Age
+\item Counts only NULL values
+\item Always returns zero
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+COUNT(attribute) ignores NULL values.
+Only non-NULL Age values are counted.
+
+
+
+\section{Problem 3: INNER JOIN Behavior}
+
+Consider tables STUDENT(RollNo, DeptID) and DEPARTMENT(DeptID).
+
+Which query returns only students whose department exists?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT S, DEPARTMENT D;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+JOIN DEPARTMENT D
+ON S.DeptID = D.DeptID;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+LEFT JOIN DEPARTMENT D
+ON S.DeptID = D.DeptID;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT;
+\end{verbatim}
+
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+An INNER JOIN returns only tuples that satisfy the join condition.
+Students with missing or invalid DeptID are excluded.
+
+
+
+\section{Problem 4: LEFT JOIN Subtlety}
+
+Which statement about LEFT JOIN is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item It removes NULL values
+\item It behaves exactly like INNER JOIN
+\item It preserves all tuples from the left table
+\item It preserves all tuples from the right table
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+LEFT JOIN ensures:
+\begin{itemize}
+    \item All tuples from the left relation appear
+    \item Missing matches are filled with NULLs
+\end{itemize}
+
+
+
+\section{Problem 5: IN vs EXISTS}
+
+Which of the following is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item IN and EXISTS are always equivalent
+\item EXISTS fails in presence of NULL
+\item IN may fail in presence of NULL
+\item EXISTS returns duplicate rows
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+IN compares values.
+If the subquery contains NULL, comparisons may evaluate to UNKNOWN.
+EXISTS checks only existence and is unaffected by NULL values.
+
+
+
+\section{Problem 6: GROUP BY Rule}
+
+Which of the following queries is INVALID?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 
+\begin{verbatim}
+SELECT DeptID, COUNT(*)
+FROM STUDENT
+GROUP BY DeptID;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT DeptID, Name
+FROM STUDENT
+GROUP BY DeptID;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT COUNT(*)
+FROM STUDENT;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT DeptID
+FROM STUDENT
+GROUP BY DeptID;
+\end{verbatim}
+
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Every attribute in SELECT must either:
+\begin{itemize}
+    \item Appear in GROUP BY, or
+    \item Be an aggregate
+\end{itemize}
+
+Name violates this rule.
+
+
+
+\section{Problem 7: NOT EXISTS Logic}
+
+Which query finds students not enrolled in any course?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT
+WHERE RollNo NOT IN (SELECT RollNo FROM ENROLL);
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+WHERE NOT EXISTS (
+    SELECT *
+    FROM ENROLL E
+    WHERE E.RollNo = S.RollNo
+);
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT *
+FROM STUDENT
+WHERE RollNo = NULL;
+\end{verbatim}
+
+\item 
+\begin{verbatim}
+SELECT *
+FROM ENROLL;
+\end{verbatim}
+
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+NOT EXISTS safely handles NULL values.
+NOT IN can fail if the subquery contains NULL.
+
+
+
+\section{Problem 8: WHERE vs HAVING}
+
+Which statement is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item WHERE can use aggregate functions
+\item HAVING filters rows before grouping
+\item HAVING filters groups after aggregation
+\item WHERE and HAVING are interchangeable
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+\begin{itemize}
+    \item WHERE filters tuples before GROUP BY
+    \item HAVING filters groups after aggregation
+\end{itemize}
+
+
+
+\section{Common GATE Traps (Must Remember)}
+
+\begin{itemize}
+    \item NULL comparisons use three-valued logic
+    \item INNER JOIN discards unmatched tuples
+    \item LEFT JOIN preserves left-side tuples
+    \item NOT EXISTS is safer than NOT IN
+\end{itemize}
+\chapter{Practice Set 5: Functional Dependencies and Normalization}
+
+\section{Instructions}
+
+These problems test attribute closure, candidate keys, minimal cover,
+normal forms, lossless decomposition, and dependency preservation.
+Show reasoning step by step while solving.
+
+
+
+\section{Problem 1: Attribute Closure}
+
+Given relation:
+\[
+R(A,B,C,D)
+\]
+and functional dependencies:
+\[
+F = \{ A \rightarrow B,\ B \rightarrow C \}
+\]
+
+What is $A^+$?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $\{A\}$
+\item $\{A,B\}$
+\item $\{A,B,C\}$
+\item $\{A,B,C,D\}$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Start with $A^+ = \{A\}$.
+\begin{itemize}
+    \item From $A \rightarrow B$, add $B$
+    \item From $B \rightarrow C$, add $C$
+\end{itemize}
+No dependency gives $D$.
+
+Thus,
+\[
+A^+ = \{A,B,C\}
+\]
+
+
+
+\section{Problem 2: Candidate Keys}
+
+For the same relation $R(A,B,C,D)$ with:
+\[
+F = \{ A \rightarrow B,\ B \rightarrow C \}
+\]
+
+Which of the following is a candidate key?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $A$
+\item $B$
+\item $AD$
+\item $AB$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Check closure:
+\begin{itemize}
+    \item $A^+ = \{A,B,C\}$ (missing $D$)
+    \item $AD^+ = \{A,B,C,D\}$ (all attributes)
+\end{itemize}
+
+No proper subset of $AD$ is a key.
+Hence, $AD$ is a candidate key.
+
+
+
+\section{Problem 3: Minimal Cover}
+
+Given:
+\[
+F = \{ A \rightarrow BC,\ B \rightarrow C,\ A \rightarrow B \}
+\]
+
+Which set is a minimal cover?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $\{ A \rightarrow BC,\ B \rightarrow C \}$
+\item $\{ A \rightarrow B,\ A \rightarrow C,\ B \rightarrow C \}$
+\item $\{ A \rightarrow B,\ B \rightarrow C \}$
+\item $\{ A \rightarrow C,\ B \rightarrow C \}$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Steps:
+\begin{itemize}
+    \item Decompose $A \rightarrow BC$ into $A \rightarrow B$ and $A \rightarrow C$
+    \item $A \rightarrow C$ is implied by $A \rightarrow B$ and $B \rightarrow C$
+\end{itemize}
+
+Remove redundant dependency.
+
+Minimal cover:
+\[
+\{ A \rightarrow B,\ B \rightarrow C \}
+\]
+
+
+
+\section{Problem 4: Second Normal Form}
+
+Relation:
+\[
+R(A,B,C)
+\]
+Candidate key: $(A,B)$
+
+Functional dependency:
+\[
+A \rightarrow C
+\]
+
+Which normal form is violated?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 1NF
+\item 2NF
+\item 3NF
+\item BCNF
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+$C$ is a non-prime attribute.
+It depends on part of the composite key ($A$).
+
+This is a \textbf{partial dependency}, violating 2NF.
+
+
+
+\section{Problem 5: Third Normal Form}
+
+Relation:
+\[
+R(A,B,C)
+\]
+with dependencies:
+\[
+A \rightarrow B,\quad B \rightarrow C
+\]
+
+Candidate key: $A$
+
+Which statement is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Relation is in 3NF
+\item Relation is not in 3NF
+\item Relation is in BCNF
+\item Relation is in 1NF only
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+There is a transitive dependency:
+\[
+A \rightarrow B \rightarrow C
+\]
+
+$C$ is non-prime and $B$ is not a key.
+Thus, 3NF is violated.
+
+
+
+\section{Problem 6: BCNF Violation}
+
+Relation:
+\[
+R(A,B,C)
+\]
+Dependencies:
+\[
+AB \rightarrow C,\quad C \rightarrow B
+\]
+
+Which dependency violates BCNF?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $AB \rightarrow C$
+\item $C \rightarrow B$
+\item Both
+\item None
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Candidate keys are $AB$ and $AC$.
+In $C \rightarrow B$, determinant $C$ is not a super key.
+
+Thus, BCNF is violated by $C \rightarrow B$.
+
+
+
+\section{Problem 7: Lossless Decomposition}
+
+Relation $R(A,B,C)$ is decomposed into:
+\[
+R_1(A,B),\quad R_2(B,C)
+\]
+
+Which condition ensures lossless join?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $A \rightarrow B$
+\item $B \rightarrow C$
+\item $A \rightarrow C$
+\item $C \rightarrow A$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Common attribute is $B$.
+Decomposition is lossless if:
+\[
+B \rightarrow R_1 \text{ or } B \rightarrow R_2
+\]
+
+Here, $B \rightarrow C$ ensures lossless join.
+
+
+
+\section{Problem 8: Dependency Preservation}
+
+Which normal form always guarantees dependency preservation?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 2NF
+\item 3NF
+\item BCNF
+\item 4NF
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+3NF decompositions:
+\begin{itemize}
+    \item Are always lossless
+    \item Always preserve dependencies
+\end{itemize}
+
+BCNF may lose dependency preservation.
+
+
+
+\section{Common GATE Traps (Read Carefully)}
+
+\begin{itemize}
+    \item Forgetting to include all attributes when checking keys
+    \item Missing transitive dependencies
+    \item Assuming BCNF always preserves dependencies
+    \item Skipping minimality checks
+\end{itemize}
+\chapter{Practice Set 6: Indexing and File Organization}
+
+\section{Instructions}
+
+These problems test understanding of file organization, indexing types,
+clustered vs non-clustered indexes, and B+ tree behavior.
+Focus on I/O cost intuition and query suitability.
+
+
+
+\section{Problem 1: File Organization Choice}
+
+Which file organization is most suitable for answering \textbf{range queries} efficiently?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Heap file
+\item Sequential file
+\item Hash file
+\item Unordered file with secondary index
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Range queries require ordered data.
+Sequential file organization maintains records in sorted order,
+making range scans efficient.
+
+
+
+\section{Problem 2: Heap File Property}
+
+Which of the following is TRUE about heap file organization?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Records are stored in sorted order
+\item Insertion is expensive
+\item Searching requires scanning the entire file
+\item Range queries are efficient
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Heap files:
+\begin{itemize}
+    \item Do not maintain any order
+    \item Typically require a full file scan for search
+\end{itemize}
+
+
+
+\section{Problem 3: Hash Index Limitation}
+
+Which query is \textbf{not} efficiently supported by a hash index?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Equality search
+\item Exact match lookup
+\item Range query
+\item Key-based retrieval
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Hash indexes distribute keys based on hash values.
+They do not preserve order, so range queries are inefficient.
+
+
+
+\section{Problem 4: Clustered Index}
+
+Which statement about clustered indexes is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item A table can have multiple clustered indexes
+\item Clustered index defines the physical order of records
+\item Clustered index must be dense
+\item Clustered index is always secondary
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+A clustered index determines the physical ordering of records on disk.
+A table can have at most one clustered index.
+
+
+
+\section{Problem 5: Primary vs Secondary Index}
+
+Which of the following is TRUE?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Primary index must be dense
+\item Secondary index must be sparse
+\item Primary index is usually sparse
+\item Secondary index defines record order
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Primary index is built on an ordered file and can be sparse.
+Secondary index is built on an unordered attribute and must be dense.
+
+
+
+\section{Problem 6: B+ Tree Property}
+
+Which property distinguishes a B+ tree from a B tree?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item All keys appear in internal nodes only
+\item Data pointers exist only at leaf nodes
+\item Tree is not balanced
+\item Leaf nodes are not linked
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+In a B+ tree:
+\begin{itemize}
+    \item Internal nodes store only keys
+    \item All data pointers are stored at leaf nodes
+    \item Leaf nodes are linked for efficient range scans
+\end{itemize}
+
+
+
+\section{Problem 7: B+ Tree Search Cost}
+
+If the height of a B+ tree index is $h$, what is the disk I/O cost of a search?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $1$
+\item $\log h$
+\item $h$
+\item $h^2$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+A search traverses from root to leaf.
+Each level typically requires one disk I/O.
+
+Thus, cost = $h$ I/Os.
+
+
+
+\section{Problem 8: Dense Index Meaning}
+
+What does it mean if an index is \textbf{dense}?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item One index entry per block
+\item One index entry per file
+\item One index entry per search key value
+\item One index entry per relation
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+A dense index contains an entry for every search key value in the data file.
+
+
+
+\section{Common GATE Traps (Read Carefully)}
+
+\begin{itemize}
+    \item Confusing clustered index with primary key
+    \item Assuming hash indexes support range queries
+    \item Forgetting that a table can have only one clustered index
+    \item Mixing up dense and sparse indexes
+\end{itemize}
+\chapter{Practice Set 7: Data Warehousing and Mixed DBMS}
+
+\section{Instructions}
+
+This set tests data warehouse concepts (star/snowflake, measures, hierarchies),
+along with mixed DBMS reasoning across SQL, normalization, and indexing.
+These questions resemble full-length GATE DBMS problems.
+
+
+
+\section{Problem 1: OLTP vs OLAP}
+
+Which of the following characteristics best describes an OLAP system?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Highly normalized schema with frequent updates
+\item Transaction-oriented and write-heavy
+\item Denormalized schema optimized for analysis
+\item Optimized for short insert transactions
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+OLAP systems:
+\begin{itemize}
+    \item Support analytical queries
+    \item Use denormalized schemas
+    \item Store historical data
+\end{itemize}
+
+
+
+\section{Problem 2: Fact vs Dimension Table}
+
+Which of the following attributes typically belongs to a \textbf{fact table}?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item ProductName
+\item CustomerCity
+\item SalesAmount
+\item Month
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Fact tables store:
+\begin{itemize}
+    \item Numeric measures
+    \item Foreign keys to dimensions
+\end{itemize}
+
+SalesAmount is a measure.
+
+
+
+\section{Problem 3: Measures Classification}
+
+Which type of measure can be aggregated across \textbf{all} dimensions?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Non-additive
+\item Semi-additive
+\item Additive
+\item Derived
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Additive measures (e.g., total sales) can be summed across all dimensions.
+
+
+
+\section{Problem 4: Schema Identification}
+
+A schema with:
+\begin{itemize}
+    \item One central fact table
+    \item Multiple denormalized dimension tables
+\end{itemize}
+
+is called:
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Snowflake schema
+\item Star schema
+\item Fact constellation
+\item ER schema
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Star schema has:
+\begin{itemize}
+    \item A central fact table
+    \item Directly connected, denormalized dimensions
+\end{itemize}
+
+
+
+\section{Problem 5: Concept Hierarchies}
+
+Which hierarchy correctly represents a \textbf{time dimension}?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Year $\rightarrow$ Month $\rightarrow$ Day
+\item Day $\rightarrow$ Month $\rightarrow$ Year
+\item Month $\rightarrow$ Day $\rightarrow$ Year
+\item Year $\rightarrow$ Day $\rightarrow$ Month
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Concept hierarchies go from:
+\begin{quote}
+Lower granularity $\rightarrow$ higher granularity
+\end{quote}
+
+Day $\rightarrow$ Month $\rightarrow$ Year is correct.
+
+
+
+\section{Problem 6: Roll-Up Operation}
+
+Which OLAP operation aggregates data to a higher level of abstraction?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Slice
+\item Dice
+\item Drill-down
+\item Roll-up
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: D}
+
+\subsection*{Explanation}
+
+Roll-up moves up the hierarchy (e.g., City $\rightarrow$ State).
+
+
+
+\section{Problem 7: Normalization in Warehouses}
+
+Why are data warehouse schemas usually \textbf{not fully normalized}?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item To reduce redundancy
+\item To improve transaction safety
+\item To simplify and speed up analytical queries
+\item To enforce functional dependencies
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\subsection*{Explanation}
+
+Denormalization:
+\begin{itemize}
+    \item Reduces joins
+    \item Improves query performance
+\end{itemize}
+
+
+
+\section{Problem 8: Mixed DBMS Reasoning}
+
+Which of the following combinations is MOST suitable for
+\textbf{range queries on a large table}?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Heap file + Hash index
+\item Sequential file + B+ tree index
+\item Heap file + Hash index only
+\item Unordered file + Secondary index only
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Range queries require:
+\begin{itemize}
+    \item Ordered data or ordered index
+\end{itemize}
+
+Sequential file and B+ tree both support ordered traversal.
+
+
+
+\section{Problem 9: SQL + Warehouse Thinking}
+
+Which SQL clause is most useful for computing measures in a data warehouse?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item WHERE
+\item GROUP BY
+\item ORDER BY
+\item DISTINCT
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+Measures are computed using aggregation.
+GROUP BY defines the level of aggregation.
+
+
+
+\section{Problem 10: Compression in DBMS}
+
+Which compression technique is \textbf{safe} for database storage?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Lossy compression
+\item Run-length encoding
+\item JPEG compression
+\item Approximate encoding
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+\subsection*{Explanation}
+
+DBMS requires lossless compression.
+Run-length encoding is lossless.
+
+
+
+\section{Common GATE Traps (Final Reminder)}
+
+\begin{itemize}
+    \item Measures belong to fact tables, not dimensions
+    \item Roll-up and drill-down move in opposite directions
+    \item Warehouses prefer denormalization
+    \item Range queries need ordered access paths
+\end{itemize}
+\chapter{DBMS Full-Length Mock Test 1}
+
+\section{Instructions}
+
+\begin{itemize}
+    \item All questions are multiple-choice
+    \item Each question has one correct answer
+    \item Questions are mixed across all DBMS topics
+    \item Attempt under time pressure for best results
+\end{itemize}
+
+
+
+\section{Question 1: ER Model}
+
+Which of the following constraints ensures that every entity participates
+in a relationship at least once?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Cardinality constraint
+\item Key constraint
+\item Participation constraint
+\item Domain constraint
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 2: ER to Relational Mapping}
+
+An M:N relationship with attributes must be mapped to:
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item One of the participating entity tables
+\item Both entity tables
+\item A separate relation
+\item Any relation arbitrarily
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 3: Relational Algebra}
+
+Which relational algebra operation can increase the number of tuples?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Selection
+\item Projection
+\item Cartesian product
+\item Rename
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 4: Natural Join}
+
+Given:
+\[
+R(A,B), \quad S(B,C)
+\]
+
+What is the schema of $R \bowtie S$?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item $(A,B,C)$
+\item $(A,B,B,C)$
+\item $(A,C)$
+\item $(B,C)$
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: A}
+
+
+
+\section{Question 5: Tuple Relational Calculus}
+
+Which property ensures that a tuple relational calculus expression
+returns a finite result?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Completeness
+\item Safety
+\item Minimality
+\item Closure
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+
+
+\section{Question 6: SQL NULL Logic}
+
+Which condition correctly checks for NULL values in SQL?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item \texttt{= NULL}
+\item \texttt{<> NULL}
+\item \texttt{IS NULL}
+\item \texttt{NULL = NULL}
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 7: SQL Aggregation}
+
+Which SQL clause filters groups after aggregation?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item WHERE
+\item GROUP BY
+\item HAVING
+\item SELECT
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 8: Functional Dependencies}
+
+If $X \rightarrow Y$ and $Y \rightarrow Z$, which rule derives
+$X \rightarrow Z$?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Reflexivity
+\item Augmentation
+\item Transitivity
+\item Decomposition
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 9: Normal Forms}
+
+Which normal form may sacrifice dependency preservation?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 2NF
+\item 3NF
+\item BCNF
+\item 1NF
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 10: File Organization}
+
+Which file organization typically requires a full file scan for search?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Sequential file
+\item Heap file
+\item Hash file
+\item Indexed file
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+
+
+\section{Question 11: Hash Index}
+
+Which query is inefficient using a hash index?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item \texttt{WHERE id = 10}
+\item \texttt{WHERE key = 25}
+\item \texttt{WHERE value BETWEEN 10 AND 50}
+\item \texttt{WHERE code = 7}
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 12: B+ Tree}
+
+If the height of a B+ tree is 3, how many disk I/Os are needed for a search?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item 1
+\item 2
+\item 3
+\item 4
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 13: Data Warehousing}
+
+Which table stores numerical measures in a data warehouse?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Dimension table
+\item Fact table
+\item Lookup table
+\item Index table
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: B}
+
+
+
+\section{Question 14: OLAP Operation}
+
+Which operation moves from higher-level summary to detailed data?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Roll-up
+\item Slice
+\item Drill-down
+\item Dice
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+
+
+\section{Question 15: Data Transformation}
+
+Which technique converts continuous values into intervals?
+
+\begin{enumerate}[label=\textbf{\Alph*.}]
+\item Sampling
+\item Compression
+\item Discretization
+\item Normalization
+\end{enumerate}
+
+\subsection*{Answer}
+
+\textbf{Correct option: C}
+
+\end{document}

@@ -1,0 +1,4536 @@
+\documentclass[11pt,a4paper]{book}
+
+%-% Packages
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+%-% Page Layout
+\geometry{
+    left=1.25in,
+    right=1.25in,
+    top=1.2in,
+    bottom=1.2in
+}
+
+\setstretch{1.15}
+
+%-% Section Formatting
+%\titleformat{\chapter}
+%  {\normalfont\Huge\bfseries}
+%  {\thechapter.}{1em}{}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+
+\title{Database Management Systems Notes}
+\author{Anurag Mishra}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\cleardoublepage
+
+\chapter{Data, Information, and Database Systems}
+
+\section{Why This Chapter Exists}
+
+Before learning tables, SQL, or queries, we must answer a more fundamental question:
+
+\begin{quote}
+What exactly are we trying to store, and why do we need a database at all?
+\end{quote}
+
+This chapter builds the conceptual foundation of Database Management Systems (DBMS) from first principles.  
+Every later topic—ER models, relational algebra, SQL, normalization—rests on the ideas introduced here.
+
+\section{Data and Information}
+
+\subsection{Data}
+
+\textbf{Definition:}  
+\emph{Data} is a collection of raw facts, symbols, or observations without inherent meaning.
+
+Examples:
+\begin{itemize}
+    \item 42
+    \item A
+    \item 2026-01-10
+    \item 85, 90, 78
+\end{itemize}
+
+By itself, data does not answer any question.
+
+\subsection{Information}
+
+\textbf{Definition:}  
+\emph{Information} is data that has been processed, organized, or structured so that it conveys meaning.
+
+Examples:
+\begin{itemize}
+    \item ``Student A scored 85 marks in Mathematics''
+    \item ``The average score is 84.33''
+\end{itemize}
+
+\textbf{Key idea:}
+\begin{quote}
+Data becomes information only when context is added.
+\end{quote}
+
+\section{The Need for Data Storage}
+
+In the real world, information must be:
+\begin{itemize}
+    \item Stored permanently
+    \item Retrieved efficiently
+    \item Updated correctly
+    \item Shared safely
+\end{itemize}
+
+Initially, computers used \textbf{file-based systems} to store data.
+
+\section{File-Based Systems}
+
+In a file-based system:
+\begin{itemize}
+    \item Each application manages its own data
+    \item Data is stored in separate files
+    \item There is no central control
+\end{itemize}
+
+\subsection{Problems with File-Based Systems}
+
+\begin{enumerate}
+    \item \textbf{Data Redundancy}  
+    Same data is stored in multiple files.
+    
+    \item \textbf{Data Inconsistency}  
+    Different copies of the same data may disagree.
+    
+    \item \textbf{Difficulty in Data Access}  
+    New queries require new programs.
+    
+    \item \textbf{Integrity Problems}  
+    Rules (e.g., marks $\leq 100$) are hard to enforce.
+    
+    \item \textbf{Security Problems}  
+    No fine-grained access control.
+    
+    \item \textbf{Lack of Concurrency Control}  
+    Simultaneous access can corrupt data.
+\end{enumerate}
+
+\section{Database and Database Management System}
+
+\subsection{Database}
+
+\textbf{Definition:}  
+A \emph{database} is an organized collection of logically related data, designed to model some real-world system.
+
+\subsection{Database Management System (DBMS)}
+
+\textbf{Definition:}  
+A \emph{DBMS} is a software system that:
+\begin{itemize}
+    \item Defines the structure of the database
+    \item Stores and retrieves data
+    \item Enforces constraints
+    \item Controls access and concurrency
+\end{itemize}
+
+\textbf{Key principle:}
+\begin{quote}
+Applications do not manage data directly.  
+The DBMS manages data on their behalf.
+\end{quote}
+
+\section{Advantages of DBMS over File Systems}
+
+\begin{itemize}
+    \item Reduced data redundancy
+    \item Improved data consistency
+    \item Data sharing
+    \item Enforcement of integrity constraints
+    \item Security and authorization
+    \item Backup and recovery
+\end{itemize}
+
+\section{Levels of Data Abstraction}
+
+DBMS hides complexity by using abstraction.
+
+\subsection{Physical Level}
+
+\begin{itemize}
+    \item How data is stored on disk
+    \item Indexing, file structures
+\end{itemize}
+
+\subsection{Logical Level}
+
+\begin{itemize}
+    \item What data is stored
+    \item Relationships among data
+\end{itemize}
+
+\subsection{View Level}
+
+\begin{itemize}
+    \item User-specific representation
+    \item Subset of the database
+\end{itemize}
+
+\section{Data Independence}
+
+\textbf{Definition:}  
+Data independence is the ability to change the schema at one level without affecting the next higher level.
+
+\subsection{Physical Data Independence}
+
+Changes in physical storage do not affect logical schema.
+
+\subsection{Logical Data Independence}
+
+Changes in logical schema do not affect user views.
+
+\section{DBMS Architecture}
+
+\begin{itemize}
+    \item Centralized DBMS
+    \item Client-server DBMS
+    \item Distributed DBMS
+\end{itemize}
+
+(Details covered in later chapters.)
+
+\section{Example Problem (GATE Style)}
+
+\textbf{Question:}
+
+Which of the following problems are addressed by a DBMS but not by a file-based system?
+
+\begin{enumerate}
+    \item Data redundancy
+    \item Data inconsistency
+    \item Program-data dependence
+    \item Enforcement of integrity constraints
+\end{enumerate}
+
+\textbf{Solution:}
+
+A DBMS:
+\begin{itemize}
+    \item Reduces redundancy through centralized storage
+    \item Maintains consistency via controlled updates
+    \item Eliminates program-data dependence using abstraction
+    \item Enforces integrity constraints automatically
+\end{itemize}
+
+\textbf{Correct answer:} All of the above.
+
+\chapter{Entity--Relationship (ER) Model}
+
+\section{Why We Need the ER Model}
+
+Before creating tables or writing SQL, we must answer a more fundamental question:
+
+\begin{quote}
+What objects exist in the real world, and how are they related?
+\end{quote}
+
+The ER model is a \textbf{conceptual model}.  
+It describes the structure of the database in a way that is:
+\begin{itemize}
+    \item Independent of any programming language
+    \item Independent of any DBMS
+    \item Easy for humans to understand
+\end{itemize}
+
+\textbf{Key idea (Strang-style):}
+\begin{quote}
+The ER model is about \emph{meaning}, not storage.
+\end{quote}
+
+\section{Entities and Entity Sets}
+
+\subsection{Entity}
+
+\textbf{Definition:}  
+An \emph{entity} is a real-world object that:
+\begin{itemize}
+    \item Has an independent existence
+    \item Can be uniquely identified
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item A student
+    \item A course
+    \item An employee
+\end{itemize}
+
+\subsection{Entity Set}
+
+\textbf{Definition:}  
+An \emph{entity set} is a collection of similar entities.
+
+Examples:
+\begin{itemize}
+    \item \texttt{STUDENT}
+    \item \texttt{COURSE}
+\end{itemize}
+
+\section{Attributes}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+An \emph{attribute} is a property that describes an entity.
+
+Example:
+\begin{center}
+Student $\rightarrow$ (RollNo, Name, Age, Department)
+\end{center}
+
+\subsection{Types of Attributes (Very Important for GATE)}
+
+\subsubsection{Simple vs Composite Attributes}
+
+\begin{itemize}
+    \item \textbf{Simple:} Cannot be divided further (Age)
+    \item \textbf{Composite:} Can be divided (Name $\rightarrow$ FirstName, LastName)
+\end{itemize}
+
+\subsubsection{Single-Valued vs Multi-Valued Attributes}
+
+\begin{itemize}
+    \item \textbf{Single-valued:} One value per entity (RollNo)
+    \item \textbf{Multi-valued:} Multiple values (PhoneNumbers)
+\end{itemize}
+
+\subsubsection{Derived Attributes}
+
+\textbf{Definition:}  
+An attribute whose value can be computed from other attributes.
+
+Example:
+\[
+\text{Age} = \text{Current Year} - \text{Year of Birth}
+\]
+
+\textbf{Key idea:}
+\begin{quote}
+Derived attributes are usually \emph{not stored}.
+\end{quote}
+
+\section{Keys}
+
+\subsection{Super Key}
+
+\textbf{Definition:}  
+A \emph{super key} is a set of one or more attributes that uniquely identifies an entity.
+
+Example:
+\begin{itemize}
+    \item \{RollNo\}
+    \item \{RollNo, Name\}
+\end{itemize}
+
+\subsection{Candidate Key}
+
+\textbf{Definition:}  
+A \emph{candidate key} is a \textbf{minimal} super key.
+
+Example:
+\[
+\{RollNo\}
+\]
+
+\subsection{Primary Key}
+
+\textbf{Definition:}  
+A \emph{primary key} is a candidate key chosen by the database designer.
+
+\textbf{Important:}
+\begin{itemize}
+    \item Every strong entity must have a primary key
+    \item Primary key values must be unique and non-null
+\end{itemize}
+
+
+\section{Relationships}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+A \emph{relationship} describes an association among entities.
+
+Example:
+\[
+\text{STUDENT} \;\textbf{ENROLLS}\; \text{COURSE}
+\]
+
+\subsection{Degree of Relationship}
+
+\begin{itemize}
+    \item Unary (recursive)
+    \item Binary (most common)
+    \item Ternary (important in GATE)
+\end{itemize}
+
+Example of unary:
+\[
+\text{EMPLOYEE} \;\textbf{MANAGES}\; \text{EMPLOYEE}
+\]
+
+\section{Mapping Cardinality}
+
+\subsection{Types}
+
+\begin{itemize}
+    \item One-to-One (1:1)
+    \item One-to-Many (1:N)
+    \item Many-to-One (N:1)
+    \item Many-to-Many (M:N)
+\end{itemize}
+
+\textbf{Example:}
+\begin{itemize}
+    \item One department has many students (1:N)
+    \item A student enrolls in many courses (M:N)
+\end{itemize}
+
+\section{Participation Constraints}
+
+\subsection{Definition}
+
+Participation specifies whether an entity must participate in a relationship.
+
+\begin{itemize}
+    \item \textbf{Total participation:} Every entity must participate
+    \item \textbf{Partial participation:} Participation is optional
+\end{itemize}
+
+\textbf{GATE insight:}
+\begin{quote}
+Participation constraints cannot always be enforced using keys alone.
+\end{quote}
+
+\section{Weak Entity Sets}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+A \emph{weak entity} is an entity that:
+\begin{itemize}
+    \item Does not have a primary key
+    \item Depends on another entity for identification
+\end{itemize}
+
+Example:
+\begin{itemize}
+    \item DEPENDENT of EMPLOYEE
+\end{itemize}
+
+\subsection{Characteristics of Weak Entities}
+
+\begin{itemize}
+    \item Has a \textbf{partial key}
+    \item Identified using an \textbf{identifying relationship}
+    \item Total participation in the identifying relationship
+\end{itemize}
+
+
+\section{ER Diagrams (Notation Overview)}
+
+\begin{itemize}
+    \item Rectangle: Entity
+    \item Double rectangle: Weak entity
+    \item Oval: Attribute
+    \item Double oval: Multi-valued attribute
+    \item Dashed oval: Derived attribute
+    \item Diamond: Relationship
+\end{itemize}
+
+
+\section{Worked Example (ER Design)}
+
+\textbf{Problem:}
+
+Design an ER model for a university where:
+\begin{itemize}
+    \item Students enroll in courses
+    \item Each student has multiple phone numbers
+    \item Each course is offered by exactly one department
+\end{itemize}
+
+\textbf{Solution Outline:}
+
+\begin{itemize}
+    \item Entities: STUDENT, COURSE, DEPARTMENT
+    \item STUDENT attributes: RollNo (PK), Name, PhoneNumbers (multi-valued)
+    \item COURSE attributes: CourseID (PK), Title
+    \item DEPARTMENT attributes: DeptID (PK), DeptName
+    \item Relationships:
+        \begin{itemize}
+            \item ENROLLS (M:N) between STUDENT and COURSE
+            \item OFFERED\_BY (N:1) between COURSE and DEPARTMENT
+        \end{itemize}
+\end{itemize}
+
+\section{GATE-Style Conceptual Question}
+
+\textbf{Question:}
+
+Which of the following statements is \textbf{false}?
+
+\begin{enumerate}
+    \item A weak entity must have total participation
+    \item A candidate key may contain redundant attributes
+    \item A multi-valued attribute should not be stored as a single column
+    \item A relationship can have attributes
+\end{enumerate}
+
+\textbf{Answer:}
+
+Statement (2) is false.  
+A candidate key is minimal and cannot contain redundant attributes.
+\chapter{Mapping ER Model to the Relational Model}
+
+\section{Why This Chapter Is Crucial}
+
+The ER model is designed for human understanding.  
+The relational model is designed for machine implementation.
+
+\begin{quote}
+Every ER diagram must eventually be converted into relations (tables).
+\end{quote}
+
+\textbf{Key idea (Strang-style):}
+\begin{quote}
+Design happens in ER; correctness is tested in relational form.
+\end{quote}
+
+Most GATE mistakes occur because of incorrect ER-to-relational mapping.
+
+\section{General Principles of Mapping}
+
+The mapping process follows strict rules:
+
+\begin{itemize}
+    \item Every entity set becomes a relation
+    \item Attributes become columns
+    \item Keys are preserved
+    \item Relationships are represented using foreign keys or separate relations
+\end{itemize}
+
+We now study these rules one by one.
+
+\section{Mapping Strong Entity Sets}
+
+\subsection{Rule}
+
+For each strong entity set $E$:
+\begin{itemize}
+    \item Create a relation $R_E$
+    \item Include all simple attributes of $E$
+    \item Choose the primary key of $E$ as the primary key of $R_E$
+\end{itemize}
+
+\subsection{Example}
+
+Entity:
+\[
+\text{STUDENT}(\underline{RollNo}, Name, Age)
+\]
+
+Relation:
+\[
+\text{STUDENT}(\underline{RollNo}, Name, Age)
+\]
+
+\textbf{Note:}
+Composite attributes are decomposed into simple attributes.
+
+
+\section{Mapping Weak Entity Sets}
+
+\subsection{Rule}
+
+For each weak entity set $W$:
+\begin{itemize}
+    \item Create a relation $R_W$
+    \item Include all attributes of $W$
+    \item Include the primary key of the owner entity
+    \item Primary key = (Owner's PK + Partial key)
+\end{itemize}
+
+\subsection{Example}
+
+Weak entity:
+\[
+\text{DEPENDENT}(DependentName)
+\]
+
+Owner entity:
+\[
+\text{EMPLOYEE}(\underline{EmpID})
+\]
+
+Relation:
+\[
+\text{DEPENDENT}(\underline{EmpID, DependentName})
+\]
+
+
+\section{Mapping Attributes}
+
+\subsection{Simple Attributes}
+
+Mapped directly as columns.
+
+\subsection{Composite Attributes}
+
+Only simple components are stored.
+
+Example:
+\[
+Name \rightarrow (FirstName, LastName)
+\]
+
+\subsection{Multi-Valued Attributes}
+
+\textbf{Rule:}
+\begin{itemize}
+    \item Create a separate relation
+    \item Include the primary key of the entity
+    \item Include the multi-valued attribute
+\end{itemize}
+
+\subsection{Example}
+
+Entity:
+\[
+\text{STUDENT}(\underline{RollNo}, PhoneNumber)
+\]
+
+Relation:
+\[
+\text{STUDENT\_PHONE}(\underline{RollNo, PhoneNumber})
+\]
+
+
+\section{Mapping Relationship Sets}
+
+\subsection{One-to-One (1:1) Relationships}
+
+\subsubsection{Rule}
+
+Choose one of the participating entities and:
+\begin{itemize}
+    \item Add the primary key of the other entity as a foreign key
+    \item Prefer the entity with total participation
+\end{itemize}
+
+\subsubsection{Example}
+
+\[
+\text{PERSON} \leftrightarrow \text{PASSPORT}
+\]
+
+Relation:
+\[
+\text{PERSON}(\underline{PersonID}, PassportNo)
+\]
+
+
+\section{One-to-Many (1:N) Relationships}
+
+\subsection{Rule}
+
+\begin{itemize}
+    \item Add the primary key of the 1-side as a foreign key to the N-side
+\end{itemize}
+
+\subsection{Example}
+
+\[
+\text{DEPARTMENT} \; (1) \rightarrow (N) \; \text{STUDENT}
+\]
+
+Relation:
+\[
+\text{STUDENT}(\underline{RollNo}, DeptID)
+\]
+
+
+\section{Many-to-Many (M:N) Relationships}
+
+\subsection{Rule}
+
+\begin{itemize}
+    \item Create a new relation
+    \item Include primary keys of both entities
+    \item Include relationship attributes
+\end{itemize}
+
+\subsection{Example}
+
+\[
+\text{STUDENT} \; \textbf{ENROLLS} \; \text{COURSE}
+\]
+
+Relation:
+\[
+\text{ENROLLMENT}(\underline{RollNo, CourseID}, Grade)
+\]
+
+
+\section{Mapping Ternary Relationships}
+
+\subsection{Important GATE Insight}
+
+A ternary relationship \textbf{cannot} be decomposed into binary relationships without losing information.
+
+\subsection{Rule}
+
+\begin{itemize}
+    \item Create a separate relation
+    \item Include primary keys of all participating entities
+\end{itemize}
+
+\subsection{Example}
+
+\[
+\text{SUPPLIER} \; \textbf{SUPPLIES} \; \text{PART} \; \textbf{TO} \; \text{PROJECT}
+\]
+
+Relation:
+\[
+\text{SUPPLIES}(\underline{SupplierID, PartID, ProjectID}, Quantity)
+\]
+
+
+\section{Mapping Relationship Attributes}
+
+Attributes of relationships are included in:
+\begin{itemize}
+    \item Relationship table (for M:N or ternary)
+    \item Entity table (for 1:1 or 1:N)
+\end{itemize}
+
+
+\section{Complete Worked Example}
+
+\textbf{Problem:}
+
+University database:
+\begin{itemize}
+    \item Students enroll in courses
+    \item Each student has multiple phone numbers
+    \item Each course belongs to one department
+\end{itemize}
+
+\textbf{Relations:}
+
+\begin{itemize}
+    \item STUDENT(\underline{RollNo}, Name)
+    \item STUDENT\_PHONE(\underline{RollNo, PhoneNo})
+    \item COURSE(\underline{CourseID}, Title, DeptID)
+    \item DEPARTMENT(\underline{DeptID}, DeptName)
+    \item ENROLLMENT(\underline{RollNo, CourseID})
+\end{itemize}
+
+\section{GATE-Style Question}
+
+\textbf{Question:}
+
+Which of the following mappings is correct for a many-to-many relationship?
+
+\begin{enumerate}
+    \item Add foreign key to either entity
+    \item Merge both entities
+    \item Create a separate relation
+    \item Ignore the relationship
+\end{enumerate}
+
+\textbf{Answer:} Option (3)
+
+\section{Common GATE Mistakes}
+
+\begin{itemize}
+    \item Treating M:N as 1:N
+    \item Losing relationship attributes
+    \item Incorrect handling of weak entities
+    \item Decomposing ternary relationships incorrectly
+\end{itemize}
+
+\chapter{The Relational Model: Relations, Tuples, and Schemas}
+
+\section{Why the Relational Model Matters}
+
+The relational model is the \textbf{foundation of all modern DBMSs}.  
+SQL, relational algebra, normalization, and indexing all assume this model.
+
+\begin{quote}
+If ER modeling answers \emph{what exists},  
+the relational model answers \emph{how truth is represented}.
+\end{quote}
+
+This chapter formalizes databases using \textbf{set theory} and \textbf{mathematical relations}.
+
+
+\section{Domains}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+A \emph{domain} is a set of atomic values from which attribute values are drawn.
+
+Examples:
+\begin{itemize}
+    \item Integer
+    \item String
+    \item Date
+\end{itemize}
+
+\textbf{Notation:}
+\[
+D = \{v_1, v_2, \dots\}
+\]
+
+\textbf{Important:}
+\begin{quote}
+Domains define the \emph{type} of data.
+\end{quote}
+
+
+\section{Attributes}
+
+\subsection{Definition}
+
+An \emph{attribute} is a named role played by values from a domain.
+
+Example:
+\[
+\text{Age} \in \text{INTEGER}
+\]
+
+
+\section{Tuples}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+A \emph{tuple} is an ordered list of attribute values.
+
+\[
+t = (v_1, v_2, \dots, v_n)
+\]
+
+Each value $v_i$ belongs to the domain of the corresponding attribute.
+
+\subsection{Important Observation}
+
+\begin{quote}
+A tuple is a \textbf{single fact} about the real world.
+\end{quote}
+
+Example:
+\[
+(101, \text{Amit}, 21)
+\]
+
+
+\section{Relations}
+
+\subsection{Formal Definition}
+
+Let:
+\[
+D_1, D_2, \dots, D_n
+\]
+be domains.
+
+A \emph{relation} $R$ is a subset of the Cartesian product:
+\[
+R \subseteq D_1 \times D_2 \times \dots \times D_n
+\]
+
+\subsection{Key Insight}
+
+\begin{quote}
+A relation is a \textbf{set of tuples}.
+\end{quote}
+
+This implies:
+\begin{itemize}
+    \item No duplicate tuples
+    \item Order of tuples does not matter
+\end{itemize}
+
+
+\section{Relation Schema}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+A \emph{relation schema} defines the structure of a relation.
+
+\[
+R(A_1, A_2, \dots, A_n)
+\]
+
+where each $A_i$ is an attribute with an associated domain.
+
+Example:
+\[
+\text{STUDENT}(RollNo, Name, Age)
+\]
+
+
+\section{Relation Instance}
+
+\subsection{Definition}
+
+\textbf{Definition:}  
+A \emph{relation instance} is a finite set of tuples that conform to the schema at a given time.
+
+\textbf{Important distinction:}
+
+\begin{itemize}
+    \item Schema $\rightarrow$ Structure
+    \item Instance $\rightarrow$ Data
+\end{itemize}
+
+
+\section{Degree and Cardinality}
+
+\subsection{Degree}
+
+\textbf{Definition:}  
+Degree of a relation = number of attributes.
+
+\[
+\text{Degree} = n
+\]
+
+
+\subsection{Cardinality}
+
+\textbf{Definition:}  
+Cardinality of a relation = number of tuples.
+
+\[
+\text{Cardinality} = |R|
+\]
+
+\textbf{GATE trap:}
+\begin{quote}
+Degree $\neq$ Cardinality
+\end{quote}
+
+
+\section{Keys in the Relational Model}
+
+\subsection{Super Key}
+
+\textbf{Definition:}  
+A \emph{super key} is a set of attributes that uniquely identifies a tuple.
+
+
+\subsection{Candidate Key}
+
+\textbf{Definition:}  
+A \emph{candidate key} is a minimal super key.
+
+
+\subsection{Primary Key}
+
+\textbf{Definition:}  
+A \emph{primary key} is a candidate key chosen to identify tuples.
+
+\textbf{Properties:}
+\begin{itemize}
+    \item Unique
+    \item Not NULL
+\end{itemize}
+
+
+\section{NULL Values}
+
+\subsection{Meaning of NULL}
+
+\textbf{NULL} represents:
+\begin{itemize}
+    \item Unknown value
+    \item Missing value
+    \item Not applicable
+\end{itemize}
+
+\subsection{Important Logical Consequence}
+
+\[
+\text{NULL} \neq \text{NULL}
+\]
+
+\textbf{Reason:}
+\begin{quote}
+Unknown compared with unknown is still unknown.
+\end{quote}
+
+
+\section{Codd's Rules (Conceptual)}
+
+The relational model was proposed by E. F. Codd.
+
+Key principles:
+\begin{itemize}
+    \item Data stored only as relations
+    \item Logical data independence
+    \item Integrity constraints must be enforced
+\end{itemize}
+
+(Full rules discussed later if needed.)
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+A relation has schema:
+\[
+R(A, B, C)
+\]
+with domains:
+\[
+A \in \{1,2\}, \quad B \in \{x,y\}, \quad C \in \{p,q\}
+\]
+
+\textbf{Question:}  
+What is the maximum possible cardinality of $R$?
+
+\textbf{Solution:}
+
+The Cartesian product has:
+\[
+2 \times 2 \times 2 = 8
+\]
+
+Since a relation is a subset of the Cartesian product:
+\[
+\boxed{8}
+\]
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Treating relations as ordered tables
+    \item Allowing duplicate tuples
+    \item Confusing schema with instance
+    \item Misinterpreting NULL values
+\end{itemize}
+\chapter{Integrity Constraints}
+
+\section{Why Integrity Constraints Exist}
+
+A database is not just a collection of data.  
+It is a collection of \emph{correct} data.
+
+\begin{quote}
+Integrity constraints are rules that preserve the correctness and consistency of the database.
+\end{quote}
+
+Without integrity constraints, a database can store facts that contradict reality.
+
+
+\section{Definition of Integrity Constraint}
+
+\textbf{Definition:}  
+An \emph{integrity constraint} is a condition specified on the database schema that restricts the set of valid database instances.
+
+Formally, if $I$ is a database instance and $C$ is a constraint:
+\[
+I \models C
+\]
+means instance $I$ satisfies constraint $C$.
+
+
+\section{Types of Integrity Constraints}
+
+In the relational model, integrity constraints are classified into four main types:
+\begin{itemize}
+    \item Domain constraints
+    \item Key constraints
+    \item Entity integrity constraints
+    \item Referential integrity constraints
+\end{itemize}
+
+Each type addresses a different source of inconsistency.
+
+
+\section{Domain Constraints}
+
+\subsection{Definition}
+
+A \emph{domain constraint} restricts the values that an attribute can take.
+
+Formally, for an attribute $A$ with domain $D_A$:
+\[
+A \in D_A
+\]
+
+
+\subsection{Examples}
+
+\begin{itemize}
+    \item Age must be an integer
+    \item Marks must satisfy $0 \leq \text{Marks} \leq 100$
+    \item Gender must belong to \{\texttt{M}, \texttt{F}\}
+\end{itemize}
+
+
+\subsection{Violation Example}
+
+\[
+\text{STUDENT}(RollNo=101, Age=-5)
+\]
+
+This tuple violates the domain constraint on Age.
+
+
+\section{Key Constraints}
+
+\subsection{Definition}
+
+A \emph{key constraint} ensures that no two tuples in a relation have the same values for the key attributes.
+
+Formally, for a relation $R$ with key $K$:
+\[
+\forall t_1, t_2 \in R,\ t_1[K] = t_2[K] \Rightarrow t_1 = t_2
+\]
+
+
+\subsection{Types of Keys}
+
+\begin{itemize}
+    \item Super key
+    \item Candidate key
+    \item Primary key
+\end{itemize}
+
+Only candidate keys are minimal.
+
+
+\subsection{Violation Example}
+
+\[
+\text{STUDENT}(RollNo=101, Name=Ravi)
+\]
+\[
+\text{STUDENT}(RollNo=101, Name=Anil)
+\]
+
+This violates the key constraint on RollNo.
+
+
+\section{Entity Integrity Constraint}
+
+\subsection{Definition}
+
+The \emph{entity integrity constraint} states:
+
+\begin{quote}
+Primary key attributes cannot contain NULL values.
+\end{quote}
+
+Formally:
+\[
+\forall t \in R,\ t[PK] \neq \text{NULL}
+\]
+
+
+\subsection{Why This Constraint Is Necessary}
+
+The primary key uniquely identifies an entity.  
+A NULL value means the identity is unknown.
+
+\begin{quote}
+An entity without identity cannot exist in a relational database.
+\end{quote}
+
+
+\subsection{Violation Example}
+
+\[
+\text{STUDENT}(RollNo=\text{NULL}, Name=Ravi)
+\]
+
+This tuple violates entity integrity.
+
+
+\section{Referential Integrity Constraint}
+
+\subsection{Definition}
+
+A \emph{referential integrity constraint} ensures consistency between related relations.
+
+Let:
+\begin{itemize}
+    \item $R$ be a relation with foreign key $FK$
+    \item $S$ be a relation with primary key $PK$
+\end{itemize}
+
+Then:
+\[
+\forall t \in R,\ t[FK] \in \pi_{PK}(S) \ \text{or} \ t[FK] = \text{NULL}
+\]
+
+
+\subsection{Example}
+
+Relations:
+\[
+\text{STUDENT}(\underline{RollNo}, DeptID)
+\]
+\[
+\text{DEPARTMENT}(\underline{DeptID})
+\]
+
+If a student tuple has:
+\[
+DeptID = 10
+\]
+
+Then there must exist a department with:
+\[
+DeptID = 10
+\]
+
+
+\subsection{Violation Example}
+
+If DEPARTMENT does not contain DeptID = 10,  
+the STUDENT tuple violates referential integrity.
+
+
+\section{Referential Actions}
+
+When a referenced tuple is deleted or updated, the DBMS must decide what to do.
+
+Common actions:
+\begin{itemize}
+    \item RESTRICT
+    \item CASCADE
+    \item SET NULL
+    \item SET DEFAULT
+\end{itemize}
+
+These actions are defined at schema level.
+
+
+\section{Constraint Enforcement}
+
+Integrity constraints are enforced:
+\begin{itemize}
+    \item At insertion time
+    \item At deletion time
+    \item At update time
+\end{itemize}
+
+The DBMS automatically checks constraints before committing a transaction.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Consider relations:
+\[
+\text{EMPLOYEE}(\underline{EmpID}, DeptID)
+\]
+\[
+\text{DEPARTMENT}(\underline{DeptID})
+\]
+
+Which of the following operations violates referential integrity?
+
+\begin{enumerate}
+    \item Insert employee with DeptID = NULL
+    \item Insert employee with DeptID not present in DEPARTMENT
+    \item Delete a department that is referenced by employees
+    \item Update DeptID in EMPLOYEE to an existing value
+\end{enumerate}
+
+\textbf{Solution:}
+
+\begin{itemize}
+    \item Option (1): Allowed
+    \item Option (2): Violation
+    \item Option (3): Violation unless CASCADE or SET NULL
+    \item Option (4): Allowed
+\end{itemize}
+
+Correct answers: (2) and (3)
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing entity integrity with key constraint
+    \item Forgetting that foreign keys may be NULL
+    \item Assuming referential actions are automatic
+    \item Thinking constraints are checked only at insertion
+\end{itemize}
+
+\chapter{Relational Algebra: Basic Operators}
+
+\section{Why Relational Algebra}
+
+Relational algebra is the formal query language of the relational model.
+
+\begin{quote}
+SQL is what users write.  
+Relational algebra is what the database executes.
+\end{quote}
+
+It is:
+\begin{itemize}
+    \item Procedural
+    \item Based on set theory
+    \item Closed (input and output are relations)
+\end{itemize}
+
+Every relational algebra expression takes relations as input and produces a relation as output.
+
+
+\section{Operands and Closure Property}
+
+\subsection{Operands}
+
+Operands of relational algebra operators are relations.
+
+\subsection{Closure Property}
+
+\textbf{Definition:}  
+Relational algebra is closed under its operators.
+
+Formally, if $R$ and $S$ are relations, then:
+\[
+R \circ S
+\]
+is also a relation, where $\circ$ is any relational algebra operator.
+
+This allows expressions to be nested.
+
+
+\section{Selection Operator}
+
+\subsection{Intuition}
+
+Selection chooses tuples that satisfy a given condition.
+
+\begin{quote}
+Selection filters rows.
+\end{quote}
+
+
+\subsection{Notation}
+
+\[
+\sigma_{\text{condition}}(R)
+\]
+
+
+\subsection{Formal Definition}
+
+Let $R$ be a relation and $P$ be a predicate.
+
+\[
+\sigma_P(R) = \{ t \mid t \in R \land P(t) \text{ is true} \}
+\]
+
+
+\subsection{Example}
+
+Relation:
+\[
+\text{STUDENT}(RollNo, Name, Age)
+\]
+
+Expression:
+\[
+\sigma_{Age > 20}(\text{STUDENT})
+\]
+
+Result:
+All tuples where Age is greater than 20.
+
+
+\subsection{Properties of Selection}
+
+\begin{itemize}
+    \item Commutative:
+    \[
+    \sigma_{P_1}(\sigma_{P_2}(R)) = \sigma_{P_2}(\sigma_{P_1}(R))
+    \]
+    \item Can be combined:
+    \[
+    \sigma_{P_1 \land P_2}(R)
+    \]
+\end{itemize}
+
+
+\section{Projection Operator}
+
+\subsection{Intuition}
+
+Projection chooses attributes from a relation.
+
+\begin{quote}
+Projection filters columns.
+\end{quote}
+
+
+\subsection{Notation}
+
+\[
+\pi_{A_1, A_2, \dots, A_k}(R)
+\]
+
+
+\subsection{Formal Definition}
+
+\[
+\pi_{A_1,\dots,A_k}(R) = \{ (t[A_1], \dots, t[A_k]) \mid t \in R \}
+\]
+
+
+\subsection{Important Property}
+
+\begin{quote}
+Projection removes duplicate tuples.
+\end{quote}
+
+This is because relations are sets.
+
+
+\subsection{Example}
+
+\[
+\pi_{DeptID}(\text{STUDENT})
+\]
+
+Result:
+All distinct department IDs.
+
+
+\section{Rename Operator}
+
+\subsection{Why Rename Is Needed}
+
+Rename is used when:
+\begin{itemize}
+    \item A relation is used multiple times
+    \item Attribute names must be changed
+\end{itemize}
+
+
+\subsection{Notation}
+
+\[
+\rho_{NewRelation(NewAttr_1,\dots,NewAttr_n)}(R)
+\]
+
+
+\subsection{Example}
+
+\[
+\rho_{S(Roll, Name, Age)}(\text{STUDENT})
+\]
+
+
+\section{Union Operator}
+
+\subsection{Intuition}
+
+Union combines tuples from two relations.
+
+
+\subsection{Notation}
+
+\[
+R \cup S
+\]
+
+
+\subsection{Union Compatibility}
+
+Relations $R(A_1,\dots,A_n)$ and $S(B_1,\dots,B_n)$ are union-compatible if:
+\begin{itemize}
+    \item Same number of attributes
+    \item Corresponding domains are same
+\end{itemize}
+
+
+\subsection{Formal Definition}
+
+\[
+R \cup S = \{ t \mid t \in R \lor t \in S \}
+\]
+
+
+\section{Set Difference Operator}
+
+\subsection{Notation}
+
+\[
+R - S
+\]
+
+
+\subsection{Formal Definition}
+
+\[
+R - S = \{ t \mid t \in R \land t \notin S \}
+\]
+
+
+\subsection{Example}
+
+Students who did not enroll in a course:
+\[
+\text{STUDENT} - \text{ENROLLED}
+\]
+
+
+\section{Cartesian Product}
+
+\subsection{Intuition}
+
+Cartesian product combines every tuple of one relation with every tuple of another.
+
+
+\subsection{Notation}
+
+\[
+R \times S
+\]
+
+
+\subsection{Formal Definition}
+
+If:
+\[
+R \subseteq D_1 \times \dots \times D_m
+\]
+\[
+S \subseteq E_1 \times \dots \times E_n
+\]
+
+Then:
+\[
+R \times S \subseteq D_1 \times \dots \times D_m \times E_1 \times \dots \times E_n
+\]
+
+
+\subsection{Cardinality}
+
+\[
+|R \times S| = |R| \times |S|
+\]
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Given:
+\[
+R(A,B) \text{ with } |R| = 4
+\]
+\[
+S(C) \text{ with } |S| = 3
+\]
+
+Find:
+\[
+|\pi_A(R \times S)|
+\]
+
+\textbf{Solution:}
+
+\[
+|R \times S| = 4 \times 3 = 12
+\]
+
+Projection removes duplicates but does not increase count.
+
+Maximum possible:
+\[
+\boxed{4}
+\]
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Forgetting projection removes duplicates
+    \item Using union on incompatible relations
+    \item Assuming selection changes schema
+    \item Forgetting closure property
+\end{itemize}
+
+\chapter{Relational Algebra: Joins and Division}
+
+\section{Why Joins Exist}
+
+Selection and projection work on a single relation.  
+Real information, however, is usually distributed across multiple relations.
+
+\begin{quote}
+Joins reconstruct meaning by combining related facts.
+\end{quote}
+
+All join operations are derived from the Cartesian product followed by selection and projection.
+
+
+\section{Theta Join}
+
+\subsection{Intuition}
+
+A theta join combines tuples from two relations that satisfy a given condition.
+
+
+\subsection{Notation}
+
+\[
+R \bowtie_{\theta} S
+\]
+
+where $\theta$ is a comparison condition ($=, <, >, \leq, \geq, \neq$).
+
+
+\subsection{Formal Definition}
+
+\[
+R \bowtie_{\theta} S = \sigma_{\theta}(R \times S)
+\]
+
+
+\subsection{Example}
+
+Relations:
+\[
+\text{STUDENT}(RollNo, DeptID)
+\]
+\[
+\text{DEPARTMENT}(DeptID, DeptName)
+\]
+
+Expression:
+\[
+\text{STUDENT} \bowtie_{\text{STUDENT.DeptID}=\text{DEPARTMENT.DeptID}} \text{DEPARTMENT}
+\]
+
+
+\section{Equi Join}
+
+\subsection{Definition}
+
+An equi join is a theta join where the condition uses only equality.
+
+\[
+R \bowtie_{A = B} S
+\]
+
+
+\subsection{Important Observation}
+
+Equi join retains both join attributes, which may be redundant.
+
+
+\section{Natural Join}
+
+\subsection{Intuition}
+
+Natural join automatically joins relations on attributes with the same name.
+
+\begin{quote}
+Natural join removes redundancy by design.
+\end{quote}
+
+
+\subsection{Notation}
+
+\[
+R \bowtie S
+\]
+
+
+\subsection{Formal Definition}
+
+Natural join:
+\begin{itemize}
+    \item Performs equi join on all common attributes
+    \item Eliminates duplicate columns
+\end{itemize}
+
+
+\subsection{Example}
+
+Relations:
+\[
+\text{STUDENT}(RollNo, DeptID)
+\]
+\[
+\text{DEPARTMENT}(DeptID, DeptName)
+\]
+
+Expression:
+\[
+\text{STUDENT} \bowtie \text{DEPARTMENT}
+\]
+
+Result schema:
+\[
+(RollNo, DeptID, DeptName)
+\]
+
+
+\section{Outer Joins}
+
+\subsection{Why Outer Joins Are Needed}
+
+Inner joins discard tuples with no matching counterpart.
+
+\begin{quote}
+Outer joins preserve information.
+\end{quote}
+
+
+\subsection{Types of Outer Joins}
+
+\begin{itemize}
+    \item Left outer join
+    \item Right outer join
+    \item Full outer join
+\end{itemize}
+
+
+\subsection{Left Outer Join}
+
+Includes all tuples from the left relation.
+
+Missing values are filled with NULL.
+
+
+\section{Join Cardinality (GATE Focus)}
+
+For relations:
+\[
+|R| = m, \quad |S| = n
+\]
+
+\begin{itemize}
+    \item Cartesian product: $m \times n$
+    \item Join: $\leq m \times n$
+\end{itemize}
+
+Exact cardinality depends on matching values.
+
+
+\section{Division Operator}
+
+\subsection{Why Division Exists}
+
+Division answers queries of the form:
+
+\begin{quote}
+Which entities are related to \emph{all} entities in another set?
+\end{quote}
+
+
+\subsection{Notation}
+
+\[
+R \div S
+\]
+
+
+\subsection{Schema Condition}
+
+If:
+\[
+R(A, B), \quad S(B)
+\]
+
+Then:
+\[
+R \div S \rightarrow A
+\]
+
+
+\subsection{Formal Definition}
+
+\[
+R \div S = \{ a \mid \forall b \in S,\ (a,b) \in R \}
+\]
+
+
+\subsection{Classic Example}
+
+Relation:
+\[
+\text{ENROLL}(Student, Course)
+\]
+
+Query:
+\begin{quote}
+Find students who have enrolled in \emph{all} courses.
+\end{quote}
+
+Expression:
+\[
+\text{ENROLL} \div \text{COURSE}
+\]
+
+
+\section{Division Using Basic Operators}
+
+Division can be expressed using:
+\begin{itemize}
+    \item Projection
+    \item Difference
+    \item Cartesian product
+\end{itemize}
+
+This is often asked in GATE.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Given:
+\[
+R(A,B) = \{(1,x),(1,y),(2,x)\}
+\]
+\[
+S(B) = \{x,y\}
+\]
+
+Compute:
+\[
+R \div S
+\]
+
+\textbf{Solution:}
+
+Check values of $A$:
+
+\begin{itemize}
+    \item For $A=1$: pairs $(1,x)$ and $(1,y)$ exist
+    \item For $A=2$: pair $(2,y)$ missing
+\end{itemize}
+
+Result:
+\[
+\boxed{\{1\}}
+\]
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing natural join with equi join
+    \item Forgetting duplicate attribute removal in natural join
+    \item Misinterpreting division as subtraction
+    \item Assuming division output has both attributes
+\end{itemize}
+\chapter{Tuple Relational Calculus}
+
+\section{Why Relational Calculus}
+
+Relational algebra tells the DBMS \emph{how} to retrieve data.  
+Relational calculus tells the DBMS \emph{what} data is required.
+
+\begin{quote}
+Relational calculus is based on mathematical logic, not procedures.
+\end{quote}
+
+SQL is closer in spirit to relational calculus than to relational algebra.
+
+
+\section{Declarative vs Procedural Languages}
+
+\subsection{Procedural (Relational Algebra)}
+
+\begin{itemize}
+    \item Specifies sequence of operations
+    \item Focuses on execution steps
+\end{itemize}
+
+
+\subsection{Declarative (Relational Calculus)}
+
+\begin{itemize}
+    \item Specifies conditions on desired results
+    \item Execution strategy is left to the DBMS
+\end{itemize}
+
+
+\section{Tuple Variables}
+
+\subsection{Definition}
+
+A \emph{tuple variable} represents a tuple from a relation.
+
+Example:
+\[
+t \in \text{STUDENT}
+\]
+
+Here, $t$ ranges over all tuples of STUDENT.
+
+
+\section{Basic Form of Tuple Relational Calculus}
+
+\subsection{General Form}
+
+\[
+\{ t \mid P(t) \}
+\]
+
+where:
+\begin{itemize}
+    \item $t$ is a tuple variable
+    \item $P(t)$ is a predicate (logical condition)
+\end{itemize}
+
+
+\subsection{Meaning}
+
+\begin{quote}
+Return all tuples $t$ such that predicate $P(t)$ is true.
+\end{quote}
+
+
+\section{Predicates}
+
+Predicates are built using:
+\begin{itemize}
+    \item Comparison operators ($=, <, >, \leq, \geq, \neq$)
+    \item Logical operators ($\land, \lor, \neg$)
+    \item Quantifiers ($\exists, \forall$)
+\end{itemize}
+
+
+\section{Example Without Quantifiers}
+
+\textbf{Query:}  
+Find all students whose age is greater than 20.
+
+\[
+\{ t \mid t \in \text{STUDENT} \land t.\text{Age} > 20 \}
+\]
+
+
+\section{Existential Quantifier}
+
+\subsection{Notation}
+
+\[
+\exists s \ (P(s))
+\]
+
+Meaning:
+\begin{quote}
+There exists at least one tuple $s$ for which $P(s)$ is true.
+\end{quote}
+
+
+\subsection{Example}
+
+Find students enrolled in some course.
+
+\[
+\{ t \mid t \in \text{STUDENT} \land \exists e \in \text{ENROLL}(e.\text{RollNo} = t.\text{RollNo}) \}
+\]
+
+
+\section{Universal Quantifier}
+
+\subsection{Notation}
+
+\[
+\forall s \ (P(s))
+\]
+
+Meaning:
+\begin{quote}
+For all tuples $s$, predicate $P(s)$ is true.
+\end{quote}
+
+
+\subsection{Example}
+
+Find students enrolled in all courses.
+
+\[
+\{ t \mid t \in \text{STUDENT} \land \forall c \in \text{COURSE} \ 
+\exists e \in \text{ENROLL}(e.\text{RollNo}=t.\text{RollNo} \land e.\text{CourseID}=c.\text{CourseID}) \}
+\]
+
+
+\section{Safety of Tuple Calculus Expressions}
+
+\subsection{Why Safety Matters}
+
+An unsafe expression may produce:
+\begin{itemize}
+    \item Infinite results
+    \item Undefined relations
+\end{itemize}
+
+Such queries are meaningless in practice.
+
+
+\subsection{Safe Expression}
+
+\textbf{Definition:}  
+A tuple calculus expression is \emph{safe} if:
+\begin{itemize}
+    \item All values in the result appear in the database
+    \item Tuple variables are range-restricted
+\end{itemize}
+
+
+\subsection{Unsafe Example}
+
+\[
+\{ t \mid \neg(t \in \text{STUDENT}) \}
+\]
+
+This expression is unsafe because $t$ ranges over infinite tuples.
+
+
+\section{Range Restriction Rule}
+
+A variable is range-restricted if:
+\begin{itemize}
+    \item It appears in a clause of the form $t \in R$
+    \item Or it is bound to another range-restricted variable
+\end{itemize}
+
+
+\section{Relational Algebra vs Tuple Calculus}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Relational Algebra & Tuple Calculus \\
+\hline
+Procedural & Declarative \\
+Execution-focused & Logic-focused \\
+Uses operators & Uses predicates \\
+\hline
+\end{tabular}
+\end{center}
+
+Both are equivalent in expressive power.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which of the following tuple relational calculus expressions is unsafe?
+
+\begin{enumerate}
+    \item $\{ t \mid t \in R \land t.A > 5 \}$
+    \item $\{ t \mid \exists s \in R (s.A = t.A) \}$
+    \item $\{ t \mid \neg(t \in R) \}$
+    \item $\{ t \mid t \in R \land \exists s \in S (s.B = t.B) \}$
+\end{enumerate}
+
+\textbf{Solution:}
+
+Option (3) is unsafe because $t$ is not range-restricted.
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Forgetting range restriction
+    \item Confusing $\forall$ with $\exists$
+    \item Assuming calculus produces ordered results
+    \item Believing calculus is more powerful than algebra
+\end{itemize}
+\chapter{SQL: Data Definition and Basic Data Types}
+
+\section{Why SQL}
+
+Structured Query Language (SQL) is the standard language used to:
+\begin{itemize}
+    \item Define database structure
+    \item Store data
+    \item Retrieve data
+    \item Enforce constraints
+\end{itemize}
+
+\begin{quote}
+Relational algebra and calculus define what is possible.  
+SQL defines what is usable.
+\end{quote}
+
+SQL is a declarative language, meaning the user specifies \emph{what} is needed, not \emph{how} to compute it.
+
+
+\section{Categories of SQL Commands}
+
+SQL commands are classified into the following categories:
+
+\begin{itemize}
+    \item Data Definition Language (DDL)
+    \item Data Manipulation Language (DML)
+    \item Data Control Language (DCL)
+\end{itemize}
+
+This chapter focuses on DDL.
+
+
+\section{Data Definition Language (DDL)}
+
+DDL commands define the structure of the database.
+
+Main DDL commands:
+\begin{itemize}
+    \item CREATE
+    \item ALTER
+    \item DROP
+\end{itemize}
+
+
+\section{CREATE TABLE Statement}
+
+\subsection{General Syntax}
+
+\begin{verbatim}
+CREATE TABLE table_name (
+    attribute1 datatype constraints,
+    attribute2 datatype constraints,
+    ...
+);
+\end{verbatim}
+
+
+\subsection{Example}
+
+\begin{verbatim}
+CREATE TABLE STUDENT (
+    RollNo INT,
+    Name VARCHAR(50),
+    Age INT
+);
+\end{verbatim}
+
+This statement defines the schema of the STUDENT relation.
+
+
+\section{SQL Data Types}
+
+Data types specify the domain of attributes.
+
+
+\subsection{Numeric Data Types}
+
+\begin{itemize}
+    \item INT
+    \item SMALLINT
+    \item DECIMAL(p, s)
+    \item FLOAT
+\end{itemize}
+
+Example:
+\begin{verbatim}
+Salary DECIMAL(10,2)
+\end{verbatim}
+
+
+\subsection{Character Data Types}
+
+\begin{itemize}
+    \item CHAR(n)
+    \item VARCHAR(n)
+\end{itemize}
+
+Difference:
+\begin{itemize}
+    \item CHAR is fixed-length
+    \item VARCHAR is variable-length
+\end{itemize}
+
+
+\subsection{Date and Time Data Types}
+
+Common types:
+\begin{itemize}
+    \item DATE
+    \item TIME
+    \item TIMESTAMP
+\end{itemize}
+
+
+\subsection{Boolean Data Type}
+
+BOOLEAN stores:
+\begin{itemize}
+    \item TRUE
+    \item FALSE
+    \item UNKNOWN (via NULL)
+\end{itemize}
+
+
+\section{Integrity Constraints in SQL}
+
+Constraints restrict allowed values and enforce correctness.
+
+
+\subsection{Primary Key Constraint}
+
+\begin{verbatim}
+RollNo INT PRIMARY KEY
+\end{verbatim}
+
+Properties:
+\begin{itemize}
+    \item Unique
+    \item Not NULL
+\end{itemize}
+
+
+\subsection{Unique Constraint}
+
+\begin{verbatim}
+Email VARCHAR(50) UNIQUE
+\end{verbatim}
+
+Allows NULL values unless specified otherwise.
+
+
+\subsection{Not Null Constraint}
+
+\begin{verbatim}
+Name VARCHAR(50) NOT NULL
+\end{verbatim}
+
+
+\subsection{Check Constraint}
+
+\begin{verbatim}
+Age INT CHECK (Age >= 0)
+\end{verbatim}
+
+Enforces domain-level rules.
+
+
+\subsection{Foreign Key Constraint}
+
+\begin{verbatim}
+DeptID INT REFERENCES DEPARTMENT(DeptID)
+\end{verbatim}
+
+Enforces referential integrity.
+
+
+\section{NULL Values in SQL}
+
+\subsection{Meaning of NULL}
+
+NULL represents:
+\begin{itemize}
+    \item Unknown value
+    \item Missing value
+    \item Not applicable
+\end{itemize}
+
+
+\subsection{Important Logical Behavior}
+
+\begin{itemize}
+    \item NULL = NULL evaluates to UNKNOWN
+    \item Comparisons with NULL yield UNKNOWN
+\end{itemize}
+
+
+\section{ALTER TABLE Statement}
+
+\subsection{Adding an Attribute}
+
+\begin{verbatim}
+ALTER TABLE STUDENT
+ADD Email VARCHAR(50);
+\end{verbatim}
+
+
+\subsection{Dropping an Attribute}
+
+\begin{verbatim}
+ALTER TABLE STUDENT
+DROP Age;
+\end{verbatim}
+
+
+\section{DROP TABLE Statement}
+
+\subsection{Definition}
+
+DROP TABLE deletes:
+\begin{itemize}
+    \item Table structure
+    \item All stored data
+\end{itemize}
+
+\begin{verbatim}
+DROP TABLE STUDENT;
+\end{verbatim}
+
+This operation is irreversible.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which of the following constraints ensures that an attribute value must exist in another table?
+
+\begin{enumerate}
+    \item UNIQUE
+    \item CHECK
+    \item FOREIGN KEY
+    \item NOT NULL
+\end{enumerate}
+
+\textbf{Solution:}
+
+A FOREIGN KEY constraint enforces referential integrity.
+
+Correct answer: (3)
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing UNIQUE and PRIMARY KEY
+    \item Forgetting that UNIQUE allows NULL
+    \item Assuming CHECK enforces referential integrity
+    \item Ignoring NULL behavior in constraints
+\end{itemize}
+\chapter{SQL Querying: SELECT--FROM--WHERE}
+
+\section{Why Querying Needs Care}
+
+Defining tables is only the first step.  
+The real power of SQL lies in retrieving exactly the required information.
+
+\begin{quote}
+Most SQL mistakes come not from syntax, but from incorrect logic.
+\end{quote}
+
+This chapter focuses on querying a single table using SELECT, FROM, and WHERE, with correct logical reasoning.
+
+
+\section{Basic Structure of a Query}
+
+\subsection{General Syntax}
+
+\begin{verbatim}
+SELECT attribute_list
+FROM table_name
+WHERE condition;
+\end{verbatim}
+
+Each clause has a distinct role and meaning.
+
+
+\section{Logical Meaning of SELECT}
+
+\subsection{Definition}
+
+The SELECT clause specifies:
+\begin{itemize}
+    \item Which attributes appear in the result
+\end{itemize}
+
+It does not select rows.  
+Rows are filtered by the WHERE clause.
+
+
+\section{Logical Meaning of FROM}
+
+\subsection{Definition}
+
+The FROM clause specifies:
+\begin{itemize}
+    \item Which relation(s) are used to form the input
+\end{itemize}
+
+At this stage, SQL conceptually forms a Cartesian product of tables listed in FROM.
+
+
+\section{Logical Meaning of WHERE}
+
+\subsection{Definition}
+
+The WHERE clause filters tuples based on a boolean condition.
+
+\[
+\text{WHERE } P(t)
+\]
+
+Only tuples for which the condition evaluates to TRUE are retained.
+
+
+\section{Order of Logical Evaluation}
+
+Although SQL is written as SELECT–FROM–WHERE, it is evaluated logically in the following order:
+
+\begin{enumerate}
+    \item FROM
+    \item WHERE
+    \item SELECT
+\end{enumerate}
+
+\textbf{GATE fact:}
+\begin{quote}
+Understanding this order explains most tricky SQL questions.
+\end{quote}
+
+
+\section{Selecting All Attributes}
+
+\subsection{Using *}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT;
+\end{verbatim}
+
+This retrieves all attributes for all tuples in STUDENT.
+
+
+\section{Selecting Specific Attributes}
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT RollNo, Name
+FROM STUDENT;
+\end{verbatim}
+
+Only RollNo and Name appear in the result.
+
+
+\section{Duplicate Elimination}
+
+\subsection{DISTINCT Keyword}
+
+By default, SQL allows duplicate rows in query results.
+
+\begin{verbatim}
+SELECT DISTINCT DeptID
+FROM STUDENT;
+\end{verbatim}
+
+DISTINCT removes duplicate tuples.
+
+
+\section{Comparison Operators}
+
+SQL supports standard comparison operators:
+
+\begin{itemize}
+    \item =
+    \item <>
+    \item <
+    \item >
+    \item <=
+    \item >=
+\end{itemize}
+
+
+\section{Logical Operators}
+
+Conditions can be combined using:
+\begin{itemize}
+    \item AND
+    \item OR
+    \item NOT
+\end{itemize}
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT
+WHERE Age > 20 AND DeptID = 10;
+\end{verbatim}
+
+
+\section{Three-Valued Logic in SQL}
+
+\subsection{Truth Values}
+
+SQL uses three-valued logic:
+\begin{itemize}
+    \item TRUE
+    \item FALSE
+    \item UNKNOWN
+\end{itemize}
+
+UNKNOWN typically arises from comparisons involving NULL.
+
+
+\subsection{Effect of NULL in WHERE}
+
+Only tuples for which the WHERE condition is TRUE are selected.
+
+\begin{quote}
+FALSE and UNKNOWN tuples are both discarded.
+\end{quote}
+
+
+\section{NULL Comparisons}
+
+\subsection{Incorrect Comparison}
+
+\begin{verbatim}
+WHERE Age = NULL
+\end{verbatim}
+
+This always evaluates to UNKNOWN.
+
+
+\subsection{Correct Comparison}
+
+\begin{verbatim}
+WHERE Age IS NULL
+\end{verbatim}
+
+
+\section{Pattern Matching}
+
+\subsection{LIKE Operator}
+
+The LIKE operator matches patterns in strings.
+
+\begin{itemize}
+    \item \% matches any sequence of characters
+    \item \_ matches exactly one character
+\end{itemize}
+
+
+\subsection{Examples}
+
+\begin{verbatim}
+WHERE Name LIKE 'A%'
+\end{verbatim}
+
+Names starting with A.
+
+\begin{verbatim}
+WHERE Name LIKE '_a%'
+\end{verbatim}
+
+Second letter is a.
+
+
+\section{Range Queries}
+
+\subsection{BETWEEN Operator}
+
+\begin{verbatim}
+WHERE Age BETWEEN 18 AND 25
+\end{verbatim}
+
+Includes both endpoints.
+
+
+\section{Set Membership}
+
+\subsection{IN Operator}
+
+\begin{verbatim}
+WHERE DeptID IN (10, 20, 30)
+\end{verbatim}
+
+Equivalent to multiple OR conditions.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Consider the query:
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT
+WHERE Age > 20 OR Age <= 20;
+\end{verbatim}
+
+Which tuples are selected?
+
+\textbf{Solution:}
+
+\begin{itemize}
+    \item For Age = NULL, both comparisons yield UNKNOWN
+    \item UNKNOWN OR UNKNOWN = UNKNOWN
+\end{itemize}
+
+Thus:
+\begin{quote}
+Tuples with Age = NULL are not selected.
+\end{quote}
+
+All non-NULL Age values are selected.
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Forgetting three-valued logic
+    \item Using = NULL instead of IS NULL
+    \item Confusing DISTINCT with GROUP BY
+    \item Assuming SELECT filters rows
+\end{itemize}
+\chapter{SQL Queries with Multiple Tables}
+
+\section{Why Multiple Tables Exist}
+
+In a well-designed database, data is distributed across multiple tables to:
+\begin{itemize}
+    \item Avoid redundancy
+    \item Preserve consistency
+    \item Reflect real-world relationships
+\end{itemize}
+
+\begin{quote}
+Querying multiple tables is the practical form of relational joins.
+\end{quote}
+
+
+\section{Cartesian Product in SQL}
+
+When multiple tables appear in the FROM clause without a join condition, SQL forms a Cartesian product.
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT, DEPARTMENT;
+\end{verbatim}
+
+This produces all possible combinations of STUDENT and DEPARTMENT tuples.
+
+\textbf{GATE warning:}
+\begin{quote}
+Most accidental Cartesian products are logical errors.
+\end{quote}
+
+
+\section{Inner Join}
+
+\subsection{Definition}
+
+An inner join returns only tuples that satisfy the join condition.
+
+
+\subsection{Syntax Using WHERE}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S, DEPARTMENT D
+WHERE S.DeptID = D.DeptID;
+\end{verbatim}
+
+
+\subsection{Syntax Using JOIN}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+JOIN DEPARTMENT D
+ON S.DeptID = D.DeptID;
+\end{verbatim}
+
+Both queries are logically equivalent.
+
+
+\section{Attribute Name Ambiguity}
+
+When multiple tables have attributes with the same name, table aliases must be used.
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT S.Name, D.DeptName
+FROM STUDENT S, DEPARTMENT D
+WHERE S.DeptID = D.DeptID;
+\end{verbatim}
+
+
+\section{Types of Inner Joins}
+
+\begin{itemize}
+    \item Equi-join
+    \item Natural join
+\end{itemize}
+
+
+\subsection{Natural Join}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT NATURAL JOIN DEPARTMENT;
+\end{verbatim}
+
+Natural join:
+\begin{itemize}
+    \item Joins on all common attribute names
+    \item Removes duplicate columns
+\end{itemize}
+
+\textbf{GATE caution:}
+\begin{quote}
+Natural join can silently change meaning if attribute names coincide unintentionally.
+\end{quote}
+
+
+\section{Outer Joins in SQL}
+
+\subsection{Left Outer Join}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+LEFT JOIN DEPARTMENT D
+ON S.DeptID = D.DeptID;
+\end{verbatim}
+
+All STUDENT tuples appear in the result.
+
+
+\subsection{Right Outer Join}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+RIGHT JOIN DEPARTMENT D
+ON S.DeptID = D.DeptID;
+\end{verbatim}
+
+All DEPARTMENT tuples appear.
+
+
+\subsection{Full Outer Join}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+FULL JOIN DEPARTMENT D
+ON S.DeptID = D.DeptID;
+\end{verbatim}
+
+
+\section{Subqueries}
+
+\subsection{Definition}
+
+A subquery is a query nested inside another query.
+
+\begin{verbatim}
+SELECT ...
+FROM ...
+WHERE attribute operator (subquery);
+\end{verbatim}
+
+
+\section{Subqueries with IN}
+
+\subsection{Example}
+
+Find students enrolled in any course.
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT
+WHERE RollNo IN (
+    SELECT RollNo
+    FROM ENROLL
+);
+\end{verbatim}
+
+
+\section{Subqueries with EXISTS}
+
+\subsection{Definition}
+
+EXISTS checks whether the subquery returns at least one tuple.
+
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+WHERE EXISTS (
+    SELECT *
+    FROM ENROLL E
+    WHERE E.RollNo = S.RollNo
+);
+\end{verbatim}
+
+
+\section{Correlated Subqueries}
+
+\subsection{Definition}
+
+A correlated subquery depends on the outer query and is evaluated once per outer tuple.
+
+
+\subsection{Example}
+
+Find students enrolled in more than one course.
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+WHERE (
+    SELECT COUNT(*)
+    FROM ENROLL E
+    WHERE E.RollNo = S.RollNo
+) > 1;
+\end{verbatim}
+
+
+\section{IN vs EXISTS}
+
+\begin{itemize}
+    \item IN compares values
+    \item EXISTS checks existence
+\end{itemize}
+
+\textbf{Logical insight:}
+\begin{quote}
+IN can fail with NULL values, EXISTS does not.
+\end{quote}
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which query returns students who are not enrolled in any course?
+
+\begin{verbatim}
+SELECT *
+FROM STUDENT S
+WHERE NOT EXISTS (
+    SELECT *
+    FROM ENROLL E
+    WHERE E.RollNo = S.RollNo
+);
+\end{verbatim}
+
+\textbf{Explanation:}
+
+For students with no matching ENROLL tuple, the EXISTS subquery returns false, so NOT EXISTS is true.
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Forgetting join condition
+    \item Confusing IN with EXISTS
+    \item Misunderstanding correlated subqueries
+    \item Assuming NATURAL JOIN is always safe
+\end{itemize}
+\chapter{SQL Aggregation and GROUP BY}
+
+\section{Why Aggregation Is Different}
+
+So far, SQL queries returned individual tuples.  
+Aggregation changes the level of thinking.
+
+\begin{quote}
+Aggregation answers questions about \emph{groups of tuples}, not individual tuples.
+\end{quote}
+
+This chapter explains how SQL computes summaries correctly and why many intuitive queries are logically wrong.
+
+
+\section{Aggregate Functions}
+
+\subsection{Definition}
+
+Aggregate functions compute a single value from a set of values.
+
+Common aggregate functions:
+\begin{itemize}
+    \item COUNT
+    \item SUM
+    \item AVG
+    \item MIN
+    \item MAX
+\end{itemize}
+
+
+\section{COUNT Function}
+
+\subsection{COUNT(*)}
+
+\begin{verbatim}
+SELECT COUNT(*)
+FROM STUDENT;
+\end{verbatim}
+
+Counts the number of tuples, including those with NULL values.
+
+
+\subsection{COUNT(attribute)}
+
+\begin{verbatim}
+SELECT COUNT(Age)
+FROM STUDENT;
+\end{verbatim}
+
+Counts only non-NULL values of Age.
+
+\textbf{Important:}
+\begin{quote}
+COUNT(attribute) ignores NULL values.
+\end{quote}
+
+
+\section{SUM and AVG}
+
+\subsection{Definition}
+
+SUM and AVG operate only on numeric attributes and ignore NULL values.
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT AVG(Age)
+FROM STUDENT;
+\end{verbatim}
+
+
+\section{MIN and MAX}
+
+These functions work on:
+\begin{itemize}
+    \item Numeric values
+    \item Dates
+    \item Strings (lexicographic order)
+\end{itemize}
+
+
+\section{GROUP BY Clause}
+
+\subsection{Why GROUP BY Is Needed}
+
+Without GROUP BY, aggregation produces a single result.
+
+\begin{quote}
+GROUP BY partitions a relation into disjoint groups.
+\end{quote}
+
+
+\subsection{Syntax}
+
+\begin{verbatim}
+SELECT attribute_list, aggregate_function
+FROM table
+GROUP BY attribute_list;
+\end{verbatim}
+
+
+\section{Logical Meaning of GROUP BY}
+
+Conceptually:
+\begin{enumerate}
+    \item FROM forms the input relation
+    \item GROUP BY partitions tuples
+    \item Aggregates are computed per group
+\end{enumerate}
+
+
+\section{GROUP BY Rule (Very Important)}
+
+\textbf{Rule:}
+
+Every attribute in SELECT must either:
+\begin{itemize}
+    \item Appear in GROUP BY, or
+    \item Be an argument of an aggregate function
+\end{itemize}
+
+Violating this rule results in an error.
+
+
+\section{Example of GROUP BY}
+
+Find number of students in each department.
+
+\begin{verbatim}
+SELECT DeptID, COUNT(*)
+FROM STUDENT
+GROUP BY DeptID;
+\end{verbatim}
+
+
+\section{HAVING Clause}
+
+\subsection{Why HAVING Exists}
+
+WHERE filters tuples \emph{before grouping}.  
+HAVING filters groups \emph{after aggregation}.
+
+
+\subsection{Syntax}
+
+\begin{verbatim}
+SELECT DeptID, COUNT(*)
+FROM STUDENT
+GROUP BY DeptID
+HAVING COUNT(*) > 10;
+\end{verbatim}
+
+
+\section{WHERE vs HAVING}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+WHERE & HAVING \\
+\hline
+Filters rows & Filters groups \\
+Before GROUP BY & After GROUP BY \\
+Cannot use aggregates & Uses aggregates \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Execution Order (GATE Critical)}
+
+Logical order of execution:
+
+\begin{enumerate}
+    \item FROM
+    \item WHERE
+    \item GROUP BY
+    \item HAVING
+    \item SELECT
+\end{enumerate}
+
+\begin{quote}
+This order explains every tricky GROUP BY question.
+\end{quote}
+
+
+\section{Aggregation with DISTINCT}
+
+\subsection{Example}
+
+\begin{verbatim}
+SELECT COUNT(DISTINCT DeptID)
+FROM STUDENT;
+\end{verbatim}
+
+Counts distinct department IDs.
+
+
+\section{Nested Aggregation}
+
+\subsection{Important Rule}
+
+Aggregate functions cannot be nested directly.
+
+\textbf{Invalid:}
+\begin{verbatim}
+SELECT AVG(COUNT(*))
+FROM STUDENT;
+\end{verbatim}
+
+Nested aggregation requires subqueries.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Consider the query:
+
+\begin{verbatim}
+SELECT DeptID
+FROM STUDENT
+GROUP BY DeptID
+HAVING COUNT(Age) = COUNT(*);
+\end{verbatim}
+
+What does this query return?
+
+\textbf{Solution:}
+
+COUNT(Age) counts only non-NULL Age values.  
+COUNT(*) counts all tuples.
+
+Equality means:
+\begin{quote}
+No student in the department has Age = NULL.
+\end{quote}
+
+Thus, the query returns departments where Age is NOT NULL for all students.
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Using WHERE instead of HAVING
+    \item Forgetting GROUP BY rule
+    \item Misunderstanding COUNT(attribute)
+    \item Assuming aggregate functions include NULL
+\end{itemize}
+\chapter{Functional Dependencies}
+
+\section{Why Functional Dependencies Matter}
+
+Poor database design leads to:
+\begin{itemize}
+    \item Data redundancy
+    \item Update anomalies
+    \item Inconsistency
+\end{itemize}
+
+\begin{quote}
+Functional dependencies explain \emph{why} these problems occur.
+\end{quote}
+
+Normalization is impossible without understanding functional dependencies (FDs).
+
+
+\section{Intuitive Meaning of Functional Dependency}
+
+Consider a relation:
+
+\[
+\text{STUDENT}(RollNo, Name, DeptID)
+\]
+
+If knowing RollNo uniquely determines Name and DeptID, then:
+
+\[
+RollNo \rightarrow Name, DeptID
+\]
+
+\begin{quote}
+Functional dependency captures determinism.
+\end{quote}
+
+
+\section{Formal Definition}
+
+Let $R$ be a relation schema and $X, Y \subseteq R$.
+
+\textbf{Definition:}  
+A functional dependency $X \rightarrow Y$ holds on $R$ if for all valid instances $r(R)$:
+
+\[
+\forall t_1, t_2 \in r,\ t_1[X] = t_2[X] \Rightarrow t_1[Y] = t_2[Y]
+\]
+
+
+\section{Trivial and Non-Trivial Dependencies}
+
+\subsection{Trivial Functional Dependency}
+
+\[
+X \rightarrow Y \quad \text{where } Y \subseteq X
+\]
+
+Always holds.
+
+Example:
+\[
+\{RollNo, Name\} \rightarrow Name
+\]
+
+
+\subsection{Non-Trivial Functional Dependency}
+
+\[
+Y \nsubseteq X
+\]
+
+Example:
+\[
+RollNo \rightarrow Name
+\]
+
+
+\section{Completely Non-Trivial Dependency}
+
+A functional dependency $X \rightarrow Y$ is completely non-trivial if:
+\[
+X \cap Y = \emptyset
+\]
+
+
+\section{Closure of a Set of Attributes}
+
+\subsection{Definition}
+
+The closure of a set of attributes $X$ with respect to a set of FDs $F$ is denoted by:
+\[
+X^+
+\]
+
+It is the set of all attributes functionally determined by $X$ under $F$.
+
+
+\subsection{Computation of Attribute Closure}
+
+Algorithm:
+\begin{enumerate}
+    \item Initialize $X^+ = X$
+    \item For each FD $Y \rightarrow Z$ in $F$:
+    \begin{itemize}
+        \item If $Y \subseteq X^+$, then add $Z$ to $X^+$
+    \end{itemize}
+    \item Repeat until no change occurs
+\end{enumerate}
+
+
+\section{Example of Attribute Closure}
+
+Let:
+\[
+R(A,B,C,D)
+\]
+\[
+F = \{ A \rightarrow B,\ B \rightarrow C \}
+\]
+
+Compute $A^+$.
+
+\textbf{Solution:}
+
+\begin{itemize}
+    \item Start: $A^+ = \{A\}$
+    \item From $A \rightarrow B$: add $B$
+    \item From $B \rightarrow C$: add $C$
+\end{itemize}
+
+\[
+A^+ = \{A,B,C\}
+\]
+
+
+\section{Candidate Keys Using Closure}
+
+\subsection{Definition}
+
+A set of attributes $K$ is a candidate key if:
+\begin{itemize}
+    \item $K^+$ contains all attributes of $R$
+    \item No proper subset of $K$ has this property
+\end{itemize}
+
+
+\section{Example: Finding Candidate Keys}
+
+Let:
+\[
+R(A,B,C)
+\]
+\[
+F = \{ A \rightarrow B,\ B \rightarrow C \}
+\]
+
+Check if $A$ is a key.
+
+\[
+A^+ = \{A,B,C\}
+\]
+
+Thus, $A$ is a candidate key.
+
+
+\section{Armstrong's Axioms}
+
+Armstrong's axioms provide inference rules to derive all implied FDs.
+
+
+\subsection{Reflexivity}
+
+If $Y \subseteq X$, then:
+\[
+X \rightarrow Y
+\]
+
+
+\subsection{Augmentation}
+
+If:
+\[
+X \rightarrow Y
+\]
+then:
+\[
+XZ \rightarrow YZ
+\]
+
+
+\subsection{Transitivity}
+
+If:
+\[
+X \rightarrow Y \quad \text{and} \quad Y \rightarrow Z
+\]
+then:
+\[
+X \rightarrow Z
+\]
+
+
+\section{Derived Rules}
+
+From Armstrong's axioms, we derive:
+
+\begin{itemize}
+    \item Union: $X \rightarrow Y$ and $X \rightarrow Z$ implies $X \rightarrow YZ$
+    \item Decomposition: $X \rightarrow YZ$ implies $X \rightarrow Y$ and $X \rightarrow Z$
+    \item Pseudotransitivity
+\end{itemize}
+
+
+\section{Minimal Cover of Functional Dependencies}
+
+\subsection{Definition}
+
+A minimal cover $F_m$ of a set of FDs $F$ satisfies:
+\begin{itemize}
+    \item Equivalent to $F$
+    \item Right-hand side of each FD is a single attribute
+    \item No extraneous attributes
+    \item No redundant dependencies
+\end{itemize}
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Given:
+\[
+R(A,B,C)
+\]
+\[
+F = \{ A \rightarrow BC,\ B \rightarrow C \}
+\]
+
+Find a minimal cover.
+
+\textbf{Solution:}
+
+Step 1: Decompose RHS
+\[
+A \rightarrow B,\ A \rightarrow C,\ B \rightarrow C
+\]
+
+Step 2: Check redundancy
+
+$A \rightarrow C$ is implied by:
+\[
+A \rightarrow B,\ B \rightarrow C
+\]
+
+Remove it.
+
+Minimal cover:
+\[
+\{ A \rightarrow B,\ B \rightarrow C \}
+\]
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing FD with implication
+    \item Forgetting minimality in candidate keys
+    \item Skipping closure computation
+    \item Assuming all dependencies are non-trivial
+\end{itemize}
+
+\chapter{Normalization and Normal Forms}
+
+\section{Why Normalization Exists}
+
+A poorly designed relation may suffer from:
+\begin{itemize}
+    \item Insertion anomaly
+    \item Deletion anomaly
+    \item Update anomaly
+\end{itemize}
+
+\begin{quote}
+Normalization is the process of structuring relations so that anomalies are eliminated.
+\end{quote}
+
+Normalization is based entirely on functional dependencies.
+
+
+\section{First Normal Form (1NF)}
+
+\subsection{Definition}
+
+A relation is in \textbf{First Normal Form (1NF)} if:
+\begin{itemize}
+    \item All attribute values are atomic
+    \item No repeating groups or multi-valued attributes exist
+\end{itemize}
+
+
+\subsection{Violation Example}
+
+Relation:
+\[
+\text{STUDENT}(RollNo, Name, PhoneNumbers)
+\]
+
+Here, PhoneNumbers is multi-valued, violating 1NF.
+
+
+\subsection{Conversion to 1NF}
+
+Create a separate relation:
+
+\[
+\text{STUDENT\_PHONE}(RollNo, PhoneNo)
+\]
+
+
+\section{Second Normal Form (2NF)}
+
+\subsection{Intuition}
+
+2NF removes \emph{partial dependency}.
+
+\begin{quote}
+Non-key attributes must depend on the \emph{whole} key.
+\end{quote}
+
+
+\subsection{Formal Definition}
+
+A relation $R$ is in 2NF if:
+\begin{itemize}
+    \item $R$ is in 1NF
+    \item No non-prime attribute is partially dependent on a candidate key
+\end{itemize}
+
+
+\subsection{Partial Dependency}
+
+A dependency $X \rightarrow Y$ is partial if:
+\begin{itemize}
+    \item $X$ is a proper subset of a candidate key
+    \item $Y$ is a non-prime attribute
+\end{itemize}
+
+
+\subsection{Example}
+
+Relation:
+\[
+\text{ENROLL}(RollNo, CourseID, StudentName, CourseName)
+\]
+
+Candidate key:
+\[
+(RollNo, CourseID)
+\]
+
+Dependencies:
+\[
+RollNo \rightarrow StudentName
+\]
+\[
+CourseID \rightarrow CourseName
+\]
+
+This violates 2NF.
+
+
+\subsection{Decomposition}
+
+\[
+\text{STUDENT}(RollNo, StudentName)
+\]
+\[
+\text{COURSE}(CourseID, CourseName)
+\]
+\[
+\text{ENROLL}(RollNo, CourseID)
+\]
+
+
+\section{Third Normal Form (3NF)}
+
+\subsection{Intuition}
+
+3NF removes \emph{transitive dependency}.
+
+\begin{quote}
+Non-key attributes must not depend on other non-key attributes.
+\end{quote}
+
+
+\subsection{Formal Definition}
+
+A relation $R$ is in 3NF if for every functional dependency $X \rightarrow A$:
+\begin{itemize}
+    \item $X$ is a super key, or
+    \item $A$ is a prime attribute
+\end{itemize}
+
+
+\subsection{Transitive Dependency}
+
+\[
+X \rightarrow Y,\quad Y \rightarrow Z,\quad X \nrightarrow Z \text{ directly}
+\]
+
+
+\subsection{Example}
+
+Relation:
+\[
+\text{EMPLOYEE}(EmpID, DeptID, DeptName)
+\]
+
+Dependencies:
+\[
+EmpID \rightarrow DeptID
+\]
+\[
+DeptID \rightarrow DeptName
+\]
+
+This violates 3NF.
+
+
+\subsection{Decomposition}
+
+\[
+\text{EMPLOYEE}(EmpID, DeptID)
+\]
+\[
+\text{DEPARTMENT}(DeptID, DeptName)
+\]
+
+
+\section{Boyce--Codd Normal Form (BCNF)}
+
+\subsection{Intuition}
+
+BCNF is a stronger version of 3NF.
+
+\begin{quote}
+Every determinant must be a candidate key.
+\end{quote}
+
+
+\subsection{Formal Definition}
+
+A relation $R$ is in BCNF if for every non-trivial FD:
+\[
+X \rightarrow Y
+\]
+$X$ is a super key.
+
+
+\subsection{Difference Between 3NF and BCNF}
+
+\begin{itemize}
+    \item BCNF removes more redundancy
+    \item BCNF may lose dependency preservation
+\end{itemize}
+
+
+\subsection{Example Where 3NF Is Not BCNF}
+
+Relation:
+\[
+R(A,B,C)
+\]
+
+Dependencies:
+\[
+A,B \rightarrow C
+\]
+\[
+C \rightarrow B
+\]
+
+Candidate keys:
+\[
+AB,\ AC
+\]
+
+Here, $C \rightarrow B$ violates BCNF since $C$ is not a super key.
+
+
+\section{Lossless Decomposition}
+
+\subsection{Definition}
+
+A decomposition of $R$ into $R_1$ and $R_2$ is lossless if:
+\[
+R_1 \cap R_2 \rightarrow R_1 \quad \text{or} \quad R_1 \cap R_2 \rightarrow R_2
+\]
+
+
+\subsection{Importance}
+
+Lossless decomposition ensures:
+\begin{quote}
+No information is lost during decomposition.
+\end{quote}
+
+
+\section{Dependency Preservation}
+
+\subsection{Definition}
+
+A decomposition is dependency preserving if all functional dependencies can be enforced without joining relations.
+
+
+\subsection{Trade-off}
+
+\begin{itemize}
+    \item 3NF guarantees dependency preservation
+    \item BCNF may sacrifice it
+\end{itemize}
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which normal form guarantees lossless join decomposition?
+
+\textbf{Solution:}
+
+\begin{itemize}
+    \item BCNF guarantees lossless join
+    \item 3NF also guarantees lossless join
+\end{itemize}
+
+Correct answer: Both 3NF and BCNF
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing partial and transitive dependency
+    \item Assuming BCNF is always better
+    \item Forgetting prime attribute condition in 3NF
+    \item Ignoring lossless join condition
+\end{itemize}
+\chapter{File Organization}
+
+\section{Why File Organization Matters}
+
+The relational model describes data logically.  
+File organization describes how that data is actually stored on disk.
+
+\begin{quote}
+Good file organization minimizes disk I/O, not CPU time.
+\end{quote}
+
+Since disk access is the slowest operation, file organization directly affects performance.
+
+
+\section{Basic Storage Concepts}
+
+\subsection{Disk Blocks}
+
+Data on disk is stored in fixed-size blocks (or pages).
+
+\begin{itemize}
+    \item Block is the unit of I/O
+    \item Multiple records fit inside one block
+\end{itemize}
+
+
+\subsection{Records}
+
+A record corresponds to one tuple of a relation.
+
+\begin{quote}
+File organization is about how records are placed inside blocks.
+\end{quote}
+
+
+\section{Types of File Organization}
+
+There are three main types relevant for GATE:
+\begin{itemize}
+    \item Heap file organization
+    \item Sequential file organization
+    \item Hash file organization
+\end{itemize}
+
+
+\section{Heap File Organization}
+
+\subsection{Definition}
+
+In a heap file:
+\begin{itemize}
+    \item Records are stored wherever space is available
+    \item No ordering is maintained
+\end{itemize}
+
+
+\subsection{Characteristics}
+
+\begin{itemize}
+    \item Fast insertion
+    \item Slow search
+    \item Suitable when queries retrieve most records
+\end{itemize}
+
+
+\subsection{Use Case}
+
+Heap files are suitable for:
+\begin{itemize}
+    \item Bulk loading
+    \item Temporary relations
+\end{itemize}
+
+
+\section{Sequential File Organization}
+
+\subsection{Definition}
+
+Records are stored in sorted order based on a search key.
+
+
+\subsection{Characteristics}
+
+\begin{itemize}
+    \item Efficient for range queries
+    \item Expensive insertion and deletion
+    \item Requires periodic reorganization
+\end{itemize}
+
+
+\subsection{Example}
+
+Storing STUDENT records sorted by RollNo.
+
+
+\section{Hash File Organization}
+
+\subsection{Definition}
+
+Records are distributed into buckets using a hash function.
+
+\[
+h(K) \rightarrow \text{bucket number}
+\]
+
+
+\subsection{Characteristics}
+
+\begin{itemize}
+    \item Very fast equality search
+    \item Poor performance for range queries
+    \item Collision handling required
+\end{itemize}
+
+
+\subsection{Collision Resolution}
+
+Common techniques:
+\begin{itemize}
+    \item Chaining
+    \item Open addressing
+\end{itemize}
+
+
+\section{Comparison of File Organizations}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Property & Heap & Sequential & Hash \\
+\hline
+Insertion & Fast & Slow & Fast \\
+Search (Equality) & Slow & Medium & Fast \\
+Range Query & Poor & Excellent & Poor \\
+Ordering & None & Sorted & None \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Cost Perspective (GATE Focus)}
+
+\begin{itemize}
+    \item Heap search may require full file scan
+    \item Sequential search benefits from ordering
+    \item Hash search typically needs one I/O
+\end{itemize}
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which file organization is most suitable for answering range queries efficiently?
+
+\textbf{Solution:}
+
+Range queries require ordered data.
+
+\begin{quote}
+Sequential file organization is best suited.
+\end{quote}
+
+Correct answer: Sequential file organization
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Assuming hashing supports range queries
+    \item Confusing heap files with unordered indexes
+    \item Ignoring insertion cost in sequential files
+\end{itemize}
+\chapter{Indexing and B+ Trees}
+
+\section{Why Indexing Is Needed}
+
+Searching a file by scanning all blocks is expensive.
+
+\begin{quote}
+Indexing is a technique to reduce disk I/O during search.
+\end{quote}
+
+An index is a separate data structure that allows fast access to records based on a search key.
+
+
+\section{Basic Idea of an Index}
+
+An index stores:
+\begin{itemize}
+    \item Search key values
+    \item Pointers to corresponding records or blocks
+\end{itemize}
+
+\begin{quote}
+Indexes trade extra storage for faster retrieval.
+\end{quote}
+
+
+\section{Search Key}
+
+\subsection{Definition}
+
+A \emph{search key} is the attribute or set of attributes used to look up records using an index.
+
+\textbf{Important:}
+\begin{quote}
+A search key is not necessarily a primary key.
+\end{quote}
+
+
+\section{Index Classification}
+
+Indexes are classified based on:
+\begin{itemize}
+    \item Whether the search key is ordered
+    \item Whether the index is dense or sparse
+    \item Whether the index is clustered or non-clustered
+\end{itemize}
+
+
+\section{Dense and Sparse Indexes}
+
+\subsection{Dense Index}
+
+A dense index contains an index entry for every search key value.
+
+\begin{itemize}
+    \item Faster search
+    \item Larger index size
+\end{itemize}
+
+
+\subsection{Sparse Index}
+
+A sparse index contains index entries for only some search key values.
+
+\begin{itemize}
+    \item Smaller index
+    \item Requires ordered data file
+\end{itemize}
+
+
+\section{Primary Index}
+
+\subsection{Definition}
+
+A primary index is an index on:
+\begin{itemize}
+    \item Primary key
+    \item Data file ordered on that key
+\end{itemize}
+
+Primary indexes are typically sparse.
+
+
+\section{Secondary Index}
+
+\subsection{Definition}
+
+A secondary index is an index on a non-ordering attribute.
+
+\begin{itemize}
+    \item Data file is not ordered on this attribute
+    \item Index must be dense
+\end{itemize}
+
+
+\section{Clustered Index}
+
+\subsection{Definition}
+
+An index is clustered if:
+\begin{itemize}
+    \item The order of index entries matches the order of records on disk
+\end{itemize}
+
+\textbf{Key rule:}
+\begin{quote}
+A table can have at most one clustered index.
+\end{quote}
+
+
+\section{Non-Clustered Index}
+
+\subsection{Definition}
+
+A non-clustered index does not define the physical order of records.
+
+\begin{itemize}
+    \item Multiple non-clustered indexes allowed
+    \item Slower range queries
+\end{itemize}
+
+
+\section{Index Evaluation for Queries}
+
+\begin{itemize}
+    \item Equality search: Hash or B+ tree
+    \item Range search: B+ tree
+    \item Ordered output: Clustered index
+\end{itemize}
+
+
+\section{B+ Tree Index}
+
+\subsection{Why B+ Trees Are Used}
+
+B+ trees are the most widely used index structure because they:
+\begin{itemize}
+    \item Remain balanced
+    \item Minimize disk I/O
+    \item Support range queries efficiently
+\end{itemize}
+
+
+\section{Structure of B+ Tree}
+
+\subsection{Internal Nodes}
+
+Internal nodes contain:
+\begin{itemize}
+    \item Search keys
+    \item Pointers to child nodes
+\end{itemize}
+
+
+\subsection{Leaf Nodes}
+
+Leaf nodes contain:
+\begin{itemize}
+    \item Search keys
+    \item Pointers to data records or blocks
+    \item Pointer to next leaf node
+\end{itemize}
+
+\begin{quote}
+All actual data pointers exist only at leaf nodes.
+\end{quote}
+
+
+\section{Properties of B+ Trees}
+
+\begin{itemize}
+    \item All leaves are at the same level
+    \item Tree height is small
+    \item Leaf nodes are linked sequentially
+\end{itemize}
+
+
+\section{Order of a B+ Tree}
+
+If a B+ tree is of order $m$:
+\begin{itemize}
+    \item Each internal node has at most $m$ children
+    \item At least $\lceil m/2 \rceil$ children (except root)
+\end{itemize}
+
+
+\section{Search Cost in B+ Tree}
+
+If the height of the tree is $h$:
+\[
+\text{Search cost} = h \text{ disk I/Os}
+\]
+
+Typically, $h$ is very small (2 or 3).
+
+
+\section{Insertion and Deletion}
+
+\subsection{Insertion}
+
+\begin{itemize}
+    \item Insert key at leaf
+    \item Split node if overflow occurs
+\end{itemize}
+
+
+\subsection{Deletion}
+
+\begin{itemize}
+    \item Remove key
+    \item Merge or redistribute if underflow occurs
+\end{itemize}
+
+
+\section{B Tree vs B+ Tree}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Feature & B Tree & B+ Tree \\
+\hline
+Data storage & Internal + leaf & Leaf only \\
+Sequential access & Difficult & Efficient \\
+Index usage & Rare & Common \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which index structure is most suitable for answering range queries efficiently?
+
+\textbf{Solution:}
+
+Range queries require ordered traversal.
+
+\begin{quote}
+B+ tree indexes are most suitable.
+\end{quote}
+
+Correct answer: B+ Tree
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing primary index with primary key
+    \item Assuming multiple clustered indexes are possible
+    \item Forgetting that hash indexes do not support range queries
+    \item Thinking B trees and B+ trees are identical
+\end{itemize}
+\chapter{Data Transformation and Preprocessing}
+
+\section{Why Data Transformation Is Needed}
+
+Data stored in databases is often:
+\begin{itemize}
+    \item Collected from multiple sources
+    \item In different formats
+    \item Not directly suitable for analysis
+\end{itemize}
+
+\begin{quote}
+Data transformation converts raw data into a form suitable for storage, querying, and analysis.
+\end{quote}
+
+Although transformation is heavily used in data mining and warehousing, its core ideas are part of DBMS design.
+
+
+\section{Data Types Revisited}
+
+Before transforming data, we must understand its type.
+
+Broad categories:
+\begin{itemize}
+    \item Numerical data
+    \item Categorical data
+    \item Ordinal data
+    \item Temporal data
+\end{itemize}
+
+Different transformations apply to different data types.
+
+
+\section{Normalization of Data (Scaling)}
+
+\subsection{Meaning}
+
+Here, normalization does \emph{not} mean database normalization.  
+It means scaling numeric values to a common range.
+
+\begin{quote}
+Scaling prevents attributes with large ranges from dominating analysis.
+\end{quote}
+
+
+\subsection{Min--Max Normalization}
+
+\subsubsection{Formula}
+
+Given value $v$ of attribute $A$:
+\[
+v' = \frac{v - \min(A)}{\max(A) - \min(A)}
+\]
+
+The transformed value $v'$ lies in the range $[0,1]$.
+
+
+\subsubsection{Example}
+
+Marks range from 40 to 100.  
+For $v = 70$:
+
+\[
+v' = \frac{70 - 40}{100 - 40} = \frac{30}{60} = 0.5
+\]
+
+
+\section{Z-Score Normalization}
+
+\subsection{Meaning}
+
+Z-score normalization scales data using mean and standard deviation.
+
+\subsection{Formula}
+
+\[
+v' = \frac{v - \mu}{\sigma}
+\]
+
+where:
+\begin{itemize}
+    \item $\mu$ is the mean
+    \item $\sigma$ is the standard deviation
+\end{itemize}
+
+
+\subsection{Interpretation}
+
+The transformed value represents how many standard deviations $v$ is from the mean.
+
+
+\section{Discretization}
+
+\subsection{Definition}
+
+Discretization converts continuous-valued attributes into discrete intervals.
+
+\begin{quote}
+Discretization reduces precision but improves interpretability.
+\end{quote}
+
+
+\subsection{Equal-Width Discretization}
+
+The range is divided into $k$ intervals of equal width.
+
+\[
+\text{Width} = \frac{\max(A) - \min(A)}{k}
+\]
+
+
+\subsection{Equal-Frequency Discretization}
+
+Each interval contains approximately the same number of values.
+
+
+\subsection{Example}
+
+Ages:
+\[
+[18, 19, 20, 21, 22, 23]
+\]
+
+Equal-width bins:
+\[
+[18\text{--}20], [21\text{--}23]
+\]
+
+
+\section{Concept Hierarchies}
+
+\subsection{Definition}
+
+A concept hierarchy defines levels of abstraction for data.
+
+
+\subsection{Examples}
+
+\begin{itemize}
+    \item Day $\rightarrow$ Month $\rightarrow$ Year
+    \item City $\rightarrow$ State $\rightarrow$ Country
+\end{itemize}
+
+Concept hierarchies are fundamental to data warehousing.
+
+
+\section{Sampling}
+
+\subsection{Why Sampling Is Used}
+
+When datasets are very large:
+\begin{itemize}
+    \item Processing entire data is expensive
+    \item Sampling provides approximate results faster
+\end{itemize}
+
+
+\subsection{Simple Random Sampling}
+
+Each tuple has equal probability of being selected.
+
+
+\subsection{Stratified Sampling}
+
+Data is divided into groups (strata), and samples are taken from each group.
+
+\begin{quote}
+Stratified sampling preserves important distributions.
+\end{quote}
+
+
+\section{Data Compression}
+
+\subsection{Definition}
+
+Compression reduces the storage space required for data.
+
+
+\subsection{Lossless Compression}
+
+\begin{itemize}
+    \item Original data can be perfectly reconstructed
+    \item Used in DBMS storage
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item Run-length encoding
+    \item Dictionary encoding
+\end{itemize}
+
+
+\subsection{Lossy Compression}
+
+\begin{itemize}
+    \item Some information is lost
+    \item Not acceptable for primary database storage
+\end{itemize}
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which data transformation technique converts continuous values into intervals?
+
+\textbf{Solution:}
+
+Discretization converts continuous-valued attributes into discrete intervals.
+
+Correct answer: Discretization
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing database normalization with data normalization
+    \item Assuming lossy compression is acceptable in DBMS
+    \item Mixing up discretization and sampling
+    \item Forgetting the purpose of concept hierarchies
+\end{itemize}
+\chapter{Data Warehouse Modelling}
+
+\section{Why Data Warehouses Exist}
+
+Operational databases (OLTP systems) are designed for:
+\begin{itemize}
+    \item Fast inserts, updates, and deletes
+    \item Day-to-day transactions
+\end{itemize}
+
+They are not designed for analysis.
+
+\begin{quote}
+A data warehouse is designed for analysis, not transactions.
+\end{quote}
+
+
+\section{Definition of Data Warehouse}
+
+\textbf{Definition:}  
+A \emph{data warehouse} is a:
+\begin{itemize}
+    \item Subject-oriented
+    \item Integrated
+    \item Time-variant
+    \item Non-volatile
+\end{itemize}
+collection of data used to support decision making.
+
+
+\section{OLTP vs OLAP}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+OLTP & OLAP \\
+\hline
+Transactional & Analytical \\
+Highly normalized & Denormalized \\
+Frequent updates & Rare updates \\
+Current data & Historical data \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\section{Multidimensional Data Model}
+
+\subsection{Core Idea}
+
+Data is viewed as a multidimensional cube.
+
+\begin{quote}
+Each cell in the cube represents a measured value.
+\end{quote}
+
+
+\subsection{Dimensions and Facts}
+
+\begin{itemize}
+    \item Dimensions describe perspectives of analysis
+    \item Facts store numerical measurements
+\end{itemize}
+
+
+\section{Fact Table}
+
+\subsection{Definition}
+
+A \emph{fact table} stores:
+\begin{itemize}
+    \item Foreign keys to dimension tables
+    \item Measures (numeric data)
+\end{itemize}
+
+
+\subsection{Example}
+
+Fact table: SALES
+
+Attributes:
+\[
+(TimeID, ProductID, StoreID, SalesAmount)
+\]
+
+
+\section{Measures}
+
+\subsection{Definition}
+
+Measures are quantitative values stored in fact tables.
+
+
+\subsection{Types of Measures}
+
+\begin{itemize}
+    \item Additive
+    \item Semi-additive
+    \item Non-additive
+\end{itemize}
+
+
+\subsection{Examples}
+
+\begin{itemize}
+    \item Sales amount: Additive
+    \item Account balance: Semi-additive
+    \item Ratio or percentage: Non-additive
+\end{itemize}
+
+
+\section{Dimension Tables}
+
+\subsection{Definition}
+
+A \emph{dimension table} contains descriptive attributes.
+
+
+\subsection{Example}
+
+TIME dimension:
+\[
+(TimeID, Day, Month, Quarter, Year)
+\]
+
+
+\section{Concept Hierarchies in Dimensions}
+
+\subsection{Definition}
+
+A concept hierarchy defines multiple levels of abstraction.
+
+
+\subsection{Examples}
+
+\begin{itemize}
+    \item Day $\rightarrow$ Month $\rightarrow$ Year
+    \item City $\rightarrow$ State $\rightarrow$ Country
+\end{itemize}
+
+These hierarchies support roll-up and drill-down operations.
+
+
+\section{Schema Types}
+
+\subsection{Star Schema}
+
+\begin{itemize}
+    \item Central fact table
+    \item Directly connected dimension tables
+    \item Simple and efficient
+\end{itemize}
+
+
+\subsection{Snowflake Schema}
+
+\begin{itemize}
+    \item Dimension tables are normalized
+    \item More tables
+    \item Reduced redundancy
+\end{itemize}
+
+
+\subsection{Fact Constellation}
+
+\begin{itemize}
+    \item Multiple fact tables
+    \item Shared dimension tables
+\end{itemize}
+
+
+\section{Data Cube Operations}
+
+\subsection{Roll-Up}
+
+Aggregates data to a higher level.
+
+Example:
+\[
+\text{City} \rightarrow \text{State}
+\]
+
+
+\subsection{Drill-Down}
+
+Moves from higher to lower level of detail.
+
+
+\subsection{Slice}
+
+Fixes one dimension value.
+
+
+\subsection{Dice}
+
+Selects a sub-cube using multiple conditions.
+
+
+\section{Worked Example (GATE Style)}
+
+\textbf{Problem:}
+
+Which schema type has a central fact table connected directly to denormalized dimension tables?
+
+\textbf{Solution:}
+
+This describes a star schema.
+
+Correct answer: Star schema
+
+
+\section{Common GATE Traps}
+
+\begin{itemize}
+    \item Confusing fact tables with dimension tables
+    \item Treating measures as dimensions
+    \item Forgetting hierarchy levels
+    \item Assuming OLTP and OLAP have same design goals
+\end{itemize}
+
+\end{document}
