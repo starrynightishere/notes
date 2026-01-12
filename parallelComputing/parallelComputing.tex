@@ -96,8 +96,7 @@ Emphasis is placed on:
 \subsection*{Lesson 0.1: What Is a Program \emph{Really} Doing?}
 \addcontentsline{toc}{subsection}{Lesson 0.1: What Is a Program Really Doing?}
 
-% --------------------------------------------------
-\subsubsection*{0.1.1 The Big Lie We Are Told}
+% --\subsubsection*{0.1.1 The Big Lie We Are Told}
 \addcontentsline{toc}{subsubsection}{0.1.1 The Big Lie We Are Told}
 
 Most beginners believe:
@@ -117,8 +116,7 @@ In reality:
 
 A program is closer to a \textbf{recipe} than a worker.
 
-% --------------------------------------------------
-\subsubsection*{0.1.2 The CPU Is the Only Worker}
+% --\subsubsection*{0.1.2 The CPU Is the Only Worker}
 \addcontentsline{toc}{subsubsection}{0.1.2 The CPU Is the Only Worker}
 
 At the lowest level, a CPU can only do a few things:
@@ -141,8 +139,7 @@ Even the most complex program reduces to billions of these tiny steps.
 
 This is the root of the problem that parallel computing tries to solve.
 
-% --------------------------------------------------
-\subsubsection*{0.1.3 Time Is the Enemy}
+% --\subsubsection*{0.1.3 Time Is the Enemy}
 \addcontentsline{toc}{subsubsection}{0.1.3 Time Is the Enemy}
 
 Suppose a program takes:
@@ -174,8 +171,7 @@ These problems are \textbf{too large} for a single worker.
 \emph{Parallel computing exists because time exists.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{0.1.4 The Illusion of Simultaneity}
+% --\subsubsection*{0.1.4 The Illusion of Simultaneity}
 \addcontentsline{toc}{subsubsection}{0.1.4 The Illusion of Simultaneity}
 
 When you run:
@@ -204,8 +200,7 @@ This illusion breaks down when:
 
 Parallel computing removes this illusion and replaces it with structure.
 
-% --------------------------------------------------
-\subsubsection*{0.1.5 Why This Matters for Teaching}
+% --\subsubsection*{0.1.5 Why This Matters for Teaching}
 \addcontentsline{toc}{subsubsection}{0.1.5 Why This Matters for Teaching}
 
 Students fail in parallel computing because they:
@@ -220,8 +215,7 @@ Students fail in parallel computing because they:
 
 Once this clicks, parallelism becomes natural.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal}
 
 \subsubsection*{Practice 1: Meet the Terminal}
@@ -287,8 +281,7 @@ Recompile and run.
 
 This loop is the seed of parallel thinking.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions}
 
 Answer these in words (not code):
@@ -302,8 +295,7 @@ Answer these in words (not code):
 \subsection*{Lesson 0.2: Memory Is the Real Bottleneck}
 \addcontentsline{toc}{subsection}{Lesson 0.2: Memory Is the Real Bottleneck}
 
-% --------------------------------------------------
-\subsubsection*{0.2.1 The CPU Is Fast. Too Fast.}
+% --\subsubsection*{0.2.1 The CPU Is Fast. Too Fast.}
 \addcontentsline{toc}{subsubsection}{0.2.1 The CPU Is Fast. Too Fast.}
 
 Modern CPUs are incredibly fast.
@@ -323,8 +315,7 @@ Waiting for what?
 
 \textbf{Memory.}
 
-% --------------------------------------------------
-\subsubsection*{0.2.2 A Mental Model: The Office Desk}
+% --\subsubsection*{0.2.2 A Mental Model: The Office Desk}
 \addcontentsline{toc}{subsubsection}{0.2.2 A Mental Model: The Office Desk}
 
 Imagine a worker (CPU) in an office.
@@ -349,8 +340,7 @@ Fetching a paper from:
 
 Parallel computing is largely about reducing waiting.
 
-% --------------------------------------------------
-\subsubsection*{0.2.3 Memory Hierarchy (No Hardware Details)}
+% --\subsubsection*{0.2.3 Memory Hierarchy (No Hardware Details)}
 \addcontentsline{toc}{subsubsection}{0.2.3 Memory Hierarchy (No Hardware Details)}
 
 You do \textbf{not} need hardware engineering.
@@ -373,8 +363,7 @@ Parallel programs often fail because:
   \item memory becomes the bottleneck
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{0.2.4 Why ``Faster CPU'' Stopped Working}
+% --\subsubsection*{0.2.4 Why ``Faster CPU'' Stopped Working}
 \addcontentsline{toc}{subsubsection}{0.2.4 Why Faster CPU Stopped Working}
 
 Earlier strategy:
@@ -404,8 +393,7 @@ all became \textbf{multi-core}.
 
 Parallel computing is not optional anymore.
 
-% --------------------------------------------------
-\subsubsection*{0.2.5 The Dangerous Student Assumption}
+% --\subsubsection*{0.2.5 The Dangerous Student Assumption}
 \addcontentsline{toc}{subsubsection}{0.2.5 The Dangerous Student Assumption}
 
 Students often believe:
@@ -425,8 +413,7 @@ Reality:
 \emph{Parallelism is not free. It must be earned.}
 \end{quote}
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 0.2)}
 
 \subsubsection*{Practice 1: Observe Time Difference}
@@ -476,8 +463,7 @@ g++ -O2 memory_test.cpp -o memory_test
   \item Or memory-heavy?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Remove Memory Access}
+% --\subsubsection*{Practice 2: Remove Memory Access}
 
 Modify loop:
 \begin{lstlisting}[language=C++]
@@ -494,8 +480,7 @@ Recompile and run.
 
 This experiment explains half of parallel computing failures.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 0.2)}
 
 Answer carefully:
@@ -509,8 +494,7 @@ Answer carefully:
 \subsection*{Lesson 0.3: Why Parallel Computing Was Inevitable}
 \addcontentsline{toc}{subsection}{Lesson 0.3: Why Parallel Computing Was Inevitable}
 
-% --------------------------------------------------
-\subsubsection*{0.3.1 The Old World: Free Speedups}
+% --\subsubsection*{0.3.1 The Old World: Free Speedups}
 \addcontentsline{toc}{subsubsection}{0.3.1 The Old World: Free Speedups}
 
 For many decades, programmers lived in a golden age.
@@ -535,8 +519,7 @@ This trend is often summarized as:
 
 But this law had an expiration date.
 
-% --------------------------------------------------
-\subsubsection*{0.3.2 The Physical Wall}
+% --\subsubsection*{0.3.2 The Physical Wall}
 \addcontentsline{toc}{subsubsection}{0.3.2 The Physical Wall}
 
 Increasing clock speed caused serious problems:
@@ -557,8 +540,7 @@ Physics said: \textbf{stop}.
 This is not a software problem.
 This is a law-of-nature problem.
 
-% --------------------------------------------------
-\subsubsection*{0.3.3 The Industry's Only Option}
+% --\subsubsection*{0.3.3 The Industry's Only Option}
 \addcontentsline{toc}{subsubsection}{0.3.3 The Industry's Only Option}
 
 When speed could not increase, manufacturers asked:
@@ -581,8 +563,7 @@ Every machine became parallel by default.
 \emph{Software did not choose parallelism. Hardware forced it.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{0.3.4 The Software Crisis}
+% --\subsubsection*{0.3.4 The Software Crisis}
 \addcontentsline{toc}{subsubsection}{0.3.4 The Software Crisis}
 
 Old programs assumed:
@@ -605,8 +586,7 @@ Mismatch:
 
 Parallel computing was born to resolve this mismatch.
 
-% --------------------------------------------------
-\subsubsection*{0.3.5 The Shift in Programmer Thinking}
+% --\subsubsection*{0.3.5 The Shift in Programmer Thinking}
 \addcontentsline{toc}{subsubsection}{0.3.5 The Shift in Programmer Thinking}
 
 Sequential thinking:
@@ -629,8 +609,7 @@ This requires:
 Parallel computing is not harder.
 It is \textbf{different}.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 0.3)}
 
 \subsubsection*{Practice 1: Know Your Machine}
@@ -648,8 +627,7 @@ This shows how many CPU cores your Mac has.
   \item Are you using all of them?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Observe Single-Core Usage}
+% --\subsubsection*{Practice 2: Observe Single-Core Usage}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -666,8 +644,7 @@ Observe:
 
 This is the sequential default.
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: Thought Experiment (No Code)}
+% --\subsubsection*{Practice 3: Thought Experiment (No Code)}
 
 Imagine:
 \begin{itemize}
@@ -682,8 +659,7 @@ Question:
 
 Parallel computing answers this question systematically.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 0.3)}
 
 Answer in plain language:
@@ -700,8 +676,7 @@ Answer in plain language:
 \subsection*{Lesson 1.1: What Is an Operating System Really Doing?}
 \addcontentsline{toc}{subsection}{Lesson 1.1: What Is an Operating System Really Doing?}
 
-% --------------------------------------------------
-\subsubsection*{1.1.1 The Operating System Is a Referee}
+% --\subsubsection*{1.1.1 The Operating System Is a Referee}
 \addcontentsline{toc}{subsubsection}{1.1.1 The Operating System Is a Referee}
 
 A common beginner myth:
@@ -724,8 +699,7 @@ Think of the OS as a \textbf{referee}:
 
 This control is essential for safety and fairness.
 
-% --------------------------------------------------
-\subsubsection*{1.1.2 Why an OS Is Necessary}
+% --\subsubsection*{1.1.2 Why an OS Is Necessary}
 \addcontentsline{toc}{subsubsection}{1.1.2 Why an OS Is Necessary}
 
 Without an OS:
@@ -745,8 +719,7 @@ The OS provides:
 
 Parallel computing relies heavily on all four.
 
-% --------------------------------------------------
-\subsubsection*{1.1.3 Kernel vs User Space (Very Important)}
+% --\subsubsection*{1.1.3 Kernel vs User Space (Very Important)}
 \addcontentsline{toc}{subsubsection}{1.1.3 Kernel vs User Space (Very Important)}
 
 The OS is split into two worlds:
@@ -772,8 +745,7 @@ This is done using \textbf{system calls}.
 \emph{Parallel programs are really competing requests to the kernel.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{1.1.4 Processes: The Unit of Execution}
+% --\subsubsection*{1.1.4 Processes: The Unit of Execution}
 \addcontentsline{toc}{subsubsection}{1.1.4 Processes: The Unit of Execution}
 
 A \textbf{process} is:
@@ -800,8 +772,7 @@ Parallel computing often means:
 \emph{running many processes or threads simultaneously.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{1.1.5 Why Linux for Parallel Computing}
+% --\subsubsection*{1.1.5 Why Linux for Parallel Computing}
 \addcontentsline{toc}{subsubsection}{1.1.5 Why Linux for Parallel Computing}
 
 Linux dominates parallel computing because:
@@ -816,8 +787,7 @@ Most supercomputers run Linux for this reason.
 
 Your Mac terminal behaves \textbf{almost exactly the same}.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 1.1)}
 
 \subsubsection*{Practice 1: Meet the Shell}
@@ -842,8 +812,7 @@ Observe:
 
 Every entry is managed by the OS.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Your Program Is a Process}
+% --\subsubsection*{Practice 2: Your Program Is a Process}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -859,8 +828,7 @@ Observe:
 
 This PID is how the OS tracks execution.
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: OS as Scheduler}
+% --\subsubsection*{Practice 3: OS as Scheduler}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -875,8 +843,7 @@ Observe:
 
 This competition becomes critical in parallel programs.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 1.1)}
 
 Answer clearly:
@@ -890,8 +857,7 @@ Answer clearly:
 \subsection*{Lesson 1.2: File System -- Directories Are Not Folders}
 \addcontentsline{toc}{subsection}{Lesson 1.2: File System -- Directories Are Not Folders}
 
-% --------------------------------------------------
-\subsubsection*{1.2.1 The Biggest Misunderstanding}
+% --\subsubsection*{1.2.1 The Biggest Misunderstanding}
 \addcontentsline{toc}{subsubsection}{1.2.1 The Biggest Misunderstanding}
 
 Beginners think:
@@ -915,8 +881,7 @@ Think of it like:
 
 This perspective removes confusion forever.
 
-% --------------------------------------------------
-\subsubsection*{1.2.2 The File System Is a Tree}
+% --\subsubsection*{1.2.2 The File System Is a Tree}
 \addcontentsline{toc}{subsubsection}{1.2.2 The File System Is a Tree}
 
 The Linux file system starts at:
@@ -942,8 +907,7 @@ Every file has:
   \item exactly one absolute path
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{1.2.3 Absolute Paths}
+% --\subsubsection*{1.2.3 Absolute Paths}
 \addcontentsline{toc}{subsubsection}{1.2.3 Absolute Paths}
 
 An absolute path starts from root:
@@ -963,8 +927,7 @@ When debugging student code:
 \emph{Absolute paths eliminate 80\% of errors.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{1.2.4 Relative Paths}
+% --\subsubsection*{1.2.4 Relative Paths}
 \addcontentsline{toc}{subsubsection}{1.2.4 Relative Paths}
 
 A relative path depends on:
@@ -985,8 +948,7 @@ Example:
 
 Relative paths are powerful but dangerous for beginners.
 
-% --------------------------------------------------
-\subsubsection*{1.2.5 Why Programs ``Cannot Find Files''}
+% --\subsubsection*{1.2.5 Why Programs ``Cannot Find Files''}
 \addcontentsline{toc}{subsubsection}{1.2.5 Why Programs Cannot Find Files}
 
 When students see:
@@ -1008,8 +970,7 @@ Not:
 
 Teaching this saves hours of frustration.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 1.2)}
 
 \subsubsection*{Practice 1: Explore the Tree}
@@ -1027,8 +988,7 @@ Observe:
   \item the global root structure
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Create Your Own Tree}
+% --\subsubsection*{Practice 2: Create Your Own Tree}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -1040,8 +1000,7 @@ ls
 
 You have created a small file-system graph.
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: Absolute vs Relative}
+% --\subsubsection*{Practice 3: Absolute vs Relative}
 
 Create a file:
 \begin{lstlisting}[language=bash]
@@ -1061,8 +1020,7 @@ Observe:
   \item paths are just descriptions
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 4: Break It On Purpose}
+% --\subsubsection*{Practice 4: Break It On Purpose}
 
 Move away:
 \begin{lstlisting}[language=bash]
@@ -1079,8 +1037,7 @@ Now fix it using:
 
 This is controlled debugging.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 1.2)}
 
 Answer clearly:
@@ -1094,8 +1051,7 @@ Answer clearly:
 \subsection*{Lesson 1.3: Files Are Streams -- stdin, stdout, stderr}
 \addcontentsline{toc}{subsection}{Lesson 1.3: Files Are Streams -- stdin, stdout, stderr}
 
-% --------------------------------------------------
-\subsubsection*{1.3.1 The Wrong Mental Model}
+% --\subsubsection*{1.3.1 The Wrong Mental Model}
 \addcontentsline{toc}{subsubsection}{1.3.1 The Wrong Mental Model}
 
 Beginners think:
@@ -1113,8 +1069,7 @@ Better model:
 Programs do not see files.
 They see \textbf{streams of data arriving over time}.
 
-% --------------------------------------------------
-\subsubsection*{1.3.2 What Is a Stream?}
+% --\subsubsection*{1.3.2 What Is a Stream?}
 \addcontentsline{toc}{subsubsection}{1.3.2 What Is a Stream?}
 
 A stream is:
@@ -1134,8 +1089,7 @@ Examples of streams:
 
 Parallel programs interact with many streams at once.
 
-% --------------------------------------------------
-\subsubsection*{1.3.3 The Three Standard Streams}
+% --\subsubsection*{1.3.3 The Three Standard Streams}
 \addcontentsline{toc}{subsubsection}{1.3.3 The Three Standard Streams}
 
 Every process starts with three streams:
@@ -1150,8 +1104,7 @@ These streams are created by the OS, not by your program.
 
 Your program simply uses them.
 
-% --------------------------------------------------
-\subsubsection*{1.3.4 Why stdout and stderr Are Separate}
+% --\subsubsection*{1.3.4 Why stdout and stderr Are Separate}
 \addcontentsline{toc}{subsubsection}{1.3.4 Why stdout and stderr Are Separate}
 
 This separation is deliberate.
@@ -1169,8 +1122,7 @@ Why this matters:
 
 Parallel programs rely on this separation heavily.
 
-% --------------------------------------------------
-\subsubsection*{1.3.5 Redirection: Controlling Streams}
+% --\subsubsection*{1.3.5 Redirection: Controlling Streams}
 \addcontentsline{toc}{subsubsection}{1.3.5 Redirection: Controlling Streams}
 
 The shell can redirect streams:
@@ -1197,8 +1149,7 @@ Redirect both:
 
 This is essential for debugging parallel output.
 
-% --------------------------------------------------
-\subsubsection*{1.3.6 Why Parallel Output Looks Messy}
+% --\subsubsection*{1.3.6 Why Parallel Output Looks Messy}
 \addcontentsline{toc}{subsubsection}{1.3.6 Why Parallel Output Looks Messy}
 
 In parallel programs:
@@ -1217,8 +1168,7 @@ It is the consequence of concurrency.
 
 Understanding streams explains this behavior fully.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 1.3)}
 
 \subsubsection*{Practice 1: stdout vs stderr}
@@ -1252,8 +1202,7 @@ Observe:
   \item but they are different streams
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Redirect Only stdout}
+% --\subsubsection*{Practice 2: Redirect Only stdout}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -1266,8 +1215,7 @@ Observe:
   \item message from \texttt{cerr} is still visible
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: Redirect Only stderr}
+% --\subsubsection*{Practice 3: Redirect Only stderr}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -1282,8 +1230,7 @@ cat err.txt
 
 Understand exactly what went where.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 1.3)}
 
 Answer clearly:
@@ -1297,8 +1244,7 @@ Answer clearly:
 \subsection*{Lesson 1.4: Compilation Is a Pipeline, Not a Command}
 \addcontentsline{toc}{subsection}{Lesson 1.4: Compilation Is a Pipeline, Not a Command}
 
-% --------------------------------------------------
-\subsubsection*{1.4.1 The Beginner Illusion}
+% --\subsubsection*{1.4.1 The Beginner Illusion}
 \addcontentsline{toc}{subsubsection}{1.4.1 The Beginner Illusion}
 
 Beginners think:
@@ -1315,8 +1261,7 @@ Reality:
 
 Understanding this pipeline explains almost every compiler error you will see.
 
-% --------------------------------------------------
-\subsubsection*{1.4.2 Stage 1: Preprocessing}
+% --\subsubsection*{1.4.2 Stage 1: Preprocessing}
 \addcontentsline{toc}{subsubsection}{1.4.2 Stage 1: Preprocessing}
 
 The preprocessor handles:
@@ -1334,8 +1279,7 @@ It produces:
 Your compiler never sees your original code.
 It sees the preprocessed result.
 
-% --------------------------------------------------
-\subsubsection*{1.4.3 Stage 2: Compilation}
+% --\subsubsection*{1.4.3 Stage 2: Compilation}
 \addcontentsline{toc}{subsubsection}{1.4.3 Stage 2: Compilation}
 
 This stage:
@@ -1355,8 +1299,7 @@ Errors here mean:
 \emph{``Your code does not make sense.''}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{1.4.4 Stage 3: Linking}
+% --\subsubsection*{1.4.4 Stage 3: Linking}
 \addcontentsline{toc}{subsubsection}{1.4.4 Stage 3: Linking}
 
 The linker:
@@ -1380,8 +1323,7 @@ Meaning:
 This is not a syntax problem.
 It is a \textbf{connection problem}.
 
-% --------------------------------------------------
-\subsubsection*{1.4.5 Why This Matters for Parallel Computing}
+% --\subsubsection*{1.4.5 Why This Matters for Parallel Computing}
 \addcontentsline{toc}{subsubsection}{1.4.5 Why This Matters for Parallel Computing}
 
 Parallel programs often require:
@@ -1403,8 +1345,7 @@ If you forget the flag:
 
 Understanding the pipeline explains why.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 1.4)}
 
 \subsubsection*{Practice 1: See the Pipeline}
@@ -1432,8 +1373,7 @@ g++ -E pipeline.cpp > preprocessed.cpp
 
 Open \texttt{preprocessed.cpp} and observe its size.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Compile Without Linking}
+% --\subsubsection*{Practice 2: Compile Without Linking}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -1447,8 +1387,7 @@ Observe:
   \item no executable yet
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: Link Manually}
+% --\subsubsection*{Practice 3: Link Manually}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -1458,8 +1397,7 @@ g++ pipeline.o -o pipeline
 
 You have manually executed the pipeline.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 1.4)}
 
 Answer clearly:
@@ -1476,8 +1414,7 @@ Answer clearly:
 \subsection*{Lesson 2.1: Variables Live in Memory}
 \addcontentsline{toc}{subsection}{Lesson 2.1: Variables Live in Memory}
 
-% --------------------------------------------------
-\subsubsection*{2.1.1 The Most Dangerous Illusion}
+% --\subsubsection*{2.1.1 The Most Dangerous Illusion}
 \addcontentsline{toc}{subsubsection}{2.1.1 The Most Dangerous Illusion}
 
 Beginners think:
@@ -1495,8 +1432,7 @@ Reality:
 Parallel programs do not fight over values.  
 They fight over \textbf{memory locations}.
 
-% --------------------------------------------------
-\subsubsection*{2.1.2 Memory Is Just a Large Array}
+% --\subsubsection*{2.1.2 Memory Is Just a Large Array}
 \addcontentsline{toc}{subsubsection}{2.1.2 Memory Is Just a Large Array}
 
 At the lowest level:
@@ -1512,8 +1448,7 @@ A variable means:
 
 Two variables pointing to the same address is where chaos begins.
 
-% --------------------------------------------------
-\subsubsection*{2.1.3 The Stack: Fast and Organized}
+% --\subsubsection*{2.1.3 The Stack: Fast and Organized}
 \addcontentsline{toc}{subsubsection}{2.1.3 The Stack: Fast and Organized}
 
 The \textbf{stack} is:
@@ -1544,8 +1479,7 @@ Stack memory is:
 
 This matters deeply for threads.
 
-% --------------------------------------------------
-\subsubsection*{2.1.4 The Heap: Flexible and Dangerous}
+% --\subsubsection*{2.1.4 The Heap: Flexible and Dangerous}
 \addcontentsline{toc}{subsubsection}{2.1.4 The Heap: Flexible and Dangerous}
 
 The \textbf{heap} is:
@@ -1568,8 +1502,7 @@ Here:
 
 Parallel programs love the heap — and suffer for it.
 
-% --------------------------------------------------
-\subsubsection*{2.1.5 Why Parallel Bugs Love the Heap}
+% --\subsubsection*{2.1.5 Why Parallel Bugs Love the Heap}
 \addcontentsline{toc}{subsubsection}{2.1.5 Why Parallel Bugs Love the Heap}
 
 In parallel execution:
@@ -1591,8 +1524,7 @@ This leads to:
 \emph{If two workers touch the same memory, order matters.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{2.1.6 Stack vs Heap Summary}
+% --\subsubsection*{2.1.6 Stack vs Heap Summary}
 \addcontentsline{toc}{subsubsection}{2.1.6 Stack vs Heap Summary}
 
 \begin{center}
@@ -1613,8 +1545,7 @@ Parallel programming tries to:
 \emph{Maximize stack usage, minimize shared heap access.}
 \end{quote}
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 2.1)}
 
 \subsubsection*{Practice 1: Stack Behavior}
@@ -1653,8 +1584,7 @@ Think:
   \item Or same name, different memory?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Heap Persistence}
+% --\subsubsection*{Practice 2: Heap Persistence}
 
 Modify code:
 \begin{lstlisting}[language=C++]
@@ -1675,8 +1605,7 @@ Think:
 
 This question becomes critical in parallel programs.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 2.1)}
 
 Answer clearly:
@@ -1690,8 +1619,7 @@ Answer clearly:
 \subsection*{Lesson 2.2: Loops Are Work -- Independence Is the Key}
 \addcontentsline{toc}{subsection}{Lesson 2.2: Loops Are Work -- Independence Is the Key}
 
-% --------------------------------------------------
-\subsubsection*{2.2.1 Stop Seeing Loops as Syntax}
+% --\subsubsection*{2.2.1 Stop Seeing Loops as Syntax}
 \addcontentsline{toc}{subsubsection}{2.2.1 Stop Seeing Loops as Syntax}
 
 Beginners see:
@@ -1713,8 +1641,7 @@ Parallel computing asks one question:
 
 If yes — they can run in parallel.
 
-% --------------------------------------------------
-\subsubsection*{2.2.2 Iterations as Workers}
+% --\subsubsection*{2.2.2 Iterations as Workers}
 \addcontentsline{toc}{subsubsection}{2.2.2 Iterations as Workers}
 
 Consider:
@@ -1737,8 +1664,7 @@ No iteration depends on another.
 
 This is \textbf{perfect parallelism}.
 
-% --------------------------------------------------
-\subsubsection*{2.2.3 When Loops Are NOT Independent}
+% --\subsubsection*{2.2.3 When Loops Are NOT Independent}
 \addcontentsline{toc}{subsubsection}{2.2.3 When Loops Are NOT Independent}
 
 Now consider:
@@ -1762,8 +1688,7 @@ Parallel execution would break correctness.
 \emph{Dependency kills parallelism.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{2.2.4 Data Dependency vs Loop Dependency}
+% --\subsubsection*{2.2.4 Data Dependency vs Loop Dependency}
 \addcontentsline{toc}{subsubsection}{2.2.4 Data Dependency vs Loop Dependency}
 
 Important distinction:
@@ -1789,8 +1714,7 @@ memory makes it unsafe.
 
 This leads to race conditions.
 
-% --------------------------------------------------
-\subsubsection*{2.2.5 The Parallelism Test (Golden Rule)}
+% --\subsubsection*{2.2.5 The Parallelism Test (Golden Rule)}
 \addcontentsline{toc}{subsubsection}{2.2.5 The Parallelism Test (Golden Rule)}
 
 Before parallelizing any loop, ask:
@@ -1810,8 +1734,7 @@ Then the loop is parallelizable.
 
 This rule alone makes you dangerous.
 
-% --------------------------------------------------
-\subsubsection*{2.2.6 Why Most Real Code Is Partially Parallel}
+% --\subsubsection*{2.2.6 Why Most Real Code Is Partially Parallel}
 \addcontentsline{toc}{subsubsection}{2.2.6 Why Most Real Code Is Partially Parallel}
 
 Real programs:
@@ -1833,8 +1756,7 @@ It is:
 
 This mindset matters more than syntax.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 2.2)}
 
 \subsubsection*{Practice 1: Identify Independence}
@@ -1879,8 +1801,7 @@ Ask yourself:
   \item Why?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Create a Dependency}
+% --\subsubsection*{Practice 2: Create a Dependency}
 
 Modify loop:
 \begin{lstlisting}[language=C++]
@@ -1892,8 +1813,7 @@ Recompile and think:
   \item What breaks parallelism?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: Hidden Dependency}
+% --\subsubsection*{Practice 3: Hidden Dependency}
 
 Add:
 \begin{lstlisting}[language=C++]
@@ -1911,8 +1831,7 @@ Ask:
 
 This exact pattern leads to reductions later.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 2.2)}
 
 Answer carefully:
@@ -1926,8 +1845,7 @@ Answer carefully:
 \subsection*{Lesson 2.3: Functions Are Tasks -- Call Stack, Ownership, and Safety}
 \addcontentsline{toc}{subsection}{Lesson 2.3: Functions Are Tasks -- Call Stack, Ownership, and Safety}
 
-% --------------------------------------------------
-\subsubsection*{2.3.1 Stop Seeing Functions as Syntax}
+% --\subsubsection*{2.3.1 Stop Seeing Functions as Syntax}
 \addcontentsline{toc}{subsubsection}{2.3.1 Stop Seeing Functions as Syntax}
 
 Beginners think:
@@ -1950,8 +1868,7 @@ Parallel computing schedules:
 
 Functions are the most natural tasks we already have.
 
-% --------------------------------------------------
-\subsubsection*{2.3.2 What Really Happens During a Function Call}
+% --\subsubsection*{2.3.2 What Really Happens During a Function Call}
 \addcontentsline{toc}{subsubsection}{2.3.2 What Really Happens During a Function Call}
 
 When a function is called:
@@ -1969,8 +1886,7 @@ This stack frame:
 
 This makes stack-based functions naturally safe.
 
-% --------------------------------------------------
-\subsubsection*{2.3.3 Stack Frames and Parallel Safety}
+% --\subsubsection*{2.3.3 Stack Frames and Parallel Safety}
 \addcontentsline{toc}{subsubsection}{2.3.3 Stack Frames and Parallel Safety}
 
 If two threads call the same function:
@@ -1997,8 +1913,7 @@ Calling \texttt{work()} in parallel is safe.
 
 This is why task-based parallelism works.
 
-% --------------------------------------------------
-\subsubsection*{2.3.4 When Functions Become Dangerous}
+% --\subsubsection*{2.3.4 When Functions Become Dangerous}
 \addcontentsline{toc}{subsubsection}{2.3.4 When Functions Become Dangerous}
 
 Functions are NOT safe when they:
@@ -2023,8 +1938,7 @@ Same function.
 Different memory behavior.
 Different outcome.
 
-% --------------------------------------------------
-\subsubsection*{2.3.5 Ownership: Who Owns the Data?}
+% --\subsubsection*{2.3.5 Ownership: Who Owns the Data?}
 \addcontentsline{toc}{subsubsection}{2.3.5 Ownership: Who Owns the Data?}
 
 Parallel safety depends on ownership.
@@ -2045,8 +1959,7 @@ Shared ownership requires synchronization.
 
 This rule alone prevents most bugs.
 
-% --------------------------------------------------
-\subsubsection*{2.3.6 Functions as Tasks: The Big Picture}
+% --\subsubsection*{2.3.6 Functions as Tasks: The Big Picture}
 \addcontentsline{toc}{subsubsection}{2.3.6 Functions as Tasks: The Big Picture}
 
 Sequential view:
@@ -2068,8 +1981,7 @@ This idea will appear later as:
 
 You are now thinking correctly.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 2.3)}
 
 \subsubsection*{Practice 1: Stack Safety}
@@ -2107,8 +2019,7 @@ Think:
   \item Does each call have its own memory?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Introduce Shared State}
+% --\subsubsection*{Practice 2: Introduce Shared State}
 
 Modify:
 \begin{lstlisting}[language=C++]
@@ -2127,8 +2038,7 @@ Think:
 
 You don’t need threads yet to see the danger.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 2.3)}
 
 Answer clearly:
@@ -2143,8 +2053,7 @@ Answer clearly:
 \subsection*{Lesson 2.4: Pointers \& References -- Aliasing Is the Silent Killer}
 \addcontentsline{toc}{subsection}{Lesson 2.4: Pointers \& References -- Aliasing Is the Silent Killer}
 
-% --------------------------------------------------
-\subsubsection*{2.4.1 The Real Danger Is Not Pointers}
+% --\subsubsection*{2.4.1 The Real Danger Is Not Pointers}
 \addcontentsline{toc}{subsubsection}{2.4.1 The Real Danger Is Not Pointers}
 
 Beginners fear:
@@ -2163,8 +2072,7 @@ This is called \textbf{aliasing}.
 
 Parallel bugs are almost always aliasing bugs.
 
-% --------------------------------------------------
-\subsubsection*{2.4.2 What Is a Pointer Really?}
+% --\subsubsection*{2.4.2 What Is a Pointer Really?}
 \addcontentsline{toc}{subsubsection}{2.4.2 What Is a Pointer Really?}
 
 A pointer is:
@@ -2186,8 +2094,7 @@ Here:
 
 Now there are \textbf{two ways} to access the same memory.
 
-% --------------------------------------------------
-\subsubsection*{2.4.3 References: Safer Syntax, Same Problem}
+% --\subsubsection*{2.4.3 References: Safer Syntax, Same Problem}
 \addcontentsline{toc}{subsubsection}{2.4.3 References: Safer Syntax, Same Problem}
 
 References look harmless:
@@ -2210,8 +2117,7 @@ There are now two names:
 Same memory.
 Same danger in parallel code.
 
-% --------------------------------------------------
-\subsubsection*{2.4.4 Aliasing Breaks Reasoning}
+% --\subsubsection*{2.4.4 Aliasing Breaks Reasoning}
 \addcontentsline{toc}{subsubsection}{2.4.4 Aliasing Breaks Reasoning}
 
 Consider:
@@ -2232,8 +2138,7 @@ The code does not tell you which is true.
 
 This uncertainty is poison for parallelism.
 
-% --------------------------------------------------
-\subsubsection*{2.4.5 Why Aliasing Is Deadly in Parallel Programs}
+% --\subsubsection*{2.4.5 Why Aliasing Is Deadly in Parallel Programs}
 \addcontentsline{toc}{subsubsection}{2.4.5 Why Aliasing Is Deadly in Parallel Programs}
 
 Parallel execution assumes:
@@ -2255,8 +2160,7 @@ Worst part:
 \emph{The program may work 99 times and fail once.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{2.4.6 The Golden Rule of Parallel Safety}
+% --\subsubsection*{2.4.6 The Golden Rule of Parallel Safety}
 \addcontentsline{toc}{subsubsection}{2.4.6 The Golden Rule of Parallel Safety}
 
 \textbf{Golden Rule:}
@@ -2271,8 +2175,7 @@ Better rule:
 
 This rule alone eliminates most bugs.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 2.4)}
 
 \subsubsection*{Practice 1: Observe Aliasing}
@@ -2312,8 +2215,7 @@ Think:
   \item Why did it happen?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Pointer Aliasing}
+% --\subsubsection*{Practice 2: Pointer Aliasing}
 
 Modify:
 \begin{lstlisting}[language=C++]
@@ -2333,8 +2235,7 @@ Observe:
 
 Now imagine these happen in parallel.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 2.4)}
 
 Answer carefully:
@@ -2351,8 +2252,7 @@ Answer carefully:
 \subsection*{Lesson 3.1: What Does ``Fast'' Really Mean?}
 \addcontentsline{toc}{subsection}{Lesson 3.1: What Does ``Fast'' Really Mean?}
 
-% --------------------------------------------------
-\subsubsection*{3.1.1 The Performance Illusion}
+% --\subsubsection*{3.1.1 The Performance Illusion}
 \addcontentsline{toc}{subsubsection}{3.1.1 The Performance Illusion}
 
 Students often say:
@@ -2371,8 +2271,7 @@ Fast compared to:
 
 Parallel computing forces precision.
 
-% --------------------------------------------------
-\subsubsection*{3.1.2 Two Different Notions of Time}
+% --\subsubsection*{3.1.2 Two Different Notions of Time}
 \addcontentsline{toc}{subsubsection}{3.1.2 Two Different Notions of Time}
 
 There are two important kinds of time:
@@ -2386,8 +2285,7 @@ They are not the same.
 
 Confusing them leads to wrong conclusions.
 
-% --------------------------------------------------
-\subsubsection*{3.1.3 Wall-Clock Time}
+% --\subsubsection*{3.1.3 Wall-Clock Time}
 \addcontentsline{toc}{subsubsection}{3.1.3 Wall-Clock Time}
 
 Wall-clock time is:
@@ -2407,8 +2305,7 @@ For users, this is the only time that matters.
 
 Parallel computing aims to reduce wall-clock time.
 
-% --------------------------------------------------
-\subsubsection*{3.1.4 CPU Time}
+% --\subsubsection*{3.1.4 CPU Time}
 \addcontentsline{toc}{subsubsection}{3.1.4 CPU Time}
 
 CPU time measures:
@@ -2431,8 +2328,7 @@ Example:
 This is not a bug.
 It is parallelism.
 
-% --------------------------------------------------
-\subsubsection*{3.1.5 Why This Confuses Beginners}
+% --\subsubsection*{3.1.5 Why This Confuses Beginners}
 \addcontentsline{toc}{subsubsection}{3.1.5 Why This Confuses Beginners}
 
 Students see:
@@ -2450,8 +2346,7 @@ Reality:
 
 Parallel programs trade CPU for time.
 
-% --------------------------------------------------
-\subsubsection*{3.1.6 What Parallel Speedup Really Means}
+% --\subsubsection*{3.1.6 What Parallel Speedup Really Means}
 \addcontentsline{toc}{subsubsection}{3.1.6 What Parallel Speedup Really Means}
 
 Speedup is defined as:
@@ -2471,8 +2366,7 @@ Only wall-clock time matters.
 
 This definition will stay with us forever.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 3.1)}
 
 \subsubsection*{Practice 1: Measure Wall Time}
@@ -2491,8 +2385,7 @@ Observe:
 
 Understand the difference.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Observe CPU Usage}
+% --\subsubsection*{Practice 2: Observe CPU Usage}
 
 Run:
 \begin{lstlisting}[language=bash]
@@ -2509,8 +2402,7 @@ Observe:
 
 Relate this to wall-clock behavior.
 
-% --------------------------------------------------
-\subsubsection*{Practice 3: Thought Experiment}
+% --\subsubsection*{Practice 3: Thought Experiment}
 
 Imagine:
 \begin{itemize}
@@ -2526,8 +2418,7 @@ Ask:
 
 If your answer is ``excellent'', your intuition is correct.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 3.1)}
 
 Answer clearly:
@@ -2541,8 +2432,7 @@ Answer clearly:
 \subsection*{Lesson 3.2: Measuring Time Correctly in C++}
 \addcontentsline{toc}{subsection}{Measuring Time Correctly in C++}
 
-% --------------------------------------------------
-\subsubsection*{3.2.1 Why Timing Is Subtle}
+% --\subsubsection*{3.2.1 Why Timing Is Subtle}
 \addcontentsline{toc}{subsubsection}{3.2.1 Why Timing Is Subtle}
 
 Beginners often do:
@@ -2561,8 +2451,7 @@ Parallel computing magnifies timing mistakes.
 Timing is an experiment.
 Bad experiments give bad science.
 
-% --------------------------------------------------
-\subsubsection*{3.2.2 What a Good Timer Must Do}
+% --\subsubsection*{3.2.2 What a Good Timer Must Do}
 \addcontentsline{toc}{subsubsection}{3.2.2 What a Good Timer Must Do}
 
 A good timing method must:
@@ -2578,8 +2467,7 @@ In modern C++, this means:
 \texttt{<chrono>}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{3.2.3 The chrono Mental Model}
+% --\subsubsection*{3.2.3 The chrono Mental Model}
 \addcontentsline{toc}{subsubsection}{3.2.3 The chrono Mental Model}
 
 The \texttt{chrono} library provides:
@@ -2599,8 +2487,7 @@ For performance work, we usually use:
 \texttt{high\_resolution\_clock}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{3.2.4 A Correct Timing Pattern}
+% --\subsubsection*{3.2.4 A Correct Timing Pattern}
 \addcontentsline{toc}{subsubsection}{3.2.4 A Correct Timing Pattern}
 
 Canonical pattern:
@@ -2626,8 +2513,7 @@ Not setup.
 Not printing.
 Only work.
 
-% --------------------------------------------------
-\subsubsection*{3.2.5 Why Naive Timing Lies}
+% --\subsubsection*{3.2.5 Why Naive Timing Lies}
 \addcontentsline{toc}{subsubsection}{3.2.5 Why Naive Timing Lies}
 
 Common mistakes:
@@ -2645,8 +2531,7 @@ Especially dangerous:
 
 Printing dominates runtime and hides computation.
 
-% --------------------------------------------------
-\subsubsection*{3.2.6 Repeat, Average, and Warm Up}
+% --\subsubsection*{3.2.6 Repeat, Average, and Warm Up}
 \addcontentsline{toc}{subsubsection}{3.2.6 Repeat, Average, and Warm Up}
 
 Good timing practice:
@@ -2666,8 +2551,7 @@ Parallel programs are noisy due to:
 Noise is normal.
 Discipline handles it.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 3.2)}
 
 \subsubsection*{Practice 1: Correct Timing}
@@ -2714,8 +2598,7 @@ g++ -O2 timing.cpp -o timing
 
 Observe stability across runs.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Break the Measurement}
+% --\subsubsection*{Practice 2: Break the Measurement}
 
 Move the print inside the loop:
 \begin{lstlisting}[language=C++]
@@ -2732,8 +2615,7 @@ Observe:
 
 This is a controlled failure.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 3.2)}
 
 Answer clearly:
@@ -2747,8 +2629,7 @@ Answer clearly:
 \subsection*{Lesson 3.3: When Optimization Hurts}
 \addcontentsline{toc}{subsection}{Lesson 3.3: When Optimization Hurts}
 
-% --------------------------------------------------
-\subsubsection*{3.3.1 The Optimization Myth}
+% --\subsubsection*{3.3.1 The Optimization Myth}
 \addcontentsline{toc}{subsubsection}{3.3.1 The Optimization Myth}
 
 Beginners believe:
@@ -2772,8 +2653,7 @@ Optimization will expose it.
 
 Parallel computing amplifies this effect.
 
-% --------------------------------------------------
-\subsubsection*{3.3.2 What Compiler Optimization Really Does}
+% --\subsubsection*{3.3.2 What Compiler Optimization Really Does}
 \addcontentsline{toc}{subsubsection}{3.3.2 What Compiler Optimization Really Does}
 
 The compiler may:
@@ -2791,8 +2671,7 @@ All of this is legal if:
 
 Parallel bugs often depend on behavior that was never guaranteed.
 
-% --------------------------------------------------
-\subsubsection*{3.3.3 Common Optimization Levels}
+% --\subsubsection*{3.3.3 Common Optimization Levels}
 \addcontentsline{toc}{subsubsection}{3.3.3 Common Optimization Levels}
 
 Important flags:
@@ -2808,8 +2687,7 @@ Rule of thumb:
 \emph{If code only works at -O0, it is broken.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{3.3.4 A Classic Optimization Trap}
+% --\subsubsection*{3.3.4 A Classic Optimization Trap}
 \addcontentsline{toc}{subsubsection}{3.3.4 A Classic Optimization Trap}
 
 Consider:
@@ -2836,8 +2714,7 @@ Parallel programs often change \texttt{done} in another thread.
 
 Without proper synchronization, behavior is undefined.
 
-% --------------------------------------------------
-\subsubsection*{3.3.5 Optimization vs Parallel Correctness}
+% --\subsubsection*{3.3.5 Optimization vs Parallel Correctness}
 \addcontentsline{toc}{subsubsection}{3.3.5 Optimization vs Parallel Correctness}
 
 Parallel correctness requires:
@@ -2859,8 +2736,7 @@ This mismatch causes:
 
 This is expected, not mysterious.
 
-% --------------------------------------------------
-\subsubsection*{3.3.6 The Right Workflow}
+% --\subsubsection*{3.3.6 The Right Workflow}
 \addcontentsline{toc}{subsubsection}{3.3.6 The Right Workflow}
 
 Professional workflow:
@@ -2876,8 +2752,7 @@ Never optimize broken code.
 
 Parallel computing punishes shortcuts.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 3.3)}
 
 \subsubsection*{Practice 1: Compare Optimization Levels}
@@ -2902,8 +2777,7 @@ Observe:
 
 This is healthy optimization.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Dangerous Assumption}
+% --\subsubsection*{Practice 2: Dangerous Assumption}
 
 Create:
 \begin{lstlisting}[language=C++]
@@ -2920,8 +2794,7 @@ Think:
 
 This exact pattern breaks many naive parallel codes.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 3.3)}
 
 Answer clearly:
@@ -2938,8 +2811,7 @@ Answer clearly:
 \subsection*{Lesson 4.1: Sequential vs Parallel Worldview}
 \addcontentsline{toc}{subsection}{Lesson 4.1: Sequential vs Parallel Worldview}
 
-% --------------------------------------------------
-\subsubsection*{4.1.1 The Sequential Worldview}
+% --\subsubsection*{4.1.1 The Sequential Worldview}
 \addcontentsline{toc}{subsubsection}{4.1.1 The Sequential Worldview}
 
 Traditional programming assumes:
@@ -2958,8 +2830,7 @@ This model is simple, predictable, and safe.
 
 But it does not scale.
 
-% --------------------------------------------------
-\subsubsection*{4.1.2 The Cost of Sequential Thinking}
+% --\subsubsection*{4.1.2 The Cost of Sequential Thinking}
 \addcontentsline{toc}{subsubsection}{4.1.2 The Cost of Sequential Thinking}
 
 In the sequential model:
@@ -2982,8 +2853,7 @@ Even if 99 other cores sit idle.
 
 This is wasted potential.
 
-% --------------------------------------------------
-\subsubsection*{4.1.3 The Parallel Worldview}
+% --\subsubsection*{4.1.3 The Parallel Worldview}
 \addcontentsline{toc}{subsubsection}{4.1.3 The Parallel Worldview}
 
 Parallel thinking asks a different question:
@@ -3008,8 +2878,7 @@ Tasks may:
 Order is no longer automatic.
 It must be designed.
 
-% --------------------------------------------------
-\subsubsection*{4.1.4 One Worker vs Many Workers}
+% --\subsubsection*{4.1.4 One Worker vs Many Workers}
 \addcontentsline{toc}{subsubsection}{4.1.4 One Worker vs Many Workers}
 
 Sequential execution:
@@ -3031,8 +2900,7 @@ If tasks are independent:
 
 This is the promise of parallelism.
 
-% --------------------------------------------------
-\subsubsection*{4.1.5 Independence Is Everything}
+% --\subsubsection*{4.1.5 Independence Is Everything}
 \addcontentsline{toc}{subsubsection}{4.1.5 Independence Is Everything}
 
 Parallelism requires:
@@ -3054,8 +2922,7 @@ If tasks share writable state:
 
 Threads are an implementation detail.
 
-% --------------------------------------------------
-\subsubsection*{4.1.6 Partial Order, Not Chaos}
+% --\subsubsection*{4.1.6 Partial Order, Not Chaos}
 \addcontentsline{toc}{subsubsection}{4.1.6 Partial Order, Not Chaos}
 
 Parallel programs are often misunderstood as:
@@ -3073,8 +2940,7 @@ This creates a \textbf{partial order}.
 
 Designing correct partial orders is the art of parallel computing.
 
-% --------------------------------------------------
-\subsubsection*{4.1.7 Why This Is Hard for Humans}
+% --\subsubsection*{4.1.7 Why This Is Hard for Humans}
 \addcontentsline{toc}{subsubsection}{4.1.7 Why This Is Hard for Humans}
 
 Humans think sequentially:
@@ -3095,8 +2961,7 @@ This is why parallelism feels unnatural at first.
 
 It becomes natural with practice.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 4.1)}
 
 \subsubsection*{Practice 1: Sequential Bottleneck}
@@ -3132,8 +2997,7 @@ time ./seq
 
 Observe total wall time.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Thought Experiment}
+% --\subsubsection*{Practice 2: Thought Experiment}
 
 Imagine:
 \begin{itemize}
@@ -3148,8 +3012,7 @@ Ask:
 
 This number becomes your speedup limit.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 4.1)}
 
 Answer clearly:
@@ -3163,8 +3026,7 @@ Answer clearly:
 \subsection*{Lesson 4.2: Task Parallelism}
 \addcontentsline{toc}{subsection}{Lesson 4.2: Task Parallelism}
 
-% --------------------------------------------------
-\subsubsection*{4.2.1 What Is a Task?}
+% --\subsubsection*{4.2.1 What Is a Task?}
 \addcontentsline{toc}{subsubsection}{4.2.1 What Is a Task?}
 
 A \textbf{task} is:
@@ -3181,8 +3043,7 @@ Key point:
 
 Confusing these two leads to poor parallel design.
 
-% --------------------------------------------------
-\subsubsection*{4.2.2 Task Parallelism vs Loop Parallelism}
+% --\subsubsection*{4.2.2 Task Parallelism vs Loop Parallelism}
 \addcontentsline{toc}{subsubsection}{4.2.2 Task Parallelism vs Loop Parallelism}
 
 There are two major kinds of parallelism:
@@ -3206,8 +3067,7 @@ This is common in:
   \item coupled physics models
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{4.2.3 A Simple Task Example}
+% --\subsubsection*{4.2.3 A Simple Task Example}
 \addcontentsline{toc}{subsubsection}{4.2.3 A Simple Task Example}
 
 Consider:
@@ -3236,8 +3096,7 @@ If:
 
 Then task parallelism exists.
 
-% --------------------------------------------------
-\subsubsection*{4.2.4 Independence and Communication}
+% --\subsubsection*{4.2.4 Independence and Communication}
 \addcontentsline{toc}{subsubsection}{4.2.4 Independence and Communication}
 
 Tasks are rarely completely independent.
@@ -3261,8 +3120,7 @@ Communication introduces:
 
 Which reduces speedup.
 
-% --------------------------------------------------
-\subsubsection*{4.2.5 Task Graphs (DAGs)}
+% --\subsubsection*{4.2.5 Task Graphs (DAGs)}
 \addcontentsline{toc}{subsubsection}{4.2.5 Task Graphs (DAGs)}
 
 Tasks and dependencies can be represented as a graph.
@@ -3284,8 +3142,7 @@ Parallel execution means:
 
 This is how modern runtimes think.
 
-% --------------------------------------------------
-\subsubsection*{4.2.6 Why Task Parallelism Scales Well}
+% --\subsubsection*{4.2.6 Why Task Parallelism Scales Well}
 \addcontentsline{toc}{subsubsection}{4.2.6 Why Task Parallelism Scales Well}
 
 Task parallelism:
@@ -3302,8 +3159,7 @@ It scales well when:
 
 This is why it dominates large systems.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 4.2)}
 
 \subsubsection*{Practice 1: Identify Tasks}
@@ -3328,8 +3184,7 @@ Now answer:
 
 This is task-graph thinking.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Function-Level Tasks}
+% --\subsubsection*{Practice 2: Function-Level Tasks}
 
 Look at any earlier C++ program you wrote.
 
@@ -3341,8 +3196,7 @@ Identify:
 
 This skill matters more than syntax.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 4.2)}
 
 Answer clearly:
@@ -3356,8 +3210,7 @@ Answer clearly:
 \subsection*{Lesson 4.3: Data Parallelism -- Same Work, Many Data Points}
 \addcontentsline{toc}{subsection}{Lesson 4.3: Data Parallelism -- Same Work, Many Data Points}
 
-% --------------------------------------------------
-\subsubsection*{4.3.1 The Core Idea}
+% --\subsubsection*{4.3.1 The Core Idea}
 \addcontentsline{toc}{subsubsection}{4.3.1 The Core Idea}
 
 Data parallelism means:
@@ -3374,8 +3227,7 @@ Key characteristics:
 
 This is the most common form of parallelism in scientific computing.
 
-% --------------------------------------------------
-\subsubsection*{4.3.2 Why Data Parallelism Is So Powerful}
+% --\subsubsection*{4.3.2 Why Data Parallelism Is So Powerful}
 \addcontentsline{toc}{subsubsection}{4.3.2 Why Data Parallelism Is So Powerful}
 
 Data parallelism:
@@ -3395,8 +3247,7 @@ Examples:
 
 This is why GPUs exist.
 
-% --------------------------------------------------
-\subsubsection*{4.3.3 Loops as Data-Parallel Descriptions}
+% --\subsubsection*{4.3.3 Loops as Data-Parallel Descriptions}
 \addcontentsline{toc}{subsubsection}{4.3.3 Loops as Data-Parallel Descriptions}
 
 Consider:
@@ -3419,8 +3270,7 @@ This loop is:
 
 No communication. No ordering.
 
-% --------------------------------------------------
-\subsubsection*{4.3.4 Data Parallelism vs Task Parallelism}
+% --\subsubsection*{4.3.4 Data Parallelism vs Task Parallelism}
 \addcontentsline{toc}{subsubsection}{4.3.4 Data Parallelism vs Task Parallelism}
 
 Compare:
@@ -3445,8 +3295,7 @@ In practice:
 
 Good programs combine both.
 
-% --------------------------------------------------
-\subsubsection*{4.3.5 The Hidden Enemy: Reductions}
+% --\subsubsection*{4.3.5 The Hidden Enemy: Reductions}
 \addcontentsline{toc}{subsubsection}{4.3.5 The Hidden Enemy: Reductions}
 
 Consider:
@@ -3477,8 +3326,7 @@ Solution requires:
 
 We will return to this in OpenMP.
 
-% --------------------------------------------------
-\subsubsection*{4.3.6 Why Order Often Does Not Matter}
+% --\subsubsection*{4.3.6 Why Order Often Does Not Matter}
 \addcontentsline{toc}{subsubsection}{4.3.6 Why Order Often Does Not Matter}
 
 Many operations are:
@@ -3502,8 +3350,7 @@ But not all operations have this property.
 
 Parallelism must respect mathematics.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 4.3)}
 
 \subsubsection*{Practice 1: Pure Data Parallel Loop}
@@ -3551,8 +3398,7 @@ Ask:
   \item Why can iterations run in any order?
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Reduction Hazard}
+% --\subsubsection*{Practice 2: Reduction Hazard}
 
 Add:
 \begin{lstlisting}[language=C++]
@@ -3570,8 +3416,7 @@ Ask:
 
 You are seeing the core reduction problem.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 4.3)}
 
 Answer clearly:
@@ -3588,8 +3433,7 @@ Answer clearly:
 \subsection*{Lesson 5.1: What Is a Thread?}
 \addcontentsline{toc}{subsection}{Lesson 5.1: What Is a Thread?}
 
-% --------------------------------------------------
-\subsubsection*{5.1.1 Why Threads Exist}
+% --\subsubsection*{5.1.1 Why Threads Exist}
 \addcontentsline{toc}{subsubsection}{5.1.1 Why Threads Exist}
 
 Recall:
@@ -3605,8 +3449,7 @@ Threads exist to answer one question:
 
 Threads are the OS-level answer.
 
-% --------------------------------------------------
-\subsubsection*{5.1.2 Process vs Thread}
+% --\subsubsection*{5.1.2 Process vs Thread}
 \addcontentsline{toc}{subsubsection}{5.1.2 Process vs Thread}
 
 A \textbf{process} has:
@@ -3629,8 +3472,7 @@ Key difference:
 
 This is both the power and the danger.
 
-% --------------------------------------------------
-\subsubsection*{5.1.3 What Threads Share}
+% --\subsubsection*{5.1.3 What Threads Share}
 \addcontentsline{toc}{subsubsection}{5.1.3 What Threads Share}
 
 All threads in a process share:
@@ -3653,8 +3495,7 @@ This explains:
   \item why globals are dangerous
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{5.1.4 The Illusion of Simultaneity (Again)}
+% --\subsubsection*{5.1.4 The Illusion of Simultaneity (Again)}
 \addcontentsline{toc}{subsubsection}{5.1.4 The Illusion of Simultaneity (Again)}
 
 Threads appear to run simultaneously.
@@ -3673,8 +3514,7 @@ The OS scheduler:
 
 This unpredictability is why races exist.
 
-% --------------------------------------------------
-\subsubsection*{5.1.5 Why Threads Are Harder Than Processes}
+% --\subsubsection*{5.1.5 Why Threads Are Harder Than Processes}
 \addcontentsline{toc}{subsubsection}{5.1.5 Why Threads Are Harder Than Processes}
 
 Threads are harder because:
@@ -3695,8 +3535,7 @@ Parallel computing is a trade-off:
 \emph{Performance in exchange for complexity.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{5.1.6 The Mental Model You Must Use}
+% --\subsubsection*{5.1.6 The Mental Model You Must Use}
 \addcontentsline{toc}{subsubsection}{5.1.6 The Mental Model You Must Use}
 
 Correct mental model:
@@ -3712,8 +3551,7 @@ Rules:
 
 Everything in thread programming follows from this.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 5.1)}
 
 \subsubsection*{Practice 1: Your First Threaded Program}
@@ -3757,8 +3595,7 @@ Observe:
 
 This is concurrency.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Shared State}
+% --\subsubsection*{Practice 2: Shared State}
 
 Modify:
 \begin{lstlisting}[language=C++]
@@ -3779,8 +3616,7 @@ Think:
 Do not fix it yet.
 We want to feel the problem first.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 5.1)}
 
 Answer clearly:
@@ -3794,8 +3630,7 @@ Answer clearly:
 \subsection*{Lesson 5.2: Race Conditions -- Why Correct Code Breaks in Parallel}
 \addcontentsline{toc}{subsection}{Lesson 5.2: Race Conditions -- Why Correct Code Breaks in Parallel}
 
-% --------------------------------------------------
-\subsubsection*{5.2.1 The Most Dangerous Misbelief}
+% --\subsubsection*{5.2.1 The Most Dangerous Misbelief}
 \addcontentsline{toc}{subsubsection}{5.2.1 The Most Dangerous Misbelief}
 
 Students often believe:
@@ -3814,8 +3649,7 @@ Parallel execution introduces:
 
 Correctness must now be designed.
 
-% --------------------------------------------------
-\subsubsection*{5.2.2 What Is a Race Condition?}
+% --\subsubsection*{5.2.2 What Is a Race Condition?}
 \addcontentsline{toc}{subsubsection}{5.2.2 What Is a Race Condition?}
 
 A \textbf{race condition} occurs when:
@@ -3833,8 +3667,7 @@ The final result depends on:
 
 This makes behavior nondeterministic.
 
-% --------------------------------------------------
-\subsubsection*{5.2.3 The Classic Counter Example}
+% --\subsubsection*{5.2.3 The Classic Counter Example}
 \addcontentsline{toc}{subsubsection}{5.2.3 The Classic Counter Example}
 
 Consider:
@@ -3866,8 +3699,7 @@ Final result:
 No line is wrong.
 The interleaving is.
 
-% --------------------------------------------------
-\subsubsection*{5.2.4 Why This Is Not Randomness}
+% --\subsubsection*{5.2.4 Why This Is Not Randomness}
 \addcontentsline{toc}{subsubsection}{5.2.4 Why This Is Not Randomness}
 
 Race conditions are often described as:
@@ -3886,8 +3718,7 @@ The behavior is:
 The OS scheduler decides the order.
 Your code did not specify one.
 
-% --------------------------------------------------
-\subsubsection*{5.2.5 Read-Modify-Write Is Not Atomic}
+% --\subsubsection*{5.2.5 Read-Modify-Write Is Not Atomic}
 \addcontentsline{toc}{subsubsection}{5.2.5 Read-Modify-Write Is Not Atomic}
 
 The statement:
@@ -3906,8 +3737,7 @@ Threads can interleave between these steps.
 
 This is the root cause of many race conditions.
 
-% --------------------------------------------------
-\subsubsection*{5.2.6 When Races Do NOT Occur}
+% --\subsubsection*{5.2.6 When Races Do NOT Occur}
 \addcontentsline{toc}{subsubsection}{5.2.6 When Races Do NOT Occur}
 
 No race condition if:
@@ -3924,8 +3754,7 @@ This is why:
 
 Designing for safety is better than fixing races later.
 
-% --------------------------------------------------
-\subsubsection*{5.2.7 Why Races Are So Hard to Debug}
+% --\subsubsection*{5.2.7 Why Races Are So Hard to Debug}
 \addcontentsline{toc}{subsubsection}{5.2.7 Why Races Are So Hard to Debug}
 
 Race conditions:
@@ -3942,8 +3771,7 @@ Reason:
 
 This is why print-debugging often lies.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 5.2)}
 
 \subsubsection*{Practice 1: Observe the Race}
@@ -3995,8 +3823,7 @@ Observe:
 
 You are seeing a race condition.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Remove Parallelism}
+% --\subsubsection*{Practice 2: Remove Parallelism}
 
 Run the same code with only one thread.
 
@@ -4008,8 +3835,7 @@ Observe:
 The bug is not logic.
 It is concurrency.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 5.2)}
 
 Answer carefully:
@@ -4023,8 +3849,7 @@ Answer carefully:
 \subsection*{Lesson 5.3: Synchronization -- Mutexes, Locks, and Critical Sections}
 \addcontentsline{toc}{subsection}{Lesson 5.3: Synchronization -- Mutexes, Locks, and Critical Sections}
 
-% --------------------------------------------------
-\subsubsection*{5.3.1 What Synchronization Really Means}
+% --\subsubsection*{5.3.1 What Synchronization Really Means}
 \addcontentsline{toc}{subsubsection}{5.3.1 What Synchronization Really Means}
 
 Synchronization does \textbf{not} mean:
@@ -4042,8 +3867,7 @@ Uncontrolled sharing is dangerous.
 
 Synchronization trades some speed for correctness.
 
-% --------------------------------------------------
-\subsubsection*{5.3.2 The Critical Section Concept}
+% --\subsubsection*{5.3.2 The Critical Section Concept}
 \addcontentsline{toc}{subsubsection}{5.3.2 The Critical Section Concept}
 
 A \textbf{critical section} is:
@@ -4068,8 +3892,7 @@ Reality:
 \emph{Critical sections should be as small as possible.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{5.3.3 The Mutex: A Lock for Memory}
+% --\subsubsection*{5.3.3 The Mutex: A Lock for Memory}
 \addcontentsline{toc}{subsubsection}{5.3.3 The Mutex: A Lock for Memory}
 
 A \textbf{mutex} (mutual exclusion) is:
@@ -4087,8 +3910,7 @@ Other threads must wait.
 
 This enforces order where needed.
 
-% --------------------------------------------------
-\subsubsection*{5.3.4 Using a Mutex Correctly}
+% --\subsubsection*{5.3.4 Using a Mutex Correctly}
 \addcontentsline{toc}{subsubsection}{5.3.4 Using a Mutex Correctly}
 
 Canonical pattern:
@@ -4114,8 +3936,7 @@ But it is dangerous if:
 
 This leads to deadlocks.
 
-% --------------------------------------------------
-\subsubsection*{5.3.5 RAII: Locking Without Fear}
+% --\subsubsection*{5.3.5 RAII: Locking Without Fear}
 \addcontentsline{toc}{subsubsection}{5.3.5 RAII: Locking Without Fear}
 
 Correct modern C++ uses RAII:
@@ -4140,8 +3961,7 @@ This is:
 
 Always prefer this style.
 
-% --------------------------------------------------
-\subsubsection*{5.3.6 Fixing the Counter Race}
+% --\subsubsection*{5.3.6 Fixing the Counter Race}
 \addcontentsline{toc}{subsubsection}{5.3.6 Fixing the Counter Race}
 
 Original buggy code:
@@ -4168,8 +3988,7 @@ Now:
 Speed may decrease slightly.
 Correctness is non-negotiable.
 
-% --------------------------------------------------
-\subsubsection*{5.3.7 The Cost of Locking}
+% --\subsubsection*{5.3.7 The Cost of Locking}
 \addcontentsline{toc}{subsubsection}{5.3.7 The Cost of Locking}
 
 Locks introduce:
@@ -4191,8 +4010,7 @@ Design principle:
 
 Minimize shared writable state.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 5.3)}
 
 \subsubsection*{Practice 1: Fix the Race}
@@ -4226,8 +4044,7 @@ Observe:
 
 You have eliminated the race.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Think About Granularity}
+% --\subsubsection*{Practice 2: Think About Granularity}
 
 Ask yourself:
 \begin{itemize}
@@ -4238,8 +4055,7 @@ Ask yourself:
 Do not fix yet.
 We will address this later.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 5.3)}
 
 Answer carefully:
@@ -4253,8 +4069,7 @@ Answer carefully:
 \subsection*{Lesson 5.4: Deadlocks -- When Correct Locks Freeze Programs}
 \addcontentsline{toc}{subsection}{Lesson 5.4: Deadlocks -- When Correct Locks Freeze Programs}
 
-% --------------------------------------------------
-\subsubsection*{5.4.1 What Is a Deadlock?}
+% --\subsubsection*{5.4.1 What Is a Deadlock?}
 \addcontentsline{toc}{subsubsection}{5.4.1 What Is a Deadlock?}
 
 A \textbf{deadlock} occurs when:
@@ -4275,8 +4090,7 @@ No crash.
 No error.
 Just silence.
 
-% --------------------------------------------------
-\subsubsection*{5.4.2 The Simplest Deadlock Example}
+% --\subsubsection*{5.4.2 The Simplest Deadlock Example}
 \addcontentsline{toc}{subsubsection}{5.4.2 The Simplest Deadlock Example}
 
 Consider two mutexes:
@@ -4308,8 +4122,7 @@ Possible execution:
 Nobody moves.
 Deadlock achieved.
 
-% --------------------------------------------------
-\subsubsection*{5.4.3 The Four Necessary Conditions for Deadlock}
+% --\subsubsection*{5.4.3 The Four Necessary Conditions for Deadlock}
 \addcontentsline{toc}{subsubsection}{5.4.3 The Four Necessary Conditions for Deadlock}
 
 A deadlock can occur only if \textbf{all four} conditions hold:
@@ -4328,8 +4141,7 @@ To prevent deadlock:
 
 This is a powerful design principle.
 
-% --------------------------------------------------
-\subsubsection*{5.4.4 The Most Common Cause: Lock Order}
+% --\subsubsection*{5.4.4 The Most Common Cause: Lock Order}
 \addcontentsline{toc}{subsubsection}{5.4.4 The Most Common Cause: Lock Order}
 
 The most frequent real-world cause is:
@@ -4349,8 +4161,7 @@ Rule:
 
 This rule alone prevents most deadlocks.
 
-% --------------------------------------------------
-\subsubsection*{5.4.5 std::lock: Locking Without Deadlock}
+% --\subsubsection*{5.4.5 std::lock: Locking Without Deadlock}
 \addcontentsline{toc}{subsubsection}{5.4.5 std::lock: Locking Without Deadlock}
 
 C++ provides:
@@ -4372,8 +4183,7 @@ std::lock_guard<std::mutex> g2(m2, std::adopt_lock);
 
 This is the safe modern pattern.
 
-% --------------------------------------------------
-\subsubsection*{5.4.6 Why Deadlocks Are Harder Than Races}
+% --\subsubsection*{5.4.6 Why Deadlocks Are Harder Than Races}
 \addcontentsline{toc}{subsubsection}{5.4.6 Why Deadlocks Are Harder Than Races}
 
 Race conditions:
@@ -4395,8 +4205,7 @@ Students often misdiagnose deadlocks as:
 
 They are synchronization bugs.
 
-% --------------------------------------------------
-\subsubsection*{5.4.7 Design to Avoid Deadlocks}
+% --\subsubsection*{5.4.7 Design to Avoid Deadlocks}
 \addcontentsline{toc}{subsubsection}{5.4.7 Design to Avoid Deadlocks}
 
 Best practices:
@@ -4412,8 +4221,7 @@ The best deadlock is:
 \emph{The one that cannot happen by design.}
 \end{quote}
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 5.4)}
 
 \subsubsection*{Practice 1: Create a Deadlock (On Purpose)}
@@ -4467,8 +4275,7 @@ Observe:
 
 This is a deadlock.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Fix with Ordering}
+% --\subsubsection*{Practice 2: Fix with Ordering}
 
 Modify both threads to lock A then B.
 
@@ -4481,8 +4288,7 @@ Observe:
 
 This demonstrates lock ordering.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 5.4)}
 
 Answer carefully:
@@ -4496,8 +4302,7 @@ Answer carefully:
 \subsection*{Lesson 5.5: Performance vs Correctness -- Why Locks Kill Speed}
 \addcontentsline{toc}{subsection}{Lesson 5.5: Performance vs Correctness -- Why Locks Kill Speed}
 
-% --------------------------------------------------
-\subsubsection*{5.5.1 The Unavoidable Trade-Off}
+% --\subsubsection*{5.5.1 The Unavoidable Trade-Off}
 \addcontentsline{toc}{subsubsection}{5.5.1 The Unavoidable Trade-Off}
 
 Synchronization guarantees:
@@ -4519,8 +4324,7 @@ Parallel computing always balances:
 Correctness is mandatory.  
 Performance must be earned.
 
-% --------------------------------------------------
-\subsubsection*{5.5.2 What Happens When Threads Compete}
+% --\subsubsection*{5.5.2 What Happens When Threads Compete}
 \addcontentsline{toc}{subsubsection}{5.5.2 What Happens When Threads Compete}
 
 When multiple threads want the same lock:
@@ -4542,8 +4346,7 @@ In the worst case:
 
 This is called \textbf{lock contention}.
 
-% --------------------------------------------------
-\subsubsection*{5.5.3 Fine-Grained vs Coarse-Grained Locking}
+% --\subsubsection*{5.5.3 Fine-Grained vs Coarse-Grained Locking}
 \addcontentsline{toc}{subsubsection}{5.5.3 Fine-Grained vs Coarse-Grained Locking}
 
 \textbf{Coarse-grained locking}:
@@ -4567,8 +4370,7 @@ Design choice:
 
 Premature complexity is dangerous.
 
-% --------------------------------------------------
-\subsubsection*{5.5.4 The Counter Example Revisited}
+% --\subsubsection*{5.5.4 The Counter Example Revisited}
 \addcontentsline{toc}{subsubsection}{5.5.4 The Counter Example Revisited}
 
 Recall:
@@ -4591,8 +4393,7 @@ Speedup is minimal or negative.
 
 Correct but slow.
 
-% --------------------------------------------------
-\subsubsection*{5.5.5 Reduce Lock Frequency}
+% --\subsubsection*{5.5.5 Reduce Lock Frequency}
 \addcontentsline{toc}{subsubsection}{5.5.5 Reduce Lock Frequency}
 
 Better approach:
@@ -4620,8 +4421,7 @@ This idea leads directly to:
   \item OpenMP constructs
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{5.5.6 Amdahl’s Law (Intuition Only)}
+% --\subsubsection*{5.5.6 Amdahl’s Law (Intuition Only)}
 \addcontentsline{toc}{subsubsection}{5.5.6 Amdahl’s Law (Intuition Only)}
 
 If a fraction of a program is:
@@ -4642,8 +4442,7 @@ This law explains why:
 
 We will formalize this later.
 
-% --------------------------------------------------
-\subsubsection*{5.5.7 The Right Mental Model}
+% --\subsubsection*{5.5.7 The Right Mental Model}
 \addcontentsline{toc}{subsubsection}{5.5.7 The Right Mental Model}
 
 Correct thinking:
@@ -4660,8 +4459,7 @@ Locks should:
 Design for parallelism first.
 Add synchronization last.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 5.5)}
 
 \subsubsection*{Practice 1: Measure Lock Cost}
@@ -4684,8 +4482,7 @@ Observe:
   \item dramatic performance difference
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Reason Without Code}
+% --\subsubsection*{Practice 2: Reason Without Code}
 
 Ask:
 \begin{itemize}
@@ -4695,8 +4492,7 @@ Ask:
 
 This reasoning skill matters more than micro-optimizations.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 5.5)}
 
 Answer carefully:
@@ -4713,8 +4509,7 @@ Answer carefully:
 \subsection*{Lesson 6.1: Why OpenMP Exists}
 \addcontentsline{toc}{subsection}{Lesson 6.1: Why OpenMP Exists}
 
-% --------------------------------------------------
-\subsubsection*{6.1.1 The Pain of Manual Threads}
+% --\subsubsection*{6.1.1 The Pain of Manual Threads}
 \addcontentsline{toc}{subsubsection}{6.1.1 The Pain of Manual Threads}
 
 From PART 5, you learned that threads require:
@@ -4733,8 +4528,7 @@ This gives:
 
 For many scientific programs, this level of control is unnecessary.
 
-% --------------------------------------------------
-\subsubsection*{6.1.2 The Key Observation Behind OpenMP}
+% --\subsubsection*{6.1.2 The Key Observation Behind OpenMP}
 \addcontentsline{toc}{subsubsection}{6.1.2 The Key Observation Behind OpenMP}
 
 Most parallel code looks like:
@@ -4751,8 +4545,7 @@ So researchers asked:
 
 OpenMP was born from this question.
 
-% --------------------------------------------------
-\subsubsection*{6.1.3 What OpenMP Really Is}
+% --\subsubsection*{6.1.3 What OpenMP Really Is}
 \addcontentsline{toc}{subsubsection}{6.1.3 What OpenMP Really Is}
 
 OpenMP is:
@@ -4770,8 +4563,7 @@ Key idea:
 You do not create threads explicitly.
 OpenMP does it for you.
 
-% --------------------------------------------------
-\subsubsection*{6.1.4 Directives, Not Magic}
+% --\subsubsection*{6.1.4 Directives, Not Magic}
 \addcontentsline{toc}{subsubsection}{6.1.4 Directives, Not Magic}
 
 OpenMP uses pragmas:
@@ -4793,8 +4585,7 @@ This means:
 
 This is extremely powerful for teaching and research.
 
-% --------------------------------------------------
-\subsubsection*{6.1.5 Fork–Join Model}
+% --\subsubsection*{6.1.5 Fork–Join Model}
 \addcontentsline{toc}{subsubsection}{6.1.5 Fork--Join Model}
 
 OpenMP follows the \textbf{fork–join} model.
@@ -4813,8 +4604,7 @@ Outside parallel regions:
 
 This matches how humans think about programs.
 
-% --------------------------------------------------
-\subsubsection*{6.1.6 Why OpenMP Is Perfect for Students}
+% --\subsubsection*{6.1.6 Why OpenMP Is Perfect for Students}
 \addcontentsline{toc}{subsubsection}{6.1.6 Why OpenMP Is Perfect for Students}
 
 OpenMP:
@@ -4838,8 +4628,7 @@ Not:
 
 This is pedagogically ideal.
 
-% --------------------------------------------------
-\subsubsection*{6.1.7 When NOT to Use OpenMP}
+% --\subsubsection*{6.1.7 When NOT to Use OpenMP}
 \addcontentsline{toc}{subsubsection}{6.1.7 When NOT to Use OpenMP}
 
 OpenMP is not ideal when:
@@ -4858,8 +4647,7 @@ are more appropriate.
 
 Tool choice matters.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 6.1)}
 
 \subsubsection*{Practice 1: Check OpenMP Support}
@@ -4882,8 +4670,7 @@ You may need:
 Do not install yet.
 We will handle setup cleanly next lesson.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Mental Translation}
+% --\subsubsection*{Practice 2: Mental Translation}
 
 Take this loop:
 \begin{lstlisting}[language=C++]
@@ -4900,8 +4687,7 @@ Answer:
 
 This reasoning is the essence of OpenMP.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 6.1)}
 
 Answer clearly:
@@ -4915,8 +4701,7 @@ Answer clearly:
 \subsection*{Lesson 6.2: Your First OpenMP Program}
 \addcontentsline{toc}{subsection}{Lesson 6.2: Your First OpenMP Program}
 
-% --------------------------------------------------
-\subsubsection*{6.2.1 The OpenMP Programming Model (One Minute Recap)}
+% --\subsubsection*{6.2.1 The OpenMP Programming Model (One Minute Recap)}
 \addcontentsline{toc}{subsubsection}{6.2.1 The OpenMP Programming Model}
 
 OpenMP works by:
@@ -4932,8 +4717,7 @@ You annotate regions of code.
 
 This is deliberate.
 
-% --------------------------------------------------
-\subsubsection*{6.2.2 OpenMP on macOS (Apple Silicon Reality)}
+% --\subsubsection*{6.2.2 OpenMP on macOS (Apple Silicon Reality)}
 \addcontentsline{toc}{subsubsection}{6.2.2 OpenMP on macOS (Apple Silicon Reality)}
 
 Important truth:
@@ -4960,8 +4744,7 @@ This compiler supports OpenMP.
 
 This is standard practice on macOS.
 
-% --------------------------------------------------
-\subsubsection*{6.2.3 Verifying OpenMP Support}
+% --\subsubsection*{6.2.3 Verifying OpenMP Support}
 \addcontentsline{toc}{subsubsection}{6.2.3 Verifying OpenMP Support}
 
 Check:
@@ -4976,8 +4759,7 @@ Now test OpenMP flag:
 
 If no error appears, OpenMP is enabled.
 
-% --------------------------------------------------
-\subsubsection*{6.2.4 Your First Parallel Region}
+% --\subsubsection*{6.2.4 Your First Parallel Region}
 \addcontentsline{toc}{subsubsection}{6.2.4 Your First Parallel Region}
 
 Create file:
@@ -5020,8 +4802,7 @@ Observe:
 
 This is real parallel execution.
 
-% --------------------------------------------------
-\subsubsection*{6.2.5 Understanding What Just Happened}
+% --\subsubsection*{6.2.5 Understanding What Just Happened}
 \addcontentsline{toc}{subsubsection}{6.2.5 Understanding What Just Happened}
 
 Key points:
@@ -5039,8 +4820,7 @@ This is equivalent to:
 
 But with far less code and fewer bugs.
 
-% --------------------------------------------------
-\subsubsection*{6.2.6 The Most Important OpenMP Construct: parallel for}
+% --\subsubsection*{6.2.6 The Most Important OpenMP Construct: parallel for}
 \addcontentsline{toc}{subsubsection}{6.2.6 The Most Important OpenMP Construct}
 
 Most OpenMP programs use:
@@ -5063,8 +4843,7 @@ OpenMP checks:
 If unsafe, behavior is undefined.
 Parallel reasoning still matters.
 
-% --------------------------------------------------
-\subsubsection*{6.2.7 Your First Data-Parallel Loop}
+% --\subsubsection*{6.2.7 Your First Data-Parallel Loop}
 \addcontentsline{toc}{subsubsection}{6.2.7 Your First Data-Parallel Loop}
 
 Create:
@@ -5114,8 +4893,7 @@ Observe:
 
 This is correct parallel behavior.
 
-% --------------------------------------------------
-\subsubsection*{6.2.8 How Many Threads Are Used?}
+% --\subsubsection*{6.2.8 How Many Threads Are Used?}
 \addcontentsline{toc}{subsubsection}{6.2.8 How Many Threads Are Used?}
 
 Check:
@@ -5132,8 +4910,7 @@ You can control:
 
 OpenMP adapts to hardware automatically.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 6.2)}
 
 \subsubsection*{Practice 1: Sequential vs OpenMP}
@@ -5148,8 +4925,7 @@ Compare:
 
 Feel the difference.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Reason About Safety}
+% --\subsubsection*{Practice 2: Reason About Safety}
 
 Ask:
 \begin{itemize}
@@ -5159,8 +4935,7 @@ Ask:
 
 This reasoning never goes away.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 6.2)}
 
 Answer clearly:
@@ -5174,8 +4949,7 @@ Answer clearly:
 \subsection*{Lesson 6.3: Shared vs Private Variables}
 \addcontentsline{toc}{subsection}{Lesson 6.3: Shared vs Private Variables}
 
-% --------------------------------------------------
-\subsubsection*{6.3.1 The Default Rule (Dangerous If Ignored)}
+% --\subsubsection*{6.3.1 The Default Rule (Dangerous If Ignored)}
 \addcontentsline{toc}{subsubsection}{6.3.1 The Default Rule (Dangerous If Ignored)}
 
 In OpenMP:
@@ -5188,8 +4962,7 @@ This default rule is simple — and extremely dangerous if forgotten.
 
 Shared variables can cause race conditions.
 
-% --------------------------------------------------
-\subsubsection*{6.3.2 What Does ``Shared'' Mean?}
+% --\subsubsection*{6.3.2 What Does ``Shared'' Mean?}
 \addcontentsline{toc}{subsubsection}{6.3.2 What Does ``Shared'' Mean?}
 
 A \textbf{shared} variable:
@@ -5217,8 +4990,7 @@ Here:
 This bug compiles cleanly.
 It fails logically.
 
-% --------------------------------------------------
-\subsubsection*{6.3.3 What Does ``Private'' Mean?}
+% --\subsubsection*{6.3.3 What Does ``Private'' Mean?}
 \addcontentsline{toc}{subsubsection}{6.3.3 What Does ``Private'' Mean?}
 
 A \textbf{private} variable:
@@ -5243,8 +5015,7 @@ Each thread gets:
 No sharing.
 No race.
 
-% --------------------------------------------------
-\subsubsection*{6.3.4 firstprivate: Copy the Initial Value}
+% --\subsubsection*{6.3.4 firstprivate: Copy the Initial Value}
 \addcontentsline{toc}{subsubsection}{6.3.4 firstprivate: Copy the Initial Value}
 
 Sometimes threads need:
@@ -5266,8 +5037,7 @@ This means:
 
 This avoids subtle initialization bugs.
 
-% --------------------------------------------------
-\subsubsection*{6.3.5 The Loop Index Rule}
+% --\subsubsection*{6.3.5 The Loop Index Rule}
 \addcontentsline{toc}{subsubsection}{6.3.5 The Loop Index Rule}
 
 In:
@@ -5292,8 +5062,7 @@ If \texttt{i} were shared:
 
 Never manually share loop indices.
 
-% --------------------------------------------------
-\subsubsection*{6.3.6 default(none): The Professional Setting}
+% --\subsubsection*{6.3.6 default(none): The Professional Setting}
 \addcontentsline{toc}{subsubsection}{6.3.6 default(none): The Professional Setting}
 
 Best practice:
@@ -5315,8 +5084,7 @@ Advantages:
 
 This is what experts use.
 
-% --------------------------------------------------
-\subsubsection*{6.3.7 A Subtle but Common Bug}
+% --\subsubsection*{6.3.7 A Subtle but Common Bug}
 \addcontentsline{toc}{subsubsection}{6.3.7 A Subtle but Common Bug}
 
 Consider:
@@ -5342,8 +5110,7 @@ Fix:
 
 This single keyword fixes correctness.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 6.3)}
 
 \subsubsection*{Practice 1: Create the Bug}
@@ -5361,8 +5128,7 @@ Observe:
   \item inconsistent behavior
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Fix with private}
+% --\subsubsection*{Practice 2: Fix with private}
 
 Add:
 \begin{lstlisting}[language=C++]
@@ -5378,8 +5144,7 @@ Observe:
 
 This pattern repeats everywhere.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 6.3)}
 
 Answer carefully:
@@ -5393,8 +5158,7 @@ Answer carefully:
 \subsection*{Lesson 6.4: Reductions -- Parallel Sums Done Right}
 \addcontentsline{toc}{subsection}{Lesson 6.4: Reductions -- Parallel Sums Done Right}
 
-% --------------------------------------------------
-\subsubsection*{6.4.1 The Classic Wrong Parallel Sum}
+% --\subsubsection*{6.4.1 The Classic Wrong Parallel Sum}
 \addcontentsline{toc}{subsubsection}{6.4.1 The Classic Wrong Parallel Sum}
 
 Consider:
@@ -5422,8 +5186,7 @@ Reason:
 
 This creates a race condition.
 
-% --------------------------------------------------
-\subsubsection*{6.4.2 Why Locks Are the Wrong Fix}
+% --\subsubsection*{6.4.2 Why Locks Are the Wrong Fix}
 \addcontentsline{toc}{subsubsection}{6.4.2 Why Locks Are the Wrong Fix}
 
 You might try:
@@ -5449,8 +5212,7 @@ Why?
 
 Correctness without performance is failure.
 
-% --------------------------------------------------
-\subsubsection*{6.4.3 The Key Insight Behind Reductions}
+% --\subsubsection*{6.4.3 The Key Insight Behind Reductions}
 \addcontentsline{toc}{subsubsection}{6.4.3 The Key Insight Behind Reductions}
 
 Key observation:
@@ -5472,8 +5234,7 @@ Parallel strategy:
 
 This avoids shared writes during computation.
 
-% --------------------------------------------------
-\subsubsection*{6.4.4 The OpenMP reduction Clause}
+% --\subsubsection*{6.4.4 The OpenMP reduction Clause}
 \addcontentsline{toc}{subsubsection}{6.4.4 The OpenMP reduction Clause}
 
 OpenMP provides:
@@ -5505,8 +5266,7 @@ This is:
   \item elegant
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{6.4.5 Other Reduction Operators}
+% --\subsubsection*{6.4.5 Other Reduction Operators}
 \addcontentsline{toc}{subsubsection}{6.4.5 Other Reduction Operators}
 
 OpenMP supports reductions on:
@@ -5531,8 +5291,7 @@ Floating-point reductions may differ slightly due to ordering.
 
 This is expected.
 
-% --------------------------------------------------
-\subsubsection*{6.4.6 Reduction vs Atomic vs Critical}
+% --\subsubsection*{6.4.6 Reduction vs Atomic vs Critical}
 \addcontentsline{toc}{subsubsection}{6.4.6 Reduction vs Atomic vs Critical}
 
 Three ways to fix \texttt{sum +=}:
@@ -5556,8 +5315,7 @@ Rule of thumb:
 
 It expresses intent clearly and lets OpenMP optimize.
 
-% --------------------------------------------------
-\subsubsection*{6.4.7 Reduction Is a Pattern, Not a Trick}
+% --\subsubsection*{6.4.7 Reduction Is a Pattern, Not a Trick}
 \addcontentsline{toc}{subsubsection}{6.4.7 Reduction Is a Pattern, Not a Trick}
 
 Reduction is not just syntax.
@@ -5578,8 +5336,7 @@ This pattern appears in:
 
 Recognizing reductions is a core parallel skill.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 6.4)}
 
 \subsubsection*{Practice 1: Correct Parallel Sum}
@@ -5623,8 +5380,7 @@ Verify:
   \item consistent across runs
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Compare with Critical}
+% --\subsubsection*{Practice 2: Compare with Critical}
 
 Replace reduction with:
 \begin{lstlisting}[language=C++]
@@ -5640,8 +5396,7 @@ Observe:
 
 This demonstrates why reductions matter.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 6.4)}
 
 Answer carefully:
@@ -5655,8 +5410,7 @@ Answer carefully:
 \subsection*{Lesson 6.5: Scheduling -- Static vs Dynamic vs Guided}
 \addcontentsline{toc}{subsection}{Lesson 6.5: Scheduling -- Static vs Dynamic vs Guided}
 
-% --------------------------------------------------
-\subsubsection*{6.5.1 The Hidden Enemy: Load Imbalance}
+% --\subsubsection*{6.5.1 The Hidden Enemy: Load Imbalance}
 \addcontentsline{toc}{subsubsection}{6.5.1 The Hidden Enemy: Load Imbalance}
 
 Parallel programs often assume:
@@ -5680,8 +5434,7 @@ Idle threads mean wasted cores.
 
 This problem is called \textbf{load imbalance}.
 
-% --------------------------------------------------
-\subsubsection*{6.5.2 What Scheduling Means in OpenMP}
+% --\subsubsection*{6.5.2 What Scheduling Means in OpenMP}
 \addcontentsline{toc}{subsubsection}{6.5.2 What Scheduling Means in OpenMP}
 
 Scheduling answers one question:
@@ -5702,8 +5455,7 @@ Different schedules trade:
 
 There is no single best choice.
 
-% --------------------------------------------------
-\subsubsection*{6.5.3 Static Scheduling}
+% --\subsubsection*{6.5.3 Static Scheduling}
 \addcontentsline{toc}{subsubsection}{6.5.3 Static Scheduling}
 
 Static scheduling:
@@ -5730,8 +5482,7 @@ Best when:
 
 This is the default.
 
-% --------------------------------------------------
-\subsubsection*{6.5.4 Static with Chunk Size}
+% --\subsubsection*{6.5.4 Static with Chunk Size}
 \addcontentsline{toc}{subsubsection}{6.5.4 Static with Chunk Size}
 
 You can control block size:
@@ -5756,8 +5507,7 @@ Larger chunks:
   \item risk imbalance
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{6.5.5 Dynamic Scheduling}
+% --\subsubsection*{6.5.5 Dynamic Scheduling}
 \addcontentsline{toc}{subsubsection}{6.5.5 Dynamic Scheduling}
 
 Dynamic scheduling:
@@ -5782,8 +5532,7 @@ Best when:
   \item iteration cost is unpredictable
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{6.5.6 Guided Scheduling}
+% --\subsubsection*{6.5.6 Guided Scheduling}
 \addcontentsline{toc}{subsubsection}{6.5.6 Guided Scheduling}
 
 Guided scheduling:
@@ -5805,8 +5554,7 @@ Goal:
 
 Good compromise for many real workloads.
 
-% --------------------------------------------------
-\subsubsection*{6.5.7 Choosing the Right Schedule}
+% --\subsubsection*{6.5.7 Choosing the Right Schedule}
 \addcontentsline{toc}{subsubsection}{6.5.7 Choosing the Right Schedule}
 
 Rule of thumb:
@@ -5824,8 +5572,7 @@ Always:
 
 Guessing is unreliable.
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 6.5)}
 
 \subsubsection*{Practice 1: Artificial Load Imbalance}
@@ -5865,8 +5612,7 @@ Observe:
   \item some threads finish much later
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Switch to Dynamic}
+% --\subsubsection*{Practice 2: Switch to Dynamic}
 
 Change:
 \begin{lstlisting}[language=C++]
@@ -5886,8 +5632,7 @@ Observe:
   \item more even completion
 \end{itemize}
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 6.5)}
 
 Answer carefully:
@@ -5901,8 +5646,7 @@ Answer carefully:
 \subsection*{Lesson 6.6: OpenMP Tasks -- Irregular Parallelism Done Right}
 \addcontentsline{toc}{subsection}{Lesson 6.6: OpenMP Tasks -- Irregular Parallelism Done Right}
 
-% --------------------------------------------------
-\subsubsection*{6.6.1 Why Loops Are Not Enough}
+% --\subsubsection*{6.6.1 Why Loops Are Not Enough}
 \addcontentsline{toc}{subsubsection}{6.6.1 Why Loops Are Not Enough}
 
 Loop parallelism assumes:
@@ -5927,8 +5671,7 @@ Examples:
 
 These require \textbf{task parallelism}.
 
-% --------------------------------------------------
-\subsubsection*{6.6.2 What Is an OpenMP Task?}
+% --\subsubsection*{6.6.2 What Is an OpenMP Task?}
 \addcontentsline{toc}{subsubsection}{6.6.2 What Is an OpenMP Task?}
 
 An OpenMP task is:
@@ -5946,8 +5689,7 @@ Tasks are not tied to loop indices.
 
 This makes them extremely flexible.
 
-% --------------------------------------------------
-\subsubsection*{6.6.3 The Basic Task Syntax}
+% --\subsubsection*{6.6.3 The Basic Task Syntax}
 \addcontentsline{toc}{subsubsection}{6.6.3 The Basic Task Syntax}
 
 Canonical pattern:
@@ -5965,8 +5707,7 @@ Important rule:
 
 Otherwise, only one thread exists and no parallelism occurs.
 
-% --------------------------------------------------
-\subsubsection*{6.6.4 Single + Tasks: The Standard Pattern}
+% --\subsubsection*{6.6.4 Single + Tasks: The Standard Pattern}
 \addcontentsline{toc}{subsubsection}{6.6.4 Single + Tasks: The Standard Pattern}
 
 The correct structure is:
@@ -5990,8 +5731,7 @@ This avoids duplicate task creation.
 
 This pattern appears everywhere.
 
-% --------------------------------------------------
-\subsubsection*{6.6.5 A Simple Task Example}
+% --\subsubsection*{6.6.5 A Simple Task Example}
 \addcontentsline{toc}{subsubsection}{6.6.5 A Simple Task Example}
 
 Example:
@@ -6017,8 +5757,7 @@ Properties:
 
 This is expected and correct.
 
-% --------------------------------------------------
-\subsubsection*{6.6.6 Task Synchronization: taskwait}
+% --\subsubsection*{6.6.6 Task Synchronization: taskwait}
 \addcontentsline{toc}{subsubsection}{6.6.6 Task Synchronization: taskwait}
 
 Sometimes tasks must finish before continuing.
@@ -6040,8 +5779,7 @@ Without this:
 
 This is a \textbf{local synchronization point}.
 
-% --------------------------------------------------
-\subsubsection*{6.6.7 Recursive Parallelism with Tasks}
+% --\subsubsection*{6.6.7 Recursive Parallelism with Tasks}
 \addcontentsline{toc}{subsubsection}{6.6.7 Recursive Parallelism with Tasks}
 
 Classic example: recursive Fibonacci (for learning only).
@@ -6075,8 +5813,7 @@ Note:
   \item it is pedagogically powerful
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{6.6.8 Task Granularity Matters}
+% --\subsubsection*{6.6.8 Task Granularity Matters}
 \addcontentsline{toc}{subsubsection}{6.6.8 Task Granularity Matters}
 
 Tasks have overhead.
@@ -6099,8 +5836,7 @@ Rule of thumb:
 
 This is critical for performance.
 
-% --------------------------------------------------
-\subsubsection*{6.6.9 Tasks vs parallel for}
+% --\subsubsection*{6.6.9 Tasks vs parallel for}
 \addcontentsline{toc}{subsubsection}{6.6.9 Tasks vs parallel for}
 
 \begin{center}
@@ -6121,8 +5857,7 @@ Rule:
 \emph{Use parallel for when possible, tasks when necessary.}
 \end{quote}
 
-% --------------------------------------------------
-\subsection*{Practice on Mac Terminal (Mandatory)}
+% --\subsection*{Practice on Mac Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice on Mac Terminal (Lesson 6.6)}
 
 \subsubsection*{Practice 1: Simple Tasks}
@@ -6171,8 +5906,7 @@ Observe:
   \item final message prints last
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Think in Tasks}
+% --\subsubsection*{Practice 2: Think in Tasks}
 
 Pick an algorithm you know:
 \begin{itemize}
@@ -6189,8 +5923,7 @@ Ask:
 
 This is expert-level reasoning.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 6.6)}
 
 Answer carefully:
@@ -6207,8 +5940,7 @@ Answer carefully:
 \subsection*{Lesson 7.1: Why Threads Are Not Enough}
 \addcontentsline{toc}{subsection}{Lesson 7.1: Why Threads Are Not Enough}
 
-% --------------------------------------------------
-\subsubsection*{7.1.1 The Illusion of Infinite Cores}
+% --\subsubsection*{7.1.1 The Illusion of Infinite Cores}
 \addcontentsline{toc}{subsubsection}{7.1.1 The Illusion of Infinite Cores}
 
 So far, we assumed:
@@ -6235,8 +5967,7 @@ At some point:
 This is not a software bug.
 It is a hardware reality.
 
-% --------------------------------------------------
-\subsubsection*{7.1.2 The Memory Wall}
+% --\subsubsection*{7.1.2 The Memory Wall}
 \addcontentsline{toc}{subsubsection}{7.1.2 The Memory Wall}
 
 Modern CPUs are:
@@ -6265,8 +5996,7 @@ Performance collapses.
 
 This limits shared-memory scaling.
 
-% --------------------------------------------------
-\subsubsection*{7.1.3 Cache Coherence Does Not Scale}
+% --\subsubsection*{7.1.3 Cache Coherence Does Not Scale}
 \addcontentsline{toc}{subsubsection}{7.1.3 Cache Coherence Does Not Scale}
 
 Shared-memory machines maintain:
@@ -6296,8 +6026,7 @@ Eventually:
 
 This is a fundamental scaling limit.
 
-% --------------------------------------------------
-\subsubsection*{7.1.4 The Only Way Forward: Distribute Memory}
+% --\subsubsection*{7.1.4 The Only Way Forward: Distribute Memory}
 \addcontentsline{toc}{subsubsection}{7.1.4 The Only Way Forward: Distribute Memory}
 
 To scale further, systems do this:
@@ -6322,8 +6051,7 @@ Communication becomes explicit.
 This is not a limitation.
 It is a design choice.
 
-% --------------------------------------------------
-\subsubsection*{7.1.5 What Is a Cluster?}
+% --\subsubsection*{7.1.5 What Is a Cluster?}
 \addcontentsline{toc}{subsubsection}{7.1.5 What Is a Cluster?}
 
 A cluster is:
@@ -6347,8 +6075,7 @@ They communicate by:
 
 This is the dominant architecture of supercomputers.
 
-% --------------------------------------------------
-\subsubsection*{7.1.6 Why Threads Cannot Work Across Machines}
+% --\subsubsection*{7.1.6 Why Threads Cannot Work Across Machines}
 \addcontentsline{toc}{subsubsection}{7.1.6 Why Threads Cannot Work Across Machines}
 
 Threads assume:
@@ -6371,8 +6098,7 @@ Trying to use threads across nodes is meaningless.
 
 A new model is required.
 
-% --------------------------------------------------
-\subsubsection*{7.1.7 The MPI Worldview}
+% --\subsubsection*{7.1.7 The MPI Worldview}
 \addcontentsline{toc}{subsubsection}{7.1.7 The MPI Worldview}
 
 MPI assumes:
@@ -6400,8 +6126,7 @@ This gives:
 
 At the cost of verbosity.
 
-% --------------------------------------------------
-\subsubsection*{7.1.8 Shared vs Distributed Memory (Big Picture)}
+% --\subsubsection*{7.1.8 Shared vs Distributed Memory (Big Picture)}
 \addcontentsline{toc}{subsubsection}{7.1.8 Shared vs Distributed Memory (Big Picture)}
 
 \begin{center}
@@ -6424,8 +6149,7 @@ Modern HPC often uses:
 
 Best of both worlds.
 
-% --------------------------------------------------
-\subsection*{Practice (Conceptual but Mandatory)}
+% --\subsection*{Practice (Conceptual but Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 7.1)}
 
 \subsubsection*{Practice 1: Thought Experiment}
@@ -6444,8 +6168,7 @@ Ask:
 
 This distinction motivates MPI.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Cluster Awareness}
+% --\subsubsection*{Practice 2: Cluster Awareness}
 
 Search your institute resources:
 \begin{itemize}
@@ -6455,8 +6178,7 @@ Search your institute resources:
 
 You are preparing for real research infrastructure.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 7.1)}
 
 Answer clearly:
@@ -6470,8 +6192,7 @@ Answer clearly:
 \subsection*{Lesson 7.2: The MPI Mental Model -- Ranks, Communicators, SPMD}
 \addcontentsline{toc}{subsection}{Lesson 7.2: The MPI Mental Model -- Ranks, Communicators, SPMD}
 
-% --------------------------------------------------
-\subsubsection*{7.2.1 The Biggest MPI Misconception}
+% --\subsubsection*{7.2.1 The Biggest MPI Misconception}
 \addcontentsline{toc}{subsubsection}{7.2.1 The Biggest MPI Misconception}
 
 Beginners often believe:
@@ -6494,8 +6215,7 @@ All processes:
 
 They behave differently based on identity.
 
-% --------------------------------------------------
-\subsubsection*{7.2.2 What Is an MPI Process?}
+% --\subsubsection*{7.2.2 What Is an MPI Process?}
 \addcontentsline{toc}{subsubsection}{7.2.2 What Is an MPI Process?}
 
 An MPI process:
@@ -6517,8 +6237,7 @@ This eliminates:
 
 But requires explicit communication.
 
-% --------------------------------------------------
-\subsubsection*{7.2.3 Rank: Process Identity}
+% --\subsubsection*{7.2.3 Rank: Process Identity}
 \addcontentsline{toc}{subsubsection}{7.2.3 Rank: Process Identity}
 
 Each MPI process has:
@@ -6545,8 +6264,7 @@ Typical pattern:
 
 This is a convention, not a rule.
 
-% --------------------------------------------------
-\subsubsection*{7.2.4 Communicators: Who Can Talk to Whom}
+% --\subsubsection*{7.2.4 Communicators: Who Can Talk to Whom}
 \addcontentsline{toc}{subsubsection}{7.2.4 Communicators: Who Can Talk to Whom}
 
 MPI does not assume:
@@ -6572,8 +6290,7 @@ Meaning:
 
 Advanced programs create sub-communicators.
 
-% --------------------------------------------------
-\subsubsection*{7.2.5 Size: How Many Processes Exist}
+% --\subsubsection*{7.2.5 Size: How Many Processes Exist}
 \addcontentsline{toc}{subsubsection}{7.2.5 Size: How Many Processes Exist}
 
 Every communicator has:
@@ -6594,8 +6311,7 @@ MPI programs often branch logic based on:
 
 This replaces thread counts in OpenMP.
 
-% --------------------------------------------------
-\subsubsection*{7.2.6 The SPMD Pattern in Code}
+% --\subsubsection*{7.2.6 The SPMD Pattern in Code}
 \addcontentsline{toc}{subsubsection}{7.2.6 The SPMD Pattern in Code}
 
 Typical MPI structure:
@@ -6617,8 +6333,7 @@ Different behavior.
 
 This is SPMD in practice.
 
-% --------------------------------------------------
-\subsubsection*{7.2.7 No Implicit Synchronization}
+% --\subsubsection*{7.2.7 No Implicit Synchronization}
 \addcontentsline{toc}{subsubsection}{7.2.7 No Implicit Synchronization}
 
 Unlike OpenMP:
@@ -6644,8 +6359,7 @@ This gives:
 
 MPI assumes you know what you are doing.
 
-% --------------------------------------------------
-\subsubsection*{7.2.8 MPI Is Deterministic by Design}
+% --\subsubsection*{7.2.8 MPI Is Deterministic by Design}
 \addcontentsline{toc}{subsubsection}{7.2.8 MPI Is Deterministic by Design}
 
 MPI programs:
@@ -6665,8 +6379,7 @@ This makes MPI debugging different from threads.
 Harder to write.
 Easier to reason about.
 
-% --------------------------------------------------
-\subsection*{Practice (Conceptual but Mandatory)}
+% --\subsection*{Practice (Conceptual but Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 7.2)}
 
 \subsubsection*{Practice 1: Think Like Rank 3}
@@ -6685,8 +6398,7 @@ Answer:
 
 This mindset is essential.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Compare With OpenMP}
+% --\subsubsection*{Practice 2: Compare With OpenMP}
 
 Ask:
 \begin{itemize}
@@ -6696,8 +6408,7 @@ Ask:
 
 This comparison clarifies MPI deeply.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 7.2)}
 
 Answer carefully:
@@ -6711,8 +6422,7 @@ Answer carefully:
 \subsection*{Lesson 7.3: Your First MPI Program -- Hello World Across Processes}
 \addcontentsline{toc}{subsection}{Lesson 7.3: Your First MPI Program -- Hello World Across Processes}
 
-% --------------------------------------------------
-\subsubsection*{7.3.1 What MPI Programs Look Like at Runtime}
+% --\subsubsection*{7.3.1 What MPI Programs Look Like at Runtime}
 \addcontentsline{toc}{subsubsection}{7.3.1 What MPI Programs Look Like at Runtime}
 
 An MPI program is:
@@ -6734,8 +6444,7 @@ These processes:
 
 This is how parallelism is created in MPI.
 
-% --------------------------------------------------
-\subsubsection*{7.3.2 MPI Program Lifecycle}
+% --\subsubsection*{7.3.2 MPI Program Lifecycle}
 \addcontentsline{toc}{subsubsection}{7.3.2 MPI Program Lifecycle}
 
 Every MPI program follows this structure:
@@ -6751,8 +6460,7 @@ Missing any of these steps is an error.
 
 MPI is strict by design.
 
-% --------------------------------------------------
-\subsubsection*{7.3.3 Required MPI Calls}
+% --\subsubsection*{7.3.3 Required MPI Calls}
 \addcontentsline{toc}{subsubsection}{7.3.3 Required MPI Calls}
 
 Minimal MPI calls:
@@ -6768,8 +6476,7 @@ These four calls appear in almost every MPI program.
 
 They define the MPI execution context.
 
-% --------------------------------------------------
-\subsubsection*{7.3.4 Your First MPI Program}
+% --\subsubsection*{7.3.4 Your First MPI Program}
 \addcontentsline{toc}{subsubsection}{7.3.4 Your First MPI Program}
 
 Create file:
@@ -6801,8 +6508,7 @@ int main(int argc, char** argv) {
 
 This is the simplest valid MPI program.
 
-% --------------------------------------------------
-\subsubsection*{7.3.5 Compiling an MPI Program}
+% --\subsubsection*{7.3.5 Compiling an MPI Program}
 \addcontentsline{toc}{subsubsection}{7.3.5 Compiling an MPI Program}
 
 MPI programs must be compiled with:
@@ -6823,8 +6529,7 @@ Important:
 
 Do not use plain \texttt{g++}.
 
-% --------------------------------------------------
-\subsubsection*{7.3.6 Running an MPI Program}
+% --\subsubsection*{7.3.6 Running an MPI Program}
 \addcontentsline{toc}{subsubsection}{7.3.6 Running an MPI Program}
 
 MPI programs are launched using:
@@ -6846,8 +6551,7 @@ Expected output:
 
 This is real parallel execution.
 
-% --------------------------------------------------
-\subsubsection*{7.3.7 Important Observations}
+% --\subsubsection*{7.3.7 Important Observations}
 \addcontentsline{toc}{subsubsection}{7.3.7 Important Observations}
 
 Key points:
@@ -6865,8 +6569,7 @@ This unpredictability is due to:
 
 Not race conditions.
 
-% --------------------------------------------------
-\subsubsection*{7.3.8 Rank-Based Control}
+% --\subsubsection*{7.3.8 Rank-Based Control}
 \addcontentsline{toc}{subsubsection}{7.3.8 Rank-Based Control}
 
 Modify output:
@@ -6885,8 +6588,7 @@ This demonstrates:
 
 This pattern appears everywhere in MPI.
 
-% --------------------------------------------------
-\subsection*{Practice on Terminal (Mandatory)}
+% --\subsection*{Practice on Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 7.3)}
 
 \subsubsection*{Practice 1: Vary Process Count}
@@ -6904,8 +6606,7 @@ Observe:
 
 This confirms SPMD behavior.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Think About Memory}
+% --\subsubsection*{Practice 2: Think About Memory}
 
 Add:
 \begin{lstlisting}[language=C++]
@@ -6926,8 +6627,7 @@ Answer:
 
 This is the MPI guarantee.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 7.3)}
 
 Answer clearly:
@@ -6941,8 +6641,7 @@ Answer clearly:
 \subsection*{Lesson 7.4: Point-to-Point Communication -- MPI\_Send and MPI\_Recv}
 \addcontentsline{toc}{subsection}{Lesson 7.4: Point-to-Point Communication -- MPI\_Send and MPI\_Recv}
 
-% --------------------------------------------------
-\subsubsection*{7.4.1 MPI Is About Messages, Not Memory}
+% --\subsubsection*{7.4.1 MPI Is About Messages, Not Memory}
 \addcontentsline{toc}{subsubsection}{7.4.1 MPI Is About Messages, Not Memory}
 
 In MPI:
@@ -6962,8 +6661,7 @@ Nothing happens implicitly.
 
 This explicitness is MPI’s strength.
 
-% --------------------------------------------------
-\subsubsection*{7.4.2 The Basic Send/Receive Model}
+% --\subsubsection*{7.4.2 The Basic Send/Receive Model}
 \addcontentsline{toc}{subsubsection}{7.4.2 The Basic Send/Receive Model}
 
 The simplest communication pattern:
@@ -6985,8 +6683,7 @@ Blocking means:
   \item the call does not return immediately
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{7.4.3 MPI\_Send Syntax (Conceptual)}
+% --\subsubsection*{7.4.3 MPI\_Send Syntax (Conceptual)}
 \addcontentsline{toc}{subsubsection}{7.4.3 MPI\_Send Syntax (Conceptual)}
 
 Conceptual form:
@@ -7008,8 +6705,7 @@ Meaning:
 
 Every field matters.
 
-% --------------------------------------------------
-\subsubsection*{7.4.4 MPI\_Recv Syntax (Conceptual)}
+% --\subsubsection*{7.4.4 MPI\_Recv Syntax (Conceptual)}
 \addcontentsline{toc}{subsubsection}{7.4.4 MPI\_Recv Syntax (Conceptual)}
 
 Conceptual form:
@@ -7032,8 +6728,7 @@ If no matching send exists:
 
 This is how MPI deadlocks occur.
 
-% --------------------------------------------------
-\subsubsection*{7.4.5 Your First Send/Receive Example}
+% --\subsubsection*{7.4.5 Your First Send/Receive Example}
 \addcontentsline{toc}{subsubsection}{7.4.5 Your First Send/Receive Example}
 
 Goal:
@@ -7090,8 +6785,7 @@ mpirun -np 2 ./mpi_send_recv
 
 This is your first real message passing.
 
-% --------------------------------------------------
-\subsubsection*{7.4.6 Why Tags Exist}
+% --\subsubsection*{7.4.6 Why Tags Exist}
 \addcontentsline{toc}{subsubsection}{7.4.6 Why Tags Exist}
 
 The \texttt{tag}:
@@ -7113,8 +6807,7 @@ Tags prevent:
 
 They are cheap and powerful.
 
-% --------------------------------------------------
-\subsubsection*{7.4.7 Blocking Semantics (Very Important)}
+% --\subsubsection*{7.4.7 Blocking Semantics (Very Important)}
 \addcontentsline{toc}{subsubsection}{7.4.7 Blocking Semantics (Very Important)}
 
 \texttt{MPI\_Send} blocks until:
@@ -7139,8 +6832,7 @@ It means:
 
 Understanding this avoids subtle bugs.
 
-% --------------------------------------------------
-\subsubsection*{7.4.8 A Classic MPI Deadlock}
+% --\subsubsection*{7.4.8 A Classic MPI Deadlock}
 \addcontentsline{toc}{subsubsection}{7.4.8 A Classic MPI Deadlock}
 
 Consider two ranks:
@@ -7167,8 +6859,7 @@ This is an MPI deadlock.
 
 MPI requires careful ordering.
 
-% --------------------------------------------------
-\subsubsection*{7.4.9 How to Avoid Send/Recv Deadlocks}
+% --\subsubsection*{7.4.9 How to Avoid Send/Recv Deadlocks}
 \addcontentsline{toc}{subsubsection}{7.4.9 How to Avoid Send/Recv Deadlocks}
 
 Common strategies:
@@ -7185,8 +6876,7 @@ Rule of thumb:
 
 And the order must be compatible.
 
-% --------------------------------------------------
-\subsection*{Practice on Terminal (Mandatory)}
+% --\subsection*{Practice on Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 7.4)}
 
 \subsubsection*{Practice 1: Break It on Purpose}
@@ -7203,8 +6893,7 @@ Run and observe:
 
 This is a real MPI deadlock.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Fix the Deadlock}
+% --\subsubsection*{Practice 2: Fix the Deadlock}
 
 Fix by:
 \begin{itemize}
@@ -7216,8 +6905,7 @@ Re-run and verify correctness.
 
 This pattern appears constantly in MPI.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 7.4)}
 
 Answer carefully:
@@ -7231,8 +6919,7 @@ Answer carefully:
 \subsection*{Lesson 7.5: Collective Communication -- MPI\_Bcast and MPI\_Reduce}
 \addcontentsline{toc}{subsection}{Lesson 7.5: Collective Communication -- MPI\_Bcast and MPI\_Reduce}
 
-% --------------------------------------------------
-\subsubsection*{7.5.1 Why Collective Communication Exists}
+% --\subsubsection*{7.5.1 Why Collective Communication Exists}
 \addcontentsline{toc}{subsubsection}{7.5.1 Why Collective Communication Exists}
 
 Using only \texttt{MPI\_Send} and \texttt{MPI\_Recv}:
@@ -7250,8 +6937,7 @@ Many common patterns involve:
 
 MPI provides \textbf{collective operations} to express these patterns clearly.
 
-% --------------------------------------------------
-\subsubsection*{7.5.2 What Does ``Collective'' Mean?}
+% --\subsubsection*{7.5.2 What Does ``Collective'' Mean?}
 \addcontentsline{toc}{subsubsection}{7.5.2 What Does ``Collective'' Mean?}
 
 A collective operation:
@@ -7271,8 +6957,7 @@ Collectives are:
   \item synchronized by design
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{7.5.3 Broadcasting Data: MPI\_Bcast}
+% --\subsubsection*{7.5.3 Broadcasting Data: MPI\_Bcast}
 \addcontentsline{toc}{subsubsection}{7.5.3 Broadcasting Data: MPI\_Bcast}
 
 Problem:
@@ -7299,8 +6984,7 @@ This sends data:
 
 Efficient and safe.
 
-% --------------------------------------------------
-\subsubsection*{7.5.4 Example: Broadcasting a Value}
+% --\subsubsection*{7.5.4 Example: Broadcasting a Value}
 \addcontentsline{toc}{subsubsection}{7.5.4 Example: Broadcasting a Value}
 
 Create file:
@@ -7348,8 +7032,7 @@ Observe:
   \item all ranks receive the same value
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{7.5.5 Why MPI\_Bcast Is Better Than Manual Sends}
+% --\subsubsection*{7.5.5 Why MPI\_Bcast Is Better Than Manual Sends}
 \addcontentsline{toc}{subsubsection}{7.5.5 Why MPI\_Bcast Is Better Than Manual Sends}
 
 Advantages:
@@ -7366,8 +7049,7 @@ MPI libraries use:
 
 Manual sends cannot match this performance.
 
-% --------------------------------------------------
-\subsubsection*{7.5.6 Combining Values: MPI\_Reduce}
+% --\subsubsection*{7.5.6 Combining Values: MPI\_Reduce}
 \addcontentsline{toc}{subsubsection}{7.5.6 Combining Values: MPI\_Reduce}
 
 Problem:
@@ -7392,8 +7074,7 @@ This:
 
 This mirrors OpenMP reductions.
 
-% --------------------------------------------------
-\subsubsection*{7.5.7 Example: Parallel Sum with MPI\_Reduce}
+% --\subsubsection*{7.5.7 Example: Parallel Sum with MPI\_Reduce}
 \addcontentsline{toc}{subsubsection}{7.5.7 Example: Parallel Sum with MPI\_Reduce}
 
 Create file:
@@ -7442,8 +7123,7 @@ Expected result:
 1 + 2 + 3 + 4 = 10
 \]
 
-% --------------------------------------------------
-\subsubsection*{7.5.8 Common Reduction Operations}
+% --\subsubsection*{7.5.8 Common Reduction Operations}
 \addcontentsline{toc}{subsubsection}{7.5.8 Common Reduction Operations}
 
 MPI supports:
@@ -7461,8 +7141,7 @@ Operations must be:
 
 Just like OpenMP reductions.
 
-% --------------------------------------------------
-\subsubsection*{7.5.9 MPI\_Allreduce: Everyone Gets the Result}
+% --\subsubsection*{7.5.9 MPI\_Allreduce: Everyone Gets the Result}
 \addcontentsline{toc}{subsubsection}{7.5.9 MPI\_Allreduce: Everyone Gets the Result}
 
 Sometimes:
@@ -7483,8 +7162,7 @@ This:
 
 Very common in iterative solvers.
 
-% --------------------------------------------------
-\subsection*{Practice on Terminal (Mandatory)}
+% --\subsection*{Practice on Terminal (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 7.5)}
 
 \subsubsection*{Practice 1: Break the Rule}
@@ -7501,8 +7179,7 @@ This demonstrates:
   \item collectives require participation from all ranks
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Replace Manual Communication}
+% --\subsubsection*{Practice 2: Replace Manual Communication}
 
 Rewrite a program that:
 \begin{itemize}
@@ -7520,8 +7197,7 @@ Observe:
   \item fewer bugs
 \end{itemize}
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 7.5)}
 
 Answer carefully:
@@ -7538,8 +7214,7 @@ Answer carefully:
 \subsection*{Lesson 8.1: MPI + OpenMP -- Scaling Across Nodes and Cores}
 \addcontentsline{toc}{subsection}{Lesson 8.1: MPI + OpenMP -- Scaling Across Nodes and Cores}
 
-% --------------------------------------------------
-\subsubsection*{8.1.1 The Reality of Modern Supercomputers}
+% --\subsubsection*{8.1.1 The Reality of Modern Supercomputers}
 \addcontentsline{toc}{subsubsection}{8.1.1 The Reality of Modern Supercomputers}
 
 Modern supercomputers are:
@@ -7560,8 +7235,7 @@ Across nodes:
 
 No single model is sufficient.
 
-% --------------------------------------------------
-\subsubsection*{8.1.2 Why Pure MPI Is Not Enough}
+% --\subsubsection*{8.1.2 Why Pure MPI Is Not Enough}
 \addcontentsline{toc}{subsubsection}{8.1.2 Why Pure MPI Is Not Enough}
 
 Using only MPI:
@@ -7579,8 +7253,7 @@ Problems:
 MPI is excellent across nodes.
 It is inefficient inside a node.
 
-% --------------------------------------------------
-\subsubsection*{8.1.3 Why Pure OpenMP Is Not Enough}
+% --\subsubsection*{8.1.3 Why Pure OpenMP Is Not Enough}
 \addcontentsline{toc}{subsubsection}{8.1.3 Why Pure OpenMP Is Not Enough}
 
 Using only OpenMP:
@@ -7597,8 +7270,7 @@ Problems:
 OpenMP is excellent inside a node.
 It cannot cross node boundaries.
 
-% --------------------------------------------------
-\subsubsection*{8.1.4 The Hybrid Solution}
+% --\subsubsection*{8.1.4 The Hybrid Solution}
 \addcontentsline{toc}{subsubsection}{8.1.4 The Hybrid Solution}
 
 Hybrid programming uses:
@@ -7615,8 +7287,7 @@ Structure:
 
 This matches hardware topology.
 
-% --------------------------------------------------
-\subsubsection*{8.1.5 The Mental Model}
+% --\subsubsection*{8.1.5 The Mental Model}
 \addcontentsline{toc}{subsubsection}{8.1.5 The Mental Model}
 
 Think in two levels:
@@ -7635,8 +7306,7 @@ Think in two levels:
 
 Never mix the responsibilities.
 
-% --------------------------------------------------
-\subsubsection*{8.1.6 Hybrid Program Skeleton}
+% --\subsubsection*{8.1.6 Hybrid Program Skeleton}
 \addcontentsline{toc}{subsubsection}{8.1.6 Hybrid Program Skeleton}
 
 Typical hybrid structure:
@@ -7665,8 +7335,7 @@ int main(int argc, char** argv) {
 
 MPI and OpenMP coexist cleanly.
 
-% --------------------------------------------------
-\subsubsection*{8.1.7 Data Decomposition Strategy}
+% --\subsubsection*{8.1.7 Data Decomposition Strategy}
 \addcontentsline{toc}{subsubsection}{8.1.7 Data Decomposition Strategy}
 
 Correct decomposition:
@@ -7688,8 +7357,7 @@ Never:
 
 Communication is expensive.
 
-% --------------------------------------------------
-\subsubsection*{8.1.8 Environment Control}
+% --\subsubsection*{8.1.8 Environment Control}
 \addcontentsline{toc}{subsubsection}{8.1.8 Environment Control}
 
 Hybrid execution uses:
@@ -7712,8 +7380,7 @@ This launches:
 
 Total cores used = 32.
 
-% --------------------------------------------------
-\subsubsection*{8.1.9 Common Hybrid Mistakes}
+% --\subsubsection*{8.1.9 Common Hybrid Mistakes}
 \addcontentsline{toc}{subsubsection}{8.1.9 Common Hybrid Mistakes}
 
 Avoid:
@@ -7730,8 +7397,7 @@ Rule:
 
 This is real HPC thinking.
 
-% --------------------------------------------------
-\subsection*{Practice (Conceptual but Mandatory)}
+% --\subsection*{Practice (Conceptual but Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 8.1)}
 
 \subsubsection*{Practice 1: Hardware Mapping}
@@ -7749,8 +7415,7 @@ Design:
 
 Justify your choice.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: TA-Level Explanation}
+% --\subsubsection*{Practice 2: TA-Level Explanation}
 
 Explain to a student:
 \begin{itemize}
@@ -7759,8 +7424,7 @@ Explain to a student:
 
 If you can explain this clearly, you are TA-ready.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 8.1)}
 
 Answer clearly:
@@ -7774,8 +7438,7 @@ Answer clearly:
 \subsection*{Lesson 8.2: Performance Thinking, Profiling, and Scaling}
 \addcontentsline{toc}{subsection}{Lesson 8.2: Performance Thinking, Profiling, and Scaling}
 
-% --------------------------------------------------
-\subsubsection*{8.2.1 Correct $\neq$ Fast}
+% --\subsubsection*{8.2.1 Correct $\neq$ Fast}
 \addcontentsline{toc}{subsubsection}{8.2.1 Correct $\neq$ Fast}
 
 A common beginner mistake:
@@ -7796,8 +7459,7 @@ Performance is:
 
 It must be measured.
 
-% --------------------------------------------------
-\subsubsection*{8.2.2 Where Time Really Goes}
+% --\subsubsection*{8.2.2 Where Time Really Goes}
 \addcontentsline{toc}{subsubsection}{8.2.2 Where Time Really Goes}
 
 Execution time comes from:
@@ -7817,8 +7479,7 @@ Parallel programs often fail because of:
 
 Speedup is lost here.
 
-% --------------------------------------------------
-\subsubsection*{8.2.3 Measuring Time Properly}
+% --\subsubsection*{8.2.3 Measuring Time Properly}
 \addcontentsline{toc}{subsubsection}{8.2.3 Measuring Time Properly}
 
 Never measure performance using:
@@ -7848,8 +7509,7 @@ Always:
   \item measure only the computation region
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{8.2.4 Speedup and Efficiency}
+% --\subsubsection*{8.2.4 Speedup and Efficiency}
 \addcontentsline{toc}{subsubsection}{8.2.4 Speedup and Efficiency}
 
 Definitions:
@@ -7878,8 +7538,7 @@ Perfect scaling:
 
 This almost never happens in practice.
 
-% --------------------------------------------------
-\subsubsection*{8.2.5 Strong Scaling}
+% --\subsubsection*{8.2.5 Strong Scaling}
 \addcontentsline{toc}{subsubsection}{8.2.5 Strong Scaling}
 
 Strong scaling asks:
@@ -7901,8 +7560,7 @@ Strong scaling always saturates.
 
 This reveals synchronization and communication overheads.
 
-% --------------------------------------------------
-\subsubsection*{8.2.6 Weak Scaling}
+% --\subsubsection*{8.2.6 Weak Scaling}
 \addcontentsline{toc}{subsubsection}{8.2.6 Weak Scaling}
 
 Weak scaling asks:
@@ -7927,8 +7585,7 @@ Weak scaling is often:
 
 Supercomputers are designed for weak scaling.
 
-% --------------------------------------------------
-\subsubsection*{8.2.7 Interpreting Scaling Results}
+% --\subsubsection*{8.2.7 Interpreting Scaling Results}
 \addcontentsline{toc}{subsubsection}{8.2.7 Interpreting Scaling Results}
 
 If strong scaling is poor:
@@ -7945,8 +7602,7 @@ If weak scaling is poor:
 
 Scaling curves diagnose design flaws.
 
-% --------------------------------------------------
-\subsubsection*{8.2.8 Profiling vs Timing}
+% --\subsubsection*{8.2.8 Profiling vs Timing}
 \addcontentsline{toc}{subsubsection}{8.2.8 Profiling vs Timing}
 
 Timing tells:
@@ -7967,8 +7623,7 @@ Common profiling questions:
 
 Real HPC work always profiles.
 
-% --------------------------------------------------
-\subsubsection*{8.2.9 The TA Mindset}
+% --\subsubsection*{8.2.9 The TA Mindset}
 \addcontentsline{toc}{subsubsection}{8.2.9 The TA Mindset}
 
 As a TA, always push students to:
@@ -7989,8 +7644,7 @@ Correct answer is:
 
 This is scientific thinking.
 
-% --------------------------------------------------
-\subsection*{Practice (Mandatory)}
+% --\subsection*{Practice (Mandatory)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 8.2)}
 
 \subsubsection*{Practice 1: Strong Scaling Experiment}
@@ -8012,8 +7666,7 @@ Explain:
   \item where scaling saturates
 \end{itemize}
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Weak Scaling Thought Experiment}
+% --\subsubsection*{Practice 2: Weak Scaling Thought Experiment}
 
 Imagine:
 \begin{itemize}
@@ -8027,8 +7680,7 @@ Ask:
 
 Answering this correctly shows maturity.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 8.2)}
 
 Answer clearly:
@@ -8042,8 +7694,7 @@ Answer clearly:
 \subsection*{Lesson 8.3: Common Student Mistakes \& How to Teach Parallel Computing}
 \addcontentsline{toc}{subsection}{Lesson 8.3: Common Student Mistakes \& How to Teach Parallel Computing}
 
-% --------------------------------------------------
-\subsubsection*{8.3.1 The Root Problem: Sequential Thinking}
+% --\subsubsection*{8.3.1 The Root Problem: Sequential Thinking}
 \addcontentsline{toc}{subsubsection}{8.3.1 The Root Problem: Sequential Thinking}
 
 The most common student mistake is:
@@ -8060,8 +7711,7 @@ Symptoms:
 
 As a TA, you must attack the \textbf{mental model}, not the syntax.
 
-% --------------------------------------------------
-\subsubsection*{8.3.2 Mistake \#1: ``Output Order Is Wrong''}
+% --\subsubsection*{8.3.2 Mistake \#1: ``Output Order Is Wrong''}
 \addcontentsline{toc}{subsubsection}{8.3.2 Mistake \#1: ``Output Order Is Wrong''}
 
 Students often complain:
@@ -8085,8 +7735,7 @@ Golden line to say:
 \emph{``If you want order, you must program order.''}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{8.3.3 Mistake \#2: Shared Temporary Variables}
+% --\subsubsection*{8.3.3 Mistake \#2: Shared Temporary Variables}
 \addcontentsline{toc}{subsubsection}{8.3.3 Mistake \#2: Shared Temporary Variables}
 
 Classic bug:
@@ -8117,8 +7766,7 @@ Fix:
 
 This visual explanation works every time.
 
-% --------------------------------------------------
-\subsubsection*{8.3.4 Mistake \#3: ``Locks Fix Everything''}
+% --\subsubsection*{8.3.4 Mistake \#3: ``Locks Fix Everything''}
 \addcontentsline{toc}{subsubsection}{8.3.4 Mistake \#3: ``Locks Fix Everything''}
 
 Students often:
@@ -8142,8 +7790,7 @@ Golden rule:
 \emph{Locks are correctness tools, not performance tools.}
 \end{quote}
 
-% --------------------------------------------------
-\subsubsection*{8.3.5 Mistake \#4: Confusing Threads and Processes}
+% --\subsubsection*{8.3.5 Mistake \#4: Confusing Threads and Processes}
 \addcontentsline{toc}{subsubsection}{8.3.5 Mistake \#4: Confusing Threads and Processes}
 
 Students confuse:
@@ -8166,8 +7813,7 @@ Teaching strategy:
 
 Prediction exercises expose misunderstandings immediately.
 
-% --------------------------------------------------
-\subsubsection*{8.3.6 Mistake \#5: Ignoring Scaling}
+% --\subsubsection*{8.3.6 Mistake \#5: Ignoring Scaling}
 \addcontentsline{toc}{subsubsection}{8.3.6 Mistake \#5: Ignoring Scaling}
 
 Students often:
@@ -8184,8 +7830,7 @@ Teaching strategy:
 
 This turns coding into scientific analysis.
 
-% --------------------------------------------------
-\subsubsection*{8.3.7 How to Answer Student Questions Properly}
+% --\subsubsection*{8.3.7 How to Answer Student Questions Properly}
 \addcontentsline{toc}{subsubsection}{8.3.7 How to Answer Student Questions Properly}
 
 Bad TA answer:
@@ -8206,8 +7851,7 @@ Always redirect students to:
 
 Not copy-paste fixes.
 
-% --------------------------------------------------
-\subsubsection*{8.3.8 Teaching Order for Maximum Clarity}
+% --\subsubsection*{8.3.8 Teaching Order for Maximum Clarity}
 \addcontentsline{toc}{subsubsection}{8.3.8 Teaching Order for Maximum Clarity}
 
 Recommended order (never skip):
@@ -8223,8 +7867,7 @@ Skipping steps causes fear and confusion.
 
 You followed this order correctly.
 
-% --------------------------------------------------
-\subsubsection*{8.3.9 The Calm Authority Mindset}
+% --\subsubsection*{8.3.9 The Calm Authority Mindset}
 \addcontentsline{toc}{subsubsection}{8.3.9 The Calm Authority Mindset}
 
 As a TA:
@@ -8240,8 +7883,7 @@ Say:
 
 This builds confidence instead of fear.
 
-% --------------------------------------------------
-\subsection*{Practice (Mandatory for TA Readiness)}
+% --\subsection*{Practice (Mandatory for TA Readiness)}
 \addcontentsline{toc}{subsection}{Practice (Lesson 8.3)}
 
 \subsubsection*{Practice 1: Diagnose a Bug}
@@ -8260,8 +7902,7 @@ Ask students:
 Do not fix immediately.
 Force reasoning.
 
-% --------------------------------------------------
-\subsubsection*{Practice 2: Explain Without Code}
+% --\subsubsection*{Practice 2: Explain Without Code}
 
 Explain to a student:
 \begin{itemize}
@@ -8270,8 +7911,7 @@ Explain to a student:
 
 If you can do this verbally, you truly understand it.
 
-% --------------------------------------------------
-\subsection*{Checkpoint Questions}
+% --\subsection*{Checkpoint Questions}
 \addcontentsline{toc}{subsection}{Checkpoint Questions (Lesson 8.3)}
 
 Answer clearly:
