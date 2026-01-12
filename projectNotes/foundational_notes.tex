@@ -1,0 +1,4036 @@
+\documentclass[12pt,a4paper]{article}
+
+% ================== Packages ==================
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\begin{document}
+
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Foundation Notes}}\\[0.5em]
+    {\large Preparing for Waves, Vibrations, and Rayleigh Theory}\\[1em]
+    {\Large \textbf{Chapter 0: What Physics Is Actually Doing}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Introduction ==================
+\section*{Why this chapter exists}
+
+Before we learn equations, symbols, or formulas, we must answer one very important question:
+
+\begin{quote}
+\textbf{What is physics trying to do in the first place?}
+\end{quote}
+
+Most students struggle with physics not because the mathematics is too hard,  
+but because they never clearly understood \emph{why} mathematics appears at all.
+
+This chapter exists to remove that confusion completely.
+
+No formulas will be used yet.  
+No calculations will be required.
+
+We are only learning how to \emph{think}.
+
+
+
+% ================== Section ==================
+\section{Reality vs Description}
+
+The real world contains:
+\begin{itemize}
+    \item moving objects,
+    \item vibrating ground,
+    \item flowing air,
+    \item changing temperatures.
+\end{itemize}
+
+Physics does \emph{not} contain these things.
+
+Physics contains \textbf{descriptions} of these things.
+
+This distinction is crucial.
+
+\begin{quote}
+\textbf{Reality is not an equation.  
+An equation is a description of reality.}
+\end{quote}
+
+
+
+% ================== Models ==================
+\section{What Is a Model?}
+
+A \textbf{model} is a simplified description of something real.
+
+Examples:
+\begin{itemize}
+    \item A map is a model of a city.
+    \item A globe is a model of the Earth.
+    \item A graph is a model of motion.
+\end{itemize}
+
+A model is never perfect.
+
+It is useful if it captures what matters and ignores what does not.
+
+Physics is the art of choosing good models.
+
+
+
+% ================== Why Math ==================
+\section{Why Physics Uses Mathematics}
+
+Words are good for stories.
+
+Mathematics is good for:
+\begin{itemize}
+    \item precision,
+    \item prediction,
+    \item compression of ideas.
+\end{itemize}
+
+The sentence:
+\begin{quote}
+``The motion changes smoothly in time''
+\end{quote}
+
+can be written compactly as:
+\begin{quote}
+``a function of time''
+\end{quote}
+
+Mathematics is not used to confuse.  
+It is used to say more with fewer words.
+
+
+
+% ================== Symbols ==================
+\section{What Symbols Really Are}
+
+A symbol is simply a \emph{name}.
+
+For example:
+\begin{itemize}
+    \item $t$ is a name for time,
+    \item $x$ is a name for position,
+    \item $u$ might be a name for motion.
+\end{itemize}
+
+Nothing mystical is happening.
+
+Writing:
+\[
+x(t)
+\]
+just means:
+\begin{quote}
+``The position depends on time.''
+\end{quote}
+
+That is all.
+
+
+
+% ================== Functions ==================
+\section{What a Function Means}
+
+A function answers the question:
+
+\begin{quote}
+\textbf{If I tell you one thing, can you tell me another?}
+\end{quote}
+
+Examples:
+\begin{itemize}
+    \item If I tell you the time, can you tell me the position?
+    \item If I tell you the day, can you tell me the temperature?
+\end{itemize}
+
+A function is not a formula first.  
+It is a \emph{relationship} first.
+
+Formulas come later.
+
+
+
+% ================== Change ==================
+\section{Why Change Matters}
+
+Physics is interested in change.
+
+Things that never change are boring to physics.
+
+Examples of change:
+\begin{itemize}
+    \item motion,
+    \item vibration,
+    \item sound,
+    \item waves.
+\end{itemize}
+
+Later, we will measure change very precisely.  
+For now, it is enough to understand that physics studies how things vary.
+
+
+
+% ================== Prediction ==================
+\section{What Physics Tries to Predict}
+
+A good physical model allows us to answer questions like:
+\begin{itemize}
+    \item Where will this object be later?
+    \item How fast will it move?
+    \item How strong will the vibration be?
+\end{itemize}
+
+Physics is not about memorizing formulas.
+
+Physics is about:
+\begin{quote}
+\textbf{understanding patterns well enough to predict them.}
+\end{quote}
+
+
+
+% ================== Fear ==================
+\section{About Fear of Mathematics}
+
+Many students fear symbols.
+
+This fear usually comes from seeing equations \emph{before} understanding meaning.
+
+In these notes:
+\begin{itemize}
+    \item meaning always comes first,
+    \item symbols are introduced slowly,
+    \item every equation earns its place.
+\end{itemize}
+
+You are not expected to accept anything blindly.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will begin with the simplest kind of change:
+
+\begin{quote}
+\textbf{Motion that goes back and forth.}
+\end{quote}
+
+This kind of motion is called \emph{oscillation}.
+
+Oscillation is the heart of:
+\begin{itemize}
+    \item sound,
+    \item waves,
+    \item earthquakes,
+    \item Rayleigh waves.
+\end{itemize}
+
+% ================== Title ==================
+\pagebreak
+\begin{center}
+    {\Large \textbf{Chapter 1: Motion and Change}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Introduction ==================
+\section*{Why this chapter exists}
+
+Physics is the study of \textbf{change}.
+
+Before we talk about waves, vibrations, or earthquakes,  
+we must understand the simplest kind of change:
+
+\begin{quote}
+\textbf{How position changes with time.}
+\end{quote}
+
+This chapter introduces motion in a way that feels natural, visual, and intuitive.
+
+
+
+% ================== Motion ==================
+\section{What Is Motion?}
+
+An object is said to be in motion if its position changes with time.
+
+Examples:
+\begin{itemize}
+    \item a car moving on a road,
+    \item a person walking,
+    \item a point on a vibrating string.
+\end{itemize}
+
+To describe motion, we must answer two questions:
+\begin{itemize}
+    \item Where is the object?
+    \item When is it there?
+\end{itemize}
+
+
+
+% ================== Position ==================
+\section{Position as a Number}
+
+To describe position, we choose a reference line.
+
+Along this line:
+\begin{itemize}
+    \item each location is assigned a number,
+    \item positive and negative directions are defined.
+\end{itemize}
+
+We call this number the \textbf{position} and usually denote it by:
+\[
+x
+\]
+
+
+
+% ================== Time ==================
+\section{Time as a Variable}
+
+Time tells us \emph{when} something happens.
+
+We denote time by:
+\[
+t
+\]
+
+Time flows forward, and we measure it using clocks.
+
+
+
+% ================== Position vs Time ==================
+\section{Position Depends on Time}
+
+In most situations, position is not fixed.
+
+It changes as time passes.
+
+We express this idea by writing:
+\[
+x(t)
+\]
+
+This is read as:
+\begin{quote}
+``Position as a function of time.''
+\end{quote}
+
+It does \emph{not} mean multiplication.
+
+It means dependence.
+
+
+
+% ================== Graphs ==================
+\section{Graphs Tell Stories}
+
+One of the most powerful tools in physics is a graph.
+
+A graph of position versus time shows:
+\begin{itemize}
+    \item time on the horizontal axis,
+    \item position on the vertical axis.
+\end{itemize}
+
+Each point on the graph answers the question:
+\begin{quote}
+\textbf{Where was the object at this moment in time?}
+\end{quote}
+
+
+
+% ================== Straight Line Motion ==================
+\section{Constant Motion}
+
+If an object moves equal distances in equal times,
+its position–time graph is a straight line.
+
+This means:
+\begin{itemize}
+    \item the motion is steady,
+    \item the change is uniform.
+\end{itemize}
+
+The steepness of the line tells us how fast the object is moving.
+
+
+
+% ================== Speed ==================
+\section{Speed as Rate of Change}
+
+Speed measures how quickly position changes.
+
+On a position–time graph:
+\begin{quote}
+\textbf{Speed is the slope of the graph.}
+\end{quote}
+
+Steeper slope means higher speed.
+
+Gentler slope means slower motion.
+
+
+
+% ================== Velocity ==================
+\section{Direction Matters}
+
+Speed tells us how fast.
+
+Velocity tells us:
+\begin{itemize}
+    \item how fast,
+    \item in which direction.
+\end{itemize}
+
+A positive slope means motion in the positive direction.
+
+A negative slope means motion in the opposite direction.
+
+
+
+% ================== Changing Speed ==================
+\section{When Motion Is Not Constant}
+
+If the graph is curved:
+\begin{itemize}
+    \item speed is changing,
+    \item motion is not uniform.
+\end{itemize}
+
+This happens when:
+\begin{itemize}
+    \item an object accelerates,
+    \item an object slows down,
+    \item motion reverses direction.
+\end{itemize}
+
+
+
+% ================== Idea of Derivative ==================
+\section{The Idea of Instantaneous Change}
+
+Sometimes we want to know:
+\begin{quote}
+\textbf{How fast is the object moving at one exact moment?}
+\end{quote}
+
+This is called \textbf{instantaneous velocity}.
+
+We find it by looking at:
+\begin{itemize}
+    \item the slope of the graph at one point,
+    \item not over a long interval.
+\end{itemize}
+
+Later, this idea becomes the derivative.
+
+For now, it is enough to understand it visually.
+
+
+
+% ================== Why This Matters ==================
+\section{Why Motion Matters for Waves}
+
+Waves are made of many points moving back and forth.
+
+If we cannot describe the motion of one point,
+we cannot describe a wave.
+
+Everything that follows — oscillations, waves, energy —  
+is built on this foundation.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should be comfortable with:
+\begin{itemize}
+    \item position as a number,
+    \item time as a variable,
+    \item position as a function of time,
+    \item graphs as descriptions of motion,
+    \item speed as rate of change.
+\end{itemize}
+
+No formulas were memorized.
+
+Everything was understood.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will study a very special kind of motion:
+
+\begin{quote}
+\textbf{Motion that repeats itself.}
+\end{quote}
+
+This is called \emph{oscillation},  
+and it is the heart of waves and vibrations.
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 2: Repetition and Oscillation}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Introduction ==================
+\section*{Why this chapter exists}
+
+In the previous chapter, we studied motion that moves forward.
+
+Now we study a very special kind of motion:
+
+\begin{quote}
+\textbf{Motion that repeats itself.}
+\end{quote}
+
+This kind of motion is called \emph{oscillation}.
+
+Oscillation is the foundation of:
+\begin{itemize}
+    \item sound,
+    \item musical instruments,
+    \item waves,
+    \item earthquakes,
+    \item Rayleigh waves.
+\end{itemize}
+
+If oscillation is understood well, everything later becomes easier.
+
+
+
+% ================== Repetition ==================
+\section{What Does It Mean to Repeat?}
+
+Something repeats if it goes through the same sequence of motion again and again.
+
+Examples:
+\begin{itemize}
+    \item a pendulum swinging,
+    \item a mass on a spring,
+    \item a child on a swing,
+    \item a vibrating guitar string.
+\end{itemize}
+
+After some time, the motion looks exactly the same as before.
+
+
+
+% ================== Cycle ==================
+\section{One Complete Cycle}
+
+A \textbf{cycle} is one complete repetition of motion.
+
+For a swinging pendulum:
+\begin{itemize}
+    \item starting from the center,
+    \item going to one side,
+    \item coming back to the center,
+    \item going to the other side,
+    \item returning to the center.
+\end{itemize}
+
+That entire motion is one cycle.
+
+
+
+% ================== Period ==================
+\section{Period: How Long One Cycle Takes}
+
+The \textbf{period} is the time taken to complete one cycle.
+
+We usually denote the period by:
+\[
+T
+\]
+
+If one cycle takes 2 seconds, then:
+\[
+T = 2 \text{ seconds}
+\]
+
+
+
+% ================== Frequency ==================
+\section{Frequency: How Fast Repetition Happens}
+
+Instead of asking:
+\begin{quote}
+``How long does one cycle take?''
+\end{quote}
+
+we can ask:
+\begin{quote}
+``How many cycles happen in one second?''
+\end{quote}
+
+This is called the \textbf{frequency}.
+
+Frequency is denoted by:
+\[
+f
+\]
+
+
+
+% ================== Relation ==================
+\section{Relation Between Period and Frequency}
+
+Period and frequency describe the same thing in two different ways.
+
+If one cycle takes $T$ seconds, then the number of cycles per second is:
+\[
+f = \frac{1}{T}
+\]
+
+If the period is large:
+\begin{itemize}
+    \item repetition is slow,
+    \item frequency is small.
+\end{itemize}
+
+If the period is small:
+\begin{itemize}
+    \item repetition is fast,
+    \item frequency is large.
+\end{itemize}
+
+
+
+% ================== Examples ==================
+\section{Examples from Everyday Life}
+
+\subsection*{Clocks}
+A clock ticking once per second has:
+\[
+T = 1 \text{ s}, \quad f = 1 \text{ Hz}
+\]
+
+\subsection*{Music}
+A musical note with frequency 440 Hz means:
+\begin{itemize}
+    \item 440 oscillations every second.
+\end{itemize}
+
+Higher pitch means higher frequency.
+
+
+
+% ================== Why Physics Loves Oscillations ==================
+\section{Why Oscillations Are Special in Physics}
+
+Oscillations are important because:
+\begin{itemize}
+    \item they are predictable,
+    \item they are stable,
+    \item they can store and transfer energy.
+\end{itemize}
+
+Many complicated motions can be broken into simple oscillations.
+
+This idea becomes very powerful later.
+
+
+
+% ================== Oscillation in Space ==================
+\section{Oscillation Is Motion About a Balance Point}
+
+In oscillatory motion:
+\begin{itemize}
+    \item the object moves back and forth,
+    \item there is a central position,
+    \item motion happens around that position.
+\end{itemize}
+
+This central position is called the \textbf{equilibrium}.
+
+
+
+% ================== Small Oscillations ==================
+\section{Small Oscillations}
+
+If oscillations are small:
+\begin{itemize}
+    \item the motion is smooth,
+    \item the pattern repeats cleanly.
+\end{itemize}
+
+This is why physics often studies small oscillations first.
+
+They reveal the essential behavior.
+
+
+
+% ================== Why This Matters ==================
+\section{Why Oscillation Matters for Waves}
+
+A wave is made of many points oscillating:
+\begin{itemize}
+    \item each point repeats motion in time,
+    \item neighboring points repeat with a delay.
+\end{itemize}
+
+Understanding one oscillation prepares us to understand waves.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should be comfortable with:
+\begin{itemize}
+    \item what oscillation means,
+    \item what a cycle is,
+    \item the meaning of period $T$,
+    \item the meaning of frequency $f$,
+    \item the relation $f = 1/T$.
+\end{itemize}
+
+These ideas will appear everywhere later.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will look at a very special shape:
+
+\begin{quote}
+\textbf{The sine wave.}
+\end{quote}
+
+This shape describes oscillation mathematically and leads directly to wave theory.
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 3: Sine and Cosine as Shapes}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Introduction ==================
+\section*{Why this chapter exists}
+
+In the previous chapter, we learned that oscillation is motion that repeats.
+
+Now we ask a natural question:
+
+\begin{quote}
+\textbf{What does repeating motion look like when we draw it?}
+\end{quote}
+
+The answer leads us to two very special shapes:
+\begin{itemize}
+    \item the sine curve,
+    \item the cosine curve.
+\end{itemize}
+
+These shapes appear everywhere in wave physics.
+
+
+
+% ================== Drawing Motion ==================
+\section{Drawing Oscillatory Motion}
+
+Imagine a point that moves:
+\begin{itemize}
+    \item up,
+    \item down,
+    \item up,
+    \item down,
+\end{itemize}
+in a smooth and regular way.
+
+If we draw its position versus time, we get a smooth, repeating curve.
+
+This curve is called a \textbf{sine wave}.
+
+
+
+% ================== Shape First ==================
+\section{Sine as a Shape, Not a Formula}
+
+At this stage, forget formulas.
+
+Think only about shape.
+
+A sine curve:
+\begin{itemize}
+    \item repeats itself,
+    \item is smooth,
+    \item has no sharp corners,
+    \item goes equally high and low.
+\end{itemize}
+
+This makes it perfect for describing smooth oscillations.
+
+
+
+% ================== Amplitude ==================
+\section{Amplitude: How Big the Motion Is}
+
+The maximum distance from the center position is called the \textbf{amplitude}.
+
+We usually denote amplitude by:
+\[
+A
+\]
+
+A larger amplitude means:
+\begin{itemize}
+    \item bigger motion,
+    \item more energy.
+\end{itemize}
+
+A smaller amplitude means gentler motion.
+
+
+
+% ================== Center ==================
+\section{The Middle Position}
+
+Sine and cosine oscillate around a central value.
+
+Often this central value is zero.
+
+This corresponds to oscillation about equilibrium.
+
+
+
+% ================== Period Again ==================
+\section{Period Revisited}
+
+The sine curve repeats after a fixed time.
+
+This time is exactly the \textbf{period} $T$.
+
+The shape looks the same after every interval of length $T$.
+
+
+
+% ================== Phase ==================
+\section{Phase: Where You Are in the Cycle}
+
+Two sine waves can have the same shape but start differently.
+
+This difference is called the \textbf{phase}.
+
+Phase tells us:
+\begin{itemize}
+    \item where the motion is in its cycle,
+    \item whether it starts at the center or the peak.
+\end{itemize}
+
+Phase will become very important later.
+
+
+
+% ================== Sine vs Cosine ==================
+\section{Sine and Cosine Together}
+
+Sine and cosine have the same shape.
+
+The only difference:
+\begin{itemize}
+    \item sine starts at zero,
+    \item cosine starts at a maximum.
+\end{itemize}
+
+They are just shifted versions of each other.
+
+
+
+% ================== Writing the Shape ==================
+\section{Writing the Shape Mathematically}
+
+Now we allow ourselves to write:
+\[
+x(t) = A \sin(\text{something})
+\]
+
+This means:
+\begin{quote}
+``Position varies in a smooth, repeating way.''
+\end{quote}
+
+The exact contents of ``something'' will be explained soon.
+
+
+
+% ================== Why Sine ==================
+\section{Why Sine Waves Appear Everywhere}
+
+Sine waves appear because:
+\begin{itemize}
+    \item they repeat smoothly,
+    \item their shape does not change over time,
+    \item they combine well with each other.
+\end{itemize}
+
+Nature prefers smoothness.
+
+Sine waves provide that.
+
+
+
+% ================== Superposition ==================
+\section{Combining Oscillations (Preview)}
+
+If two sine waves are added:
+\begin{itemize}
+    \item the result is still smooth,
+    \item patterns remain predictable.
+\end{itemize}
+
+Later, we will see that complicated motion can be built from simple sine waves.
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Waves}
+
+Every wave we study later:
+\begin{itemize}
+    \item uses sine or cosine in time,
+    \item uses sine or cosine in space,
+    \item combines both smoothly.
+\end{itemize}
+
+This chapter gives the shape that waves are built from.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item recognize a sine wave by shape,
+    \item understand amplitude,
+    \item understand phase qualitatively,
+    \item see sine and cosine as shifted versions.
+\end{itemize}
+
+No trigonometry tricks were required.
+
+Only understanding.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will ask:
+
+\begin{quote}
+\textbf{How fast does a sine wave oscillate?}
+\end{quote}
+
+This will lead us to angular frequency and time-harmonic motion.
+
+\pagebreak
+
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 4: Time-Harmonic Motion}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+So far, we have learned:
+\begin{itemize}
+    \item how motion is described,
+    \item what oscillation means,
+    \item how sine and cosine describe repeating motion.
+\end{itemize}
+
+Now we take a crucial step.
+
+We decide to focus on a very special kind of motion:
+
+\begin{quote}
+\textbf{Motion that repeats forever with a single frequency.}
+\end{quote}
+
+This is called \textbf{time-harmonic motion}.
+
+This choice is not arbitrary.
+It is the foundation of all wave theory.
+
+
+
+% ================== Single Frequency ==================
+\section{What Does “Single Frequency” Mean?}
+
+Consider an oscillation that:
+\begin{itemize}
+    \item repeats perfectly,
+    \item never changes its shape,
+    \item never changes its rhythm.
+\end{itemize}
+
+Such motion has exactly \emph{one} frequency.
+
+This means:
+\begin{itemize}
+    \item every cycle takes the same amount of time,
+    \item the motion is perfectly regular.
+\end{itemize}
+
+This is the cleanest motion nature allows.
+
+
+
+% ================== Mathematical Expression ==================
+\section{Writing Time-Harmonic Motion}
+
+We write time-harmonic motion as:
+\[
+x(t) = A \sin(\omega t)
+\]
+
+Let us interpret every symbol carefully.
+
+\begin{itemize}
+    \item $x(t)$ is the position at time $t$
+    \item $A$ is the amplitude (how large the motion is)
+    \item $\omega$ controls how fast the oscillation happens
+\end{itemize}
+
+Nothing in this equation is mysterious.
+
+
+
+% ================== Angular Frequency ==================
+\section{Why We Use Angular Frequency}
+
+Earlier, we defined frequency as:
+\[
+f = \frac{1}{T}
+\]
+
+Physics almost always uses:
+\[
+\omega = 2\pi f
+\]
+
+Why?
+
+Because sine and cosine naturally repeat every $2\pi$.
+
+Using $\omega$:
+\begin{itemize}
+    \item simplifies equations,
+    \item removes unnecessary constants,
+    \item makes calculus cleaner.
+\end{itemize}
+
+This is a mathematical convenience, not a new physical idea.
+
+
+
+% ================== Units ==================
+\section{Units and Meaning}
+
+Frequency $f$ is measured in:
+\[
+\text{cycles per second (Hz)}
+\]
+
+Angular frequency $\omega$ is measured in:
+\[
+\text{radians per second}
+\]
+
+Both describe how fast oscillation occurs.
+They carry the same information.
+
+
+
+% ================== Phase ==================
+\section{Phase: Shifting the Oscillation}
+
+A more general harmonic motion is:
+\[
+x(t) = A \sin(\omega t + \phi)
+\]
+
+Here $\phi$ is called the \textbf{phase}.
+
+Phase does not change:
+\begin{itemize}
+    \item the frequency,
+    \item the amplitude,
+    \item the shape.
+\end{itemize}
+
+It only changes \emph{where} the motion starts in time.
+
+
+
+% ================== Graphical Meaning ==================
+\section{Graphical Interpretation}
+
+On a graph of position versus time:
+\begin{itemize}
+    \item amplitude controls height,
+    \item frequency controls spacing of peaks,
+    \item phase controls horizontal shift.
+\end{itemize}
+
+Every parameter has a clear geometric meaning.
+
+
+
+% ================== Why Physics Loves Harmonic Motion ==================
+\section{Why Harmonic Motion Is Central in Physics}
+
+Physics focuses on time-harmonic motion because:
+
+\begin{itemize}
+    \item many systems naturally oscillate this way,
+    \item complicated motion can be decomposed into harmonics,
+    \item equations become solvable.
+\end{itemize}
+
+This idea will later become:
+\begin{quote}
+\textbf{Fourier analysis.}
+\end{quote}
+
+
+
+% ================== Preview of Differentiation ==================
+\section{A First Look at Differentiation}
+
+If:
+\[
+x(t) = \sin(\omega t)
+\]
+
+then:
+\[
+\frac{dx}{dt} \propto \cos(\omega t)
+\]
+
+and:
+\[
+\frac{d^2x}{dt^2} \propto -\sin(\omega t)
+\]
+
+The shape stays the same.
+
+This property will become extremely important.
+
+
+
+% ================== Why This Matters for Waves ==================
+\section{Why Time-Harmonic Motion Leads to Waves}
+
+A wave is built from:
+\begin{itemize}
+    \item oscillation in time,
+    \item variation in space.
+\end{itemize}
+
+If we understand time-harmonic motion,
+we only need to add \emph{space dependence} to obtain waves.
+
+That is exactly what we will do later.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should clearly understand:
+\begin{itemize}
+    \item what time-harmonic motion is,
+    \item why $\omega$ is used instead of $f$,
+    \item what amplitude and phase mean,
+    \item why harmonic motion is central to physics.
+\end{itemize}
+
+Nothing here was arbitrary.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will face an honest problem:
+
+\begin{quote}
+\textbf{Real sine and cosine functions make calculations messy.}
+\end{quote}
+
+This problem will force us to introduce a powerful new idea.
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 5: Why Real Sines Are Inconvenient}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Introduction ==================
+\section*{Why this chapter exists}
+
+Up to now, we have described oscillations using sine and cosine.
+
+This works well — but not perfectly.
+
+In this chapter, we will discover a problem:
+
+\begin{quote}
+\textbf{Real sine and cosine functions are conceptually simple,  
+but mathematically inconvenient.}
+\end{quote}
+
+This problem will naturally lead us to a better tool.
+
+
+
+% ================== Differentiation ==================
+\section{What Happens When We Differentiate a Sine?}
+
+Consider the time-harmonic motion:
+\[
+x(t) = A \sin(\omega t)
+\]
+
+Its rate of change is:
+\[
+\frac{dx}{dt} = A \omega \cos(\omega t)
+\]
+
+Differentiating again:
+\[
+\frac{d^2x}{dt^2} = -A \omega^2 \sin(\omega t)
+\]
+
+Notice what happened:
+\begin{itemize}
+    \item sine became cosine,
+    \item cosine became sine again,
+    \item signs changed.
+\end{itemize}
+
+The shape stays the same, but the expression keeps changing.
+
+
+
+% ================== Algebraic Mess ==================
+\section{Why This Becomes Messy}
+
+In wave physics, we often:
+\begin{itemize}
+    \item differentiate many times,
+    \item add oscillations,
+    \item multiply by constants,
+    \item solve differential equations.
+\end{itemize}
+
+Using sine and cosine separately causes:
+\begin{itemize}
+    \item extra terms,
+    \item phase confusion,
+    \item longer calculations.
+\end{itemize}
+
+The physics stays simple.
+The algebra does not.
+
+
+
+% ================== Phase Shifts ==================
+\section{Phase Shifts Are Awkward with Sines}
+
+Consider:
+\[
+x(t) = A \sin(\omega t + \phi)
+\]
+
+Expanding this requires identities:
+\[
+\sin(\omega t + \phi) =
+\sin(\omega t)\cos\phi + \cos(\omega t)\sin\phi
+\]
+
+Now one oscillation becomes two.
+
+This is mathematically correct, but cumbersome.
+
+
+
+% ================== Combining Oscillations ==================
+\section{Adding Oscillations}
+
+Suppose we add two oscillations:
+\[
+x(t) = A_1 \sin(\omega t) + A_2 \cos(\omega t)
+\]
+
+This represents a single oscillation with a phase shift.
+
+But to see that requires more algebra.
+
+The physical idea is simple.
+The mathematics is not.
+
+
+
+% ================== A Wish ==================
+\section{What We Wish For}
+
+Ideally, we want a mathematical tool where:
+\begin{itemize}
+    \item differentiation does not change the shape,
+    \item phase shifts are easy,
+    \item algebra stays clean.
+\end{itemize}
+
+In other words, we want:
+\begin{quote}
+\textbf{a function that reproduces itself under differentiation.}
+\end{quote}
+
+
+
+% ================== Preview ==================
+\section{A Hint of What Is Coming}
+
+There exists a function with the magical property:
+\[
+\frac{d}{dt}(\text{function}) = \text{constant} \times (\text{same function})
+\]
+
+This function will allow us to:
+\begin{itemize}
+    \item replace trigonometry with algebra,
+    \item simplify wave equations,
+    \item think more clearly.
+\end{itemize}
+
+We will meet it in the next chapter.
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Waves}
+
+In wave theory:
+\begin{itemize}
+    \item equations involve derivatives,
+    \item oscillations repeat endlessly,
+    \item phase matters deeply.
+\end{itemize}
+
+If our mathematics is clumsy, our understanding suffers.
+
+A better mathematical language will help us see the physics clearly.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand why sine and cosine are inconvenient,
+    \item see why phase handling is messy,
+    \item feel the need for a better tool.
+\end{itemize}
+
+You should be asking:
+\begin{quote}
+\textbf{Is there a cleaner way?}
+\end{quote}
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will introduce:
+\begin{quote}
+\textbf{Complex numbers — not as abstraction, but as a solution.}
+\end{quote}
+
+% ================== Title ==================
+\pagebreak
+\begin{center}
+    {\Large \textbf{Chapter 6: Complex Numbers Without Fear}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+In the previous chapter, we discovered an honest problem:
+
+\begin{quote}
+\textbf{Sine and cosine describe oscillations well,  
+but they make calculations messy.}
+\end{quote}
+
+Physics does not introduce new mathematics for decoration.
+
+It introduces new mathematics only when it makes thinking simpler.
+
+This chapter introduces \textbf{complex numbers} for exactly that reason.
+
+
+
+% ================== What Is the Problem ==================
+\section{The Problem We Want to Solve}
+
+Recall the oscillation:
+\[
+x(t) = A \sin(\omega t + \phi)
+\]
+
+Differentiating, adding, or shifting this motion requires:
+\begin{itemize}
+    \item trigonometric identities,
+    \item careful bookkeeping of phases,
+    \item long algebra.
+\end{itemize}
+
+The physics is simple.
+The algebra is not.
+
+We want a tool where:
+\begin{itemize}
+    \item differentiation is easy,
+    \item phase shifts are simple,
+    \item oscillations keep the same form.
+\end{itemize}
+
+
+
+% ================== Imaginary Unit ==================
+\section{The Imaginary Unit}
+
+We introduce a new symbol:
+\[
+i
+\]
+
+defined by:
+\[
+i^2 = -1
+\]
+
+This does \emph{not} mean something unreal exists.
+
+It is simply an extension of numbers,
+just like negative numbers once were.
+
+
+
+% ================== Complex Numbers ==================
+\section{What Is a Complex Number?}
+
+A complex number has two parts:
+\[
+z = a + ib
+\]
+
+where:
+\begin{itemize}
+    \item $a$ is the real part,
+    \item $b$ is the imaginary part.
+\end{itemize}
+
+We write:
+\[
+\Re(z) = a, \qquad \Im(z) = b
+\]
+
+This is just bookkeeping.
+
+
+
+% ================== Geometric View ==================
+\section{Complex Numbers as Points in a Plane}
+
+Instead of a number line,
+complex numbers live in a \textbf{plane}.
+
+\begin{itemize}
+    \item horizontal axis: real part,
+    \item vertical axis: imaginary part.
+\end{itemize}
+
+A complex number is a point or vector in this plane.
+
+This geometric view is crucial.
+
+
+
+% ================== Rotation ==================
+\section{Multiplication Means Rotation}
+
+Multiplying by $i$ has a beautiful meaning:
+\begin{quote}
+\textbf{Multiplying by $i$ rotates a vector by $90^\circ$.}
+\end{quote}
+
+Multiplying by $i^2$ rotates by $180^\circ$.
+
+This is why complex numbers are perfect for oscillations and waves.
+
+
+
+% ================== Exponentials ==================
+\section{Exponential Growth and Decay}
+
+Recall the real exponential:
+\[
+e^t
+\]
+
+It has the special property:
+\[
+\frac{d}{dt} e^t = e^t
+\]
+
+This property is exactly what we wanted.
+
+Now we ask a daring question:
+
+\begin{quote}
+\textbf{What happens if we allow the exponent to be imaginary?}
+\end{quote}
+
+
+
+% ================== Euler ==================
+\section{Euler’s Formula (The Key Result)}
+
+One of the most important formulas in mathematics is:
+\[
+e^{i\theta} = \cos\theta + i\sin\theta
+\]
+
+This is not magic.
+It connects:
+\begin{itemize}
+    \item exponentials,
+    \item trigonometry,
+    \item geometry.
+\end{itemize}
+
+This formula will appear everywhere in wave theory.
+
+
+
+% ================== Meaning ==================
+\section{What Euler’s Formula Really Means}
+
+The expression:
+\[
+e^{i\theta}
+\]
+
+represents:
+\begin{itemize}
+    \item a point on the unit circle,
+    \item rotating with angle $\theta$.
+\end{itemize}
+
+Rotation replaces oscillation.
+
+That is the key idea.
+
+
+
+% ================== Oscillation ==================
+\section{Oscillation as Rotation}
+
+Using Euler’s formula:
+\[
+\sin(\omega t) = \Im\{ e^{i\omega t} \}
+\]
+
+So oscillation is:
+\begin{quote}
+\textbf{the imaginary part of a rotating vector.}
+\end{quote}
+
+This turns trigonometry into algebra.
+
+
+
+% ================== Why Physics Uses This ==================
+\section{Why Physicists Love Complex Exponentials}
+
+With complex exponentials:
+\begin{itemize}
+    \item differentiation is simple,
+    \item phase shifts are multiplication,
+    \item equations become cleaner.
+\end{itemize}
+
+We do the math using complex numbers,
+then take the real part at the end.
+
+Physics stays real.
+Math becomes easier.
+
+
+
+% ================== Key Rule ==================
+\section{The Most Important Rule}
+
+\begin{quote}
+\textbf{Complex numbers are a mathematical tool, not physical objects.}
+\end{quote}
+
+Only the real part corresponds to measurable motion.
+
+We never lose physical meaning.
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Waves}
+
+In wave theory, we will write expressions like:
+\[
+e^{i(kx - \omega t)}
+\]
+
+This compactly represents:
+\begin{itemize}
+    \item oscillation in time,
+    \item repetition in space,
+    \item phase relationships.
+\end{itemize}
+
+Without complex numbers, this would be painful to write.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand what complex numbers are,
+    \item know that $i$ represents rotation,
+    \item understand Euler’s formula conceptually,
+    \item see oscillation as rotation,
+    \item feel no fear of complex exponentials.
+\end{itemize}
+
+This chapter removes a major psychological barrier.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will use complex exponentials to describe:
+
+\begin{quote}
+\textbf{Waves that move through space.}
+\end{quote}
+\pagebreak
+
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 7: Traveling Waves in Space and Time}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+Until now, we have studied oscillation at a single point.
+
+But waves are not confined to one place.
+
+A wave is:
+\begin{quote}
+\textbf{oscillation that moves through space.}
+\end{quote}
+
+This chapter explains how oscillation and motion combine to form a wave.
+
+
+
+% ================== Space Coordinate ==================
+\section{Introducing Space}
+
+To describe where something happens, we introduce a space coordinate.
+
+Along a straight line, we use:
+\[
+x
+\]
+
+Now motion can depend on:
+\begin{itemize}
+    \item time $t$,
+    \item position $x$.
+\end{itemize}
+
+So displacement becomes:
+\[
+u(x,t)
+\]
+
+This means:
+\begin{quote}
+``The motion depends on where you are and when you look.''
+\end{quote}
+
+
+
+% ================== Same Motion, Different Places ==================
+\section{The Key Idea of a Traveling Wave}
+
+Imagine many identical oscillators placed along a line.
+
+Each one oscillates:
+\begin{itemize}
+    \item with the same frequency,
+    \item with the same amplitude,
+    \item but not at the same time.
+\end{itemize}
+
+Each point oscillates with a delay compared to its neighbor.
+
+This delay is what makes the wave move.
+
+
+
+% ================== Phase ==================
+\section{Phase Depends on Position}
+
+For a single oscillator, the phase is:
+\[
+\omega t
+\]
+
+For a wave, phase depends on both space and time:
+\[
+\omega t - \text{(something involving } x\text{)}
+\]
+
+This tells us:
+\begin{itemize}
+    \item when the wave reaches a point,
+    \item how oscillation shifts along space.
+\end{itemize}
+
+
+
+% ================== Wavelength ==================
+\section{Wavelength}
+
+The \textbf{wavelength} is the distance between repeating points in space.
+
+Examples:
+\begin{itemize}
+    \item crest to crest,
+    \item trough to trough.
+\end{itemize}
+
+We denote wavelength by:
+\[
+\lambda
+\]
+
+A small wavelength means rapid variation in space.
+
+
+
+% ================== Wavenumber ==================
+\section{Wavenumber}
+
+Instead of wavelength, physics often uses:
+\[
+k = \frac{2\pi}{\lambda}
+\]
+
+This is called the \textbf{wavenumber}.
+
+Why use $k$?
+\begin{itemize}
+    \item it simplifies equations,
+    \item it matches angular frequency $\omega$,
+    \item it works naturally with exponentials.
+\end{itemize}
+
+
+
+% ================== Traveling Wave ==================
+\section{The Mathematical Form of a Traveling Wave}
+
+A simple traveling wave can be written as:
+\[
+u(x,t) = A \sin(kx - \omega t)
+\]
+
+Let us interpret this carefully:
+\begin{itemize}
+    \item $A$ is the amplitude,
+    \item $kx$ controls variation in space,
+    \item $\omega t$ controls variation in time.
+\end{itemize}
+
+The minus sign indicates motion in the positive $x$ direction.
+
+
+
+% ================== Direction ==================
+\section{Direction of Propagation}
+
+If we write:
+\[
+u(x,t) = A \sin(kx + \omega t)
+\]
+
+the wave moves in the opposite direction.
+
+Direction is encoded in the sign.
+
+
+
+% ================== Complex Form ==================
+\section{Complex Exponential Representation}
+
+Using Euler’s formula, we write:
+\[
+u(x,t) = \Re\{ A e^{i(kx - \omega t)} \}
+\]
+
+This single expression represents:
+\begin{itemize}
+    \item oscillation,
+    \item propagation,
+    \item phase relationships.
+\end{itemize}
+
+This is the language of wave physics.
+
+
+
+% ================== Phase Velocity ==================
+\section{Phase Velocity}
+
+The wave pattern moves with speed:
+\[
+c = \frac{\omega}{k}
+\]
+
+This is called the \textbf{phase velocity}.
+
+It tells us how fast a crest moves.
+
+
+
+% ================== Important Observation ==================
+\section{An Important Observation}
+
+In many physical systems:
+\begin{itemize}
+    \item $c$ depends on material properties,
+    \item $c$ may depend on frequency.
+\end{itemize}
+
+This phenomenon is called \textbf{dispersion}.
+
+Rayleigh waves are dispersive.
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Rayleigh Waves}
+
+Rayleigh waves are:
+\begin{itemize}
+    \item traveling waves along the surface,
+    \item oscillating in time,
+    \item varying with depth.
+\end{itemize}
+
+Their mathematical form begins with:
+\[
+e^{i(kx - \omega t)}
+\]
+
+Everything else builds on this.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand what a traveling wave is,
+    \item know the meaning of wavelength $\lambda$,
+    \item understand wavenumber $k$,
+    \item know why $e^{i(kx-\omega t)}$ appears,
+    \item understand phase velocity $c$.
+\end{itemize}
+
+This chapter is a major milestone.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will study:
+\begin{quote}
+\textbf{What happens when waves meet boundaries and surfaces.}
+\end{quote}
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 8: Boundaries, Surfaces, and Wave Confinement}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+In the previous chapter, we learned how waves travel freely through space.
+
+But the real world is not infinite.
+
+It has:
+\begin{itemize}
+    \item surfaces,
+    \item interfaces,
+    \item boundaries.
+\end{itemize}
+
+This chapter explains how boundaries change wave behavior —  
+and why new kinds of waves appear because of them.
+
+
+
+% ================== What Is a Boundary ==================
+\section{What Is a Boundary?}
+
+A boundary is a place where:
+\begin{itemize}
+    \item material properties change, or
+    \item motion is constrained.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item the surface of the Earth,
+    \item the surface of water,
+    \item the end of a rope,
+    \item a wall.
+\end{itemize}
+
+Boundaries impose rules on motion.
+
+
+
+% ================== Simple Example ==================
+\section{A Simple Example: A Rope Fixed at One End}
+
+If a rope is fixed at one end:
+\begin{itemize}
+    \item the end cannot move,
+    \item displacement must be zero there.
+\end{itemize}
+
+This is a boundary condition.
+
+The wave must obey it.
+
+
+
+% ================== Reflection ==================
+\section{Reflection from a Boundary}
+
+When a wave reaches a boundary:
+\begin{itemize}
+    \item part of it reflects,
+    \item part of it may transmit,
+    \item part of it may change form.
+\end{itemize}
+
+Reflection is nature enforcing the boundary rule.
+
+
+
+% ================== Standing Waves ==================
+\section{Standing Waves as Boundary Effects}
+
+When waves reflect back and forth,
+they can combine to form \textbf{standing waves}.
+
+Standing waves:
+\begin{itemize}
+    \item do not travel,
+    \item oscillate in place,
+    \item exist only because of boundaries.
+\end{itemize}
+
+Boundaries create structure.
+
+
+
+% ================== Free Surface ==================
+\section{What Is a Free Surface?}
+
+A free surface is a boundary where:
+\begin{itemize}
+    \item the material is not constrained,
+    \item no external force acts.
+\end{itemize}
+
+Example:
+\begin{itemize}
+    \item the surface of the Earth exposed to air.
+\end{itemize}
+
+The surface cannot pull on the air.
+
+This condition is crucial.
+
+
+
+% ================== Physical Meaning ==================
+\section{What Does the Free Surface Require?}
+
+At a free surface:
+\begin{itemize}
+    \item stresses must vanish,
+    \item forces must balance to zero.
+\end{itemize}
+
+This does not mean displacement is zero.
+
+It means force is zero.
+
+This difference matters greatly.
+
+
+
+% ================== Surface Effects ==================
+\section{Why Surfaces Create New Waves}
+
+Inside a material:
+\begin{itemize}
+    \item waves can propagate in all directions.
+\end{itemize}
+
+Near a surface:
+\begin{itemize}
+    \item motion is restricted,
+    \item reflections occur continuously,
+    \item energy can become trapped.
+\end{itemize}
+
+This trapping creates surface waves.
+
+
+
+% ================== Energy Trapping ==================
+\section{Energy Confinement Near the Surface}
+
+Some wave patterns:
+\begin{itemize}
+    \item satisfy boundary conditions,
+    \item reinforce themselves,
+    \item decay away from the surface.
+\end{itemize}
+
+These waves:
+\begin{itemize}
+    \item travel along the surface,
+    \item weaken with depth,
+    \item carry most energy near the boundary.
+\end{itemize}
+
+These are surface waves.
+
+
+
+% ================== Rayleigh Wave Preview ==================
+\section{A First Look at Rayleigh Waves}
+
+Rayleigh waves:
+\begin{itemize}
+    \item travel along the Earth's surface,
+    \item involve coupled vertical and horizontal motion,
+    \item decay exponentially with depth.
+\end{itemize}
+
+They exist \emph{only} because of the free surface.
+
+Without the surface, they cannot exist.
+
+
+
+% ================== Motion Picture ==================
+\section{Particle Motion Near the Surface}
+
+Near the surface:
+\begin{itemize}
+    \item particles move in elliptical paths,
+    \item motion combines vertical and horizontal oscillation.
+\end{itemize}
+
+This motion:
+\begin{itemize}
+    \item feels strong near the ground,
+    \item weakens rapidly with depth.
+\end{itemize}
+
+This explains why Rayleigh waves are destructive.
+
+
+
+% ================== Why Mathematics Is Needed ==================
+\section{Why Mathematics Is Needed}
+
+To describe surface waves precisely, we must:
+\begin{itemize}
+    \item enforce boundary conditions,
+    \item combine multiple wave types,
+    \item satisfy decay with depth.
+\end{itemize}
+
+This requires mathematics.
+
+But the physics comes first.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand what a boundary is,
+    \item know why surfaces matter,
+    \item understand free-surface conditions,
+    \item see why new waves appear near boundaries,
+    \item have a physical picture of Rayleigh waves.
+\end{itemize}
+
+This chapter explains \emph{why} Rayleigh waves must exist.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will answer a crucial question:
+
+\begin{quote}
+\textbf{Why do surface waves decay with depth?}
+\end{quote}
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 9: Evanescent Waves and Decay with Depth}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+In the previous chapter, we learned that:
+\begin{itemize}
+    \item surfaces impose constraints,
+    \item waves reflect and interfere,
+    \item energy can become trapped near boundaries.
+\end{itemize}
+
+Now we ask a crucial question:
+
+\begin{quote}
+\textbf{Why does the motion weaken as we go deeper into the Earth?}
+\end{quote}
+
+The answer leads us to a new kind of wave behavior:
+\textbf{evanescent decay}.
+
+
+
+% ================== Observation ==================
+\section{An Everyday Observation}
+
+During an earthquake:
+\begin{itemize}
+    \item shaking is strongest at the surface,
+    \item shaking decreases with depth.
+\end{itemize}
+
+This is not accidental.
+
+It is a fundamental property of surface waves.
+
+
+
+% ================== What Decay Means ==================
+\section{What Does “Decay” Mean?}
+
+Decay means:
+\begin{itemize}
+    \item motion becomes smaller,
+    \item energy density decreases,
+    \item oscillations fade with distance.
+\end{itemize}
+
+Importantly:
+\begin{quote}
+\textbf{Decay does not mean the wave disappears.}
+\end{quote}
+
+It means the wave is confined.
+
+
+
+% ================== Oscillation vs Decay ==================
+\section{Oscillation vs Decay}
+
+There are two very different behaviors:
+\begin{itemize}
+    \item oscillation: repeating motion,
+    \item decay: monotonic decrease.
+\end{itemize}
+
+Oscillation uses:
+\[
+\sin(\cdot), \quad \cos(\cdot)
+\]
+
+Decay uses:
+\[
+e^{-x}
+\]
+
+These two behaviors arise from the same equations.
+
+
+
+% ================== A Simple Mathematical Example ==================
+\section{A Simple Mathematical Example}
+
+Consider the equation:
+\[
+\frac{d^2u}{dz^2} = \alpha^2 u
+\]
+
+Its solutions are:
+\[
+u(z) = C_1 e^{\alpha z} + C_2 e^{-\alpha z}
+\]
+
+This solution does not oscillate.
+It grows or decays.
+
+
+
+% ================== Physical Meaning ==================
+\section{Why Growth Is Forbidden}
+
+In a physical medium:
+\begin{itemize}
+    \item motion must remain finite,
+    \item energy cannot explode.
+\end{itemize}
+
+So we reject growing solutions.
+
+Only decaying solutions are allowed.
+
+This is a physical selection rule.
+
+
+
+% ================== Evanescent Waves ==================
+\section{Evanescent Waves}
+
+A wave that:
+\begin{itemize}
+    \item oscillates in one direction,
+    \item decays in another direction,
+\end{itemize}
+
+is called an \textbf{evanescent wave}.
+
+Rayleigh waves are evanescent in depth.
+
+
+
+% ================== Vertical Coordinate ==================
+\section{Depth as a Coordinate}
+
+We now introduce the vertical coordinate:
+\[
+z
+\]
+
+Convention:
+\begin{itemize}
+    \item $z = 0$ at the surface,
+    \item $z > 0$ downward into the Earth.
+\end{itemize}
+
+Decay happens as $z$ increases.
+
+
+
+% ================== Vertical Decay ==================
+\section{Mathematical Form of Decay}
+
+We write depth-dependent decay as:
+\[
+e^{-qz}
+\]
+
+Here:
+\begin{itemize}
+    \item $q$ controls how fast decay occurs,
+    \item larger $q$ means faster decay.
+\end{itemize}
+
+$q$ is called the \textbf{vertical decay rate}.
+
+
+
+% ================== Penetration Depth ==================
+\section{Penetration Depth}
+
+The distance over which motion remains significant is called the
+\textbf{penetration depth}.
+
+It is approximately:
+\[
+\frac{1}{q}
+\]
+
+This tells us:
+\begin{itemize}
+    \item how deep surface waves penetrate,
+    \item how far energy extends below the surface.
+\end{itemize}
+
+
+
+% ================== Why Decay Is Necessary ==================
+\section{Why Decay Is Necessary}
+
+If surface waves did not decay:
+\begin{itemize}
+    \item they would carry infinite energy,
+    \item the Earth would shake everywhere equally.
+\end{itemize}
+
+Decay ensures:
+\begin{itemize}
+    \item energy localization,
+    \item physical realism.
+\end{itemize}
+
+
+
+% ================== Combined Behavior ==================
+\section{Oscillation Along the Surface, Decay with Depth}
+
+Rayleigh waves combine:
+\begin{itemize}
+    \item oscillation along $x$,
+    \item decay along $z$.
+\end{itemize}
+
+Mathematically, this becomes:
+\[
+e^{i(kx - \omega t)} e^{-qz}
+\]
+
+This is the core structure of surface waves.
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Rayleigh Theory}
+
+In Rayleigh wave theory:
+\begin{itemize}
+    \item $k$ controls surface oscillation,
+    \item $q$ controls depth decay,
+    \item boundary conditions determine allowed values.
+\end{itemize}
+
+Understanding decay is essential before equations appear.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand what evanescent decay means,
+    \item know why surface waves decay with depth,
+    \item understand the meaning of $e^{-qz}$,
+    \item know what penetration depth represents.
+\end{itemize}
+
+This removes another major mystery.
+
+
+
+% ================== Looking Ahead ==================
+\section*{Looking Ahead}
+
+In the next chapter, we will introduce:
+
+\begin{quote}
+\textbf{Elastic forces and wave motion in solids.}
+\end{quote}
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 10: Elasticity and Waves in Solids}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+So far, we have studied:
+\begin{itemize}
+    \item oscillations,
+    \item traveling waves,
+    \item boundaries,
+    \item decay with depth.
+\end{itemize}
+
+But we have not yet answered a fundamental question:
+
+\begin{quote}
+\textbf{Why can the Earth support waves at all?}
+\end{quote}
+
+The answer is \textbf{elasticity}.
+
+
+
+% ================== What Is Elasticity ==================
+\section{What Does “Elastic” Mean?}
+
+A material is elastic if:
+\begin{itemize}
+    \item it resists deformation,
+    \item it returns to its original shape when forces are removed.
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item a stretched spring,
+    \item a compressed rubber band,
+    \item solid rock (for small deformations).
+\end{itemize}
+
+Elasticity is what allows vibrations and waves to exist.
+
+
+
+% ================== Deformation ==================
+\section{Deformation and Displacement}
+
+When a solid deforms:
+\begin{itemize}
+    \item points move slightly from their original positions,
+    \item neighboring points move differently.
+\end{itemize}
+
+We describe this using the \textbf{displacement field}:
+\[
+\mathbf{u}(\mathbf{x},t)
+\]
+
+This tells us:
+\begin{quote}
+``How much each point has moved.''
+\end{quote}
+
+
+
+% ================== Stress and Strain ==================
+\section{Strain: Measuring Deformation}
+
+Strain measures:
+\begin{itemize}
+    \item how much a material stretches,
+    \item how much it shears.
+\end{itemize}
+
+Strain depends on:
+\begin{itemize}
+    \item differences in displacement,
+    \item not absolute motion.
+\end{itemize}
+
+This is why gradients appear later.
+
+
+
+% ================== Stress ==================
+\section{Stress: The Material’s Response}
+
+Stress measures:
+\begin{itemize}
+    \item internal forces inside a material,
+    \item how strongly the material pushes back.
+\end{itemize}
+
+Stress is what transmits forces from one part of the Earth to another.
+
+
+
+% ================== Hooke ==================
+\section{Hooke’s Law (Idea, Not Formula)}
+
+Elastic materials obey a simple principle:
+
+\begin{quote}
+\textbf{Small deformation produces proportional restoring force.}
+\end{quote}
+
+This is Hooke’s law.
+
+In three dimensions, this becomes a relation between:
+\begin{itemize}
+    \item stress,
+    \item strain.
+\end{itemize}
+
+We will not write the full tensor form yet.
+
+
+
+% ================== Two Types of Resistance ==================
+\section{Two Fundamental Elastic Responses}
+
+Solids resist deformation in two basic ways:
+
+\subsection*{1. Resistance to Compression}
+The material resists being squeezed.
+
+This leads to \textbf{compressional waves}.
+
+\subsection*{2. Resistance to Shear}
+The material resists being sheared sideways.
+
+This leads to \textbf{shear waves}.
+
+These two responses create two wave types.
+
+
+
+% ================== P Waves ==================
+\section{Compressional Waves (P-Waves)}
+
+In compressional waves:
+\begin{itemize}
+    \item particles move back and forth,
+    \item motion is parallel to wave propagation.
+\end{itemize}
+
+These waves:
+\begin{itemize}
+    \item travel fastest,
+    \item exist in solids and fluids.
+\end{itemize}
+
+They are called \textbf{P-waves}.
+
+
+
+% ================== S Waves ==================
+\section{Shear Waves (S-Waves)}
+
+In shear waves:
+\begin{itemize}
+    \item particles move sideways,
+    \item motion is perpendicular to propagation.
+\end{itemize}
+
+These waves:
+\begin{itemize}
+    \item travel more slowly than P-waves,
+    \item exist only in solids.
+\end{itemize}
+
+They are called \textbf{S-waves}.
+
+
+
+% ================== Wave Speeds ==================
+\section{Wave Speeds and Material Properties}
+
+The speeds of elastic waves depend on:
+\begin{itemize}
+    \item how stiff the material is,
+    \item how dense it is.
+\end{itemize}
+
+Stiffer materials transmit waves faster.
+
+Denser materials transmit waves more slowly.
+
+
+
+% ================== Elastic Constants ==================
+\section{Elastic Constants (Preview)}
+
+To quantify elasticity, we introduce:
+\begin{itemize}
+    \item elastic moduli,
+    \item material parameters.
+\end{itemize}
+
+Later, these will appear as:
+\[
+\lambda, \quad \mu
+\]
+
+For now, remember:
+\begin{itemize}
+    \item $\mu$ measures resistance to shear,
+    \item $\lambda$ measures resistance to compression.
+\end{itemize}
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Rayleigh Waves}
+
+Rayleigh waves:
+\begin{itemize}
+    \item combine P-wave and S-wave motion,
+    \item exist only in elastic solids,
+    \item depend on both elastic constants.
+\end{itemize}
+
+Understanding elasticity is essential.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand what elasticity means,
+    \item know why solids support waves,
+    \item understand stress and strain conceptually,
+    \item know the difference between P-waves and S-waves,
+    \item understand why two wave speeds exist.
+\end{itemize}
+
+This chapter completes the physical foundation.
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 11: Elastic Wave Equations}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+We now have all the physical ideas in place:
+\begin{itemize}
+    \item motion and oscillation,
+    \item traveling waves,
+    \item boundaries and decay,
+    \item elasticity, stress, and strain.
+\end{itemize}
+
+This chapter answers a single question:
+
+\begin{quote}
+\textbf{How do we write all of this as equations?}
+\end{quote}
+
+The equations will not introduce new physics.  
+They will simply organize what we already know.
+
+
+
+% ================== Displacement Field ==================
+\section{The Displacement Field}
+
+In an elastic solid, every point can move.
+
+We describe this motion using the \textbf{displacement field}:
+\[
+\mathbf{u}(\mathbf{x},t)
+=
+\begin{bmatrix}
+u_x(\mathbf{x},t) \\
+u_y(\mathbf{x},t) \\
+u_z(\mathbf{x},t)
+\end{bmatrix}
+\]
+
+This tells us:
+\begin{quote}
+``How much each point has moved from its original position.''
+\end{quote}
+
+
+
+% ================== Newton ==================
+\section{Newton’s Second Law in a Solid}
+
+Newton’s second law says:
+\[
+\text{force} = \text{mass} \times \text{acceleration}
+\]
+
+In a continuous medium:
+\begin{itemize}
+    \item force becomes \textbf{stress},
+    \item mass becomes \textbf{density}.
+\end{itemize}
+
+This leads to:
+\[
+\rho \frac{\partial^2 \mathbf{u}}{\partial t^2}
+=
+\text{(net internal force per unit volume)}
+\]
+
+This is the starting point of elastic wave theory.
+
+
+
+% ================== Stress Divergence ==================
+\section{Internal Forces and Stress}
+
+Internal forces arise from spatial variations of stress.
+
+Mathematically, this is written as:
+\[
+\rho \frac{\partial^2 u_i}{\partial t^2}
+=
+\sum_{j} \frac{\partial \sigma_{ij}}{\partial x_j}
+\]
+
+Here:
+\begin{itemize}
+    \item $\sigma_{ij}$ is the stress tensor,
+    \item indices $i,j$ label spatial directions.
+\end{itemize}
+
+This equation simply enforces force balance.
+
+
+
+% ================== Strain ==================
+\section{Strain from Displacement}
+
+Strain measures how displacement varies in space.
+
+For small deformations:
+\[
+\varepsilon_{ij}
+=
+\frac{1}{2}
+\left(
+\frac{\partial u_i}{\partial x_j}
++
+\frac{\partial u_j}{\partial x_i}
+\right)
+\]
+
+This tells us:
+\begin{quote}
+``How neighboring points move relative to each other.''
+\end{quote}
+
+
+
+% ================== Hooke ==================
+\section{Hooke’s Law in Three Dimensions}
+
+Elasticity connects stress and strain.
+
+For an isotropic solid:
+\[
+\sigma_{ij}
+=
+\lambda \delta_{ij} \varepsilon_{kk}
++
+2\mu \varepsilon_{ij}
+\]
+
+Here:
+\begin{itemize}
+    \item $\lambda, \mu$ are elastic constants,
+    \item $\mu$ is the shear modulus,
+    \item $\delta_{ij}$ is the Kronecker delta.
+\end{itemize}
+
+This is the mathematical form of Hooke’s law.
+
+
+
+% ================== Wave Equation ==================
+\section{The Elastic Wave Equation}
+
+Substituting Hooke’s law into Newton’s law gives:
+\[
+\rho \frac{\partial^2 \mathbf{u}}{\partial t^2}
+=
+(\lambda + \mu)\nabla(\nabla \cdot \mathbf{u})
++
+\mu \nabla^2 \mathbf{u}
+\]
+
+This is the \textbf{elastic wave equation}.
+
+It governs all wave motion in an elastic solid.
+
+
+
+% ================== Interpretation ==================
+\section{Interpreting the Equation}
+
+The equation has two parts:
+\begin{itemize}
+    \item $\nabla(\nabla \cdot \mathbf{u})$ → compressional motion,
+    \item $\nabla^2 \mathbf{u}$ → shear motion.
+\end{itemize}
+
+This explains why two wave types exist.
+
+
+
+% ================== P and S Waves ==================
+\section{P-Waves and S-Waves from the Equation}
+
+From the elastic wave equation, we find:
+
+\subsection*{Compressional Waves (P-waves)}
+\[
+V_P = \sqrt{\frac{\lambda + 2\mu}{\rho}}
+\]
+
+\subsection*{Shear Waves (S-waves)}
+\[
+V_S = \sqrt{\frac{\mu}{\rho}}
+\]
+
+These speeds depend on:
+\begin{itemize}
+    \item elastic stiffness,
+    \item material density.
+\end{itemize}
+
+
+
+% ================== Why Two Speeds ==================
+\section{Why Two Different Wave Speeds Exist}
+
+Solids resist:
+\begin{itemize}
+    \item compression,
+    \item shear.
+\end{itemize}
+
+Each resistance produces its own wave.
+
+This is why Rayleigh waves must combine both.
+
+
+
+% ================== Time-Harmonic ==================
+\section{Time-Harmonic Solutions}
+
+We now assume time-harmonic motion:
+\[
+\mathbf{u}(\mathbf{x},t)
+=
+\mathbf{u}(\mathbf{x}) e^{-i\omega t}
+\]
+
+This converts time derivatives into algebraic factors:
+\[
+\frac{\partial^2}{\partial t^2}
+\rightarrow
+-\omega^2
+\]
+
+This step simplifies everything.
+
+
+
+% ================== Why This Matters ==================
+\section{Why This Matters for Rayleigh Waves}
+
+Rayleigh waves are:
+\begin{itemize}
+    \item solutions of the elastic wave equation,
+    \item constrained by a free surface,
+    \item decaying with depth.
+\end{itemize}
+
+Everything we need is now in place.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand the elastic wave equation,
+    \item know where it comes from physically,
+    \item understand the origin of P and S waves,
+    \item see why time-harmonic solutions are used.
+\end{itemize}
+
+This chapter completes the mathematical foundation.
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 12: Rayleigh Waves — Putting Everything Together}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+We have now learned:
+\begin{itemize}
+    \item oscillations and harmonic motion,
+    \item traveling waves in space and time,
+    \item boundaries and free surfaces,
+    \item exponential decay with depth,
+    \item elasticity and elastic wave equations.
+\end{itemize}
+
+This chapter answers the final question:
+
+\begin{quote}
+\textbf{What happens when all of these ideas act together?}
+\end{quote}
+
+The answer is the Rayleigh wave.
+
+
+
+% ================== Geometry ==================
+\section{The Physical Setup}
+
+We consider:
+\begin{itemize}
+    \item an elastic solid filling the half-space,
+    \item a free surface at $z = 0$,
+    \item depth increasing downward ($z > 0$).
+\end{itemize}
+
+The wave:
+\begin{itemize}
+    \item travels along the surface,
+    \item decays with depth,
+    \item oscillates in time.
+\end{itemize}
+
+This geometry is essential.
+
+
+
+% ================== Motion ==================
+\section{What Kind of Motion Is Allowed?}
+
+Rayleigh waves involve:
+\begin{itemize}
+    \item horizontal motion,
+    \item vertical motion,
+    \item no motion perpendicular to the plane.
+\end{itemize}
+
+So displacement has two components:
+\[
+\mathbf{u}(x,z,t)
+=
+\begin{bmatrix}
+u_x(x,z,t) \\
+u_z(x,z,t)
+\end{bmatrix}
+\]
+
+This is called \textbf{plane strain} motion.
+
+
+
+% ================== Time Harmonic ==================
+\section{Time-Harmonic Assumption}
+
+We assume time-harmonic motion:
+\[
+\mathbf{u}(x,z,t)
+=
+\mathbf{u}(x,z)\, e^{-i\omega t}
+\]
+
+This removes explicit time dependence
+and allows us to focus on spatial structure.
+
+This is a mathematical convenience, not a physical restriction.
+
+
+
+% ================== Traveling ==================
+\section{Propagation Along the Surface}
+
+Along the surface, the wave travels in the $x$ direction.
+
+So we write:
+\[
+\mathbf{u}(x,z)
+=
+\mathbf{U}(z)\, e^{ikx}
+\]
+
+Now the full motion is:
+\[
+\mathbf{u}(x,z,t)
+=
+\mathbf{U}(z)\, e^{i(kx - \omega t)}
+\]
+
+This form combines:
+\begin{itemize}
+    \item oscillation in time,
+    \item propagation in space.
+\end{itemize}
+
+
+
+% ================== Depth ==================
+\section{Decay with Depth}
+
+From earlier chapters, we know:
+\begin{itemize}
+    \item surface waves must decay with depth,
+    \item growing solutions are forbidden.
+\end{itemize}
+
+So the depth dependence must involve:
+\[
+e^{-qz}
+\]
+
+Different wave components will have different decay rates.
+
+
+
+% ================== P and S Components ==================
+\section{Why P and S Waves Both Appear}
+
+The elastic wave equation allows:
+\begin{itemize}
+    \item compressional (P) motion,
+    \item shear (S) motion.
+\end{itemize}
+
+Rayleigh waves are not purely P or purely S.
+
+They are a \textbf{coupled combination} of both.
+
+This coupling is required to satisfy the surface condition.
+
+
+
+% ================== General Form ==================
+\section{General Structure of a Rayleigh Wave}
+
+The displacement is built from:
+\begin{itemize}
+    \item P-type components decaying with depth,
+    \item S-type components decaying with depth.
+\end{itemize}
+
+Symbolically:
+\[
+\mathbf{U}(z)
+=
+A_P\, \mathbf{U}_P\, e^{-q_P z}
++
+A_S\, \mathbf{U}_S\, e^{-q_S z}
+\]
+
+Here:
+\begin{itemize}
+    \item $q_P, q_S$ are decay rates,
+    \item $A_P, A_S$ are amplitudes.
+\end{itemize}
+
+
+
+% ================== Boundary ==================
+\section{The Free-Surface Boundary Condition}
+
+At the surface $z = 0$:
+\begin{itemize}
+    \item no external forces act,
+    \item stresses must vanish.
+\end{itemize}
+
+This gives two conditions:
+\[
+\tau_{xz}(0) = 0,
+\qquad
+\tau_{zz}(0) = 0
+\]
+
+These conditions determine which wave speeds are allowed.
+
+
+
+% ================== Eigenvalue ==================
+\section{The Rayleigh Dispersion Condition}
+
+The boundary conditions lead to:
+\begin{quote}
+\textbf{a system of linear equations for the amplitudes.}
+\end{quote}
+
+A non-trivial solution exists only if:
+\[
+\det \mathbf{A}(k,\omega) = 0
+\]
+
+This is the \textbf{Rayleigh dispersion equation}.
+
+Solving it gives:
+\begin{itemize}
+    \item allowed wavenumbers $k$,
+    \item allowed phase velocities $c = \omega/k$.
+\end{itemize}
+
+
+
+% ================== Physical Meaning ==================
+\section{What the Dispersion Equation Means}
+
+The dispersion equation tells us:
+\begin{itemize}
+    \item not all wave speeds are allowed,
+    \item the surface selects special modes,
+    \item each mode has a specific structure.
+\end{itemize}
+
+Each solution corresponds to one Rayleigh mode.
+
+
+
+% ================== Particle Motion ==================
+\section{Particle Motion}
+
+The resulting motion:
+\begin{itemize}
+    \item is elliptical near the surface,
+    \item decays with depth,
+    \item reverses sense with depth.
+\end{itemize}
+
+This explains:
+\begin{itemize}
+    \item why Rayleigh waves are destructive,
+    \item why they dominate surface shaking.
+\end{itemize}
+
+
+
+% ================== Big Picture ==================
+\section{The Big Picture}
+
+Rayleigh waves exist because:
+\begin{itemize}
+    \item the Earth is elastic,
+    \item a free surface exists,
+    \item waves must satisfy boundary conditions,
+    \item energy must remain finite.
+\end{itemize}
+
+They are not an accident.
+They are a necessity.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand what Rayleigh waves are,
+    \item know why they travel along surfaces,
+    \item understand why they decay with depth,
+    \item see how P and S waves combine,
+    \item understand what the dispersion equation represents.
+\end{itemize}
+
+This chapter completes the foundation.
+
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 13: From Physics to Matrices}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+Up to now, we have:
+\begin{itemize}
+    \item understood Rayleigh waves physically,
+    \item written their qualitative structure,
+    \item seen boundary conditions select allowed modes.
+\end{itemize}
+
+But modern Rayleigh-wave modeling does not proceed by hand algebra.
+
+It proceeds using:
+\begin{itemize}
+    \item vectors,
+    \item matrices,
+    \item linear algebra.
+\end{itemize}
+
+This chapter explains \emph{why that is unavoidable}.
+
+
+
+% ================== Many Unknowns ==================
+\section{Why the Problem Grows Large}
+
+Even in a single homogeneous half-space, a Rayleigh wave contains:
+\begin{itemize}
+    \item P-wave components,
+    \item S-wave components,
+    \item upward and downward decaying parts.
+\end{itemize}
+
+Each component has an amplitude.
+
+That already gives multiple unknowns.
+
+
+
+% ================== Layers ==================
+\section{What Changes in Layered Media}
+
+In layered media:
+\begin{itemize}
+    \item each layer has different material properties,
+    \item each layer supports its own P and S decay rates,
+    \item waves reflect and transmit at every interface.
+\end{itemize}
+
+So for each layer, we get:
+\begin{itemize}
+    \item new amplitudes,
+    \item new decay constants,
+    \item new continuity conditions.
+\end{itemize}
+
+The number of unknowns grows rapidly.
+
+
+
+% ================== Continuity ==================
+\section{Interface Conditions}
+
+At every interface between layers:
+\begin{itemize}
+    \item displacement must be continuous,
+    \item stress must be continuous.
+\end{itemize}
+
+These are linear conditions.
+
+Each condition relates amplitudes above and below the interface.
+
+
+
+% ================== Linear System ==================
+\section{Why the Problem Is Linear}
+
+Key observation:
+
+\begin{quote}
+\textbf{Rayleigh-wave theory is linear.}
+\end{quote}
+
+That means:
+\begin{itemize}
+    \item displacements add,
+    \item stresses add,
+    \item boundary conditions are linear.
+\end{itemize}
+
+Linear problems naturally lead to linear algebra.
+
+
+
+% ================== State Vector ==================
+\section{The State Vector Idea}
+
+Instead of tracking every amplitude separately,
+we group physical quantities into a vector.
+
+A natural choice is:
+\[
+\mathbf{U}(z)
+=
+\begin{bmatrix}
+u_x(z) \\
+u_z(z) \\
+\tau_{xz}(z) \\
+\tau_{zz}(z)
+\end{bmatrix}
+\]
+
+This is called the \textbf{state vector}.
+
+It contains everything the wave is doing at depth $z$.
+
+
+
+% ================== Why This Choice ==================
+\section{Why These Four Quantities?}
+
+These quantities are chosen because:
+\begin{itemize}
+    \item they fully describe motion and force,
+    \item they are continuous across interfaces,
+    \item boundary conditions act directly on them.
+\end{itemize}
+
+This choice is not arbitrary.
+It is physically optimal.
+
+
+
+% ================== Linear Mapping ==================
+\section{Layers as Linear Mappings}
+
+Inside a homogeneous layer:
+\begin{itemize}
+    \item the elastic equations are linear,
+    \item depth dependence is exponential.
+\end{itemize}
+
+Therefore:
+\[
+\mathbf{U}(z + h)
+=
+\mathbf{P}
+\mathbf{U}(z)
+\]
+
+Here:
+\begin{itemize}
+    \item $\mathbf{P}$ is a matrix,
+    \item it depends on material properties and frequency,
+    \item it propagates the state vector through the layer.
+\end{itemize}
+
+This is the \textbf{propagator matrix}.
+
+
+
+% ================== Stacking ==================
+\section{Why Matrices Multiply}
+
+If you have two layers:
+\[
+\mathbf{U}_{\text{top}}
+=
+\mathbf{P}_1 \mathbf{P}_2 \mathbf{U}_{\text{bottom}}
+\]
+
+Layering becomes matrix multiplication.
+
+This is why layered Earth models are matrix products.
+
+
+
+% ================== Boundary ==================
+\section{Surface Boundary Conditions in Matrix Form}
+
+At the free surface:
+\[
+\tau_{xz} = 0,
+\qquad
+\tau_{zz} = 0
+\]
+
+These conditions:
+\begin{itemize}
+    \item select special combinations of amplitudes,
+    \item eliminate trivial solutions.
+\end{itemize}
+
+Mathematically, this becomes:
+\[
+\mathbf{A}(k,\omega)\mathbf{a} = 0
+\]
+
+
+
+% ================== Eigenvalue ==================
+\section{Rayleigh Waves as an Eigenvalue Problem}
+
+A non-trivial solution exists only if:
+\[
+\det \mathbf{A}(k,\omega) = 0
+\]
+
+This is an \textbf{eigenvalue condition}.
+
+The eigenvalue is:
+\begin{itemize}
+    \item $k$ (or $c = \omega/k$),
+\end{itemize}
+
+The eigenvector gives:
+\begin{itemize}
+    \item relative amplitudes,
+    \item mode shape.
+\end{itemize}
+
+
+% ================== Big Shift ==================
+\section{The Big Conceptual Shift}
+
+Rayleigh-wave modeling is:
+\begin{itemize}
+    \item not solving PDEs directly,
+    \item but solving matrix eigenvalue problems.
+\end{itemize}
+
+This shift is what makes numerical modeling possible.
+
+
+% ================== Connection to Code ==================
+\section{Connection to Computational Modeling}
+
+Your code does exactly this:
+\begin{itemize}
+    \item builds propagator matrices,
+    \item multiplies them across layers,
+    \item enforces boundary conditions,
+    \item finds roots of $\det \mathbf{A} = 0$.
+\end{itemize}
+
+The code is not magic.
+It is linear algebra acting on physics.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand why matrices appear,
+    \item know what the state vector represents,
+    \item understand propagator matrices physically,
+    \item see Rayleigh waves as eigenvalue problems.
+\end{itemize}
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 14: The Y-Matrix — Anatomy of a Rayleigh Mode}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+In the previous chapter, we learned:
+\begin{itemize}
+    \item Rayleigh waves are eigenmodes,
+    \item layered media require matrices,
+    \item the state vector contains displacement and stress.
+\end{itemize}
+
+This chapter answers a precise question:
+
+\begin{quote}
+\textbf{How do wave amplitudes produce displacement and stress?}
+\end{quote}
+
+The answer is the \textbf{Y-matrix}.
+
+
+
+% ================== State Vector ==================
+\section{The State Vector Revisited}
+
+We collect physical quantities into a state vector:
+\[
+\mathbf{U}(z)
+=
+\begin{bmatrix}
+u_x(z) \\
+u_z(z) \\
+\tau_{xz}(z) \\
+\tau_{zz}(z)
+\end{bmatrix}
+\]
+
+This vector fully describes the wave at depth $z$.
+
+
+
+% ================== Wave Components ==================
+\section{Wave Components Inside One Layer}
+
+Inside a homogeneous elastic layer, the Rayleigh solution is built from:
+\begin{itemize}
+    \item P-type components,
+    \item S-type components,
+    \item each decaying or growing with depth.
+\end{itemize}
+
+We write the general solution as:
+\[
+\mathbf{u}(x,z,t)
+=
+\sum_{m}
+A_m \, \mathbf{u}_m(z)\, e^{i(kx-\omega t)}
+\]
+
+Each $A_m$ is an amplitude.
+
+
+
+% ================== Amplitude Vector ==================
+\section{The Amplitude Vector}
+
+We group all amplitudes into a vector:
+\[
+\mathbf{a}
+=
+\begin{bmatrix}
+A_P^- \\
+A_P^+ \\
+A_S^- \\
+A_S^+
+\end{bmatrix}
+\]
+
+These correspond to:
+\begin{itemize}
+    \item downward and upward P components,
+    \item downward and upward S components.
+\end{itemize}
+
+
+
+% ================== Separation ==================
+\section{Separating Depth Dependence}
+
+Each wave component has exponential depth dependence.
+
+We collect this into a diagonal matrix:
+\[
+\mathbf{D}(z)
+=
+\begin{bmatrix}
+e^{-q_P z} & 0 & 0 & 0 \\
+0 & e^{+q_P z} & 0 & 0 \\
+0 & 0 & e^{-q_S z} & 0 \\
+0 & 0 & 0 & e^{+q_S z}
+\end{bmatrix}
+\]
+
+Here:
+\[
+q_P = \sqrt{k^2 - \frac{\omega^2}{V_P^2}},
+\quad
+q_S = \sqrt{k^2 - \frac{\omega^2}{V_S^2}}
+\]
+
+
+
+% ================== Y Matrix ==================
+\section{Definition of the Y-Matrix}
+
+The Y-matrix connects amplitudes to physical quantities:
+\[
+\boxed{
+\mathbf{U}(z)
+=
+\mathbf{Y}
+\,
+\mathbf{D}(z)
+\,
+\mathbf{a}
+}
+\]
+
+This is the central equation of Rayleigh-wave theory.
+
+
+
+% ================== Explicit Form ==================
+\section{Explicit Form of the Y-Matrix}
+
+For isotropic elasticity:
+\[
+\mathbf{Y}
+=
+\begin{bmatrix}
+ik & ik & -q_S & q_S \\
+-q_P & q_P & -ik & -ik \\
+\lambda(-k^2+q_P^2)+2\mu q_P^2 &
+\lambda(-k^2+q_P^2)+2\mu q_P^2 &
+-2\mu ik q_S &
+2\mu ik q_S \\
+2\mu ik q_P &
+-2\mu ik q_P &
+-\mu(q_S^2+k^2) &
+-\mu(q_S^2+k^2)
+\end{bmatrix}
+\]
+
+Every entry has a physical meaning.
+
+
+
+% ================== Row Meaning ==================
+\section{Meaning of the Rows}
+
+Each row corresponds to a physical quantity:
+\begin{itemize}
+    \item Row 1: horizontal displacement $u_x$,
+    \item Row 2: vertical displacement $u_z$,
+    \item Row 3: shear stress $\tau_{xz}$,
+    \item Row 4: normal stress $\tau_{zz}$.
+\end{itemize}
+
+
+
+% ================== Column Meaning ==================
+\section{Meaning of the Columns}
+
+Each column corresponds to:
+\begin{itemize}
+    \item one wave type,
+    \item one propagation direction.
+\end{itemize}
+
+So:
+\begin{itemize}
+    \item Column 1: downward P,
+    \item Column 2: upward P,
+    \item Column 3: downward S,
+    \item Column 4: upward S.
+\end{itemize}
+
+
+
+% ================== Physical Insight ==================
+\section{Why the Y-Matrix Is Powerful}
+
+The Y-matrix:
+\begin{itemize}
+    \item encodes elastodynamics exactly,
+    \item separates physics from geometry,
+    \item works for any layer.
+\end{itemize}
+
+Once built, everything else is linear algebra.
+
+
+
+% ================== Interface ==================
+\section{Continuity Across Interfaces}
+
+At an interface:
+\[
+\mathbf{U}_{\text{above}} = \mathbf{U}_{\text{below}}
+\]
+
+Because $\mathbf{U}$ is continuous,
+the Y-matrix makes interface matching automatic.
+
+
+
+% ================== Half Space ==================
+\section{Half-Space Condition}
+
+In the half-space:
+\begin{itemize}
+    \item growing exponentials are forbidden,
+    \item only decaying columns remain.
+\end{itemize}
+
+This reduces the amplitude vector size.
+
+
+
+% ================== Eigenfunctions ==================
+\section{From Eigenvectors to Eigenfunctions}
+
+Solving the dispersion equation gives:
+\begin{itemize}
+    \item eigenvalue: phase velocity,
+    \item eigenvector: amplitude ratios.
+\end{itemize}
+
+Substituting the eigenvector into:
+\[
+\mathbf{U}(z)
+=
+\mathbf{Y}\mathbf{D}(z)\mathbf{a}
+\]
+
+gives the full Rayleigh eigenfunction.
+
+
+
+% ================== Connection to Code ==================
+\section{Connection to Code}
+
+In your code:
+\begin{itemize}
+    \item the Y-matrix is built explicitly,
+    \item $\mathbf{D}(z)$ is diagonal,
+    \item matrix products propagate layers,
+    \item determinants enforce boundary conditions.
+\end{itemize}
+
+The code mirrors this chapter exactly.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item know what the Y-matrix is,
+    \item understand every row and column,
+    \item see how amplitudes produce motion,
+    \item understand how eigenfunctions are built.
+\end{itemize}
+\pagebreak
+% ================== Title ==================
+\begin{center}
+    {\Large \textbf{Chapter 15: Propagator Matrices and Layer Stacking}}
+\end{center}
+
+\vspace{1.5em}
+
+% ================== Motivation ==================
+\section*{Why this chapter exists}
+
+We now understand:
+\begin{itemize}
+    \item the state vector $\mathbf{U}(z)$,
+    \item the Y-matrix,
+    \item wave amplitudes and decay.
+\end{itemize}
+
+This chapter answers one key question:
+
+\begin{quote}
+\textbf{How does the wave evolve from one depth to another?}
+\end{quote}
+
+The answer is the \textbf{propagator matrix}.
+
+
+
+% ================== Inside a Layer ==================
+\section{What Happens Inside One Homogeneous Layer}
+
+Inside a single layer:
+\begin{itemize}
+    \item material properties are constant,
+    \item wave equations do not change with depth,
+    \item solutions are exponential.
+\end{itemize}
+
+This means the wave evolves in a predictable way.
+
+
+
+% ================== State at Top and Bottom ==================
+\section{State Vector at Top and Bottom of a Layer}
+
+Let:
+\begin{itemize}
+    \item $z = 0$ be the top of the layer,
+    \item $z = h$ be the bottom of the layer.
+\end{itemize}
+
+At the top:
+\[
+\mathbf{U}(0) = \mathbf{Y}\mathbf{a}
+\]
+
+At the bottom:
+\[
+\mathbf{U}(h) = \mathbf{Y}\mathbf{D}(h)\mathbf{a}
+\]
+
+The same amplitudes $\mathbf{a}$ appear in both expressions.
+
+
+
+% ================== Eliminating Amplitudes ==================
+\section{Eliminating the Amplitudes}
+
+We eliminate $\mathbf{a}$ by solving:
+\[
+\mathbf{a} = \mathbf{Y}^{-1}\mathbf{U}(0)
+\]
+
+Substitute into $\mathbf{U}(h)$:
+\[
+\mathbf{U}(h)
+=
+\mathbf{Y}\mathbf{D}(h)\mathbf{Y}^{-1}\mathbf{U}(0)
+\]
+
+
+
+% ================== Propagator ==================
+\section{The Propagator Matrix}
+
+We define the \textbf{propagator matrix}:
+\[
+\boxed{
+\mathbf{P}
+=
+\mathbf{Y}\mathbf{D}(h)\mathbf{Y}^{-1}
+}
+\]
+
+So that:
+\[
+\boxed{
+\mathbf{U}(h) = \mathbf{P}\mathbf{U}(0)
+}
+\]
+
+This is the central object for layered modeling.
+
+
+
+% ================== Physical Meaning ==================
+\section{Physical Meaning of the Propagator}
+
+The propagator:
+\begin{itemize}
+    \item transports displacement and stress,
+    \item through a layer of thickness $h$,
+    \item exactly and linearly.
+\end{itemize}
+
+It is not approximate.
+It is exact for that layer.
+
+
+
+% ================== Direction ==================
+\section{Why the Order Matters}
+
+Matrix multiplication is not commutative.
+
+Therefore:
+\[
+\mathbf{P}_1 \mathbf{P}_2 \neq \mathbf{P}_2 \mathbf{P}_1
+\]
+
+This reflects physics:
+\begin{itemize}
+    \item waves feel layers in order,
+    \item the Earth has structure.
+\end{itemize}
+
+
+
+% ================== Multiple Layers ==================
+\section{Stacking Multiple Layers}
+
+For multiple layers:
+\[
+\mathbf{U}_{\text{top}}
+=
+\mathbf{P}_1
+\mathbf{P}_2
+\cdots
+\mathbf{P}_N
+\mathbf{U}_{\text{bottom}}
+\]
+
+We define the global propagator:
+\[
+\boxed{
+\mathbf{M}
+=
+\prod_{j=N}^{1} \mathbf{P}_j
+}
+\]
+
+This matrix represents the entire layered Earth.
+
+
+
+% ================== Half Space ==================
+\section{The Half-Space Condition}
+
+At the bottom:
+\begin{itemize}
+    \item the medium extends infinitely,
+    \item growing exponentials are forbidden.
+\end{itemize}
+
+So only decaying P and S components remain.
+
+This reduces the number of amplitudes.
+
+
+
+% ================== Surface ==================
+\section{Applying the Free-Surface Condition}
+
+At the surface:
+\[
+\tau_{xz} = 0,
+\qquad
+\tau_{zz} = 0
+\]
+
+This means:
+\[
+\mathbf{S}\mathbf{U}_{\text{surface}} = \mathbf{0}
+\]
+
+where $\mathbf{S}$ selects the stress components.
+
+
+
+% ================== Dispersion ==================
+\section{The Dispersion Equation}
+
+Combining:
+\begin{itemize}
+    \item global propagator $\mathbf{M}$,
+    \item half-space constraint,
+    \item surface boundary condition,
+\end{itemize}
+
+leads to:
+\[
+\det \mathbf{A}(k,\omega) = 0
+\]
+
+This equation determines Rayleigh-wave velocities.
+
+
+
+% ================== Numerical Stability ==================
+\section{Numerical Considerations (Preview)}
+
+Direct propagator multiplication can become unstable:
+\begin{itemize}
+    \item exponentials can grow large,
+    \item matrices may become ill-conditioned.
+\end{itemize}
+
+This motivates alternative formulations:
+\begin{itemize}
+    \item stiffness matrices,
+    \item reflection-transmission methods.
+\end{itemize}
+
+But the propagator remains the conceptual foundation.
+
+
+
+% ================== Connection to Code ==================
+\section{Connection to Your Forward Model}
+
+Your code:
+\begin{itemize}
+    \item builds $\mathbf{Y}$ and $\mathbf{D}$,
+    \item forms $\mathbf{P} = \mathbf{Y}\mathbf{D}\mathbf{Y}^{-1}$,
+    \item multiplies propagators across layers,
+    \item applies surface boundary conditions,
+    \item solves $\det = 0$.
+\end{itemize}
+
+This chapter is your code, written mathematically.
+
+
+
+% ================== Summary ==================
+\section*{What You Should Know Now}
+
+After this chapter, you should:
+\begin{itemize}
+    \item understand propagator matrices physically,
+    \item know how layers are stacked,
+    \item understand the global propagator,
+    \item see how dispersion equations arise.
+\end{itemize}
+
+This chapter completes the \textbf{local forward model}.
+
+\end{document}
