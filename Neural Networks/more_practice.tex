@@ -17,7 +17,7 @@
 \chapter{Numbers, Shapes, and Forward Thinking}
 %=================================================
 
-\section*{How to Use This Workbook}
+\section{How to Use This Workbook}
 
 \begin{itemize}
     \item Write every solution by hand
@@ -221,7 +221,7 @@ A neural network repeatedly combines inputs with weights, shifts them, applies n
 \chapter{Loss Functions \& Error Thinking}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 A model produces predictions.  
 A loss function produces judgement.
@@ -456,7 +456,7 @@ A numerical judgement of prediction quality.
 \chapter{Numerical Gradients — Learning Direction by Hand}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 A loss tells us \emph{how bad} a prediction is.
 
@@ -689,7 +689,7 @@ A finite-change estimate of how loss responds to parameter changes.
 \chapter{Local Derivatives \& Chain Rule Drills}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 Every neural network gradient reduces to:
 \begin{quote}
@@ -921,7 +921,7 @@ Gradients decompose into local derivatives.
 \chapter{Backprop Through Simple Networks (By Hand)}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 You now know:
 \begin{itemize}
@@ -1181,7 +1181,7 @@ Applying the chain rule to the neuron’s computation.
 \chapter{Backprop Through Layers — Shape \& Flow}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 So far you have:
 \begin{itemize}
@@ -1246,8 +1246,7 @@ Determine the shapes of:
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 \[
@@ -1296,8 +1295,7 @@ What is its shape?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 \[
@@ -1336,8 +1334,7 @@ What did $W_2$ multiply during the forward pass?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Weights scale activations; gradients reflect that dependency.
@@ -1367,8 +1364,7 @@ Why must it match the shape of $A_1$?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Both are $(n \times m)$ to propagate gradients correctly.
@@ -1399,8 +1395,7 @@ What implication does this have for learning?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Inactive neurons receive zero gradient.
@@ -1442,8 +1437,7 @@ Why does this repeat in every network?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Weights connect layers; gradients reflect that connection.
@@ -1463,8 +1457,7 @@ Explain why this may be wrong.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Transpose order matters; shape mismatch may occur.
@@ -1483,8 +1476,7 @@ Explain backprop through layers:
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Error flows backward, scaled by each layer’s contribution.
@@ -1502,8 +1494,7 @@ Backpropagation through layers works because \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each layer applies the chain rule while preserving shape.
@@ -1511,7 +1502,7 @@ Each layer applies the chain rule while preserving shape.
 \chapter{Training Loops \& Debugging — Making Learning Reliable}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 Up to now, you learned:
 \begin{itemize}
@@ -1561,8 +1552,7 @@ What breaks if one is missing?
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each step enables the next; removing one halts learning.
@@ -1592,8 +1582,7 @@ What do loss curves look like in each case?
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Too large: divergence or oscillation.  
@@ -1625,8 +1614,7 @@ What is likely wrong in each case?
 
 \vspace{7cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 NaN: numerical instability.  
@@ -1659,8 +1647,7 @@ What does each indicate?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Zero gradients: dead paths.  
@@ -1696,8 +1683,7 @@ Why this order?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Check learning rate, inputs, numerical operations.
@@ -1729,8 +1715,7 @@ What action would you take?
 
 \vspace{7cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 (1) Overfitting → regularize  
@@ -1762,8 +1747,7 @@ What assumption is being tested?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Model capacity and gradient correctness.
@@ -1784,8 +1768,7 @@ Imagine mentoring a beginner.
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Check signals step by step instead of guessing.
@@ -1803,8 +1786,7 @@ A stable training loop is one where \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Loss decreases predictably under controlled updates.
@@ -1812,7 +1794,7 @@ Loss decreases predictably under controlled updates.
 \chapter{Initialization \& Regularization Drills — Keeping Signals Alive}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 You can have:
 \begin{itemize}
@@ -1862,8 +1844,7 @@ Predict:
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Activations explode; gradients become unstable.
@@ -1887,8 +1868,7 @@ What symmetry is never broken?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 All neurons learn identical features.
@@ -1919,8 +1899,7 @@ Why does depth amplify this effect?
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each layer multiplies variance.
@@ -1949,8 +1928,7 @@ What breaks if mismatched?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Signal statistics drift across layers.
@@ -1980,8 +1958,7 @@ What geometry does this enforce?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It constrains parameter magnitude.
@@ -2009,8 +1986,7 @@ What dependency is being discouraged?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Reliance on specific neurons.
@@ -2038,8 +2014,7 @@ List:
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Vanishing: near-zero updates, flat loss.  
@@ -2061,8 +2036,7 @@ Explain what we are trying to preserve.
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 We want signals to neither die nor explode as they pass through layers.
@@ -2080,8 +2054,7 @@ Initialization should be thought of as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Setting up healthy signal flow before learning begins.
@@ -2089,7 +2062,7 @@ Setting up healthy signal flow before learning begins.
 \chapter{Mini-Batch Thinking \& Stochasticity — Why Noise Helps Learning}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 So far, we implicitly assumed:
 \begin{itemize}
@@ -2141,8 +2114,7 @@ What resource limits this approach?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Memory bandwidth and computation time.
@@ -2174,8 +2146,7 @@ Why are flat minima preferred?
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Flat minima are more robust to perturbations.
@@ -2207,8 +2178,7 @@ What bias is introduced?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Correlated updates and biased gradients.
@@ -2240,8 +2210,7 @@ Why are both extremes problematic?
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Too noisy vs too slow and rigid.
@@ -2274,8 +2243,7 @@ What operation dominates runtime?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Matrix multiplications.
@@ -2308,8 +2276,7 @@ Why is this acceptable?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Expected gradient still points downhill.
@@ -2328,8 +2295,7 @@ Explain mini-batch training:
 
 \vspace{6cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 We learn by taking many small, noisy steps that average out.
@@ -2347,8 +2313,7 @@ Mini-batch training works well because \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It balances efficiency, noise, and generalization.
@@ -2356,7 +2321,7 @@ It balances efficiency, noise, and generalization.
 \chapter{Capstone Debugging \& Reasoning — From Symptoms to Causes}
 %=================================================
 
-\section*{Purpose of This Chapter}
+\section{Purpose of This Chapter}
 
 Up to now, you learned:
 \begin{itemize}

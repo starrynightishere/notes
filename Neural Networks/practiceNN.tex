@@ -20,7 +20,7 @@
 \tableofcontents
 \newpage
 
-\section*{How to Use This Book}
+\section{How to Use This Book}
 %=================================================
 
 This is a \textbf{practice-first book}.
@@ -64,8 +64,7 @@ Do not write formulas yet.
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.2}
 
 Explain the difference between:
@@ -252,7 +251,7 @@ pause and revisit your lifetime notes.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 1}
+\section{Answers — Chapter 1}
 %=================================================
 
 \textbf{Answer 1.1}
@@ -261,63 +260,54 @@ Input is a vector.
 Output is a scalar.
 Transformation is affine + nonlinearity.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.2}
 
 Rules are fixed.
 Neurons learn parameters.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.3}
 
 A hyperplane.
 $w$ is the normal vector.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.4}
 
 Boundary: $2x_1 - x_2 - 1 = 0$.
 Point lies on positive side.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.5}
 
 Without bias, boundary passes through origin.
 Bias allows translation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.6}
 
 $\sigma$ maps scores to outputs.
 It does not change geometry.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.7}
 
 Boundary unchanged.
 Output interpretation changes.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.8}
 
 Geometry unchanged.
 Sigmoid confidence increases.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.9}
 
 Correct: (1), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.10}
 
 Hyperplane.
@@ -542,7 +532,7 @@ revisit Chapter 1 before proceeding.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 2}
+\section{Answers — Chapter 2}
 %=================================================
 
 \textbf{Answer 2.1}
@@ -550,22 +540,19 @@ revisit Chapter 1 before proceeding.
 The point lies on the wrong side of the boundary.
 The boundary must move.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.2}
 
 Outputs $\{-1,+1\}$.
 Solves linearly separable classification.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.3}
 
 Only mistakes provide information.
 Update rotates $w$ toward correct classification.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.4}
 
 Misclassified.
@@ -574,41 +561,35 @@ Updated:
 w = \begin{bmatrix}1 \\ 1\end{bmatrix}, \quad b = 1
 \]
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.5}
 
 Updates increase correct dot product sign.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.6}
 
 A hyperplane separates classes.
 Without it, convergence is impossible.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.7}
 
 Convergence means zero training error.
 It does not guarantee optimal margin.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.8}
 
 No single line separates XOR.
 Perceptron cycles forever.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.9}
 
 Correct: (2)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.10}
 
 Moving the hyperplane.
@@ -824,7 +805,7 @@ pause and revisit this chapter.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 3}
+\section{Answers — Chapter 3}
 %=================================================
 
 \textbf{Answer 3.1}
@@ -832,60 +813,51 @@ pause and revisit this chapter.
 Two classes.
 Requires multiple regions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.2}
 
 No single line separates the classes.
 Linear decision is insufficient.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.3}
 
 A better representation can make separation possible.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.4}
 
 First layer transforms features.
 Second layer separates them.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.5}
 
 Hidden neurons carve regions.
 XOR becomes separable.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.6}
 
 Composition builds complex functions from simple ones.
 Depth reuses structure.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.7}
 
 Layers progressively fold space.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.8}
 
 Linear maps compose to a linear map.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.9}
 
 Correct: (1), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.10}
 
 Learn representations.
@@ -1147,7 +1119,7 @@ pause and revisit the computation graph idea.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 4}
+\section{Answers — Chapter 4}
 %=================================================
 
 \textbf{Answer 4.1}
@@ -1155,73 +1127,62 @@ pause and revisit the computation graph idea.
 Output sensitivity.
 Measured by gradients.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.2}
 
 Loss defines objective.
 Minimization aligns predictions with targets.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.3}
 
 $w \rightarrow z \rightarrow a \rightarrow \mathcal{L}$.
 Forward flow follows this order.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.4}
 
 Effect depends on causes.
 Gradients propagate responsibility backward.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.5}
 
 $\frac{df}{dx} = 2(3x+1)\cdot 3$
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.6}
 
 Layer 1 affects all downstream outputs.
 Gradients are reused.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.7}
 
 Local gradients compose.
 Enables dynamic programming.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.8}
 
 Chain rule combines sensitivities.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.9}
 
 Backprop avoids repeated computation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.10}
 
 Backprop computes gradients only.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.11}
 
 Correct: (1), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.12}
 
 Repeated application of the chain rule.
@@ -1479,7 +1440,7 @@ revisit the chain rule and this chapter together.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 5}
+\section{Answers — Chapter 5}
 %=================================================
 
 \textbf{Answer 5.1}
@@ -1487,80 +1448,68 @@ revisit the chain rule and this chapter together.
 A linear map.
 No added expressivity.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.2}
 
 Maps to $(0,1)$.
 Interpretable as probability.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.3}
 
 Flat regions imply near-zero gradients.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.4}
 
 Gradients shrink exponentially.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.5}
 
 They vanish rapidly.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.6}
 
 Gradients blow up.
 Updates become unstable.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.7}
 
 Tanh is zero-centered.
 Improves optimization.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.8}
 
 Derivative is $1$ for $z>0$.
 Prevents shrinkage.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.9}
 
 Piecewise linear regions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.10}
 
 Neuron outputs zero forever.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.11}
 
 Sigmoid.
 ReLU.
 Linear.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.12}
 
 Correct: (1), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.13}
 
 Gradient flow.
@@ -1791,7 +1740,7 @@ pause and mentally visualize loss landscapes.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 6}
+\section{Answers — Chapter 6}
 %=================================================
 
 \textbf{Answer 6.1}
@@ -1799,76 +1748,65 @@ pause and mentally visualize loss landscapes.
 A model configuration.
 Moving reduces error.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.2}
 
 Move opposite to gradient.
 Gradient is local.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.3}
 
 $\eta$ controls step size.
 Too large: divergence.
 Too small: slow learning.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.4}
 
 Minimum at $w=2$.
 Move toward positive direction.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.5}
 
 SGD uses single samples.
 Noise helps escape traps.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.6}
 
 Noise helps exploration.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.7}
 
 Saddle points have flat directions.
 They dominate in high dimensions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.8}
 
 Fast exploration first.
 Fine convergence later.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.9}
 
 Rolling ball analogy.
 Momentum smooths oscillations.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.10}
 
 Flat minima generalize better.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.11}
 
 Correct: (2), (4)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.12}
 
 Gradient-based optimization.
@@ -2094,79 +2032,68 @@ revisit Chapters 4–7 together.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 7}
+\section{Answers — Chapter 7}
 %=================================================
 
 \textbf{Answer 7.1}
 
 Initialization determines both.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.2}
 
 All neurons behave identically.
 No symmetry breaking.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.3}
 
 Signals vanish or explode.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.4}
 
 Variance compounds across layers.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.5}
 
 Maintain variance.
 Match activation behavior.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.6}
 
 Controls scale.
 Stabilizes gradients.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.7}
 
 Mean and variance.
 Reduces internal covariate shift.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.8}
 
 Smooths optimization.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.9}
 
 Noise from batch statistics.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.10}
 
 All control signal flow.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.11}
 
 Correct: (2), (4)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.12}
 
 Signal and gradient scales.
@@ -2382,73 +2309,63 @@ revisit Chapters 6–8 together.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 8}
+\section{Answers — Chapter 8}
 %=================================================
 
 \textbf{Answer 8.1}
 
 High complexity suggests overfitting.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.2}
 
 Architecture controls bias.
 Data and regularization control variance.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.3}
 
 Many parameters, many solutions.
 Optimization selects simple ones.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.4}
 
 SGD prefers flat minima.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.5}
 
 Reduce variance.
 Different mechanisms.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.6}
 
 Forces redundancy.
 Approximates ensemble.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.7}
 
 Prevents fitting noise.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.8}
 
 Risk decreases again after interpolation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.9}
 
 Depends on failure mode.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.10}
 
 Correct: (2), (4)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.11}
 
 Optimization and regularization shape solutions.
@@ -2483,8 +2400,7 @@ Why does this not contradict the bias--variance trade-off?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 9.2}
 
 A deep network with ReLU activations
@@ -2512,8 +2428,7 @@ What two additional components are required?
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 9.4}
 
 Consider two networks:
@@ -2546,8 +2461,7 @@ Why does adding more data not fix it?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 9.6}
 
 Batch normalization improves training speed.
@@ -2578,8 +2492,7 @@ Relate your answer to flat minima.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 9.8}
 
 Explain why dropout is more effective
@@ -2610,8 +2523,7 @@ Explain:
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 9.10}
 
 Explain why the following statement is misleading:
@@ -2663,7 +2575,7 @@ revisit Chapters 6--8.
 \vspace{6cm}
 
 %=================================================
-\section*{Answers — Chapter 9}
+\section{Answers — Chapter 9}
 %=================================================
 
 \textbf{Answer 9.1}
@@ -2671,73 +2583,62 @@ revisit Chapters 6--8.
 Better representation can reduce bias;
 implicit regularization can control variance.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.2}
 
 Each ReLU introduces a region split.
 Depth composes splits.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.3}
 
 Optimization method and data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.4}
 
 Deep networks are harder to optimize
 but more expressive.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.5}
 
 Gradients decay multiplicatively.
 Data does not affect this.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.6}
 
 Function class unchanged.
 Optimization landscape improved.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.7}
 
 Flat minima generalize better.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.8}
 
 Prevents co-adaptation in hidden units.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.9}
 
 Small dataset, deep model,
 high variance.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.10}
 
 Dead ReLUs and poor initialization.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.11}
 
 They jointly control signal and gradient flow.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.12}
 
 Optimization favors simple representations.

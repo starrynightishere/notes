@@ -20,7 +20,7 @@
 \tableofcontents
 \newpage
 
-\section*{How to Use This Book}
+\section{How to Use This Book}
 %=================================================
 
 This is a \textbf{practice-first book}.
@@ -43,10 +43,8 @@ Machine Learning is the study of approximating unknown functions from data.
 
 This chapter builds intuition \textbf{before algorithms}.
 
-%-------------------------------------------------
-\subsection*{Warm-Up: Thinking Without Math}
-%-------------------------------------------------
-
+%-\subsection*{Warm-Up: Thinking Without Math}
+%-
 \textbf{Problem 1.1}
 
 You are given noisy measurements of temperature over time.
@@ -59,8 +57,7 @@ You are given noisy measurements of temperature over time.
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.2}
 
 Explain in words the difference between:
@@ -122,8 +119,7 @@ y = \beta_0 + \beta_1 x
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.5 (Very Important)}
 
 Why does linear regression minimize:
@@ -181,7 +177,7 @@ pause and revisit the theory notes.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 1}
+\section{Answers — Chapter 1}
 %=================================================
 
 \textbf{Answer 1.1}
@@ -190,29 +186,25 @@ Input: time.
 Output: temperature.  
 Function: physical relationship + noise.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.2}
 
 Memorization fits data points exactly.  
 Learning captures the underlying pattern and ignores noise.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.3}
 
 A linear function.
 Because the relationship appears approximately straight.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.4}
 
 $\beta_0$ shifts the line up/down.  
 $\beta_1$ rotates the line.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.5}
 
 Squared loss:
@@ -224,14 +216,12 @@ Squared loss:
 
 Absolute loss does not.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.6}
 
 Correct: (2), (4)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.7}
 
 Learning means approximating an unknown function
@@ -269,8 +259,7 @@ You are told that $y$ is approximately a combination of $x_1$ and $x_2$.
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.2}
 
 Explain in words:
@@ -333,8 +322,7 @@ Linear regression finds $\hat{y} = X\hat{\beta}$ such that:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.5}
 
 At the optimum, the error vector:
@@ -445,7 +433,7 @@ revisit the notes before moving on.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 2}
+\section{Answers — Chapter 2}
 %=================================================
 
 \textbf{Answer 2.1}
@@ -453,63 +441,54 @@ revisit the notes before moving on.
 $y$ lies near the plane spanned by $x_1$ and $x_2$.
 The approximation is its projection.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.2}
 
 A subspace is closed under addition and scalar multiplication.
 Column space is formed by all linear combinations of columns.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.3}
 
 Columns are basis vectors.
 $X\beta$ is a point in the column space.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.4}
 
 Orthogonal projection onto the column space of $X$.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.5}
 
 Orthogonal to the column space.
 Otherwise, a closer point exists.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.6}
 
 Orthogonality means zero dot product with each column,
 which is exactly $X^T(y - X\hat{\beta}) = 0$.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.7}
 
 Column space is unchanged.
 Projection is unique.
 Coefficients are not unique.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.8}
 
 Near singularity means nearly dependent directions.
 $\lambda I$ stabilizes inversion by spreading directions apart.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.9}
 
 Correct: (2), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.10}
 
 Projection.
@@ -547,8 +526,7 @@ using imperfect instruments.
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.2}
 
 Explain in words the difference between:
@@ -748,7 +726,7 @@ return to the notes before proceeding.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 3}
+\section{Answers — Chapter 3}
 %=================================================
 
 \textbf{Answer 3.1}
@@ -756,30 +734,26 @@ return to the notes before proceeding.
 Measurements differ due to noise.
 The law is not wrong; observations are imperfect.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.2}
 
 Deterministic error follows a rule.
 Noise is unpredictable variation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.3}
 
 Model: $\beta_0 + \beta_1 x_i$.
 Uncertainty: $\varepsilon_i$.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.4}
 
 Mean: unbiased noise.
 Variance: noise strength.
 Assumption is about convenience and realism.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.5}
 
 \[
@@ -791,41 +765,35 @@ P(y_i|x_i,\beta)
 $y_i$ is random.
 $\beta$ is fixed but unknown.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.6}
 
 Product comes from independence.
 MLE chooses parameters that make data most probable.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.7}
 
 Log turns product into sum.
 Maximization depends on squared error term.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.8}
 
 The most likely function given the data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.9}
 
 Squared loss is no longer optimal.
 Absolute loss would appear.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.10}
 
 Correct: (1), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.11}
 
 Because it arises from Gaussian likelihood.
@@ -862,8 +830,7 @@ You fit a linear regression model and obtain:
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 4.2}
 
 Explain in words:
@@ -1085,7 +1052,7 @@ revisit Chapter 3 before moving on.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 4}
+\section{Answers — Chapter 4}
 %=================================================
 
 \textbf{Answer 4.1}
@@ -1093,78 +1060,67 @@ revisit Chapter 3 before moving on.
 Outputs exceed valid label range.
 Problem is conceptual.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.2}
 
 Classification must express uncertainty.
 Probabilities carry more information than labels.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.3}
 
 It represents belief that $y=1$ given $x$.
 It allows thresholding later.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.4}
 
 $z \in \mathbb{R}$.
 Probabilities must lie in $(0,1)$.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.5}
 
 Sigmoid is monotone and saturates to $0$ and $1$.
 It smoothly maps scores to probabilities.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.6}
 
 Boundary: $w^T x + b = 0$.
 $b$ shifts the boundary.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.7}
 
 \[
 P(y|x) = p^y (1-p)^{1-y}
 \]
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.8}
 
 Log-likelihood yields cross-entropy.
 Squared loss contradicts Bernoulli noise model.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.9}
 
 Boundary is linear in $x$.
 Sigmoid only affects confidence, not geometry.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.10}
 
 Likelihood is non-quadratic.
 Normal equations do not exist.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.11}
 
 Correct: (1), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.12}
 
 Probabilities.
@@ -1199,8 +1155,7 @@ You fit a model and observe:
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 5.2}
 
 You fit a different model and observe:
@@ -1397,7 +1352,7 @@ Your answer should mention bias or variance explicitly.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 5}
+\section{Answers — Chapter 5}
 %=================================================
 
 \textbf{Answer 5.1}
@@ -1405,70 +1360,60 @@ Your answer should mention bias or variance explicitly.
 Overfitting.
 Model is too complex.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.2}
 
 Underfitting.
 More data alone does not fix bias.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.3}
 
 Bias: systematic error from wrong assumptions.  
 Variance: sensitivity to training data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.4}
 
 Expectation is over different training sets and noise.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.5}
 
 Bias measures average error.
 Variance measures fluctuation.
 Noise is irreducible.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.6}
 
 $k=1$: memorization, high variance.  
 $k=n$: averaging, high bias.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.7}
 
 Training error decreases.
 Test error decreases then increases.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.8}
 
 Regularization increases bias slightly
 but reduces variance by stabilizing solutions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.9}
 
 High variance: more data, simpler model, regularization.  
 High bias: more complex model.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.10}
 
 Correct: (2), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.11}
 
 Because of imbalance between bias and variance.
@@ -1519,8 +1464,7 @@ Given a test point $x^\ast$, k-NN predicts its label using nearby points.
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 6.3 (Guided)}
 
 k-NN has no explicit training phase.
@@ -1708,7 +1652,7 @@ revisit the notes before proceeding.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 6}
+\section{Answers — Chapter 6}
 %=================================================
 
 \textbf{Answer 6.1}
@@ -1716,79 +1660,68 @@ revisit the notes before proceeding.
 Similarity uses closeness.
 Probability uses uncertainty modeling.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.2}
 
 Nearness is defined by a distance metric.
 Inner products define distances.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.3}
 
 The dataset is the model.
 Computation happens at prediction time.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.4}
 
 Small $k$ memorizes noise.
 Large $k$ oversmooths structure.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.5}
 
 Distances concentrate.
 Local neighborhoods lose meaning.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.6}
 
 Non-parametric.
 Estimate converges with infinite data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.7}
 
 Prior belief about classes.
 Likelihood of features given class.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.8}
 
 Independence given class.
 False in reality.
 Still works due to error cancellation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.9}
 
 Log prevents underflow.
 Decision boundary is unchanged.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.10}
 
 k-NN uses geometry.
 Naive Bayes uses probability.
 Naive Bayes needs less data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.11}
 
 Correct: (2), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.12}
 
 Geometry, probability.
@@ -1845,8 +1778,7 @@ Explain using geometry, not formulas.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 7.3 (Guided)}
 
 Bayes classification assigns:
@@ -2067,7 +1999,7 @@ revisit the lifetime notes before continuing.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 7}
+\section{Answers — Chapter 7}
 %=================================================
 
 \textbf{Answer 7.1}
@@ -2075,90 +2007,77 @@ revisit the lifetime notes before continuing.
 Yes.
 Best depends on an optimality criterion.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.2}
 
 Mean is class center.
 Covariance describes spread and shape.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.3}
 
 $x$-dependent terms define boundaries.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.4}
 
 Shared covariance cancels quadratic terms,
 leaving linear functions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.5}
 
 Within-class: compactness.
 Between-class: separation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.6}
 
 Numerator separates classes.
 Denominator penalizes spread.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.7}
 
 Uses labels and geometry.
 Ignores distributions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.8}
 
 Margin measures confidence.
 Larger margin tolerates noise.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.9}
 
 They do not constrain the boundary.
 Only nearest points limit movement.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.10}
 
 Handles noise and overlap.
 $C$ balances margin vs violations.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.11}
 
 Creates nonlinear boundaries implicitly.
 Inner products encode geometry.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.12}
 
 LDA is generative.
 SVM is discriminative.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.13}
 
 Correct: (1), (3), (4)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.14}
 
 Probability, geometry.
@@ -2375,7 +2294,7 @@ Your answer should mention bias, variance, or generalization.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 8}
+\section{Answers — Chapter 8}
 %=================================================
 
 \textbf{Answer 8.1}
@@ -2383,71 +2302,61 @@ Your answer should mention bias, variance, or generalization.
 No.
 Overfitting may still occur.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.2}
 
 Penalizes large coefficients.
 Constrains solution space.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.3}
 
 Lasso: diamond.
 Ridge: circle.
 Corners promote sparsity.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.4}
 
 Bias increases.
 Variance decreases.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.5}
 
 Model starts fitting noise.
 Stopping early limits complexity.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.6}
 
 SGD adds noise to updates.
 Noise prevents sharp minima.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.7}
 
 Small data: Naive Bayes / regularized linear.
 Simple relation: linear regression.
 Nonlinear boundary: kernel methods / NN.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.8}
 
 Estimates test performance.
 Prevents tuning on test data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.9}
 
 Incorrect labels and insufficient data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.10}
 
 Correct: (2), (3)
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.11}
 
 Managing bias--variance trade-off.
@@ -2500,8 +2409,7 @@ Explain without formulas.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 9.3}
 
 Two regression models give identical training error.
@@ -2673,7 +2581,7 @@ pause and revisit earlier chapters.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 9}
+\section{Answers — Chapter 9}
 %=================================================
 
 \textbf{Answer 9.1}
@@ -2682,58 +2590,50 @@ Regression: geometry + optimization.
 Naive Bayes: probability.  
 SVM: geometry.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.2}
 
 Gaussian noise.
 Sensitive to outliers.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.3}
 
 Larger coefficients imply higher variance.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.4}
 
 Logistic: likelihood.
 SVM: margin.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.5}
 
 Distances lose meaning.
 Variance dominates.
 Prefer regularized parametric models.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.6}
 
 Independence assumption.
 Logistic must estimate boundary directly.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.7}
 
 LDA assumes distributions.
 Logistic does not.
 LDA wins when assumptions hold.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.8}
 
 Controls variance.
 Mechanism depends on model structure.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.9}
 
 Naive Bayes: good.
@@ -2741,14 +2641,12 @@ SVM: possible with care.
 k-NN: risky.
 Linear regression: risky unless regularized.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.10}
 
 Low training error may reflect overfitting.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.11}
 
 Bias and variance.
@@ -2783,8 +2681,7 @@ Your explanation must reference:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 10.2}
 
 Explain why squared loss is reasonable for regression
@@ -2821,8 +2718,7 @@ No formulas allowed.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 10.4}
 
 Naive Bayes assumes conditional independence.
@@ -2855,8 +2751,7 @@ but disagree statistically.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 10.6}
 
 Explain why adding regularization
@@ -2896,8 +2791,7 @@ Explain your reasoning in words.
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 10.8}
 
 Explain why cross-validation is a model
@@ -2927,8 +2821,7 @@ Your explanation must reference:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 10.10}
 
 Explain why neural networks
@@ -2944,7 +2837,7 @@ Your explanation must reference:
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 10}
+\section{Answers — Chapter 10}
 %=================================================
 
 \textbf{Answer 10.1}
@@ -2953,69 +2846,59 @@ Different objectives.
 SVM maximizes margin.
 Logistic maximizes likelihood.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.2}
 
 Squared loss assumes Gaussian noise.
 Classification outputs are Bernoulli.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.3}
 
 High-degree polynomial on small dataset.
 Memorization causes variance explosion.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.4}
 
 Features correlated but class-separating.
 Errors cancel out.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.5}
 
 Logistic minimizes likelihood-based loss.
 LDA assumes Gaussian distributions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.6}
 
 Regularization reduces variance
 at cost of bias.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.7}
 
 Avoid k-NN.
 Distance becomes meaningless.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.8}
 
 Cross-validation estimates generalization.
 Training must not see validation data.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.9}
 
 Bad assumptions and noise persist.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.10}
 
 NNs learn representations automatically.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.11}
 
 Understanding means knowing

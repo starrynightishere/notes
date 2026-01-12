@@ -1,9 +1,7 @@
 \documentclass[11pt,a4paper]{book}
 
-%-------------------------------------------------
-% Packages
-%-------------------------------------------------
-\usepackage{amsmath,amssymb}
+%-% Packages
+%-\usepackage{amsmath,amssymb}
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{enumitem}
@@ -11,10 +9,8 @@
 \usepackage{hyperref}
 \usepackage{titlesec}
 
-%-------------------------------------------------
-% Page Layout
-%-------------------------------------------------
-\geometry{
+%-% Page Layout
+%-\geometry{
     left=1.25in,
     right=1.25in,
     top=1.2in,
@@ -23,10 +19,8 @@
 
 \setstretch{1.15}
 
-%-------------------------------------------------
-% Section Formatting
-%-------------------------------------------------
-\titleformat{\chapter}
+%-% Section Formatting
+%-\titleformat{\chapter}
   {\normalfont\Huge\bfseries}
   {\thechapter.}{1em}{}
 
@@ -38,16 +32,13 @@
   {\normalfont\large\bfseries}
   {\thesubsection}{1em}{}
 
-%-------------------------------------------------
-% Metadata
-%-------------------------------------------------
-\title{\Huge The Thinking Book for Coding\\[0.5em]
+%-% Metadata
+%-\title{\Huge The Thinking Book for Coding\\[0.5em]
 \Large Machine Learning \& Neural Networks}
 \author{Notes \& Practice}
 \date{}
 
-%-------------------------------------------------
-\begin{document}
+%-\begin{document}
 
 \maketitle
 \tableofcontents
@@ -65,7 +56,7 @@ What kinds of things can a computer actually hold?
 Confusion here causes confusion everywhere else.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 In memory, there are only \textbf{containers} holding \textbf{values}.
@@ -93,8 +84,7 @@ Examples:
     \item 0
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.1}
 
 Answer in words:
@@ -122,8 +112,7 @@ Mental picture:
 A row of boxes, each holding a number.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.2}
 
 Consider a list with 5 numbers.
@@ -153,8 +142,7 @@ Mental picture:
 A grid of boxes filled with numbers.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.3}
 
 Answer carefully:
@@ -179,8 +167,7 @@ The same value can appear as:
 
 What changes is \emph{context}, not value.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.4}
 
 Explain why this sentence is correct:
@@ -209,8 +196,7 @@ Shape tells you:
     \item How they are arranged
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.5}
 
 Match each object to its shape:
@@ -237,8 +223,7 @@ Programs usually break because:
 
 Strong coders check shape first.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.6}
 
 Explain why this causes trouble:
@@ -280,8 +265,7 @@ For each situation, list:
     \item Thinking values explain errors
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 1.7}
 
 Explain why this thought is dangerous:
@@ -308,7 +292,7 @@ Before worrying about values, I should always check
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 1}
+\section{Answers — Chapter 1}
 %=================================================
 
 \textbf{Answer 1.1}
@@ -316,46 +300,39 @@ Before worrying about values, I should always check
 One value.
 No indexing.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.2}
 
 Five values.
 Yes, order matters.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.3}
 
 More than a list.
 Row-column structure.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.4}
 
 Structure defines relationships.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.5}
 
 $(\ )$, $(10)$, $(3,4)$
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.6}
 
 No consistent pairing exists.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.7}
 
 Structure may still be wrong.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 1.8}
 
 Shape.
@@ -370,7 +347,7 @@ They are caused by wrong \textbf{shapes}.
 Strong coders think in shapes first, values second.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Every object in memory has:
@@ -405,8 +382,7 @@ If shapes do not match:
 
 Values cannot fix structural mismatch.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.1}
 
 Answer without examples:
@@ -433,8 +409,7 @@ Mental rule:
 If you cannot explain how elements pair up, the operation is invalid.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.2}
 
 Explain why this operation is unclear:
@@ -458,8 +433,7 @@ have the same shape.
 
 Operations only see structure.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.3}
 
 Explain why this is true:
@@ -480,8 +454,7 @@ You must learn to see shapes mentally.
 
 Practice describing shapes in words.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.4}
 
 Describe the shape of each object:
@@ -510,8 +483,7 @@ Examples:
 
 Strong coders predict output shape before computing values.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.5}
 
 For each action, state whether shape:
@@ -539,8 +511,7 @@ They indicate incorrect thinking.
 Never silence shape errors.
 Understand them.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.6}
 
 Explain why this mindset is wrong:
@@ -585,8 +556,7 @@ For each situation:
     \item Guessing shapes instead of deriving
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 2.7}
 
 Explain why this sentence is dangerous:
@@ -613,7 +583,7 @@ When debugging numerical code, the first thing I should verify is
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 2}
+\section{Answers — Chapter 2}
 %=================================================
 
 \textbf{Answer 2.1}
@@ -621,48 +591,41 @@ When debugging numerical code, the first thing I should verify is
 Operations require pairing.
 Shape defines pairing.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.2}
 
 Unclear element correspondence.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.3}
 
 Computers see structure only.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.4}
 
 List.
 Grid.
 Table.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.5}
 
 Same.
 Smaller.
 Larger.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.6}
 
 Hides conceptual errors.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.7}
 
 Correct output is not guaranteed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 2.8}
 
 Shape.
@@ -686,7 +649,7 @@ How do values move and change?
 This chapter teaches you to think in \textbf{forward passes}.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 A program is not executed line by line in your head.
@@ -712,8 +675,7 @@ Start with inputs and repeatedly apply rules until an output appears.
 Nothing flows backward.
 Nothing jumps ahead.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.1}
 
 Answer in words:
@@ -733,8 +695,7 @@ A value can only be computed when all values it depends on exist.
 
 This creates a dependency graph.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.2}
 
 Explain why this is impossible:
@@ -761,8 +722,7 @@ Multiply the result by 5.
 
 Each step creates a new value.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.3}
 
 List what exists after each step.
@@ -786,8 +746,7 @@ Every intermediate value:
     \item Can be inspected
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.4}
 
 Explain why this belief is dangerous:
@@ -812,8 +771,7 @@ A computation graph shows:
 
 This graph defines the forward pass.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.5}
 
 Draw (mentally or on paper) a computation graph for:
@@ -836,8 +794,7 @@ Code order is not the same as computation order.
 
 Computation order is defined by dependencies.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.6}
 
 Explain why rearranging lines of code
@@ -859,8 +816,7 @@ Strong coders predict:
 
 Before any numbers are computed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.7}
 
 Suppose:
@@ -887,8 +843,7 @@ Many bugs are flow bugs:
     \item Losing intermediate results
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.8}
 
 Explain why this is a problem:
@@ -931,8 +886,7 @@ For each description:
     \item Treating code as magic
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \textbf{Problem 3.9}
 
 Explain why this sentence reveals weak understanding:
@@ -959,7 +913,7 @@ A forward pass is best understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 3}
+\section{Answers — Chapter 3}
 %=================================================
 
 \textbf{Answer 3.1}
@@ -967,59 +921,50 @@ A forward pass is best understood as
 Inputs exist.
 Output exists.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.2}
 
 Dependencies are violated.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.3}
 
 Inputs.
 Sum.
 Final value.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.4}
 
 Bugs hide in the middle.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.5}
 
 Inputs, average, adjusted value.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.6}
 
 Dependencies control execution.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.7}
 
 Single number.
 No.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.8}
 
 Needed information is lost.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.9}
 
 Flow is not understood.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 3.10}
 
 Flow of values through rules.
@@ -1037,7 +982,7 @@ It is not a trick.
 It is a \textbf{question}.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 A dot product does not compute a number.
@@ -1069,8 +1014,7 @@ They must:
 
 Otherwise, the question makes no sense.
 
-%-------------------------------------------------
-\subsection*{Problem 4.1}
+%-\subsection*{Problem 4.1}
 
 Answer in words:
 
@@ -1096,8 +1040,7 @@ and add the results.
 
 That is all.
 
-%-------------------------------------------------
-\subsection*{Problem 4.2}
+%-\subsection*{Problem 4.2}
 
 Describe the dot product process using only words.
 
@@ -1120,8 +1063,7 @@ Think geometrically.
 The magnitude tells strength.
 The sign tells direction.
 
-%-------------------------------------------------
-\subsection*{Problem 4.3}
+%-\subsection*{Problem 4.3}
 
 Explain what each situation means:
 
@@ -1143,8 +1085,7 @@ Dot products assume meaning is aligned by position.
 
 If order changes, meaning changes.
 
-%-------------------------------------------------
-\subsection*{Problem 4.4}
+%-\subsection*{Problem 4.4}
 
 Explain why this is dangerous:
 
@@ -1169,8 +1110,7 @@ In ML, dot products often represent:
 
 This is why they appear everywhere.
 
-%-------------------------------------------------
-\subsection*{Problem 4.5}
+%-\subsection*{Problem 4.5}
 
 Explain why a dot product is suitable as a decision score.
 
@@ -1192,8 +1132,7 @@ From a shape point of view:
 
 A dot product collapses a dimension.
 
-%-------------------------------------------------
-\subsection*{Problem 4.6}
+%-\subsection*{Problem 4.6}
 
 Why does the output have no dimension?
 
@@ -1215,8 +1154,7 @@ But conceptually:
 
 Roles matter.
 
-%-------------------------------------------------
-\subsection*{Problem 4.7}
+%-\subsection*{Problem 4.7}
 
 Explain why swapping inputs and weights
 changes interpretation even if the number stays the same.
@@ -1253,8 +1191,7 @@ For each scenario:
     \item Forgetting shape compatibility
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 4.8}
+%-\subsection*{Problem 4.8}
 
 Explain why this mindset is wrong:
 
@@ -1280,7 +1217,7 @@ A dot product is best understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 4}
+\section{Answers — Chapter 4}
 %=================================================
 
 \textbf{Answer 4.1}
@@ -1288,50 +1225,42 @@ A dot product is best understood as
 Each position must correspond.
 Otherwise pairing is undefined.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.2}
 
 Pair, multiply, add.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.3}
 
 Agreement, independence, opposition.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.4}
 
 Positional meaning is broken.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.5}
 
 Weights control importance.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.6}
 
 All contributions combine into one result.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.7}
 
 Roles define interpretation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.8}
 
 Meaning is lost.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 4.9}
 
 A measure of alignment.
@@ -1349,7 +1278,7 @@ Many questions asked at once.
 \end{quote}
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Think of matrix multiplication as:
@@ -1378,8 +1307,7 @@ Each row of the output corresponds to:
 One dot product between a row and a column.
 \end{quote}
 
-%-------------------------------------------------
-\subsection*{Problem 5.1}
+%-\subsection*{Problem 5.1}
 
 Answer in words:
 
@@ -1402,8 +1330,7 @@ Matrix multiplication always pairs:
 
 Each pairing produces one number.
 
-%-------------------------------------------------
-\subsection*{Problem 5.2}
+%-\subsection*{Problem 5.2}
 
 Explain why this pairing rule is necessary.
 
@@ -1420,8 +1347,7 @@ The inner dimensions must match.
 This is not a formula rule.
 It is a \textbf{pairing rule}.
 
-%-------------------------------------------------
-\subsection*{Problem 5.3}
+%-\subsection*{Problem 5.3}
 
 Explain why this operation is invalid:
 
@@ -1448,8 +1374,7 @@ Each entry answers:
 How much does this input support this output feature?
 \end{quote}
 
-%-------------------------------------------------
-\subsection*{Problem 5.4}
+%-\subsection*{Problem 5.4}
 
 Explain why output shape depends on:
 \begin{itemize}
@@ -1471,8 +1396,7 @@ In neural networks:
 
 Matrix multiplication computes all neuron responses at once.
 
-%-------------------------------------------------
-\subsection*{Problem 5.5}
+%-\subsection*{Problem 5.5}
 
 Explain why matrix multiplication is ideal for neural networks.
 
@@ -1494,8 +1418,7 @@ From a shape perspective:
 
 Nothing else is possible.
 
-%-------------------------------------------------
-\subsection*{Problem 5.6}
+%-\subsection*{Problem 5.6}
 
 Explain why the output cannot have any other shape.
 
@@ -1516,8 +1439,7 @@ Roles matter:
     \item Weights shape the flow
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 5.7}
+%-\subsection*{Problem 5.7}
 
 Explain why swapping data and weights
 breaks interpretation even if dimensions match.
@@ -1555,8 +1477,7 @@ For each scenario:
     \item Treating matrices as magic blocks
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 5.8}
+%-\subsection*{Problem 5.8}
 
 Explain why this thought is dangerous:
 
@@ -1582,7 +1503,7 @@ Matrix multiplication is best understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 5}
+\section{Answers — Chapter 5}
 %=================================================
 
 \textbf{Answer 5.1}
@@ -1590,51 +1511,43 @@ Matrix multiplication is best understood as
 Data and rules.
 One compatibility score.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.2}
 
 Without pairing, meaning is unclear.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.3}
 
 Inner dimensions do not pair.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.4}
 
 Each row and column defines one question.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.5}
 
 Parallel computation.
 Efficiency and clarity.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.6}
 
 Pairing constraints fix shape.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.7}
 
 Roles define semantics.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.8}
 
 Meaning may still be wrong.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 5.9}
 
 Many dot products at once.
@@ -1651,7 +1564,7 @@ This chapter teaches you to see broadcasting as
 \textbf{controlled repetition}, not magic.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Broadcasting does \emph{not} create new values.
@@ -1678,8 +1591,7 @@ Without broadcasting:
 
 Broadcasting exists to express intent clearly.
 
-%-------------------------------------------------
-\subsection*{Problem 6.1}
+%-\subsection*{Problem 6.1}
 
 Answer in words:
 
@@ -1703,8 +1615,7 @@ it can be repeated along that dimension.
 
 But only if repetition is unambiguous.
 
-%-------------------------------------------------
-\subsection*{Problem 6.2}
+%-\subsection*{Problem 6.2}
 
 Explain what this sentence means:
 
@@ -1729,8 +1640,7 @@ Most broadcasting happens in one of two ways:
 
 You must know \emph{which one} is happening.
 
-%-------------------------------------------------
-\subsection*{Problem 6.3}
+%-\subsection*{Problem 6.3}
 
 Explain the difference between:
 
@@ -1751,8 +1661,7 @@ Broadcasting decisions are made using shape only.
 
 Values are irrelevant.
 
-%-------------------------------------------------
-\subsection*{Problem 6.4}
+%-\subsection*{Problem 6.4}
 
 Explain why broadcasting can be predicted
 \emph{before} seeing any numbers.
@@ -1773,8 +1682,7 @@ Broadcasting fails when:
 
 These failures are helpful signals.
 
-%-------------------------------------------------
-\subsection*{Problem 6.5}
+%-\subsection*{Problem 6.5}
 
 Explain why this operation should fail:
 
@@ -1801,8 +1709,7 @@ Broadcasting is used constantly in ML:
 
 This is why understanding it is critical.
 
-%-------------------------------------------------
-\subsection*{Problem 6.6}
+%-\subsection*{Problem 6.6}
 
 Explain how broadcasting allows:
 \begin{itemize}
@@ -1827,8 +1734,7 @@ What should happen,
 not how to iterate.
 \end{quote}
 
-%-------------------------------------------------
-\subsection*{Problem 6.7}
+%-\subsection*{Problem 6.7}
 
 Explain why broadcasting is clearer
 than writing explicit loops.
@@ -1867,8 +1773,7 @@ For each situation:
     \item Assuming broadcasting always helps
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 6.8}
+%-\subsection*{Problem 6.8}
 
 Explain why this mindset is dangerous:
 
@@ -1894,7 +1799,7 @@ Broadcasting should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 6}
+\section{Answers — Chapter 6}
 %=================================================
 
 \textbf{Answer 6.1}
@@ -1902,50 +1807,42 @@ Broadcasting should be understood as
 Avoid repetition.
 Express intent.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.2}
 
 Repetition must be unique.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.3}
 
 Different structural meanings.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.4}
 
 Shape alone.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.5}
 
 No clear alignment exists.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.6}
 
 Bias applies equally to all.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.7}
 
 Intent is explicit.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.8}
 
 Accidental logic errors.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 6.9}
 
 Controlled repetition.
@@ -1963,7 +1860,7 @@ If this chapter is clear,
 neural networks will never feel mysterious again.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 A neural network is not:
@@ -1995,8 +1892,7 @@ Before computation begins, memory contains:
 
 Nothing else.
 
-%-------------------------------------------------
-\subsection*{Problem 7.1}
+%-\subsection*{Problem 7.1}
 
 Answer in words:
 
@@ -2021,8 +1917,7 @@ A single neuron performs:
 
 This is the smallest unit of a network.
 
-%-------------------------------------------------
-\subsection*{Problem 7.2}
+%-\subsection*{Problem 7.2}
 
 Explain why all three steps are necessary.
 
@@ -2041,8 +1936,7 @@ Many neurons applied in parallel to the same input.
 
 This is exactly matrix multiplication plus broadcasting.
 
-%-------------------------------------------------
-\subsection*{Problem 7.3}
+%-\subsection*{Problem 7.3}
 
 Explain why neurons in the same layer:
 \begin{itemize}
@@ -2073,8 +1967,7 @@ Then:
 
 Nothing else is possible.
 
-%-------------------------------------------------
-\subsection*{Problem 7.4}
+%-\subsection*{Problem 7.4}
 
 Explain why bias must have shape $(k)$
 and not $(n, k)$.
@@ -2095,8 +1988,7 @@ Activation functions:
 
 They are applied element-wise.
 
-%-------------------------------------------------
-\subsection*{Problem 7.5}
+%-\subsection*{Problem 7.5}
 
 Explain why activation functions must preserve shape.
 
@@ -2115,8 +2007,7 @@ The output of one layer becoming the input of the next.
 
 Nothing more.
 
-%-------------------------------------------------
-\subsection*{Problem 7.6}
+%-\subsection*{Problem 7.6}
 
 Explain why shape compatibility between layers
 is a strict requirement.
@@ -2138,8 +2029,7 @@ The final layer produces:
 
 Depending on the task.
 
-%-------------------------------------------------
-\subsection*{Problem 7.7}
+%-\subsection*{Problem 7.7}
 
 Explain why the last layer
 often uses a different activation
@@ -2161,8 +2051,7 @@ The forward pass always produces the same output.
 
 Learning does not happen here.
 
-%-------------------------------------------------
-\subsection*{Problem 7.8}
+%-\subsection*{Problem 7.8}
 
 Explain why the forward pass alone
 cannot improve performance.
@@ -2204,8 +2093,7 @@ List:
     \item Thinking activations change structure
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 7.9}
+%-\subsection*{Problem 7.9}
 
 Explain why this sentence is dangerous:
 
@@ -2233,7 +2121,7 @@ A neural network forward pass is best understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 7}
+\section{Answers — Chapter 7}
 %=================================================
 
 \textbf{Answer 7.1}
@@ -2241,56 +2129,47 @@ A neural network forward pass is best understood as
 Inputs flow.
 Weights stay fixed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.2}
 
 Each adds expressive power.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.3}
 
 Different features are extracted.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.4}
 
 Bias is shared across rows.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.5}
 
 Flow must remain compatible.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.6}
 
 Matrix multiplication fails.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.7}
 
 Output meaning differs.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.8}
 
 No learning signal.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.9}
 
 Structure may still be wrong.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 7.10}
 
 A sequence of shape-preserving transformations.
@@ -2309,7 +2188,7 @@ This chapter teaches you to see loss as
 \textbf{responsibility assignment}, not a formula.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Loss is:
@@ -2334,8 +2213,7 @@ At the end of the forward pass, memory contains:
 
 Loss compares these two.
 
-%-------------------------------------------------
-\subsection*{Problem 8.1}
+%-\subsection*{Problem 8.1}
 
 Answer in words:
 
@@ -2357,8 +2235,7 @@ Loss answers the question:
 
 Different tasks require different notions of distance.
 
-%-------------------------------------------------
-\subsection*{Problem 8.2}
+%-\subsection*{Problem 8.2}
 
 Explain why:
 \begin{itemize}
@@ -2380,8 +2257,7 @@ the loss is always a single number.
 
 This is critical.
 
-%-------------------------------------------------
-\subsection*{Problem 8.3}
+%-\subsection*{Problem 8.3}
 
 Explain why learning requires
 the loss to be a single scalar.
@@ -2402,8 +2278,7 @@ Loss combines:
 
 Into one quantity.
 
-%-------------------------------------------------
-\subsection*{Problem 8.4}
+%-\subsection*{Problem 8.4}
 
 Explain why aggregation is necessary.
 
@@ -2422,8 +2297,7 @@ Magnitude of deviation.
 
 Large mistakes are penalized more.
 
-%-------------------------------------------------
-\subsection*{Problem 8.5}
+%-\subsection*{Problem 8.5}
 
 Explain why squaring the error:
 \begin{itemize}
@@ -2446,8 +2320,7 @@ Confidence in the correct class.
 
 Not just correctness.
 
-%-------------------------------------------------
-\subsection*{Problem 8.6}
+%-\subsection*{Problem 8.6}
 
 Explain why predicting the correct class
 with low confidence
@@ -2469,8 +2342,7 @@ Loss itself:
 
 It only measures.
 
-%-------------------------------------------------
-\subsection*{Problem 8.7}
+%-\subsection*{Problem 8.7}
 
 Explain why loss alone cannot cause learning.
 
@@ -2489,8 +2361,7 @@ Loss is the starting point for answering:
 
 This leads to gradients.
 
-%-------------------------------------------------
-\subsection*{Problem 8.8}
+%-\subsection*{Problem 8.8}
 
 Explain why loss must come
 \emph{before} backpropagation.
@@ -2530,8 +2401,7 @@ For each scenario:
     \item Mixing loss and optimization
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 8.9}
+%-\subsection*{Problem 8.9}
 
 Explain why this sentence is misleading:
 
@@ -2557,7 +2427,7 @@ Loss should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 8}
+\section{Answers — Chapter 8}
 %=================================================
 
 \textbf{Answer 8.1}
@@ -2565,56 +2435,47 @@ Loss should be understood as
 Comparison is required.
 Prediction must exist.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.2}
 
 Error meaning differs.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.3}
 
 Optimization requires direction.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.4}
 
 Learning needs a single objective.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.5}
 
 Encourages stability and correction.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.6}
 
 Encourages confident correctness.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.7}
 
 Gradients and updates.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.8}
 
 Loss initiates responsibility.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.9}
 
 Generalization is not guaranteed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 8.10}
 
 A measure of responsibility.
@@ -2633,7 +2494,7 @@ This chapter teaches you to see gradients as
 \textbf{blame assignment}, not symbols.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 A gradient is not a formula.
@@ -2660,8 +2521,7 @@ At this moment, memory contains:
 
 Nothing new is introduced.
 
-%-------------------------------------------------
-\subsection*{Problem 9.1}
+%-\subsection*{Problem 9.1}
 
 Answer in words:
 
@@ -2692,8 +2552,7 @@ Low sensitivity means:
     \item Changes barely affect the loss
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 9.2}
+%-\subsection*{Problem 9.2}
 
 Explain why sensitivity is a better word than ``slope''
 when thinking about gradients in neural networks.
@@ -2711,8 +2570,7 @@ The part of the computation it directly influences.
 
 Gradients assign blame locally.
 
-%-------------------------------------------------
-\subsection*{Problem 9.3}
+%-\subsection*{Problem 9.3}
 
 Explain why it makes no sense to blame
 a parameter for parts of the computation it never touched.
@@ -2734,8 +2592,7 @@ A gradient contains two pieces of information:
 
 Both matter.
 
-%-------------------------------------------------
-\subsection*{Problem 9.4}
+%-\subsection*{Problem 9.4}
 
 Explain why knowing only the sign of the gradient
 is not enough for effective learning.
@@ -2758,8 +2615,7 @@ Gradients are computed with respect to:
 
 Not just parameters.
 
-%-------------------------------------------------
-\subsection*{Problem 9.5}
+%-\subsection*{Problem 9.5}
 
 Explain why gradients with respect to
 intermediate values are necessary.
@@ -2780,8 +2636,7 @@ Gradients flow:
 
 Opposite direction of the forward pass.
 
-%-------------------------------------------------
-\subsection*{Problem 9.6}
+%-\subsection*{Problem 9.6}
 
 Explain why gradients must flow backward.
 
@@ -2799,8 +2654,7 @@ They do not change anything.
 
 Updates come later.
 
-%-------------------------------------------------
-\subsection*{Problem 9.7}
+%-\subsection*{Problem 9.7}
 
 Explain why separating:
 \begin{itemize}
@@ -2823,8 +2677,7 @@ If a gradient is zero:
 
 This can be good or bad.
 
-%-------------------------------------------------
-\subsection*{Problem 9.8}
+%-\subsection*{Problem 9.8}
 
 Explain one situation where:
 \begin{itemize}
@@ -2864,8 +2717,7 @@ For each situation:
     \item Confusing gradients with updates
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 9.9}
+%-\subsection*{Problem 9.9}
 
 Explain why this sentence reveals confusion:
 
@@ -2893,7 +2745,7 @@ A gradient should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 9}
+\section{Answers — Chapter 9}
 %=================================================
 
 \textbf{Answer 9.1}
@@ -2901,57 +2753,48 @@ A gradient should be understood as
 Loss requires predictions.
 Loss measures error.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.2}
 
 Sensitivity captures complex dependence.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.3}
 
 Local influence limits blame.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.4}
 
 Magnitude controls step size.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.5}
 
 They propagate responsibility.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.6}
 
 Blame flows from outcome to cause.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.7}
 
 Separation improves clarity and flexibility.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.8}
 
 Desirable: correct saturation.
 Harmful: dead units.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.9}
 
 Gradients were used to update.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 9.10}
 
 A measure of sensitivity.
@@ -2971,7 +2814,7 @@ This chapter shows how all previous ideas
 combine into one inevitable process.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Forward pass:
@@ -3002,8 +2845,7 @@ Before backpropagation begins, memory contains:
 
 No gradients exist yet.
 
-%-------------------------------------------------
-\subsection*{Problem 10.1}
+%-\subsection*{Problem 10.1}
 
 Explain why:
 \begin{enumerate}
@@ -3027,8 +2869,7 @@ Each operation answers:
 ``How did my output affect the loss?''
 \end{quote}
 
-%-------------------------------------------------
-\subsection*{Problem 10.2}
+%-\subsection*{Problem 10.2}
 
 Explain why backpropagation:
 \begin{itemize}
@@ -3053,8 +2894,7 @@ then A affects C through B.
 
 Backprop just applies this repeatedly.
 
-%-------------------------------------------------
-\subsection*{Problem 10.3}
+%-\subsection*{Problem 10.3}
 
 Explain this sentence in your own words:
 
@@ -3076,8 +2916,7 @@ has a corresponding backward responsibility computation.
 Nothing is skipped.
 Nothing is added.
 
-%-------------------------------------------------
-\subsection*{Problem 10.4}
+%-\subsection*{Problem 10.4}
 
 Explain why backpropagation follows
 the reverse order of the forward pass.
@@ -3100,8 +2939,7 @@ Backprop computes gradients with respect to:
 Intermediate gradients are temporary,
 but essential.
 
-%-------------------------------------------------
-\subsection*{Problem 10.5}
+%-\subsection*{Problem 10.5}
 
 Explain why intermediate gradients:
 \begin{itemize}
@@ -3127,8 +2965,7 @@ Backpropagation avoids repetition by:
 
 This makes deep learning possible.
 
-%-------------------------------------------------
-\subsection*{Problem 10.6}
+%-\subsection*{Problem 10.6}
 
 Explain why backpropagation scales linearly
 with the number of parameters,
@@ -3148,8 +2985,7 @@ Backpropagation:
 
 It does not update parameters.
 
-%-------------------------------------------------
-\subsection*{Problem 10.7}
+%-\subsection*{Problem 10.7}
 
 Explain why separating:
 \begin{itemize}
@@ -3176,8 +3012,7 @@ Backpropagation can fail when:
 These are not bugs.
 They are consequences.
 
-%-------------------------------------------------
-\subsection*{Problem 10.8}
+%-\subsection*{Problem 10.8}
 
 Explain how:
 \begin{itemize}
@@ -3220,8 +3055,7 @@ Do not use formulas.
     \item Confusing gradients with updates
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 10.9}
+%-\subsection*{Problem 10.9}
 
 Explain why this sentence is wrong:
 
@@ -3252,7 +3086,7 @@ revisit Chapters 3--9.
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 10}
+\section{Answers — Chapter 10}
 %=================================================
 
 \textbf{Answer 10.1}
@@ -3260,58 +3094,49 @@ revisit Chapters 3--9.
 Dependencies require it.
 Values are reused.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.2}
 
 Local influence only.
 Efficient reuse.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.3}
 
 Sensitivities compound.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.4}
 
 Dependencies reverse.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.5}
 
 They pass blame forward.
 No long-term value.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.6}
 
 Dynamic programming reuse.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.7}
 
 Any optimizer can be used.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.8}
 
 They control gradient flow.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.9}
 
 Gradients were computed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 10.10}
 
 The chain rule applied to computation flow.
@@ -3333,7 +3158,7 @@ How to turn a clear thought into a correct program.
 Code is only a translation.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Strong programmers do not think in code.
@@ -3362,8 +3187,7 @@ Every correct program follows this pipeline:
 
 Skipping steps causes bugs.
 
-%-------------------------------------------------
-\subsection*{Problem 11.1}
+%-\subsection*{Problem 11.1}
 
 Explain why writing code directly
 (without pseudocode)
@@ -3386,8 +3210,7 @@ Good pseudocode always answers:
 
 Pseudocode ignores syntax completely.
 
-%-------------------------------------------------
-\subsection*{Problem 11.2}
+%-\subsection*{Problem 11.2}
 
 Write pseudocode (English, not math) for:
 
@@ -3413,8 +3236,7 @@ What is hard is:
 
 NumPy assumes you already understand shapes and flow.
 
-%-------------------------------------------------
-\subsection*{Problem 11.3}
+%-\subsection*{Problem 11.3}
 
 Explain why a beginner who thinks in loops
 will struggle with NumPy.
@@ -3435,8 +3257,7 @@ Ignore values. Track shapes.
 If shapes make sense,
 values usually do too.
 
-%-------------------------------------------------
-\subsection*{Problem 11.4}
+%-\subsection*{Problem 11.4}
 
 Explain why debugging by printing values
 without checking shapes
@@ -3468,8 +3289,7 @@ This maps directly to:
 
 No loops are required conceptually.
 
-%-------------------------------------------------
-\subsection*{Problem 11.5}
+%-\subsection*{Problem 11.5}
 
 Explain why this computation
 should not be written using explicit loops.
@@ -3492,8 +3312,7 @@ They start from:
 
 This mirrors backprop thinking.
 
-%-------------------------------------------------
-\subsection*{Problem 11.6}
+%-\subsection*{Problem 11.6}
 
 Explain why reading code backward
 is often more informative than reading it forward.
@@ -3515,8 +3334,7 @@ Most bugs come from:
 
 Not from math.
 
-%-------------------------------------------------
-\subsection*{Problem 11.7}
+%-\subsection*{Problem 11.7}
 
 Explain why forgetting a bias term
 is a conceptual error, not a coding error.
@@ -3558,8 +3376,7 @@ Never write NumPy code unless:
 
 This rule prevents most bugs.
 
-%-------------------------------------------------
-\subsection*{Problem 11.8}
+%-\subsection*{Problem 11.8}
 
 Explain why violating this rule
 leads to fragile code.
@@ -3584,57 +3401,49 @@ Writing ML code should feel like
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 11}
+\section{Answers — Chapter 11}
 %=================================================
 
 \textbf{Answer 11.1}
 
 The thinking step is skipped.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.2}
 
 Inputs, weights, bias, activation with shapes.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.3}
 
 Array thinking replaces iteration thinking.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.4}
 
 Correct-looking values hide structural errors.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.5}
 
 Broadcasting expresses intent clearly.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.6}
 
 Dependencies become clear.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.7}
 
 Model expressiveness is reduced.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.8}
 
 Changes break assumptions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 11.9}
 
 Translating a clear picture into symbols.
@@ -3657,7 +3466,7 @@ One line at a time.
 With full meaning.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 This code is not doing anything new.
@@ -3699,8 +3508,7 @@ Before writing code, we identify objects:
 If you cannot name these,
 you are not ready to code.
 
-%-------------------------------------------------
-\subsection*{Problem 12.1}
+%-\subsection*{Problem 12.1}
 
 Write down:
 \begin{enumerate}
@@ -3730,8 +3538,7 @@ import numpy as np
 This line introduces no computation.
 Only tools.
 
-%-------------------------------------------------
-\subsection*{Problem 12.2}
+%-\subsection*{Problem 12.2}
 
 Explain why importing a library
 does not mean computation has started.
@@ -3756,8 +3563,7 @@ Shape: $(2, 3)$
 Two data points.
 Three features.
 
-%-------------------------------------------------
-\subsection*{Problem 12.3}
+%-\subsection*{Problem 12.3}
 
 Explain what each row represents
 and what each column represents.
@@ -3783,8 +3589,7 @@ Shape: $(3, 2)$
 Three inputs.
 Two outputs.
 
-%-------------------------------------------------
-\subsection*{Problem 12.4}
+%-\subsection*{Problem 12.4}
 
 Explain why:
 \begin{itemize}
@@ -3810,8 +3615,7 @@ Shape: $(2)$
 
 One bias per output neuron.
 
-%-------------------------------------------------
-\subsection*{Problem 12.5}
+%-\subsection*{Problem 12.5}
 
 Explain why bias does not depend on $n$.
 
@@ -3837,8 +3641,7 @@ This line performs:
 
 Shape of $Z$: $(2, 2)$
 
-%-------------------------------------------------
-\subsection*{Problem 12.6}
+%-\subsection*{Problem 12.6}
 
 Explain this line in words.
 Mention:
@@ -3867,8 +3670,7 @@ It:
     \item Changes values
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 12.7}
+%-\subsection*{Problem 12.7}
 
 Explain why ReLU is applied element-wise.
 
@@ -3886,8 +3688,7 @@ Nothing else happens.
 
 Learning has not occurred.
 
-%-------------------------------------------------
-\subsection*{Problem 12.8}
+%-\subsection*{Problem 12.8}
 
 Explain why this code alone
 cannot improve predictions over time.
@@ -3922,8 +3723,7 @@ Do not use Python syntax.
     \item Applying activation incorrectly
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 12.9}
+%-\subsection*{Problem 12.9}
 
 Explain why a wrong shape
 is worse than a wrong value.
@@ -3948,64 +3748,55 @@ Writing NumPy code should feel like
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 12}
+\section{Answers — Chapter 12}
 %=================================================
 
 \textbf{Answer 12.1}
 
 Objects and roles.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.2}
 
 Only names and tools exist.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.3}
 
 Rows are samples.
 Columns are features.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.4}
 
 Pairing defines meaning.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.5}
 
 Bias applies uniformly.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.6}
 
 Each row meets each neuron.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.7}
 
 Independence of units.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.8}
 
 No learning signal.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.9}
 
 Shape errors break logic.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 12.10}
 
 A direct translation of thought.
@@ -4021,7 +3812,7 @@ This chapter explains learning as
 \textbf{controlled correction}, not optimization magic.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Learning means:
@@ -4047,8 +3838,7 @@ Before parameters are updated, we have:
 
 Nothing else is needed.
 
-%-------------------------------------------------
-\subsection*{Problem 13.1}
+%-\subsection*{Problem 13.1}
 
 Explain why:
 \begin{itemize}
@@ -4074,8 +3864,7 @@ that reduces loss.
 Not instantly.
 Gradually.
 
-%-------------------------------------------------
-\subsection*{Problem 13.2}
+%-\subsection*{Problem 13.2}
 
 Explain why updates must be:
 \begin{itemize}
@@ -4099,8 +3888,7 @@ Greatest increase in loss.
 To reduce loss,
 we must move in the opposite direction.
 
-%-------------------------------------------------
-\subsection*{Problem 13.3}
+%-\subsection*{Problem 13.3}
 
 Explain this sentence in your own words:
 
@@ -4125,8 +3913,7 @@ The learning rate controls:
 It does not come from theory.
 It comes from caution.
 
-%-------------------------------------------------
-\subsection*{Problem 13.4}
+%-\subsection*{Problem 13.4}
 
 Explain why:
 \begin{itemize}
@@ -4151,8 +3938,7 @@ Each parameter:
     \item Adjusts itself
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 13.5}
+%-\subsection*{Problem 13.5}
 
 Explain why gradient descent
 does not require understanding
@@ -4177,8 +3963,7 @@ Learning requires:
 
 This is training.
 
-%-------------------------------------------------
-\subsection*{Problem 13.6}
+%-\subsection*{Problem 13.6}
 
 Explain why learning cannot happen in one step,
 even with perfect gradients.
@@ -4200,8 +3985,7 @@ Training stops when:
 
 No rule is perfect.
 
-%-------------------------------------------------
-\subsection*{Problem 13.7}
+%-\subsection*{Problem 13.7}
 
 Explain why:
 \begin{itemize}
@@ -4225,8 +4009,7 @@ Gradient descent:
 
 Yet it works remarkably well.
 
-%-------------------------------------------------
-\subsection*{Problem 13.8}
+%-\subsection*{Problem 13.8}
 
 Explain why using only local information
 can still lead to good solutions.
@@ -4262,8 +4045,7 @@ Do not use formulas.
     \item Confusing convergence with correctness
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 13.9}
+%-\subsection*{Problem 13.9}
 
 Explain why this sentence is misleading:
 
@@ -4291,63 +4073,54 @@ Gradient descent should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 13}
+\section{Answers — Chapter 13}
 %=================================================
 
 \textbf{Answer 13.1}
 
 Direction information is missing.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.2}
 
 Stability and control.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.3}
 
 It points uphill.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.4}
 
 Overshoot vs stagnation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.5}
 
 Local responsibility suffices.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.6}
 
 Loss surface is approximated.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.7}
 
 Generalization trade-off.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.8}
 
 Smoothness assumptions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.9}
 
 Validation is required.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 13.10}
 
 Iterative error correction.
@@ -4371,7 +4144,7 @@ This chapter explains training as
 \textbf{controlled exposure to data}.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Think of learning as listening to data.
@@ -4410,8 +4183,7 @@ Use the entire dataset to compute one update.
 
 All data points vote before parameters change.
 
-%-------------------------------------------------
-\subsection*{Problem 14.1}
+%-\subsection*{Problem 14.1}
 
 Explain why batch gradient descent:
 \begin{itemize}
@@ -4434,8 +4206,7 @@ Update parameters using one data point at a time.
 
 Learning becomes noisy.
 
-%-------------------------------------------------
-\subsection*{Problem 14.2}
+%-\subsection*{Problem 14.2}
 
 Explain why SGD updates:
 \begin{itemize}
@@ -4458,8 +4229,7 @@ Use a small group of data points per update.
 
 This balances stability and speed.
 
-%-------------------------------------------------
-\subsection*{Problem 14.3}
+%-\subsection*{Problem 14.3}
 
 Explain why mini-batches are preferred in practice.
 
@@ -4480,8 +4250,7 @@ change the variance of gradient estimates.
     \item Mini-batch: controlled variance
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 14.4}
+%-\subsection*{Problem 14.4}
 
 Explain why high variance gradients:
 \begin{itemize}
@@ -4505,8 +4274,7 @@ Modern hardware prefers:
 
 Mini-batches align with hardware.
 
-%-------------------------------------------------
-\subsection*{Problem 14.5}
+%-\subsection*{Problem 14.5}
 
 Explain why mini-batches are more efficient
 than single-sample updates on GPUs.
@@ -4527,8 +4295,7 @@ Definitions:
 
 These are not the same.
 
-%-------------------------------------------------
-\subsection*{Problem 14.6}
+%-\subsection*{Problem 14.6}
 
 Explain why:
 \begin{itemize}
@@ -4547,8 +4314,7 @@ Data is usually shuffled before batching.
 
 This prevents learning artifacts.
 
-%-------------------------------------------------
-\subsection*{Problem 14.7}
+%-\subsection*{Problem 14.7}
 
 Explain why not shuffling data
 can introduce bias in learning.
@@ -4570,8 +4336,7 @@ Batch size affects:
 
 There is no universal best value.
 
-%-------------------------------------------------
-\subsection*{Problem 14.8}
+%-\subsection*{Problem 14.8}
 
 Explain why:
 \begin{itemize}
@@ -4610,8 +4375,7 @@ and justify it:
     \item Ignoring data order effects
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 14.9}
+%-\subsection*{Problem 14.9}
 
 Explain why batch size
 does not change what the model \emph{can} represent,
@@ -4635,63 +4399,54 @@ Data feeding strategy should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 14}
+\section{Answers — Chapter 14}
 %=================================================
 
 \textbf{Answer 14.1}
 
 More information per update.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.2}
 
 Noise comes from sampling.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.3}
 
 Speed and stability.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.4}
 
 Exploration vs instability.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.5}
 
 Parallel matrix operations.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.6}
 
 Batching creates multiple updates.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.7}
 
 Order creates correlation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.8}
 
 Stability–generalization trade-off.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.9}
 
 Learning dynamics only.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 14.10}
 
 Controlling learning noise.
@@ -4709,7 +4464,7 @@ Understanding this chapter is the difference between
 \textbf{training a model} and \textbf{building a useful one}.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Learning is not about memorization.
@@ -4733,8 +4488,7 @@ A model learns if it:
 
 Training performance alone is meaningless.
 
-%-------------------------------------------------
-\subsection*{Problem 15.1}
+%-\subsection*{Problem 15.1}
 
 Explain why:
 \begin{itemize}
@@ -4757,8 +4511,7 @@ Underfitting occurs when:
 
 Both training and test performance are poor.
 
-%-------------------------------------------------
-\subsection*{Problem 15.2}
+%-\subsection*{Problem 15.2}
 
 Explain why increasing training time
 does not fix underfitting.
@@ -4779,8 +4532,7 @@ Overfitting occurs when:
 
 The model learns noise.
 
-%-------------------------------------------------
-\subsection*{Problem 15.3}
+%-\subsection*{Problem 15.3}
 
 Explain why a highly flexible model
 is more prone to overfitting.
@@ -4801,8 +4553,7 @@ Model error comes from two sources:
 
 Improving one often worsens the other.
 
-%-------------------------------------------------
-\subsection*{Problem 15.4}
+%-\subsection*{Problem 15.4}
 
 Explain why:
 \begin{itemize}
@@ -4826,8 +4577,7 @@ Data is split to diagnose learning behavior:
     \item Test set: final evaluation
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 15.5}
+%-\subsection*{Problem 15.5}
 
 Explain why:
 \begin{itemize}
@@ -4850,8 +4600,7 @@ Learning curves show:
 
 They diagnose model problems.
 
-%-------------------------------------------------
-\subsection*{Problem 15.6}
+%-\subsection*{Problem 15.6}
 
 Explain how learning curves can tell the difference
 between underfitting and overfitting.
@@ -4871,8 +4620,7 @@ Overfitting is more likely when:
     \item Noise is high
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 15.7}
+%-\subsection*{Problem 15.7}
 
 Explain why small datasets
 make overfitting more likely.
@@ -4892,8 +4640,7 @@ Small changes in data do not cause large changes in predictions.
 
 Generalization is stability.
 
-%-------------------------------------------------
-\subsection*{Problem 15.8}
+%-\subsection*{Problem 15.8}
 
 Explain why stable models
 tend to generalize better.
@@ -4913,8 +4660,7 @@ To reduce underfitting:
     \item Reduce regularization
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 15.9}
+%-\subsection*{Problem 15.9}
 
 Explain why adding more data
 does not usually fix underfitting.
@@ -4934,8 +4680,7 @@ To reduce overfitting:
     \item Use regularization
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 15.10}
+%-\subsection*{Problem 15.10}
 
 Explain why regularization
 helps generalization.
@@ -4972,8 +4717,7 @@ Suggest one fix for each.
     \item Increasing model size blindly
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 15.11}
+%-\subsection*{Problem 15.11}
 
 Explain why this sentence is dangerous:
 
@@ -5001,75 +4745,64 @@ Generalization should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 15}
+\section{Answers — Chapter 15}
 %=================================================
 
 \textbf{Answer 15.1}
 
 Generalization is unmeasured.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.2}
 
 Model capacity is insufficient.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.3}
 
 Too many degrees of freedom.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.4}
 
 Flexibility vs stability.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.5}
 
 Information leakage.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.6}
 
 Diverging curves indicate overfitting.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.7}
 
 Noise appears as pattern.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.8}
 
 Robustness to variation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.9}
 
 Model expressiveness must change.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.10}
 
 Discourages complexity.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.11}
 
 Does it generalize?
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 15.12}
 
 Stable pattern learning.
@@ -5088,7 +4821,7 @@ This chapter teaches you to see regularization as
 \textbf{controlled restraint}.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Without regularization:
@@ -5116,8 +4849,7 @@ Most models are flexible enough to:
 
 Data alone does not tell the model which to prefer.
 
-%-------------------------------------------------
-\subsection*{Problem 16.1}
+%-\subsection*{Problem 16.1}
 
 Explain why:
 \begin{itemize}
@@ -5141,8 +4873,7 @@ Regularization encodes a preference for:
 
 This preference competes with data fit.
 
-%-------------------------------------------------
-\subsection*{Problem 16.2}
+%-\subsection*{Problem 16.2}
 
 Explain why preferring smaller weights
 often leads to smoother models.
@@ -5163,8 +4894,7 @@ Loss = Data Error + Complexity Penalty
 
 The model must now balance two objectives.
 
-%-------------------------------------------------
-\subsection*{Problem 16.3}
+%-\subsection*{Problem 16.3}
 
 Explain why adding a penalty to the loss
 is a natural place to enforce simplicity.
@@ -5184,8 +4914,7 @@ Large weights, regardless of sign.
 
 It gently pulls weights toward zero.
 
-%-------------------------------------------------
-\subsection*{Problem 16.4}
+%-\subsection*{Problem 16.4}
 
 Explain why:
 \begin{itemize}
@@ -5207,8 +4936,7 @@ The absolute size of weights.
 
 This encourages sparsity.
 
-%-------------------------------------------------
-\subsection*{Problem 16.5}
+%-\subsection*{Problem 16.5}
 
 Explain why $L_1$ regularization
 can drive some weights exactly to zero.
@@ -5230,8 +4958,7 @@ Regularization changes the shape of the solution space.
 
 Geometry influences solutions.
 
-%-------------------------------------------------
-\subsection*{Problem 16.6}
+%-\subsection*{Problem 16.6}
 
 Explain why sharp corners
 make sparse solutions more likely.
@@ -5252,8 +4979,7 @@ The regularization coefficient controls:
 Too little does nothing.
 Too much prevents learning.
 
-%-------------------------------------------------
-\subsection*{Problem 16.7}
+%-\subsection*{Problem 16.7}
 
 Explain why:
 \begin{itemize}
@@ -5276,8 +5002,7 @@ Regularization cannot:
 
 It only controls behavior.
 
-%-------------------------------------------------
-\subsection*{Problem 16.8}
+%-\subsection*{Problem 16.8}
 
 Explain why regularization
 cannot compensate for insufficient data.
@@ -5299,8 +5024,7 @@ Some choices regularize implicitly:
 
 Not all regularization is explicit.
 
-%-------------------------------------------------
-\subsection*{Problem 16.9}
+%-\subsection*{Problem 16.9}
 
 Explain why early stopping
 acts like regularization.
@@ -5336,8 +5060,7 @@ and justify it:
     \item Forgetting to tune regularization strength
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 16.10}
+%-\subsection*{Problem 16.10}
 
 Explain why regularization
 often increases training loss
@@ -5363,69 +5086,59 @@ Regularization should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 16}
+\section{Answers — Chapter 16}
 %=================================================
 
 \textbf{Answer 16.1}
 
 Noise can be memorized.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.2}
 
 Extreme sensitivity is discouraged.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.3}
 
 Loss already guides learning.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.4}
 
 Smooth shrinkage toward zero.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.5}
 
 Feature selection.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.6}
 
 Corners attract solutions.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.7}
 
 Signal is overwhelmed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.8}
 
 Information is missing.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.9}
 
 Complexity growth is halted.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.10}
 
 Bias–variance trade-off.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 16.11}
 
 Controlled simplicity.
@@ -5442,7 +5155,7 @@ A metric is a \textbf{question}.
 This chapter teaches you to ask the right questions.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 A metric answers:
@@ -5467,8 +5180,7 @@ Metrics are used to:
 
 They serve different purposes.
 
-%-------------------------------------------------
-\subsection*{Problem 17.1}
+%-\subsection*{Problem 17.1}
 
 Explain why:
 \begin{itemize}
@@ -5495,8 +5207,7 @@ Common ideas:
     \item Squared error
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 17.2}
+%-\subsection*{Problem 17.2}
 
 Explain why:
 \begin{itemize}
@@ -5516,8 +5227,7 @@ Some metrics depend on the scale of data.
 
 Others do not.
 
-%-------------------------------------------------
-\subsection*{Problem 17.3}
+%-\subsection*{Problem 17.3}
 
 Explain why comparing errors
 without considering scale
@@ -5538,8 +5248,7 @@ Fraction of correct predictions.
 
 It is simple — and often misleading.
 
-%-------------------------------------------------
-\subsection*{Problem 17.4}
+%-\subsection*{Problem 17.4}
 
 Explain why high accuracy
 can hide poor model behavior.
@@ -5564,8 +5273,7 @@ A confusion matrix separates:
 
 This structure matters.
 
-%-------------------------------------------------
-\subsection*{Problem 17.5}
+%-\subsection*{Problem 17.5}
 
 Explain why knowing
 \begin{itemize}
@@ -5591,8 +5299,7 @@ Recall answers:
 
 They trade off.
 
-%-------------------------------------------------
-\subsection*{Problem 17.6}
+%-\subsection*{Problem 17.6}
 
 Explain why improving precision
 often reduces recall.
@@ -5613,8 +5320,7 @@ The F-score combines:
 
 Into one number.
 
-%-------------------------------------------------
-\subsection*{Problem 17.7}
+%-\subsection*{Problem 17.7}
 
 Explain why a single combined metric
 can hide important behavior.
@@ -5635,8 +5341,7 @@ Choosing a metric means choosing:
 
 Metrics encode values.
 
-%-------------------------------------------------
-\subsection*{Problem 17.8}
+%-\subsection*{Problem 17.8}
 
 Explain why different applications
 require different metrics
@@ -5655,8 +5360,7 @@ Many metrics depend on:
 
 Changing threshold changes behavior.
 
-%-------------------------------------------------
-\subsection*{Problem 17.9}
+%-\subsection*{Problem 17.9}
 
 Explain why evaluating a classifier
 without considering threshold choice
@@ -5674,8 +5378,7 @@ Metrics guide tuning on validation data.
 
 Test metrics are reported once.
 
-%-------------------------------------------------
-\subsection*{Problem 17.10}
+%-\subsection*{Problem 17.10}
 
 Explain why repeatedly checking
 test metrics during development
@@ -5712,8 +5415,7 @@ and justify it:
     \item Ignoring class imbalance
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 17.11}
+%-\subsection*{Problem 17.11}
 
 Explain why this sentence is dangerous:
 
@@ -5741,75 +5443,64 @@ An evaluation metric should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 17}
+\section{Answers — Chapter 17}
 %=================================================
 
 \textbf{Answer 17.1}
 
 Optimization objective differs from usefulness.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.2}
 
 Sensitivity to outliers differs.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.3}
 
 Relative error matters.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.4}
 
 Balanced classes are assumed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.5}
 
 Error types have different costs.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.6}
 
 Threshold shifts trade-off.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.7}
 
 Details are collapsed.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.8}
 
 Costs differ by context.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.9}
 
 Operating point matters.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.10}
 
 Information leakage.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.11}
 
 What errors exist?
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 17.12}
 
 A question about usefulness.
@@ -5825,7 +5516,7 @@ you understand the entire discipline at a structural level.
 This chapter turns fragments into a system.
 
 %=================================================
-\section*{Mental Picture to Fix}
+\section{Mental Picture to Fix}
 %=================================================
 
 Training is not a single action.
@@ -5854,8 +5545,7 @@ Before training starts, we have:
 
 Nothing is learned yet.
 
-%-------------------------------------------------
-\subsection*{Problem 18.1}
+%-\subsection*{Problem 18.1}
 
 Explain why training cannot begin
 unless \emph{all} of these exist.
@@ -5873,8 +5563,7 @@ Training begins by selecting a batch of data.
 Data is never absorbed all at once.
 It is experienced gradually.
 
-%-------------------------------------------------
-\subsection*{Problem 18.2}
+%-\subsection*{Problem 18.2}
 
 Explain why training data is fed in portions
 rather than all at once.
@@ -5892,8 +5581,7 @@ using its current parameters.
 
 This step is deterministic.
 
-%-------------------------------------------------
-\subsection*{Problem 18.3}
+%-\subsection*{Problem 18.3}
 
 Explain why the forward pass
 does not involve learning.
@@ -5910,8 +5598,7 @@ Predictions are compared to targets.
 
 Loss compresses all error into one number.
 
-%-------------------------------------------------
-\subsection*{Problem 18.4}
+%-\subsection*{Problem 18.4}
 
 Explain why loss must be computed
 after predictions but before gradients.
@@ -5928,8 +5615,7 @@ Blame flows backward through the network.
 
 Each parameter receives responsibility.
 
-%-------------------------------------------------
-\subsection*{Problem 18.5}
+%-\subsection*{Problem 18.5}
 
 Explain why backpropagation
 cannot skip any layer.
@@ -5947,8 +5633,7 @@ and a learning rule.
 
 This is the only step that changes the model.
 
-%-------------------------------------------------
-\subsection*{Problem 18.6}
+%-\subsection*{Problem 18.6}
 
 Explain why separating:
 \begin{itemize}
@@ -5970,8 +5655,7 @@ using metrics on validation data.
 
 This guides decisions.
 
-%-------------------------------------------------
-\subsection*{Problem 18.7}
+%-\subsection*{Problem 18.7}
 
 Explain why evaluation
 should not influence gradients.
@@ -5992,8 +5676,7 @@ The loop repeats for:
 
 Learning emerges gradually.
 
-%-------------------------------------------------
-\subsection*{Problem 18.8}
+%-\subsection*{Problem 18.8}
 
 Explain why learning appears smooth
 even though updates are discrete.
@@ -6015,8 +5698,7 @@ Training stops based on:
 
 There is no perfect rule.
 
-%-------------------------------------------------
-\subsection*{Problem 18.9}
+%-\subsection*{Problem 18.9}
 
 Explain why stopping too late
 can be as harmful as stopping too early.
@@ -6038,8 +5720,7 @@ This loop applies to:
 
 Only components change.
 
-%-------------------------------------------------
-\subsection*{Problem 18.10}
+%-\subsection*{Problem 18.10}
 
 Explain why this loop
 does not depend on the type of model.
@@ -6063,8 +5744,7 @@ Training mirrors science:
 
 This is why ML works.
 
-%-------------------------------------------------
-\subsection*{Problem 18.11}
+%-\subsection*{Problem 18.11}
 
 Explain why thinking of training
 as experimentation leads to better practice.
@@ -6105,8 +5785,7 @@ and what remains fixed at each step.
     \item Changing many things at once
 \end{itemize}
 
-%-------------------------------------------------
-\subsection*{Problem 18.12}
+%-\subsection*{Problem 18.12}
 
 Explain why changing:
 \begin{itemize}
@@ -6135,81 +5814,69 @@ Machine Learning training should be understood as
 \vspace{4cm}
 
 %=================================================
-\section*{Answers — Chapter 18}
+\section{Answers — Chapter 18}
 %=================================================
 
 \textbf{Answer 18.1}
 
 Each plays a distinct role.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.2}
 
 Stability and efficiency.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.3}
 
 Model behavior is tested.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.4}
 
 Dependency order.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.5}
 
 Blame propagation breaks.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.6}
 
 Optimizer flexibility.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.7}
 
 Evaluation bias.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.8}
 
 Continuous optimization.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.9}
 
 Bias–variance balance.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.10}
 
 Abstract interfaces.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.11}
 
 Disciplined experimentation.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.12}
 
 Confounding effects.
 
-%-------------------------------------------------
-
+%-
 \textbf{Answer 18.13}
 
 An iterative scientific process.

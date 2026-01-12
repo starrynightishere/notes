@@ -20,8 +20,7 @@
 \tableofcontents
 \newpage
 
-%-------------------------------------------------
-
+%-
 \section{Machine Learning}
 
 \subsection*{Big Picture (Before Any Model)}
@@ -76,8 +75,7 @@ Adjusting knobs on a machine until its output matches reality as closely as poss
 The knobs are parameters $\theta$.  
 The adjustment rule comes from mathematics.
 
-%-------------------------------------------------
-
+%-
 \section{Module 5.1 — Supervised Learning (Foundations)}
 
 \subsection{What ``Supervised'' Really Means}
@@ -119,8 +117,7 @@ The teacher tells us the correct answer during learning.
 
 This feedback is what allows optimization to work.
 
-%-------------------------------------------------
-
+%-
 \section{Part A — Linear Regression (The Core of ML)}
 
 Linear regression is the simplest supervised learning model.
@@ -128,8 +125,7 @@ Almost every advanced model can be understood as a modification of it.
 
 Understanding linear regression deeply means understanding machine learning.
 
-%-------------------------------------------------
-
+%-
 \subsection{5.1.1 Simple Linear Regression (One Variable)}
 
 \subsubsection*{Problem Setup}
@@ -159,8 +155,7 @@ A line is the \textbf{simplest smooth relationship}.
 If even a line cannot fit the data reasonably,
 no complex model should be trusted.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometry First}
 
 Each data point lies somewhere in the plane.
@@ -173,8 +168,7 @@ e_i = y_i - (\beta_0 + \beta_1 x_i)
 
 This error is a \textbf{vertical distance} from the line.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Loss Function (Why Squared Error?)}
 
 We measure total error using:
@@ -194,8 +188,7 @@ L(\beta_0,\beta_1) = \sum_{i=1}^n (y_i - \beta_0 - \beta_1 x_i)^2
 Think of each squared error as \textbf{energy}.
 The best line is the one with minimum total energy.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Optimization (Calculus Enters)}
 
 To minimize the loss, we differentiate with respect to parameters:
@@ -222,8 +215,7 @@ Solving:
 
 Slope measures how strongly $x$ and $y$ vary together.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Probabilistic Interpretation}
 
 Assume the data follows:
@@ -247,8 +239,7 @@ Then:
 Gaussian noise arises naturally when many small disturbances act together
 (Central Limit Theorem).
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps}
 
 \begin{itemize}
@@ -257,8 +248,7 @@ Gaussian noise arises naturally when many small disturbances act together
     \item Intercept is not optional
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsection{5.1.2 Multiple Linear Regression (Vector Form)}
 
 Now inputs have multiple features:
@@ -274,8 +264,7 @@ y = \beta_0 + \beta_1 x_1 + \dots + \beta_d x_d
 
 Each feature contributes linearly.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Matrix Representation (Crucial)}
 
 Define:
@@ -311,8 +300,7 @@ Matrices allow us to:
 Write many equations as one geometric statement.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometry (The Heart)}
 
 \begin{itemize}
@@ -323,8 +311,7 @@ Write many equations as one geometric statement.
 
 The error vector is orthogonal to the column space.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Normal Equation}
 
 Orthogonality gives:
@@ -344,8 +331,7 @@ If $X^TX$ is invertible:
     \item Rank deficiency implies infinite solutions
     \item Pseudoinverse gives minimum-norm solution
 \end{itemize}
-%-------------------------------------------------
-
+%-
 \subsubsection*{Normal Equation}
 
 \[
@@ -357,8 +343,7 @@ If invertible:
 \beta = (X^T X)^{-1} X^T y
 \]
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Key Linear Algebra Facts}
 
 \begin{itemize}
@@ -367,8 +352,7 @@ If invertible:
     \item Moore--Penrose pseudoinverse resolves singularity
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsection{5.1.3 Ridge Regression (Regularization)}
 
 \subsubsection*{Why Do We Need Ridge Regression?}
@@ -396,8 +380,7 @@ If columns of $X$ are nearly linearly dependent:
 
 Ridge regression stabilizes this geometry.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Modified Loss Function}
 
 Ridge regression adds a penalty on the size of coefficients:
@@ -426,8 +409,7 @@ Penalizing $\|\beta\|^2$ prefers:
 Simpler models that explain data without extreme parameter values.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Closed-Form Solution}
 
 Minimizing the ridge loss yields:
@@ -453,8 +435,7 @@ Minimizing the ridge loss yields:
 
 This is the \textbf{bias–variance trade-off in action}.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometric Interpretation}
 
 OLS minimizes distance to $y$ using elliptical contours.
@@ -475,8 +456,7 @@ If $y \approx 100x$ but data is noisy:
     \item Ridge chooses a smaller slope to avoid overreaction
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps (Ridge Regression)}
 
 \begin{itemize}
@@ -502,8 +482,7 @@ Linear regression fails here because:
 
 Logistic regression fixes this using probability theory.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Model}
 
 Logistic regression models the probability of class $1$ as:
@@ -523,8 +502,7 @@ where the sigmoid function is:
     \item Sigmoid converts score into probability
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Why Sigmoid Function?}
 
 The sigmoid function:
@@ -544,8 +522,7 @@ Think of sigmoid as a soft switch:
     \item Large negative input $\rightarrow$ almost 0
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Loss Function (Log-Likelihood)}
 
 Assuming Bernoulli outcomes:
@@ -574,8 +551,7 @@ Squared error treats classification as regression.
 Cross-entropy treats classification as \textbf{probability estimation},
 which is mathematically correct.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Optimization}
 
 There is no closed-form solution because the loss is nonlinear.
@@ -596,8 +572,7 @@ where:
 The loss surface is convex.
 Any descent direction leads to the global minimum.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometry of Logistic Regression}
 
 \begin{itemize}
@@ -613,8 +588,7 @@ Any descent direction leads to the global minimum.
     \item Probability decides confidence
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps (Logistic Regression)}
 
 \begin{itemize}
@@ -636,8 +610,7 @@ This module contrasts two fundamentally different learning philosophies:
 
 Understanding this contrast builds deep intuition and is frequently tested in GATE.
 
-%-------------------------------------------------
-
+%-
 \subsection{5.2.1 k-Nearest Neighbours (k-NN)}
 
 \subsubsection*{Problem Statement}
@@ -664,8 +637,7 @@ The data itself \emph{is} the model.
 
 All intelligence is postponed until prediction time.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometry First ( )}
 
 Each data point is a point in a $d$-dimensional feature space $\mathbb{R}^d$.
@@ -678,8 +650,7 @@ Prediction depends entirely on the \textbf{local neighbourhood} around $x^{*}$.
 Points that are close together in feature space are assumed to have similar outputs.
 This assumption is called the \textbf{smoothness assumption}.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Mathematical Formulation}
 
 Training data:
@@ -708,8 +679,7 @@ The most common distance measure is Euclidean distance:
 
 Averaging nearby outputs smooths noise and approximates the underlying function locally.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Linear Algebra Insight}
 
 Distance depends on the inner product:
@@ -742,8 +712,7 @@ In high dimensions:
 
 Hence, similarity loses its meaning.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Bias--Variance Behaviour}
 
 \begin{center}
@@ -767,8 +736,7 @@ Extreme cases:
 
 Choosing $k$ is a direct application of the bias--variance trade-off.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Algorithm}
 
 Given a test point $x^{*}$:
@@ -789,8 +757,7 @@ O(nd) \quad \text{per query}
 All computation happens at prediction time.
 There is no compression of data into parameters.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Probabilistic Interpretation}
 
 k-NN approximates conditional probability locally:
@@ -805,8 +772,7 @@ Thus, k-NN acts as a \textbf{non-parametric density estimator}.
 
 Local neighbour counts approximate probability density without assuming any distribution.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps (k-NN)}
 
 \begin{itemize}
@@ -842,8 +808,7 @@ The model learns how each class generates data.
 
 Once this is known, classification is done by comparing probabilities.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Bayes Theorem}
 
 Bayes theorem connects cause and effect:
@@ -868,8 +833,7 @@ Since $P(x)$ is common to all classes:
 For classification, we only care about \textbf{which class is larger},
 not the exact probability value.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Naive Conditional Independence Assumption}
 
 Naive Bayes assumes:
@@ -893,8 +857,7 @@ Yet Naive Bayes works because:
     \item Classification only depends on relative probabilities
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Decision Rule}
 
 To avoid numerical underflow, we take logarithms:
@@ -915,8 +878,7 @@ To avoid numerical underflow, we take logarithms:
     \item Computation becomes stable
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Variants of Naive Bayes}
 
 \paragraph{Gaussian Naive Bayes}
@@ -942,8 +904,7 @@ Assumes count data (e.g.\ word frequencies).
 Only the likelihood model changes.
 Bayes theorem remains the same.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometry vs Probability}
 
 \begin{itemize}
@@ -971,8 +932,7 @@ Data requirement & Very small \\
 Strong assumptions reduce variance.
 Low variance means stability with limited data.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps (Naive Bayes)}
 
 \begin{itemize}
@@ -1027,8 +987,7 @@ Goal:
 Find a projection where classes are maximally separated.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Probabilistic Assumptions}
 
 LDA assumes:
@@ -1043,8 +1002,7 @@ LDA assumes:
 When many small effects combine, Gaussian distributions naturally arise
 (Central Limit Theorem).
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Bayes Classification Rule}
 
 Bayes theorem:
@@ -1076,8 +1034,7 @@ Classification:
 \hat{y} = \arg\max_k \delta_k(x)
 \]
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometry of LDA}
 
 Decision boundary between classes $k$ and $l$:
@@ -1097,8 +1054,7 @@ Thus:
 The inverse covariance matrix shrinks directions with high variance
 and emphasizes stable directions.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Two-Class LDA (Core Case)}
 
 Class means:
@@ -1119,8 +1075,7 @@ Between-class scatter:
 S_B = (\mu_1 - \mu_2)(\mu_1 - \mu_2)^T
 \]
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Optimization View (Rayleigh Quotient)}
 
 Projection vector $w$ maximizes:
@@ -1141,8 +1096,7 @@ Numerator separates class means.
 Denominator penalizes class spread.
 LDA balances both.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Key Linear Algebra Insights}
 
 \begin{itemize}
@@ -1151,8 +1105,7 @@ LDA balances both.
     \item Projection maximizes separability
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps (LDA)}
 
 \begin{itemize}
@@ -1191,8 +1144,7 @@ A classifier with a large margin is stable to noise and perturbations.
 
 Margin is robustness.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Linear Separability}
 
 We are given labeled data:
@@ -1217,8 +1169,7 @@ y_i(w^T x_i + b) \ge 1
 Using $\{-1,+1\}$ makes geometry symmetric
 and simplifies mathematical expressions.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Margin Geometry}
 
 The distance from a point $x$ to the hyperplane is:
@@ -1249,8 +1200,7 @@ A smaller $\|w\|$ means:
     \item The classifier is more robust
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Primal Optimization Problem}
 
 The hard-margin SVM solves:
@@ -1273,8 +1223,7 @@ y_i(w^T x_i + b) \ge 1, \quad \forall i
 
 This is a \textbf{convex quadratic optimization problem}.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Lagrangian Formulation}
 
 To solve constrained optimization, we form the Lagrangian:
@@ -1294,8 +1243,7 @@ They enforce constraints while allowing unconstrained optimization.
 
 Only constraints that are ``tight'' matter.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Optimality Conditions}
 
 Taking derivatives and setting to zero gives:
@@ -1308,8 +1256,7 @@ This shows:
 The classifier is a weighted sum of training points.
 \end{quote}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Dual Optimization Problem}
 
 Substituting back yields the dual problem:
@@ -1333,8 +1280,7 @@ subject to:
     \item Often easier to solve numerically
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Support Vectors}
 
 Only points with $\alpha_i > 0$ contribute to $w$.
@@ -1352,8 +1298,7 @@ They are called \textbf{support vectors}.
 Interior points do not affect the margin.
 Only boundary points define the classifier.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Soft Margin SVM}
 
 Real data is rarely perfectly separable.
@@ -1379,8 +1324,7 @@ y_i(w^T x_i + b) \ge 1 - \xi_i,
 
 This is bias–variance trade-off.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Kernel Trick (Inner Product View)}
 
 Replace inner products:
@@ -1399,8 +1343,7 @@ without ever computing those dimensions.
 
 Only inner products are needed.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{GATE Traps (SVM)}
 
 \begin{itemize}
@@ -1739,8 +1682,7 @@ Pull points as close as possible to their cluster centers.
 
 This is purely a geometric objective.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Centroid Update Rule}
 
 Given cluster $\mathcal{C}_j$, the optimal centroid is:
@@ -2085,8 +2027,7 @@ A model can memorize training data without learning the pattern.
 
 Cross-validation estimates how a model will perform on unseen data.
 
-%-------------------------------------------------
-\subsubsection*{Hold-Out Validation}
+%-\subsubsection*{Hold-Out Validation}
 
 Split data into:
 \begin{itemize}
@@ -2100,8 +2041,7 @@ Problem:
     \item High variance estimate
 \end{itemize}
 
-%-------------------------------------------------
-\subsubsection*{$k$-Fold Cross-Validation}
+%-\subsubsection*{$k$-Fold Cross-Validation}
 
 Procedure:
 \begin{enumerate}
@@ -2124,8 +2064,7 @@ Each data point gets to be both:
     \item Test data
 \end{itemize}
 
-%-------------------------------------------------
-\subsubsection*{Leave-One-Out Cross-Validation (LOO)}
+%-\subsubsection*{Leave-One-Out Cross-Validation (LOO)}
 
 Special case: $k = n$.
 

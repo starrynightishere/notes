@@ -26,7 +26,7 @@
 \chapter{How a Neural Network Becomes Code}
 %=================================================
 
-\section*{Why This Book Exists}
+\section{Why This Book Exists}
 
 You already understand:
 \begin{itemize}
@@ -96,8 +96,7 @@ Answer in words:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Conceptually: an abstract scalar.  
@@ -119,8 +118,7 @@ What additional information does the container hold?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It holds value, location, and sometimes gradient.
@@ -146,8 +144,7 @@ Why is order important?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 A collection of related numbers.
@@ -173,8 +170,7 @@ Why does shape matter more than values?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Shape determines valid operations.
@@ -196,8 +192,7 @@ Which one will not?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Parameters change.
@@ -223,8 +218,7 @@ List every object explicitly.
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Input vector $x$, weight vector $w$, bias $b$.
@@ -243,8 +237,7 @@ A neural network contains special objects called ``neurons'' in memory.
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 False.
@@ -267,8 +260,7 @@ What does it know how to do?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It executes arithmetic operations.
@@ -288,8 +280,7 @@ Before learning begins, a neural network is only \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Numbers stored in memory with defined shapes.
@@ -298,7 +289,7 @@ Numbers stored in memory with defined shapes.
 \chapter{The Forward Pass — Computing Without Learning}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 Learning is impossible unless computation is correct.
 
@@ -346,8 +337,7 @@ Explain in words:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Weighted combination of inputs.
@@ -371,8 +361,7 @@ Answer:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Scalar.  
@@ -436,8 +425,7 @@ Explain:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Bias shifts the output independently of input.
@@ -475,8 +463,7 @@ Explain:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It gates negative signals.
@@ -511,8 +498,7 @@ What must be added next?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 More neurons and layers.
@@ -537,8 +523,7 @@ Explain:
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Same computation repeated with different parameters.
@@ -586,8 +571,7 @@ What does batching allow us to do later?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Parallel computation.
@@ -607,8 +591,7 @@ A forward pass is simply \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Executing arithmetic using fixed parameters.
@@ -616,7 +599,7 @@ Executing arithmetic using fixed parameters.
 \chapter{Matrix View \& Batching — Thinking Like Linear Algebra}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 In Chapter 2, we computed everything using loops.
 
@@ -682,8 +665,7 @@ How many dot products are being computed?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 One dot product per row of $W$.
@@ -707,8 +689,7 @@ Answer:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Output is $\mathbb{R}^m$.
@@ -765,8 +746,7 @@ What would a scalar bias imply incorrectly?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each neuron needs its own shift.
@@ -796,8 +776,7 @@ Explain:
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Process many samples in parallel.
@@ -827,8 +806,7 @@ Answer:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 $Z \in \mathbb{R}^{n \times m}$,
@@ -869,8 +847,7 @@ What shape does the activation output have?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Same shape as pre-activation.
@@ -903,8 +880,7 @@ Matrix multiplication in neural networks is simply \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Many dot products computed at once.
@@ -912,7 +888,7 @@ Many dot products computed at once.
 \chapter{Loss Functions — Measuring Error}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 A neural network produces numbers.
 
@@ -963,8 +939,7 @@ Why can optimization not work with vector-valued error?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Optimization requires a single objective value to compare states.
@@ -988,8 +963,7 @@ Explain:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Prediction changes.
@@ -1024,8 +998,7 @@ Why not use absolute error here?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Square emphasizes large errors and is differentiable everywhere.
@@ -1070,8 +1043,7 @@ Why average instead of sum?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Averaging makes loss scale-independent of batch size.
@@ -1094,8 +1066,7 @@ Why is this called a loss landscape?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Axes are parameters; height is loss value.
@@ -1128,8 +1099,7 @@ What mismatch exists?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Classification is about probabilities, not distances.
@@ -1161,8 +1131,7 @@ What property does accuracy lack?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Accuracy is not differentiable.
@@ -1182,8 +1151,7 @@ A loss function should be understood as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 A numerical measure of prediction error.
@@ -1191,7 +1159,7 @@ A numerical measure of prediction error.
 \chapter{Numerical Gradients — Learning Without Backprop}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 You now have:
 \begin{itemize}
@@ -1234,8 +1202,7 @@ What information is required to make each nudge?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 We need to know how loss changes when parameters change.
@@ -1272,8 +1239,7 @@ Too small?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Too large: inaccurate.
@@ -1326,8 +1292,7 @@ Why?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Decrease $w$ to reduce loss.
@@ -1359,8 +1324,7 @@ What is the trade-off?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Speed vs stability.
@@ -1399,8 +1363,7 @@ How does this scale computationally?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each parameter affects loss differently.
@@ -1439,8 +1402,7 @@ What explodes as networks grow?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Computation cost grows with parameters.
@@ -1460,8 +1422,7 @@ A numerical gradient should be understood as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 A finite-difference estimate of sensitivity.
@@ -1469,7 +1430,7 @@ A finite-difference estimate of sensitivity.
 \chapter{Backpropagation from Scratch — Chain Rule in Code}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 In Chapter 5, we learned:
 \begin{itemize}
@@ -1529,8 +1490,7 @@ Explain in words what this multiplication represents.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 \[
@@ -1566,8 +1526,7 @@ but composing local derivatives is efficient.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Local derivatives reuse intermediate results.
@@ -1601,8 +1560,7 @@ Why must forward happen first?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Forward computes intermediate values needed for gradients.
@@ -1637,8 +1595,7 @@ Why is this decomposition important?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It exposes the computation graph.
@@ -1675,8 +1632,7 @@ What does each measure?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Sensitivity of loss to each intermediate variable.
@@ -1724,8 +1680,7 @@ Where does addition come from?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 From linearity of differentiation.
@@ -1756,8 +1711,7 @@ Explain why backprop:
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 No repeated evaluations, exact derivatives.
@@ -1777,8 +1731,7 @@ Backpropagation should be understood as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Efficient application of the chain rule.
@@ -1786,7 +1739,7 @@ Efficient application of the chain rule.
 \chapter{Optimization Loops — Making Parameters Move}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 Up to now, we have:
 \begin{itemize}
@@ -1845,8 +1798,7 @@ What does repetition achieve?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each update only makes a small improvement.
@@ -1882,8 +1834,7 @@ Use a geometric explanation.
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 The gradient points uphill; moving opposite goes downhill.
@@ -1943,8 +1894,7 @@ What role does the learning rate play?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Learning rate controls step size.
@@ -1978,8 +1928,7 @@ What phenomenon begins to appear?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Overfitting to training data.
@@ -2015,8 +1964,7 @@ What space does this step live in?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Parameter space.
@@ -2045,8 +1993,7 @@ What does it provide instead?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It provides gradient information.
@@ -2066,8 +2013,7 @@ Learning in neural networks is fundamentally \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Repeated parameter updates driven by gradients.
@@ -2075,7 +2021,7 @@ Repeated parameter updates driven by gradients.
 \chapter{Deep Networks — Stacking Layers Cleanly}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 So far, we trained:
 \begin{itemize}
@@ -2139,8 +2085,7 @@ Explain:
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Same computations repeat.
@@ -2178,8 +2123,7 @@ What breaks if one layer outputs the wrong shape?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Matrix multiplication becomes invalid.
@@ -2256,8 +2200,7 @@ What dependency forces this order?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each gradient depends on downstream gradients.
@@ -2293,8 +2236,7 @@ Why do most frameworks store them?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Storing saves computation time.
@@ -2326,8 +2268,7 @@ What does composition enable?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Compositional structure.
@@ -2347,8 +2288,7 @@ A deep neural network should be understood as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 A composition of repeated linear and nonlinear operations.
@@ -2356,7 +2296,7 @@ A composition of repeated linear and nonlinear operations.
 \chapter{Initialization \& Stability — When Training Breaks}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 You now know how to:
 \begin{itemize}
@@ -2407,8 +2347,7 @@ Relate this to gradient flow.
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Values vanish for $|c|<1$, explode for $|c|>1$.
@@ -2440,8 +2379,7 @@ What property of their derivatives causes this?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Derivatives are bounded by values less than 1.
@@ -2477,8 +2415,7 @@ What symptom appears first?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Loss becomes NaN or infinite.
@@ -2510,8 +2447,7 @@ What symmetry is created?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 All neurons behave identically.
@@ -2543,8 +2479,7 @@ What happens if variance grows or shrinks?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Signals saturate or vanish.
@@ -2588,8 +2523,7 @@ Training instability in deep networks arises primarily from \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Repeated multiplication of gradients through layers.
@@ -2597,7 +2531,7 @@ Repeated multiplication of gradients through layers.
 \chapter{Regularization — Controlling Overfitting}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 So far, we focused on:
 \begin{itemize}
@@ -2644,8 +2578,7 @@ What signal reveals overfitting?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Training loss decreases while validation loss increases.
@@ -2676,8 +2609,7 @@ How does shrinking weights improve robustness?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Smaller weights reduce amplification of input noise.
@@ -2712,8 +2644,7 @@ How is this visible in the update rule?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 The gradient includes a term proportional to the weight.
@@ -2763,8 +2694,7 @@ What dependency does it break?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 It prevents reliance on specific neurons.
@@ -2798,8 +2728,7 @@ Why is this trade acceptable?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Lower variance improves generalization.
@@ -2830,8 +2759,7 @@ What complexity is being controlled?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Effective model capacity.
@@ -2851,8 +2779,7 @@ Regularization should be understood as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Intentional restriction to improve generalization.
@@ -2860,7 +2787,7 @@ Intentional restriction to improve generalization.
 \chapter{Mini-Batch Training \& Efficiency}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 So far, our training loop conceptually used:
 \begin{itemize}
@@ -2934,8 +2861,7 @@ What resource becomes the bottleneck?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Memory and computation time.
@@ -2969,8 +2895,7 @@ What does noise prevent?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Overfitting to sharp minima.
@@ -3005,8 +2930,7 @@ What hidden pattern can appear?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Correlated gradient updates.
@@ -3065,8 +2989,7 @@ Why are both extremes problematic?
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Too noisy vs too slow.
@@ -3101,8 +3024,7 @@ What operation is being parallelized?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Matrix multiplications.
@@ -3122,8 +3044,7 @@ Mini-batch training should be understood as \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Efficient stochastic approximation of full gradient descent.
@@ -3131,7 +3052,7 @@ Efficient stochastic approximation of full gradient descent.
 \chapter{Build a Neural Network from Scratch (Capstone)}
 %=================================================
 
-\section*{Why This Chapter Exists}
+\section{Why This Chapter Exists}
 
 You now understand:
 \begin{itemize}
@@ -3184,8 +3105,7 @@ Explain the role of each.
 
 \vspace{5cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Parameters define the model, computations produce outputs,
@@ -3259,8 +3179,7 @@ What dependency enforces this order?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Each gradient depends on downstream derivatives.
@@ -3347,8 +3266,7 @@ Why is systematic debugging critical?
 
 \vspace{4cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 Check shapes, loss values, gradient magnitudes.
@@ -3382,8 +3300,7 @@ A neural network training pipeline is fundamentally \\
 
 \vspace{3cm}
 
-%-------------------------------------------------
-
+%-
 \subsection*{Answer}
 
 A structured application of linear algebra and calculus inside loops.

@@ -86,8 +86,7 @@ This represents a hyperplane in $\mathbb{R}^d$.
 
 Linear models are powerful — but limited.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Strang Bridge — What Linear Models Can and Cannot Do}
 
 Linear models can:
@@ -130,8 +129,7 @@ x_1 & x_2 & y \\
 \end{array}
 \]
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Geometric View}
 
 Plotting points in $\mathbb{R}^2$:
@@ -142,8 +140,7 @@ Plotting points in $\mathbb{R}^2$:
 
 \textbf{There exists no straight line that separates these two classes.}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Formal Proof of Impossibility}
 
 Assume a linear classifier:
@@ -1332,8 +1329,7 @@ Uses full dataset:
     \item Computationally expensive
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Stochastic Gradient Descent (SGD)}
 
 Uses one data point:
@@ -1346,8 +1342,7 @@ Uses one data point:
     \item Fast updates
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Mini-Batch Gradient Descent}
 
 Compromise:
@@ -1597,8 +1592,7 @@ where:
     \item $\|\cdot\|_F$ is Frobenius norm
 \end{itemize}
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Effect on Optimization}
 
 Gradient becomes:
@@ -1671,8 +1665,7 @@ z & \text{with probability } 1-p
 \end{cases}
 \]
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Expectation View}
 
 At test time, scaling ensures:
@@ -1908,8 +1901,7 @@ Still saturates for large $|z|$.
 
 This creates piecewise-linear functions.
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Derivative}
 
 \[
@@ -1922,8 +1914,7 @@ This creates piecewise-linear functions.
 
 (ReLU is non-differentiable at $z=0$, but this is not problematic.)
 
-%-------------------------------------------------
-
+%-
 \subsubsection*{Why ReLU Changed Everything}
 
 \begin{itemize}
