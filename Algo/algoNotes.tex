@@ -1,0 +1,4239 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\title{Algorithm Notes}
+\author{Anurag Mishra}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{How to think about Algorithms}
+\label{sec:how_to_think_about_algorithms}
+
+\subsection{Part 0.1: What Is an Algorithm Really?}
+
+\subsubsection*{Why This Part Exists}
+
+Most students think algorithms are about:
+\begin{itemize}
+    \item writing clever code
+    \item using fancy tricks
+\end{itemize}
+
+That belief is the root of fear.
+
+This part exists to correct that belief.
+
+\bigskip
+An algorithm is not code.
+An algorithm is a \textbf{way of spending limited resources}.
+
+
+\subsubsection{Algorithm vs Program}
+
+A \textbf{program}:
+\begin{itemize}
+    \item is written in a specific language
+    \item runs on a specific machine
+    \item depends on compiler and hardware
+\end{itemize}
+
+An \textbf{algorithm}:
+\begin{itemize}
+    \item is a sequence of logical steps
+    \item is independent of language
+    \item is independent of machine
+\end{itemize}
+
+\textbf{Same algorithm, many programs.}
+
+
+\subsubsection{A Very Simple Example}
+
+Suppose you want to check whether a number appears in a list.
+
+One way:
+\begin{quote}
+Start from the first element and check one by one.
+\end{quote}
+
+This idea:
+\begin{itemize}
+    \item can be written in C
+    \item can be written in Python
+    \item can be done by a human on paper
+\end{itemize}
+
+The idea is the algorithm.
+The code is just a translation.
+
+
+\subsubsection{Algorithms Spend Resources}
+
+Every algorithm spends:
+\begin{itemize}
+    \item \textbf{time} — number of steps
+    \item \textbf{memory} — space to store data
+\end{itemize}
+
+You cannot avoid this.
+
+\bigskip
+The key question becomes:
+
+\begin{center}
+\textbf{How does this spending change as the input grows?}
+\end{center}
+
+
+\subsubsection{Why Growth Matters More Than Speed}
+
+Imagine two algorithms:
+
+\begin{itemize}
+    \item Algorithm A is fast for small inputs
+    \item Algorithm B is slower for small inputs
+\end{itemize}
+
+Now imagine input size becomes 1 million.
+
+\bigskip
+\textbf{Question:}
+\begin{quote}
+Which algorithm survives?
+\end{quote}
+
+Algorithms fail not because they are slow —
+they fail because they \emph{scale badly}.
+
+
+\subsubsection{A Thought Experiment}
+
+Suppose an algorithm takes:
+\begin{itemize}
+    \item 10 steps for 10 inputs
+    \item 100 steps for 100 inputs
+    \item 1000 steps for 1000 inputs
+\end{itemize}
+
+Another algorithm takes:
+\begin{itemize}
+    \item 10 steps for 10 inputs
+    \item 10{,}000 steps for 100 inputs
+    \item 1{,}000{,}000 steps for 1000 inputs
+\end{itemize}
+
+\textbf{Question:}
+\begin{quote}
+Which idea would you trust for the future?
+\end{quote}
+
+
+\subsubsection{Key Mental Shift (Very Important)}
+
+\begin{quote}
+Algorithms are about \textbf{behavior under growth}, not clever tricks.
+\end{quote}
+
+Once you accept this, fear disappears.
+
+
+\subsubsection*{Hands-On Thinking (Do Not Skip)}
+
+\begin{enumerate}
+    \item Can two different programs implement the same algorithm? Explain.
+    \item Why does an algorithm need to be independent of machine speed?
+    \item Give one real-life process that behaves like an algorithm.
+    \item Why do bad algorithms usually fail only at large scale?
+\end{enumerate}
+\subsection{Part 0.2: Input Size and the Idea of Growth}
+
+\subsubsection*{Why This Part Exists}
+
+When students first see algorithms, they often focus on:
+\begin{itemize}
+    \item the values of the data
+    \item special cases
+    \item clever tricks
+\end{itemize}
+
+But algorithms do not fail because of data values.
+They fail because of \textbf{too much data}.
+
+This part teaches you to stop looking at \emph{what} the data is,
+and start looking at \emph{how much} data there is.
+
+
+\subsubsection{What Do We Mean by Input Size?}
+
+Every algorithm takes some input.
+
+The \textbf{input size} is a number that tells us:
+\begin{quote}
+How big is the problem we are trying to solve?
+\end{quote}
+
+We usually denote input size by \(n\).
+
+\textbf{Important:}
+\(n\) is not the value of data — it is the amount of data.
+
+
+\subsubsection{Very Concrete Examples}
+
+Let us look at familiar situations.
+
+\begin{itemize}
+    \item Searching a list of 5 numbers \(\Rightarrow n = 5\)
+    \item Searching a list of 1{,}000 numbers \(\Rightarrow n = 1000\)
+    \item Sorting exam marks of a class \(\Rightarrow n =\) number of students
+    \item Checking connections in a graph \(\Rightarrow n = V\) (and sometimes \(E\))
+\end{itemize}
+
+\textbf{Pause and think:}
+\begin{quote}
+The same idea behaves very differently when \(n\) changes.
+\end{quote}
+
+
+\subsubsection{Same Algorithm, Different Input Sizes}
+
+Consider the idea:
+\begin{quote}
+Check elements one by one until you find what you want.
+\end{quote}
+
+Let us run this idea on different input sizes.
+
+\begin{itemize}
+    \item For \(n = 10\), checking all elements is easy
+    \item For \(n = 1000\), it is noticeable
+    \item For \(n = 10^6\), it becomes expensive
+\end{itemize}
+
+\textbf{Key realization:}
+\begin{quote}
+An algorithm that feels fast today may become unusable tomorrow.
+\end{quote}
+
+
+\subsubsection{Why Values Do Not Matter (Only Size Does)}
+
+Suppose you are searching for the number 7.
+
+Does it matter whether the array contains:
+\[
+[1,2,3,4,5] \quad \text{or} \quad [100,200,300,400,500]?
+\]
+
+No.
+
+What matters is:
+\begin{itemize}
+    \item how many elements must be checked
+\end{itemize}
+
+\textbf{Conclusion:}
+\begin{quote}
+Algorithms depend on quantity, not magnitude.
+\end{quote}
+
+
+\subsubsection{A Simple Growth Experiment}
+
+Let us imagine an algorithm that does exactly:
+\[
+n \text{ steps}
+\]
+
+Now increase the input size.
+
+\begin{center}
+\begin{tabular}{c|c}
+Input size (\(n\)) & Steps required \\
+\hline
+10 & 10 \\
+100 & 100 \\
+1000 & 1000
+\end{tabular}
+\end{center}
+
+\textbf{Observation:}
+\begin{quote}
+When input increases 10 times, work increases 10 times.
+\end{quote}
+
+This behavior is called \textbf{linear growth}.
+
+
+\subsubsection{Another Growth Experiment}
+
+Now imagine an algorithm that does:
+\[
+n^2 \text{ steps}
+\]
+
+\begin{center}
+\begin{tabular}{c|c}
+Input size (\(n\)) & Steps required \\
+\hline
+10 & 100 \\
+100 & 10{,}000 \\
+1000 & 1{,}000{,}000
+\end{tabular}
+\end{center}
+
+\textbf{Pause and think:}
+\begin{quote}
+When input increases 10 times, work increases 100 times.
+\end{quote}
+
+This is a completely different behavior.
+
+
+\subsubsection{Why Growth Is More Important Than Speed}
+
+Suppose Algorithm A runs twice as fast as Algorithm B for small inputs.
+
+But:
+\begin{itemize}
+    \item Algorithm A grows like \(n^2\)
+    \item Algorithm B grows like \(n\)
+\end{itemize}
+
+\textbf{Question:}
+\begin{quote}
+Which one survives for large inputs?
+\end{quote}
+
+\textbf{Answer:}
+The one with better growth, not better constant speed.
+
+
+\subsubsection{The Doubling Test (Very Important)}
+
+Ask this question for any algorithm:
+
+\begin{quote}
+If I double the input size, what happens to the work?
+\end{quote}
+
+\begin{itemize}
+    \item Linear growth \(\Rightarrow\) work doubles
+    \item Quadratic growth \(\Rightarrow\) work becomes four times
+    \item Logarithmic growth \(\Rightarrow\) work increases slightly
+\end{itemize}
+
+This test will become your best intuition tool.
+
+
+\subsubsection{Input Size in Graph Algorithms}
+
+In graphs, input size is not just one number.
+
+We have:
+\begin{itemize}
+    \item \(V\) = number of vertices
+    \item \(E\) = number of edges
+\end{itemize}
+
+\textbf{Important insight:}
+\begin{quote}
+Graph algorithms grow with structure, not just data length.
+\end{quote}
+
+This is why we often see \(O(V+E)\).
+
+
+\subsubsection{Key Mental Shift (Fix This)}
+
+\begin{quote}
+Input size tells you how the future looks.
+Values only tell you about today.
+\end{quote}
+
+Once you internalize this, asymptotic analysis becomes natural.
+
+
+\subsubsection*{Hands-On Thinking (Do Slowly)}
+
+\begin{enumerate}
+    \item An algorithm works fine for \(n = 100\). Does that guarantee it works for \(n = 1{,}000{,}000\)? Why?
+    \item If input size increases 100 times, what happens to a quadratic algorithm?
+    \item Why does sorting 10 numbers feel easy but sorting 10 million numbers feels hard?
+    \item In a graph with many vertices but few edges, which quantity dominates growth?
+\end{enumerate}
+\subsection{Part 0.3: Counting Operations (The Cost Model)}
+
+\subsubsection*{Why This Part Exists}
+
+Students often ask:
+\begin{quote}
+Why don’t we just measure time in seconds?
+\end{quote}
+
+This question is natural — and wrong for algorithm analysis.
+
+This part explains:
+\begin{itemize}
+    \item why seconds are misleading
+    \item what we actually count
+    \item how counting leads naturally to Big-O
+\end{itemize}
+
+We will not rush.
+
+
+\subsubsection{Why Seconds Are a Bad Measure}
+
+Imagine two students running the same program.
+
+\begin{itemize}
+    \item Student A has a fast laptop
+    \item Student B has an old computer
+\end{itemize}
+
+They get different timings.
+
+\textbf{Question:}
+\begin{quote}
+Did the algorithm change?
+\end{quote}
+
+No.
+
+\bigskip
+\textbf{Conclusion:}
+\begin{quote}
+Time in seconds depends on the machine.
+Algorithms should not.
+\end{quote}
+
+So we need a machine-independent measure.
+
+
+\subsubsection{The Core Idea: Count Work, Not Time}
+
+Instead of seconds, we count:
+\begin{quote}
+How many basic steps does the algorithm perform?
+\end{quote}
+
+This is called the \textbf{cost model}.
+
+The cost model answers:
+\begin{quote}
+How much thinking does the algorithm do as input grows?
+\end{quote}
+
+
+\subsubsection{What Is a Basic Operation?}
+
+A basic operation is something that:
+\begin{itemize}
+    \item takes constant time
+    \item the computer cannot avoid doing
+\end{itemize}
+
+Examples:
+\begin{itemize}
+    \item comparing two values
+    \item accessing an array element
+    \item assigning a value
+    \item adding two numbers
+\end{itemize}
+
+We do \emph{not} count:
+\begin{itemize}
+    \item milliseconds
+    \item CPU cycles
+    \item compiler optimizations
+\end{itemize}
+
+
+\subsubsection{First Hands-On Counting Example}
+
+Consider this simple idea:
+
+\begin{quote}
+Check whether a number \(x\) appears in an array of size \(n\).
+\end{quote}
+
+We check elements one by one.
+
+Let us count \textbf{comparisons}.
+
+
+\subsubsection*{Best Case}
+
+If the first element is equal to \(x\):
+\[
+\text{comparisons} = 1
+\]
+
+
+\subsubsection*{Worst Case}
+
+If \(x\) is not present or is at the last position:
+\[
+\text{comparisons} = n
+\]
+
+
+\subsubsection*{Average Case}
+
+If all positions are equally likely:
+\[
+\text{average comparisons}
+= \frac{1 + 2 + \cdots + n}{n}
+= \frac{n+1}{2}
+\]
+
+\textbf{Pause and think:}
+\begin{quote}
+Even the average grows with \(n\).
+\end{quote}
+
+
+\subsubsection{Important Lesson from This Example}
+
+We learned three things:
+\begin{itemize}
+    \item same algorithm, different costs
+    \item cost depends on input arrangement
+    \item cost grows as input grows
+\end{itemize}
+
+This is why we talk about:
+\begin{itemize}
+    \item best case
+    \item worst case
+    \item average case
+\end{itemize}
+
+
+\subsubsection{Second Hands-On Example: A Loop}
+
+Consider this loop:
+
+\begin{quote}
+Repeat an operation for every element in the array.
+\end{quote}
+
+If the array has \(n\) elements:
+\begin{itemize}
+    \item the operation runs once per element
+\end{itemize}
+
+So total operations:
+\[
+n
+\]
+
+\textbf{Interpretation:}
+\begin{quote}
+One pass through the data costs \(n\).
+\end{quote}
+
+
+\subsubsection{Nested Loops: Where Fear Starts}
+
+Now consider a slightly different idea:
+
+\begin{quote}
+For each element, compare it with every other element.
+\end{quote}
+
+Let us count.
+
+\begin{itemize}
+    \item outer loop runs \(n\) times
+    \item inner loop runs \(n\) times
+\end{itemize}
+
+Total operations:
+\[
+n \times n = n^2
+\]
+
+\textbf{Key realization:}
+\begin{quote}
+Nested repetition multiplies cost.
+\end{quote}
+
+
+\subsubsection{Why We Ignore Constant Factors}
+
+Suppose we count:
+\[
+T(n) = 3n + 10
+\]
+
+What happens when \(n\) becomes very large?
+
+\begin{itemize}
+    \item the \(+10\) becomes irrelevant
+    \item the coefficient 3 only scales the speed
+\end{itemize}
+
+What matters is:
+\[
+\text{growth with } n
+\]
+
+This is why we focus on the dominant term.
+
+
+\subsubsection{Cost Model vs Exact Count}
+
+Exact counting:
+\[
+3n + 10
+\]
+
+Growth behavior:
+\[
+n
+\]
+
+\textbf{Important shift:}
+\begin{quote}
+We trade precision for understanding.
+\end{quote}
+
+That trade is deliberate.
+
+
+\subsubsection{Preparing for Big-O (Without Naming It Yet)}
+
+From counting, patterns start to appear:
+
+\begin{itemize}
+    \item one loop \(\rightarrow n\)
+    \item two nested loops \(\rightarrow n^2\)
+    \item halving work repeatedly \(\rightarrow \log n\)
+\end{itemize}
+
+We are observing behaviors.
+
+Later, we will give these behaviors names.
+
+
+\subsubsection{Common Beginner Mistakes (Read Carefully)}
+
+\begin{itemize}
+    \item Counting instructions instead of growth
+    \item Obsessing over constants
+    \item Ignoring worst-case inputs
+\end{itemize}
+
+These mistakes disappear once you focus on growth.
+
+
+\subsubsection*{Hands-On Thinking (Very Important)}
+
+\begin{enumerate}
+    \item If a loop runs \(n\) times and each iteration does 5 operations, what is the total cost?
+    \item Why do we count comparisons instead of seconds?
+    \item What happens to cost if a loop is placed inside another loop?
+    \item Why do constants not affect asymptotic behavior?
+\end{enumerate}
+\subsection{Part 0.4: Best Case, Worst Case, and Average Case}
+
+\subsubsection*{Why This Part Exists}
+
+A very common beginner question is:
+
+\begin{quote}
+“How fast is this algorithm?”
+\end{quote}
+
+This question sounds reasonable —
+but it hides a dangerous assumption.
+
+\bigskip
+The assumption is:
+\begin{quote}
+An algorithm behaves the same way on all inputs.
+\end{quote}
+
+This part exists to break that assumption.
+
+
+\subsubsection{One Algorithm, Many Behaviors}
+
+Consider a simple idea:
+\begin{quote}
+Search for a value \(x\) in an array by checking elements one by one.
+\end{quote}
+
+Now ask:
+\begin{itemize}
+    \item What if \(x\) is the first element?
+    \item What if \(x\) is the last element?
+    \item What if \(x\) is not present?
+\end{itemize}
+
+\textbf{Same algorithm. Very different behavior.}
+
+
+\subsubsection{Best Case: When Things Go Perfectly}
+
+\textbf{Definition (informal):}
+
+\begin{quote}
+The best case is the minimum amount of work the algorithm can do.
+\end{quote}
+
+\subsubsection*{Example}
+
+Searching for \(x\) in an array of size \(n\):
+
+\begin{itemize}
+    \item If the first element is \(x\)
+    \item Only one comparison is needed
+\end{itemize}
+
+\[
+T_{\text{best}}(n) = 1
+\]
+
+\textbf{Interpretation:}
+\begin{quote}
+The algorithm gets lucky.
+\end{quote}
+
+
+\subsubsection{Why Best Case Is Not Very Useful}
+
+Best case tells us:
+\begin{itemize}
+    \item how fast the algorithm \emph{can} be
+\end{itemize}
+
+But it does not tell us:
+\begin{itemize}
+    \item how fast the algorithm \emph{will} be
+\end{itemize}
+
+\textbf{Key insight:}
+\begin{quote}
+You cannot design systems assuming luck.
+\end{quote}
+
+
+\subsubsection{Worst Case: When Things Go as Bad as Possible}
+
+\textbf{Definition (informal):}
+
+\begin{quote}
+The worst case is the maximum amount of work the algorithm may have to do.
+\end{quote}
+
+\subsubsection*{Example}
+
+Searching for \(x\) in an array of size \(n\):
+
+\begin{itemize}
+    \item If \(x\) is not present, or
+    \item If \(x\) is the last element
+\end{itemize}
+
+The algorithm must check all elements.
+
+\[
+T_{\text{worst}}(n) = n
+\]
+
+
+\subsubsection{Why Worst Case Is So Important}
+
+Worst case gives a \textbf{guarantee}.
+
+\begin{quote}
+No matter how bad the input is,
+the algorithm will not exceed this cost.
+\end{quote}
+
+This matters deeply in:
+\begin{itemize}
+    \item operating systems
+    \item real-time systems
+    \item safety-critical software
+    \item competitive and national-level exams (like GATE)
+\end{itemize}
+
+
+\subsubsection{Worst Case Is Not Pessimism}
+
+Students often feel:
+\begin{quote}
+Worst case is too pessimistic.
+\end{quote}
+
+But think of this situation:
+
+\begin{itemize}
+    \item You are designing a hospital system
+    \item A delay could cost lives
+\end{itemize}
+
+\textbf{Question:}
+\begin{quote}
+Would you design for average behavior or guaranteed behavior?
+\end{quote}
+
+Worst case is about responsibility, not pessimism.
+
+
+\subsubsection{Average Case: The “Typical” Behavior}
+
+\textbf{Definition (informal):}
+
+\begin{quote}
+The average case is the expected amount of work over all possible inputs.
+\end{quote}
+
+To compute it, we must assume:
+\begin{itemize}
+    \item a probability distribution over inputs
+\end{itemize}
+
+
+\subsubsection*{Example: Average Case of Linear Search}
+
+Assume:
+\begin{itemize}
+    \item the element is present
+    \item each position is equally likely
+\end{itemize}
+
+Then:
+\[
+\text{Average comparisons}
+= \frac{1 + 2 + \cdots + n}{n}
+= \frac{n+1}{2}
+\]
+
+\textbf{Observation:}
+\begin{quote}
+Average case still grows with \(n\).
+\end{quote}
+
+
+\subsubsection{Why Average Case Is Tricky}
+
+Average case depends on:
+\begin{itemize}
+    \item how likely different inputs are
+    \item assumptions that may not hold in practice
+\end{itemize}
+
+Different assumptions lead to different averages.
+
+\bigskip
+\textbf{Key warning:}
+\begin{quote}
+Average case without stated assumptions is meaningless.
+\end{quote}
+
+
+\subsubsection{Comparing the Three Cases Together}
+
+For linear search:
+
+\begin{center}
+\begin{tabular}{c|c}
+Case & Cost \\
+\hline
+Best & \(1\) \\
+Average & \(\frac{n+1}{2}\) \\
+Worst & \(n\)
+\end{tabular}
+\end{center}
+
+\textbf{Pause and think:}
+\begin{quote}
+As \(n\) grows, all but the best case grow with \(n\).
+\end{quote}
+
+
+\subsubsection{Which Case Does GATE Care About?}
+
+In most GATE questions:
+\begin{itemize}
+    \item worst case is assumed unless stated otherwise
+\end{itemize}
+
+Why?
+
+Because:
+\begin{itemize}
+    \item it avoids probability assumptions
+    \item it gives clear, unambiguous answers
+\end{itemize}
+
+
+\subsubsection{A Very Important Mental Rule}
+
+\begin{quote}
+If nothing is specified, analyze the worst case.
+\end{quote}
+
+This rule alone saves many exam mistakes.
+
+
+\subsubsection{Best, Worst, and Algorithm Design}
+
+Good algorithm designers aim to:
+\begin{itemize}
+    \item reduce worst-case cost
+    \item make average case close to worst case
+\end{itemize}
+
+Merge sort is a classic example:
+\begin{quote}
+Best = Average = Worst
+\end{quote}
+
+This predictability is a strength.
+
+
+\subsubsection*{Hands-On Thinking (Essential)}
+
+\begin{enumerate}
+    \item Why is best-case analysis unreliable for system design?
+    \item Give an example where average case might be misleading.
+    \item Why does GATE prefer worst-case analysis?
+    \item Can an algorithm have a good average case but a terrible worst case? Explain.
+\end{enumerate}
+\subsection{Part 0.5: Growth Rates Through Experiments}
+
+\subsubsection*{Why This Part Exists}
+
+Most students meet time complexity like this:
+\begin{quote}
+``$O(n)$, $O(n^2)$, $O(\log n)$'' --- memorize them.
+\end{quote}
+
+That approach creates fear.
+
+This part exists to do the opposite.
+
+\bigskip
+We will not memorize growth rates.
+We will \textbf{observe} them.
+
+
+\subsubsection{The Central Question}
+
+For any algorithm, always ask:
+
+\begin{quote}
+What happens to the work when the input size increases?
+\end{quote}
+
+This question is more important than any formula.
+
+
+\subsubsection{Experiment 1: Linear Growth}
+
+Imagine an algorithm that does exactly one operation per input element.
+
+\[
+T(n) = n
+\]
+
+Let us calculate:
+
+\begin{center}
+\begin{tabular}{c|c}
+Input size (\(n\)) & Steps performed \\
+\hline
+10 & 10 \\
+100 & 100 \\
+1000 & 1000 \\
+10{,}000 & 10{,}000
+\end{tabular}
+\end{center}
+
+\textbf{Observation:}
+\begin{quote}
+When input grows 10 times, work grows 10 times.
+\end{quote}
+
+This is called \textbf{linear growth}.
+
+
+\subsubsection{Experiment 2: Quadratic Growth}
+
+Now imagine an algorithm that compares every element with every other element.
+
+\[
+T(n) = n^2
+\]
+
+\begin{center}
+\begin{tabular}{c|c}
+Input size (\(n\)) & Steps performed \\
+\hline
+10 & 100 \\
+100 & 10{,}000 \\
+1000 & 1{,}000{,}000 \\
+10{,}000 & 100{,}000{,}000
+\end{tabular}
+\end{center}
+
+\textbf{Pause and think:}
+\begin{quote}
+When input grows 10 times, work grows 100 times.
+\end{quote}
+
+This is a completely different behavior.
+
+
+\subsubsection{Experiment 3: Logarithmic Growth}
+
+Now imagine an algorithm that repeatedly cuts the problem in half.
+
+\[
+T(n) = \log_2 n
+\]
+
+\begin{center}
+\begin{tabular}{c|c}
+Input size (\(n\)) & Steps performed \\
+\hline
+16 & 4 \\
+32 & 5 \\
+64 & 6 \\
+1024 & 10 \\
+1{,}048{,}576 & 20
+\end{tabular}
+\end{center}
+
+\textbf{Key realization:}
+\begin{quote}
+Even massive input growth causes only small increases in work.
+\end{quote}
+
+
+\subsubsection{The Doubling Test (Fix This Forever)}
+
+A powerful mental experiment:
+
+\begin{quote}
+If I double the input size, what happens to the work?
+\end{quote}
+
+\begin{itemize}
+    \item Linear growth \(\Rightarrow\) work doubles
+    \item Quadratic growth \(\Rightarrow\) work becomes four times
+    \item Logarithmic growth \(\Rightarrow\) work increases by a constant
+\end{itemize}
+
+You can apply this test \textbf{without any math}.
+
+
+\subsubsection{Why Small Inputs Lie}
+
+Consider \(n = 10\):
+
+\begin{itemize}
+    \item Linear: 10
+    \item Quadratic: 100
+\end{itemize}
+
+Difference feels small.
+
+Now consider \(n = 1{,}000{,}000\):
+
+\begin{itemize}
+    \item Linear: 1,000,000
+    \item Quadratic: 1,000,000,000,000
+\end{itemize}
+
+\textbf{Conclusion:}
+\begin{quote}
+Bad algorithms hide at small scale and explode later.
+\end{quote}
+
+
+\subsubsection{Experiment 4: Comparing Two Algorithms}
+
+Algorithm A:
+\[
+T_A(n) = 50n
+\]
+
+Algorithm B:
+\[
+T_B(n) = n^2
+\]
+
+For small \(n\), Algorithm A may seem slower.
+
+Solve:
+\[
+50n = n^2 \Rightarrow n = 50
+\]
+
+For all \(n > 50\), Algorithm B becomes worse.
+
+\textbf{Important insight:}
+\begin{quote}
+Constants only delay failure; growth decides fate.
+\end{quote}
+
+
+\subsubsection{A Real-Life Analogy}
+
+Imagine:
+\begin{itemize}
+    \item walking speed increases linearly
+    \item area of a square increases quadratically
+\end{itemize}
+
+Doubling the side:
+\begin{itemize}
+    \item walking distance doubles
+    \item area becomes four times
+\end{itemize}
+
+Algorithms behave the same way.
+
+
+\subsubsection{Preparing for Naming These Behaviors}
+
+At this point, you already recognize patterns:
+
+\begin{itemize}
+    \item grows like \(n\)
+    \item grows like \(n^2\)
+    \item grows like \(\log n\)
+\end{itemize}
+
+We have not named them yet —
+but you already understand them.
+
+Naming comes next.
+
+
+\subsubsection*{Hands-On Thinking (Do Slowly)}
+
+\begin{enumerate}
+    \item If input size increases from 1{,}000 to 1{,}000{,}000, which growth type suffers the most?
+    \item Why do logarithmic algorithms feel almost constant?
+    \item Why do quadratic algorithms fail silently at first?
+    \item Apply the doubling test to an algorithm that does \(n \log n\) work.
+\end{enumerate}
+\subsection{Part 0.6: Big-O, Big-$\Omega$, and Big-$\Theta$}
+
+\subsubsection*{Why This Part Exists}
+
+Up to now, we have done something important:
+
+\begin{itemize}
+    \item We watched algorithms grow
+    \item We compared their behavior
+    \item We understood why some ideas fail at scale
+\end{itemize}
+
+Now mathematicians come in and say:
+
+\begin{quote}
+“Let us give names to these growth behaviors.”
+\end{quote}
+
+This part is only about \textbf{naming} — not discovering.
+
+
+\subsubsection{A Very Important Warning}
+
+Big-O is often taught as:
+\begin{quote}
+A formula to memorize.
+\end{quote}
+
+That is wrong.
+
+\bigskip
+Big-O is simply a \textbf{language} for talking about growth.
+
+If you understand the growth,
+Big-O is just vocabulary.
+
+
+\subsubsection{Big-O: The Upper Ceiling}
+
+Suppose an algorithm performs:
+
+\[
+T(n) = 3n + 10
+\]
+
+From Part 0.5, we already know:
+\begin{itemize}
+    \item this grows like \(n\)
+\end{itemize}
+
+Big-O gives us a way to say this formally.
+
+\bigskip
+\textbf{Definition (informal):}
+
+\begin{quote}
+An algorithm is \(O(g(n))\) if it does not grow faster than \(g(n)\).
+\end{quote}
+
+So we write:
+\[
+3n + 10 = O(n)
+\]
+
+
+\subsubsection{What Big-O Is Really Saying}
+
+Big-O does \emph{not} say:
+\begin{itemize}
+    \item this is the exact cost
+    \item this is how long it will always take
+\end{itemize}
+
+Big-O says:
+\begin{quote}
+“No matter what, this algorithm will not grow faster than this.”
+\end{quote}
+
+Think of Big-O as a \textbf{safety guarantee}.
+
+
+\subsubsection{Formal Definition (Now It Makes Sense)}
+
+We say:
+\[
+f(n) = O(g(n))
+\]
+
+if there exist constants \(c > 0\) and \(n_0\) such that:
+\[
+f(n) \le c \cdot g(n) \quad \text{for all } n \ge n_0
+\]
+
+\textbf{Interpretation:}
+\begin{quote}
+Beyond some point, \(g(n)\) multiplied by a constant always stays above \(f(n)\).
+\end{quote}
+
+This matches exactly what we observed experimentally.
+
+
+\subsubsection{Big-$\Omega$: The Lower Floor}
+
+Now we ask a different question:
+
+\begin{quote}
+What is the minimum amount of work that must be done?
+\end{quote}
+
+This is about the \textbf{problem}, not the algorithm.
+
+\bigskip
+\textbf{Definition (informal):}
+
+\begin{quote}
+An algorithm is $\Omega(g(n))$ if it cannot grow slower than \(g(n)\).
+\end{quote}
+
+
+\subsubsection*{Example: Searching an Unsorted Array}
+
+No matter how clever you are:
+\begin{itemize}
+    \item you must examine every element (in worst case)
+\end{itemize}
+
+So searching an unsorted array is:
+\[
+\Omega(n)
+\]
+
+This is not about a particular algorithm —
+it is about the \textbf{information limit of the problem}.
+
+
+\subsubsection{Big-$\Theta$: The Exact Growth}
+
+Sometimes we know both:
+\begin{itemize}
+    \item an upper bound
+    \item a lower bound
+\end{itemize}
+
+When they match, we get the true growth.
+
+\bigskip
+\textbf{Definition (informal):}
+
+\begin{quote}
+An algorithm is $\Theta(g(n))$ if it grows exactly like \(g(n)\).
+\end{quote}
+
+Formally:
+\[
+f(n) = \Theta(g(n)) \iff f(n) = O(g(n)) \text{ and } f(n) = \Omega(g(n))
+\]
+
+
+\subsubsection*{Example: Linear Search}
+
+From earlier parts:
+\begin{itemize}
+    \item Best case: \(1\)
+    \item Worst case: \(n\)
+\end{itemize}
+
+So in worst case:
+\[
+\Theta(n)
+\]
+
+This means:
+\begin{quote}
+Linear growth is unavoidable and sufficient.
+\end{quote}
+
+
+\subsubsection{A Mental Picture (Do Not Forget This)}
+
+Imagine a building:
+
+\begin{itemize}
+    \item Big-O is the ceiling
+    \item Big-$\Omega$ is the floor
+    \item Big-$\Theta$ is the exact height
+\end{itemize}
+
+Algorithms live inside this building.
+
+
+\subsubsection{Very Common Beginner Confusions}
+
+\begin{itemize}
+    \item Big-O is not an approximation
+    \item Big-O is not average case
+    \item Big-O ignores constants on purpose
+\end{itemize}
+
+Ignoring constants is a \textbf{feature}, not a weakness.
+
+
+\subsubsection{Why Logarithm Base Does Not Matter}
+
+You may see:
+\[
+\log_2 n,\ \log_{10} n,\ \ln n
+\]
+
+They differ only by constants:
+\[
+\log_a n = \frac{\log_b n}{\log_b a}
+\]
+
+Constants disappear in Big-O.
+
+So we simply write:
+\[
+O(\log n)
+\]
+
+
+\subsubsection{How GATE Uses This Notation}
+
+Unless stated otherwise:
+\begin{itemize}
+    \item GATE assumes worst-case
+    \item GATE expects tight bounds when possible
+\end{itemize}
+
+So:
+\begin{itemize}
+    \item say \(\Theta(n)\) instead of just \(O(n)\) when you can
+\end{itemize}
+
+
+\subsubsection{The Final Unifying Insight}
+
+\begin{quote}
+Big-O, Big-$\Omega$, and Big-$\Theta$ are not math tricks.
+They are precise language for talking about growth.
+\end{quote}
+
+If you understand growth,
+notation becomes obvious.
+
+
+\subsubsection*{Final Thinking Exercises}
+
+\begin{enumerate}
+    \item Why is \(5n + 20\) written as \(O(n)\)?
+    \item Can an algorithm be \(O(n^2)\) and also \(O(n)\)? Explain carefully.
+    \item Why is searching an unsorted array $\Omega(n)$?
+    \item When should you prefer $\Theta$ over $O$?
+\end{enumerate}
+\section{Worked Examples: How to Analyze Algorithms}
+
+\subsection*{Why This Section Exists}
+
+Before moving to real algorithms (searching, sorting, graphs),
+we must practice \textbf{how to analyze an algorithm}.
+
+This section shows the full thinking process:
+\begin{enumerate}
+    \item Understand the idea
+    \item Identify the input size
+    \item Decide what to count
+    \item Count step-by-step
+    \item Extract growth behavior
+\end{enumerate}
+
+We will do this slowly, like Strang would on a board.
+
+
+\subsection{Example 1: Printing All Elements}
+
+\subsubsection*{Algorithm Idea}
+
+\begin{quote}
+Go through the array and print each element.
+\end{quote}
+
+\subsubsection*{Step-by-Step Description}
+
+\begin{itemize}
+    \item Start at the first element
+    \item Print it
+    \item Move to the next element
+    \item Repeat until the end
+\end{itemize}
+
+
+\subsubsection*{Step 1: What Is the Input Size?}
+
+The input is an array of size \(n\).
+
+So:
+\[
+n = \text{number of elements}
+\]
+
+
+\subsubsection*{Step 2: What Should We Count?}
+
+We count:
+\begin{itemize}
+    \item one print operation per element
+\end{itemize}
+
+
+\subsubsection*{Step 3: Count the Operations}
+
+\begin{itemize}
+    \item First element: 1 operation
+    \item Second element: 1 operation
+    \item \(\vdots\)
+    \item \(n\)-th element: 1 operation
+\end{itemize}
+
+Total operations:
+\[
+T(n) = n
+\]
+
+
+\subsubsection*{Step 4: Growth Interpretation}
+
+As input size doubles, work doubles.
+
+\[
+T(n) = \Theta(n)
+\]
+
+
+\subsubsection*{Key Lesson}
+
+\begin{quote}
+One full pass through the data costs linear time.
+\end{quote}
+
+This fact will appear everywhere.
+
+
+\subsection{Example 2: Finding the Maximum Element}
+
+\subsubsection*{Algorithm Idea}
+
+\begin{quote}
+Scan the array and keep track of the largest element seen so far.
+\end{quote}
+
+
+\subsubsection*{Step 1: Input Size}
+
+Array of size \(n\).
+
+
+\subsubsection*{Step 2: What Do We Count?}
+
+We count:
+\begin{itemize}
+    \item comparisons between elements
+\end{itemize}
+
+
+\subsubsection*{Step 3: Step-by-Step Counting}
+
+\begin{itemize}
+    \item First element becomes current maximum
+    \item Compare second element with current maximum (1 comparison)
+    \item Compare third element with current maximum (1 comparison)
+    \item \(\vdots\)
+    \item Compare \(n\)-th element (1 comparison)
+\end{itemize}
+
+Total comparisons:
+\[
+T(n) = n - 1
+\]
+
+
+\subsubsection*{Step 4: Growth Behavior}
+
+\[
+T(n) = \Theta(n)
+\]
+
+
+\subsubsection*{Very Important Insight}
+
+\begin{quote}
+Even the best algorithm must look at every element to find the maximum.
+\end{quote}
+
+This is a \textbf{lower bound} idea in disguise.
+
+
+\subsection{Example 3: Checking All Pairs}
+
+\subsubsection*{Algorithm Idea}
+
+\begin{quote}
+For every element, compare it with every other element.
+\end{quote}
+
+
+\subsubsection*{Step 1: Input Size}
+
+Array of size \(n\).
+
+
+\subsubsection*{Step 2: What Do We Count?}
+
+We count:
+\begin{itemize}
+    \item comparisons between pairs
+\end{itemize}
+
+
+\subsubsection*{Step 3: Count Carefully}
+
+\begin{itemize}
+    \item First element compared with \(n\) elements
+    \item Second element compared with \(n\) elements
+    \item \(\vdots\)
+    \item \(n\)-th element compared with \(n\) elements
+\end{itemize}
+
+Total comparisons:
+\[
+T(n) = n \times n = n^2
+\]
+
+
+\subsubsection*{Step 4: Growth Behavior}
+
+\[
+T(n) = \Theta(n^2)
+\]
+
+
+\subsubsection*{Key Warning}
+
+\begin{quote}
+Nested repetition multiplies cost.
+\end{quote}
+
+This is why many naive algorithms fail at scale.
+
+
+\subsection{Example 4: Repeated Halving (Logarithmic Behavior)}
+
+\subsubsection*{Algorithm Idea}
+
+\begin{quote}
+Repeatedly divide the problem size by 2 until one element remains.
+\end{quote}
+
+
+\subsubsection*{Step 1: Input Size}
+
+Initial size = \(n\).
+
+
+\subsubsection*{Step 2: What Do We Count?}
+
+We count:
+\begin{itemize}
+    \item number of halving steps
+\end{itemize}
+
+
+\subsubsection*{Step 3: Count by Thinking, Not Arithmetic}
+
+\begin{itemize}
+    \item After 1 step: \(n/2\)
+    \item After 2 steps: \(n/4\)
+    \item After 3 steps: \(n/8\)
+    \item \(\vdots\)
+\end{itemize}
+
+We stop when:
+\[
+\frac{n}{2^k} = 1
+\]
+
+Solving:
+\[
+k = \log_2 n
+\]
+
+
+\subsubsection*{Step 4: Growth Behavior}
+
+\[
+T(n) = \Theta(\log n)
+\]
+
+\subsubsection*{Key Insight}
+
+\begin{quote}
+Repeated halving leads to logarithmic growth.
+\end{quote}
+
+This idea powers binary search and divide-and-conquer.
+
+\subsection{The Strang Analysis Template (Memorize This)}
+
+For every algorithm, follow this exact checklist:
+
+\begin{enumerate}
+    \item What is the input?
+    \item What is the input size \(n\)?
+    \item What basic operation should I count?
+    \item How many times does it occur?
+    \item How does it grow with \(n\)?
+\end{enumerate}
+
+If you follow this, you will never fear analysis.
+
+\subsection*{Final Practice (Before Chapter 1)}
+
+\begin{enumerate}
+    \item If an algorithm does two full passes over the data, what is its growth?
+    \item If an algorithm has three nested loops, each running \(n\) times, what is the growth?
+    \item If an algorithm halves the input size repeatedly, why is it logarithmic?
+    \item Which example above hides a lower-bound argument?
+\end{enumerate}
+
+\pagebreak
+
+\section{Linear Search}
+\label{sec:linear_search}
+
+\subsection*{Why This Section Matters}
+
+Linear search may look simple.
+But it is one of the most important algorithms you will ever study.
+
+Why?
+
+Because:
+\begin{itemize}
+    \item It sets the \textbf{baseline} for all searching problems
+    \item It teaches us how to analyze algorithms honestly
+    \item Many lower bounds are proved by comparing with linear search
+\end{itemize}
+
+If you understand linear search deeply, then:
+\begin{quote}
+You will never blindly accept a faster algorithm without questioning it.
+\end{quote}
+
+\subsection{The Problem}
+
+Given:
+\begin{itemize}
+    \item an array \(A\) of size \(n\)
+    \item a value \(x\)
+\end{itemize}
+
+Task:
+\begin{quote}
+Determine whether \(x\) is present in the array.
+\end{quote}
+
+\textbf{Important assumption:}
+The array is \textbf{unsorted}.
+
+\subsection{How a Human Naturally Thinks}
+
+Imagine you are searching for a name in an unsorted list.
+
+You do not jump randomly.
+You do not skip entries.
+
+You do this:
+\begin{enumerate}
+    \item Look at the first element
+    \item If it matches, stop
+    \item Otherwise, move to the next
+\end{enumerate}
+
+This is exactly linear search.
+
+\subsection{The Algorithm (Idea, Not Code)}
+
+\begin{quote}
+Check elements one by one from left to right until:
+\begin{itemize}
+    \item the element is found, or
+    \item the list ends
+\end{itemize}
+\end{quote}
+
+There is no clever trick here.
+And that is the point.
+
+\subsection{A Step-by-Step Numerical Example}
+
+Consider the array:
+\[
+A = [4, 9, 2, 7, 5]
+\]
+and let:
+\[
+x = 7
+\]
+
+\subsubsection*{Execution}
+
+\begin{itemize}
+    \item Compare 4 with 7 → not equal
+    \item Compare 9 with 7 → not equal
+    \item Compare 2 with 7 → not equal
+    \item Compare 7 with 7 → match found
+\end{itemize}
+
+\textbf{Number of comparisons} = 4
+
+\bigskip
+Already, observe:
+\begin{quote}
+The algorithm did not know in advance where 7 was.
+\end{quote}
+
+\subsection{Best Case Analysis}
+
+\subsubsection*{Situation}
+The first element is equal to \(x\).
+
+\subsubsection*{Cost}
+\[
+T_{\text{best}}(n) = 1
+\]
+
+\textbf{Interpretation:}
+\begin{quote}
+The algorithm gets lucky.
+\end{quote}
+
+\subsection{Worst Case Analysis}
+
+\subsubsection*{Situation}
+\begin{itemize}
+    \item \(x\) is at the last position, or
+    \item \(x\) is not present at all
+\end{itemize}
+
+\subsubsection*{Cost}
+\[
+T_{\text{worst}}(n) = n
+\]
+
+\textbf{Interpretation:}
+\begin{quote}
+The algorithm has no choice but to check everything.
+\end{quote}
+
+\subsection{Average Case Analysis (Think Carefully)}
+
+Assume:
+\begin{itemize}
+    \item \(x\) is present
+    \item Each position is equally likely
+\end{itemize}
+
+\subsubsection*{Expected Comparisons}
+
+\[
+\text{Average} = \frac{1 + 2 + \cdots + n}{n}
+\]
+
+Recall:
+\[
+1 + 2 + \cdots + n = \frac{n(n+1)}{2}
+\]
+
+So:
+\[
+T_{\text{avg}}(n) = \frac{n+1}{2}
+\]
+
+\bigskip
+\textbf{Key observation:}
+\begin{quote}
+Average case is still proportional to \(n\).
+\end{quote}
+
+\subsection{From Exact Count to Growth Rate}
+
+We now translate our counts into asymptotic language.
+
+\begin{itemize}
+    \item Best case: constant time
+    \item Worst case: linear time
+    \item Average case: linear time
+\end{itemize}
+
+So we say:
+\[
+\text{Worst-case time complexity of linear search} = O(n)
+\]
+
+\subsection{Big-O, Big-Omega, Big-Theta}
+
+Let us be precise.
+
+\subsubsection*{Upper Bound}
+\[
+T(n) = O(n)
+\]
+Because linear search never does more than \(n\) comparisons.
+
+\subsubsection*{Lower Bound}
+\[
+T(n) = \Omega(n)
+\]
+Because in the worst case, every element must be checked.
+
+\subsubsection*{Tight Bound}
+\[
+T(n) = \Theta(n)
+\]
+
+\textbf{This is important:}
+\begin{quote}
+Linear search truly grows linearly.
+\end{quote}
+
+\subsection{Why Linear Search Cannot Be Improved (Deep Insight)}
+
+Suppose the array is unsorted.
+
+Ask yourself:
+\begin{quote}
+How can I be sure that the element is not present?
+\end{quote}
+
+The answer:
+\begin{quote}
+Only after checking every element.
+\end{quote}
+
+\bigskip
+\textbf{This gives a fundamental lower bound:}
+\[
+\text{Any algorithm for searching an unsorted array is } \Omega(n)
+\]
+
+This is not about linear search.
+This is about the problem itself.
+
+\subsection{When Linear Search Is Actually the Best Choice}
+
+Linear search is optimal when:
+\begin{itemize}
+    \item data is unsorted
+    \item data arrives as a stream
+    \item input size is small
+    \item memory is extremely constrained
+\end{itemize}
+
+\textbf{Lesson:}
+\begin{quote}
+A slow algorithm is not bad if the problem demands it.
+\end{quote}
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item If \(n = 10^6\), what is the maximum number of comparisons linear search can make?
+    \item If the input size doubles, how does the worst-case time change?
+    \item Can any algorithm search an unsorted array in \(O(\log n)\)? Why or why not?
+    \item Suppose the element is present only 10\% of the time. Does Big-O change?
+    \item Why is linear search \(\Theta(n)\) and not just \(O(n)\)?
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+Linear search teaches us that sometimes,
+the problem itself enforces the cost.
+\end{quote}
+
+\pagebreak
+\section{Binary Search}
+\label{sec:binary_search}
+
+\subsection*{Why This Section Is a Turning Point}
+
+Linear search taught us an important lesson:
+\begin{quote}
+If the data is unsorted, we are forced to check everything.
+\end{quote}
+
+Now we ask a deeper question:
+\begin{quote}
+What if the data is organized?
+\end{quote}
+
+Binary search is not about arrays.
+Binary search is about \textbf{eliminating impossibilities}.
+
+\subsection{The Problem (Same as Before, One New Condition)}
+
+Given:
+\begin{itemize}
+    \item an array \(A\) of size \(n\)
+    \item a value \(x\)
+\end{itemize}
+
+Task:
+\begin{quote}
+Determine whether \(x\) is present in the array.
+\end{quote}
+
+\textbf{New assumption (very important):}
+\begin{quote}
+The array is \textbf{sorted}.
+\end{quote}
+
+This single assumption changes everything.
+
+\subsection{How a Human Thinks Differently Now}
+
+Imagine a dictionary.
+
+You do not start from page 1.
+You do not scan line by line.
+
+You do this:
+\begin{enumerate}
+    \item Open somewhere in the middle
+    \item Compare the word
+    \item Decide which half to ignore
+\end{enumerate}
+
+\textbf{Key idea:}
+\begin{quote}
+One comparison removes half the remaining possibilities.
+\end{quote}
+
+\subsection{The Core Idea of Binary Search}
+
+At every step:
+\begin{itemize}
+    \item Look at the middle element
+    \item If it matches, stop
+    \item If target is smaller, discard right half
+    \item If target is larger, discard left half
+\end{itemize}
+
+We are not reducing the number of elements by 1.
+We are reducing them by a \textbf{factor of 2}.
+
+\subsection{A Step-by-Step Numerical Example}
+
+Consider the sorted array:
+\[
+A = [2, 4, 7, 9, 12, 15, 18]
+\]
+and let:
+\[
+x = 9
+\]
+
+\subsubsection*{Step 1}
+Middle element = 9
+
+Match found.
+
+\textbf{Comparisons} = 1
+
+\bigskip
+Now try a harder one.
+
+\subsubsection*{Searching for \(x = 15\)}
+
+\begin{itemize}
+    \item Middle = 9 → target is larger → discard left half
+    \item Remaining: [12, 15, 18]
+    \item Middle = 15 → found
+\end{itemize}
+
+\textbf{Comparisons} = 2
+
+\subsection{Worst Case Example (Important)}
+
+Search for \(x = 1\) (not present).
+
+\begin{itemize}
+    \item Compare with 9 → discard right half
+    \item Compare with 4 → discard right half
+    \item Compare with 2 → discard right half
+    \item No elements left
+\end{itemize}
+
+\textbf{Comparisons} = 3
+
+\bigskip
+Notice something remarkable:
+\begin{quote}
+Even in the worst case, we did not check all elements.
+\end{quote}
+
+\subsection{How Many Times Can We Halve?}
+
+This is where logarithms are born.
+
+Suppose the array has \(n\) elements.
+
+After:
+\begin{itemize}
+    \item 1 step → \(n/2\) elements remain
+    \item 2 steps → \(n/4\) elements remain
+    \item 3 steps → \(n/8\) elements remain
+\end{itemize}
+
+After \(k\) steps:
+\[
+\frac{n}{2^k} \le 1
+\]
+
+Solve for \(k\):
+\[
+2^k \ge n
+\quad \Rightarrow \quad
+k \ge \log_2 n
+\]
+
+\subsection{Meaning of the Logarithm (Very Important)}
+
+\textbf{Interpretation:}
+\begin{quote}
+\(\log_2 n\) means: how many times can I halve \(n\) until only one element remains?
+\end{quote}
+
+This is not abstract math.
+This is counting decisions.
+
+\subsection{Time Complexity Analysis}
+
+\subsubsection*{Worst Case}
+
+\[
+T(n) = O(\log n)
+\]
+
+\subsubsection*{Best Case}
+
+If the middle element matches:
+\[
+T_{\text{best}}(n) = O(1)
+\]
+
+\subsubsection*{Average Case}
+
+Still proportional to \(\log n\).
+
+\subsection{Big-O, Big-Omega, Big-Theta}
+
+\begin{itemize}
+    \item Upper bound: \(O(\log n)\)
+    \item Lower bound: \(\Omega(\log n)\)
+    \item Tight bound: \(\Theta(\log n)\)
+\end{itemize}
+
+\textbf{Binary search truly grows logarithmically.}
+
+\subsection{Why Binary Search Is Optimal}
+
+Question:
+\begin{quote}
+Can we do better than \(O(\log n)\) for searching sorted data?
+\end{quote}
+
+Answer:
+\begin{quote}
+No — because each comparison gives only one bit of information.
+\end{quote}
+
+To distinguish among \(n\) possibilities, we need:
+\[
+\log_2 n \text{ decisions}
+\]
+
+This is a fundamental lower bound.
+
+\subsection{Binary Search Is Divide and Conquer}
+
+Binary search is the simplest divide-and-conquer algorithm.
+
+\begin{itemize}
+    \item Divide: split into halves
+    \item Conquer: search one half
+    \item Combine: nothing to combine
+\end{itemize}
+
+This idea will return in sorting algorithms.
+
+\subsection{Iterative vs Recursive Thinking}
+
+Binary search can be:
+\begin{itemize}
+    \item iterative (loop)
+    \item recursive (self-calls)
+\end{itemize}
+
+The \textbf{idea} is identical.
+Only the implementation differs.
+
+\subsection{Common Mistakes (GATE Favorites)}
+
+\begin{itemize}
+    \item Forgetting the array must be sorted
+    \item Infinite loops due to wrong mid calculation
+    \item Assuming binary search works on linked lists
+\end{itemize}
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item If \(n = 1{,}000{,}000\), approximately how many comparisons does binary search need?
+    \item Why is binary search impossible on unsorted data?
+    \item If the input size doubles, how does the time change?
+    \item Why is binary search \(\Theta(\log n)\) and not \(O(1)\)?
+    \item Explain binary search without using the word ``array''.
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+Organization buys speed.
+Halving uncertainty creates logarithms.
+\end{quote}
+\pagebreak
+\section{Basic Sorting Algorithms}
+\label{sec:basic_sorting}
+
+\subsection*{Why Sorting Deserves a Full Section}
+
+Sorting is not just a problem.
+Sorting is a \textbf{lens} through which we understand algorithms.
+
+Why?
+
+Because:
+\begin{itemize}
+    \item Sorting exposes the cost of comparisons
+    \item Sorting reveals lower bounds (\(\Omega(n^2)\))
+    \item Sorting prepares us for divide-and-conquer
+\end{itemize}
+
+Before learning fast sorting, we must understand \emph{why slow sorting is slow}.
+
+\subsection{The Sorting Problem}
+
+Given:
+\begin{itemize}
+    \item an array \(A\) of size \(n\)
+\end{itemize}
+
+Task:
+\begin{quote}
+Rearrange the elements so that they are in non-decreasing order.
+\end{quote}
+
+\textbf{Important assumption:}
+\begin{quote}
+We sort by \textbf{comparisons}.
+\end{quote}
+
+\subsection{What Does Sorting Cost?}
+
+Every comparison-based sorting algorithm must:
+\begin{itemize}
+    \item compare elements
+    \item possibly swap them
+\end{itemize}
+
+We measure cost mainly by:
+\begin{itemize}
+    \item number of comparisons
+    \item number of swaps (secondary)
+\end{itemize}
+
+\subsection{Selection Sort — ``Find the Minimum''}
+
+\subsubsection*{Human Idea}
+
+If you wanted to sort exam papers:
+\begin{enumerate}
+    \item Find the smallest mark
+    \item Put it in the first position
+    \item Repeat for the remaining papers
+\end{enumerate}
+
+This is selection sort.
+
+\subsubsection*{Algorithm Idea}
+
+For each position \(i\):
+\begin{itemize}
+    \item find the smallest element in \(A[i \dots n]\)
+    \item swap it with \(A[i]\)
+\end{itemize}
+
+\subsection{Numerical Example (Selection Sort)}
+
+Let:
+\[
+A = [5, 3, 4, 1]
+\]
+
+\begin{itemize}
+    \item Pass 1: minimum is 1 → swap with 5 → [1, 3, 4, 5]
+    \item Pass 2: minimum in remaining is 3 → already in place
+    \item Pass 3: minimum is 4 → already in place
+\end{itemize}
+
+Sorted.
+
+\subsection{Cost Analysis of Selection Sort}
+
+\subsubsection*{Comparisons}
+
+\begin{itemize}
+    \item First pass: \(n-1\) comparisons
+    \item Second pass: \(n-2\) comparisons
+    \item ...
+    \item Last pass: 1 comparison
+\end{itemize}
+
+Total comparisons:
+\[
+(n-1) + (n-2) + \cdots + 1
+= \frac{n(n-1)}{2}
+\]
+
+\subsubsection*{Time Complexity}
+
+\[
+T(n) = \Theta(n^2)
+\]
+
+\textbf{Important:}
+\begin{quote}
+Selection sort does the same work regardless of input order.
+\end{quote}
+
+\subsection{Bubble Sort — ``Swap Neighbors''}
+
+\subsubsection*{Human Idea}
+
+Imagine bubbles rising in water.
+Large elements ``bubble'' to the end.
+
+\subsubsection*{Algorithm Idea}
+
+Repeatedly:
+\begin{itemize}
+    \item compare adjacent elements
+    \item swap if they are out of order
+\end{itemize}
+
+\subsection{Numerical Example (Bubble Sort)}
+
+Let:
+\[
+A = [4, 3, 1, 2]
+\]
+
+\begin{itemize}
+    \item Pass 1: [3, 1, 2, 4]
+    \item Pass 2: [1, 2, 3, 4]
+    \item Pass 3: no swaps
+\end{itemize}
+
+\subsection{Cost Analysis of Bubble Sort}
+
+\subsubsection*{Worst Case}
+
+Array is reverse sorted.
+
+Comparisons:
+\[
+(n-1) + (n-2) + \cdots + 1 = \Theta(n^2)
+\]
+
+\subsubsection*{Best Case (Optimized Version)}
+
+If no swaps occur in a pass:
+\begin{itemize}
+    \item array is already sorted
+    \item algorithm stops early
+\end{itemize}
+
+\[
+T_{\text{best}}(n) = \Theta(n)
+\]
+
+\subsection{Insertion Sort — ``Sorting Cards in Hand''}
+
+\subsubsection*{Human Idea}
+
+When you receive cards:
+\begin{itemize}
+    \item you insert each new card into its proper position
+\end{itemize}
+
+This is insertion sort.
+
+\subsection{Algorithm Idea (Insertion Sort)}
+
+For each element:
+\begin{itemize}
+    \item compare it with previous elements
+    \item shift larger elements to the right
+    \item insert the element in correct position
+\end{itemize}
+
+\subsection{Numerical Example (Insertion Sort)}
+
+Let:
+\[
+A = [4, 2, 3, 1]
+\]
+
+\begin{itemize}
+    \item Insert 2 → [2, 4, 3, 1]
+    \item Insert 3 → [2, 3, 4, 1]
+    \item Insert 1 → [1, 2, 3, 4]
+\end{itemize}
+
+\subsection{Cost Analysis of Insertion Sort}
+
+\subsubsection*{Best Case}
+
+Already sorted array.
+
+\[
+T_{\text{best}}(n) = \Theta(n)
+\]
+
+\subsubsection*{Worst Case}
+
+Reverse sorted array.
+
+\[
+T_{\text{worst}}(n) = \Theta(n^2)
+\]
+
+\subsubsection*{Average Case}
+
+\[
+T_{\text{avg}}(n) = \Theta(n^2)
+\]
+
+\subsection{Comparison of Basic Sorting Algorithms}
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+Algorithm & Best & Worst & Adaptive \\
+\hline
+Selection & \(n^2\) & \(n^2\) & No \\
+Bubble & \(n\) & \(n^2\) & Yes \\
+Insertion & \(n\) & \(n^2\) & Yes
+\end{tabular}
+\end{center}
+
+\subsection{Why All These Are Quadratic}
+
+Key question:
+\begin{quote}
+Why do all simple sorting algorithms take \(n^2\) time?
+\end{quote}
+
+Answer:
+\begin{quote}
+Because they compare elements in pairs repeatedly.
+\end{quote}
+
+They do not eliminate large portions of work like binary search.
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item Why does selection sort always take the same time?
+    \item Why is insertion sort fast on nearly sorted data?
+    \item Which algorithm would you choose for sorting 20 numbers? Why?
+    \item If comparisons are expensive but swaps are cheap, which algorithm is better?
+    \item Explain why no comparison-based sorting algorithm can beat \(\Omega(n \log n)\) (intuition only).
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+Quadratic time comes from repeated pairwise comparisons.
+To go faster, we must reduce comparisons globally.
+\end{quote}
+\pagebreak
+\section{Divide and Conquer Sorting}
+\label{sec:divide_conquer}
+
+\subsection*{Why Divide and Conquer Is Revolutionary}
+
+So far, we have seen sorting algorithms that compare elements again and again.
+That repetition is why they cost \(n^2\).
+
+Now we ask a bold question:
+
+\begin{quote}
+What if we break the problem into smaller pieces and trust recursion?
+\end{quote}
+
+This is the idea of \textbf{divide and conquer}.
+
+It is not a trick.
+It is a philosophy.
+
+\subsection{The Divide and Conquer Pattern}
+
+Every divide-and-conquer algorithm has three steps:
+
+\begin{enumerate}
+    \item \textbf{Divide:} Break the problem into smaller subproblems
+    \item \textbf{Conquer:} Solve each subproblem recursively
+    \item \textbf{Combine:} Merge the solutions
+\end{enumerate}
+
+The power comes from:
+\begin{quote}
+Solving many small easy problems instead of one big hard problem.
+\end{quote}
+
+\subsection{Merge Sort — The Cleanest Divide and Conquer Algorithm}
+
+\subsubsection*{Core Idea}
+
+\begin{quote}
+An array of one element is already sorted.
+\end{quote}
+
+So we:
+\begin{itemize}
+    \item divide the array into two halves
+    \item sort each half
+    \item merge the two sorted halves
+\end{itemize}
+
+\subsection{Numerical Example (Merge Sort)}
+
+Let:
+\[
+A = [4, 1, 3, 2]
+\]
+
+\subsubsection*{Divide}
+\[
+[4,1] \quad [3,2]
+\]
+
+\subsubsection*{Divide Again}
+\[
+[4]\ [1] \quad [3]\ [2]
+\]
+
+\subsubsection*{Conquer}
+Single elements are already sorted.
+
+\subsubsection*{Combine}
+\[
+[1,4] \quad [2,3]
+\]
+
+Final merge:
+\[
+[1,2,3,4]
+\]
+
+\subsection{Why Merging Is Linear}
+
+When merging two sorted arrays:
+\begin{itemize}
+    \item compare the first elements
+    \item take the smaller one
+    \item move forward
+\end{itemize}
+
+Each element is touched once.
+
+\[
+\text{Merge cost} = \Theta(n)
+\]
+
+\subsection{The Recurrence Relation (Gently)}
+
+Let \(T(n)\) be the time to sort \(n\) elements.
+
+Merge sort does:
+\begin{itemize}
+    \item two recursive calls on \(n/2\)
+    \item one merge of cost \(n\)
+\end{itemize}
+
+So:
+\[
+T(n) = 2T(n/2) + n
+\]
+
+This equation describes the algorithm completely.
+
+\subsection{Solving the Recurrence (Visual Thinking)}
+
+Think in levels.
+
+\begin{itemize}
+    \item Level 0: one problem of size \(n\) → cost \(n\)
+    \item Level 1: two problems of size \(n/2\) → total cost \(n\)
+    \item Level 2: four problems of size \(n/4\) → total cost \(n\)
+\end{itemize}
+
+How many levels until size becomes 1?
+
+\[
+\frac{n}{2^k} = 1 \Rightarrow k = \log_2 n
+\]
+
+\subsection{Total Cost of Merge Sort}
+
+Each level costs \(n\).
+
+Number of levels = \(\log n\).
+
+So:
+\[
+T(n) = n \log n
+\]
+
+\[
+\boxed{T(n) = \Theta(n \log n)}
+\]
+
+\subsection{Important Properties of Merge Sort}
+
+\begin{itemize}
+    \item Always \(n \log n\) (best, worst, average)
+    \item Stable
+    \item Requires extra memory
+\end{itemize}
+
+\subsection{Quick Sort — Divide Differently}
+
+Merge sort divides first, works later.
+
+Quick sort works differently:
+\begin{quote}
+Do the work while dividing.
+\end{quote}
+
+\subsection{Core Idea of Quick Sort}
+
+\begin{itemize}
+    \item Choose a pivot element
+    \item Partition the array:
+    \begin{itemize}
+        \item elements smaller than pivot on the left
+        \item elements larger than pivot on the right
+    \end{itemize}
+    \item Recursively sort both sides
+\end{itemize}
+
+\subsection{Numerical Example (Quick Sort)}
+
+Let:
+\[
+A = [4, 2, 6, 1, 3]
+\]
+
+Choose pivot = 4.
+
+Partition:
+\[
+[2,1,3] \quad 4 \quad [6]
+\]
+
+Recursively sort:
+\[
+[1,2,3] \quad 4 \quad [6]
+\]
+
+Final array:
+\[
+[1,2,3,4,6]
+\]
+
+\subsection{Best Case Analysis}
+
+If pivot splits the array evenly:
+
+\[
+T(n) = 2T(n/2) + n
+\]
+
+Same as merge sort.
+
+\[
+T(n) = \Theta(n \log n)
+\]
+
+\subsection{Worst Case Analysis (Important for GATE)}
+
+If pivot is always smallest or largest:
+
+\[
+T(n) = T(n-1) + n
+\]
+
+This gives:
+\[
+T(n) = \Theta(n^2)
+\]
+
+This happens when:
+\begin{itemize}
+    \item array is already sorted
+    \item pivot is chosen poorly
+\end{itemize}
+
+\subsection{Average Case (The Magic of Randomness)}
+
+If pivot is chosen randomly:
+
+\[
+\mathbb{E}[T(n)] = \Theta(n \log n)
+\]
+
+This is why quick sort is fast in practice.
+
+\subsection{Why Quick Sort Is Still Loved}
+
+\begin{itemize}
+    \item In-place (low memory)
+    \item Cache friendly
+    \item Fast in practice
+\end{itemize}
+
+\subsection{Merge Sort vs Quick Sort}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+Property & Merge Sort & Quick Sort \\
+\hline
+Worst Case & \(n\log n\) & \(n^2\) \\
+Average Case & \(n\log n\) & \(n\log n\) \\
+Memory & Extra & In-place \\
+Stability & Yes & No
+\end{tabular}
+\end{center}
+
+\subsection{Deep Insight (Very Important)}
+
+Sorting faster than \(n^2\) required:
+\begin{quote}
+Reducing comparisons across the whole array, not locally.
+\end{quote}
+
+Divide and conquer achieves this.
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item Why does merge sort take the same time for all inputs?
+    \item Why does bad pivot choice destroy quick sort?
+    \item Explain \(n \log n\) using a recursion tree.
+    \item Why is merge sort stable but quick sort not?
+    \item If memory is extremely limited, which sort would you choose?
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+Divide and conquer turns quadratic pain into logarithmic structure.
+\end{quote}
+\pagebreak
+\section{Introduction to Graph Theory}
+\label{sec:graph_intro}
+
+\subsection*{Why Graphs Matter}
+
+Graphs are not a special topic.
+Graphs are a \textbf{way of thinking about structure}.
+
+Whenever you see:
+\begin{itemize}
+    \item roads between cities
+    \item friendships on social media
+    \item computers connected by networks
+    \item dependencies between tasks
+\end{itemize}
+
+—you are already looking at a graph.
+
+\bigskip
+Algorithms on graphs are about:
+\begin{quote}
+Understanding relationships, not just values.
+\end{quote}
+
+\subsection{What Is a Graph?}
+
+A graph \(G\) consists of:
+\begin{itemize}
+    \item a set of vertices (nodes) \(V\)
+    \item a set of edges \(E\)
+\end{itemize}
+
+We write:
+\[
+G = (V, E)
+\]
+
+\subsubsection*{Vertices}
+Vertices represent entities:
+\begin{itemize}
+    \item cities
+    \item people
+    \item computers
+\end{itemize}
+
+\subsubsection*{Edges}
+Edges represent relationships:
+\begin{itemize}
+    \item roads
+    \item friendships
+    \item communication links
+\end{itemize}
+
+\subsection{A Simple Numerical Example}
+
+Let:
+\[
+V = \{A, B, C, D\}
+\]
+\[
+E = \{(A,B), (B,C), (C,D), (A,D)\}
+\]
+
+This means:
+\begin{itemize}
+    \item A is connected to B
+    \item B is connected to C
+    \item C is connected to D
+    \item A is connected to D
+\end{itemize}
+
+\subsection{Types of Graphs}
+
+\subsubsection{Undirected Graph}
+
+Edges have no direction.
+
+\begin{quote}
+If A is connected to B, then B is connected to A.
+\end{quote}
+
+Example: friendship network.
+
+\subsubsection{Directed Graph (Digraph)}
+
+Edges have direction.
+
+\[
+(A,B) \neq (B,A)
+\]
+
+Example: Twitter (follower relationships).
+
+\subsection{Weighted Graphs}
+
+Edges may have weights:
+\begin{itemize}
+    \item distance
+    \item cost
+    \item time
+\end{itemize}
+
+\textbf{Example:}
+\begin{quote}
+A road of length 5 km is an edge with weight 5.
+\end{quote}
+
+\subsection{Key Graph Terminology}
+
+\begin{itemize}
+    \item Degree: number of edges connected to a vertex
+    \item Path: sequence of vertices connected by edges
+    \item Cycle: path that starts and ends at the same vertex
+    \item Connected graph: path exists between every pair of vertices
+\end{itemize}
+
+\subsection{Graph Size (Very Important for Analysis)}
+
+Graphs have two size parameters:
+\begin{itemize}
+    \item \(V\): number of vertices
+    \item \(E\): number of edges
+\end{itemize}
+
+\textbf{Key insight:}
+\begin{quote}
+Graph algorithms depend on both \(V\) and \(E\).
+\end{quote}
+
+\subsection{How Do We Store a Graph?}
+
+This is a critical design decision.
+
+\subsection{Adjacency Matrix}
+
+A 2D array \(A\) of size \(V \times V\).
+
+\[
+A[i][j] =
+\begin{cases}
+1 & \text{if edge exists} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsubsection*{Properties}
+
+\begin{itemize}
+    \item Fast edge lookup
+    \item Uses \(O(V^2)\) space
+\end{itemize}
+
+\subsection{Adjacency List}
+
+For each vertex, store a list of neighbors.
+
+\subsubsection*{Example}
+
+\begin{itemize}
+    \item A → B, D
+    \item B → A, C
+    \item C → B, D
+    \item D → A, C
+\end{itemize}
+
+\subsubsection*{Properties}
+
+\begin{itemize}
+    \item Space: \(O(V + E)\)
+    \item Efficient for sparse graphs
+\end{itemize}
+
+\subsection{Adjacency Matrix vs Adjacency List}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+Property & Matrix & List \\
+\hline
+Space & \(V^2\) & \(V + E\) \\
+Edge lookup & Fast & Slower \\
+Traversal & Slower & Fast \\
+Sparse graphs & Bad & Good
+\end{tabular}
+\end{center}
+
+\subsection{Sparse vs Dense Graphs}
+
+\begin{itemize}
+    \item Sparse: \(E \approx V\)
+    \item Dense: \(E \approx V^2\)
+\end{itemize}
+
+\textbf{Design rule:}
+\begin{quote}
+Use adjacency lists for sparse graphs.
+\end{quote}
+
+\subsection{Why Graph Algorithms Feel Different}
+
+In arrays:
+\begin{itemize}
+    \item you control the order
+\end{itemize}
+
+In graphs:
+\begin{itemize}
+    \item the structure controls the order
+\end{itemize}
+
+This is why traversal algorithms matter.
+
+\subsection{What Comes Next}
+
+Before solving problems like:
+\begin{itemize}
+    \item shortest path
+    \item connectivity
+    \item cycles
+\end{itemize}
+
+—we must learn how to \textbf{systematically explore a graph}.
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item Why does an adjacency matrix waste space for sparse graphs?
+    \item Can a graph have more edges than vertices? Give an example.
+    \item Why do graph algorithms use both \(V\) and \(E\) in time complexity?
+    \item For a graph with \(10^5\) vertices and \(10^5\) edges, which representation is better?
+    \item Explain a real-life system that can be modeled as a graph.
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+Graphs are about relationships.
+How we store them determines how fast we can explore them.
+\end{quote}
+\pagebreak
+\section{Graph Traversals}
+\label{sec:graph_traversals}
+
+\subsection*{Why Traversal Is the Core of Graph Algorithms}
+
+A graph is not useful unless we can \emph{explore} it.
+
+Traversal answers the most basic question:
+\begin{quote}
+How do I systematically visit every vertex in a graph?
+\end{quote}
+
+Almost every graph algorithm is built on top of:
+\begin{itemize}
+    \item Breadth-First Search (BFS)
+    \item Depth-First Search (DFS)
+\end{itemize}
+
+If you understand these two deeply, graphs stop being scary.
+
+\subsection{The Traversal Problem}
+
+Given:
+\begin{itemize}
+    \item a graph \(G = (V, E)\)
+    \item a starting vertex \(s\)
+\end{itemize}
+
+Task:
+\begin{quote}
+Visit all vertices reachable from \(s\), exactly once.
+\end{quote}
+
+\textbf{Important constraint:}
+Graphs may contain cycles.
+
+So:
+\begin{quote}
+We must remember what we have already visited.
+\end{quote}
+
+\subsection{Breadth-First Search (BFS)}
+
+\subsubsection*{Core Idea}
+
+BFS explores a graph:
+\begin{quote}
+Level by level, like ripples in water.
+\end{quote}
+
+It first visits all vertices at distance 1,  
+then distance 2, and so on.
+
+\subsection{Human Intuition for BFS}
+
+Imagine:
+\begin{itemize}
+    \item you shout a message
+    \item people nearby hear it first
+    \item then people farther away
+\end{itemize}
+
+That is BFS.
+
+\subsection{Data Structure Behind BFS}
+
+BFS uses a:
+\begin{quote}
+\textbf{Queue} (FIFO — first in, first out)
+\end{quote}
+
+Why?
+\begin{quote}
+Because we want to process older discoveries first.
+\end{quote}
+
+\subsection{BFS Algorithm (Idea, Not Code)}
+
+\begin{enumerate}
+    \item Mark the starting vertex as visited
+    \item Put it into a queue
+    \item While the queue is not empty:
+    \begin{itemize}
+        \item remove the front vertex
+        \item visit all unvisited neighbors
+        \item mark them visited and enqueue them
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Numerical Example (BFS)}
+
+Consider the graph:
+
+\[
+A - B - D
+\]
+\[
+|   |
+\]
+\[
+C   E
+\]
+
+Start BFS from \(A\).
+
+\subsubsection*{Execution}
+
+\begin{itemize}
+    \item Visit \(A\) → queue = [A]
+    \item Visit neighbors \(B, C\) → queue = [B, C]
+    \item Visit \(B\) → add \(D, E\)
+    \item Visit \(C\) → no new vertices
+    \item Visit \(D\), then \(E\)
+\end{itemize}
+
+\subsubsection*{Order of Visit}
+\[
+A \rightarrow B \rightarrow C \rightarrow D \rightarrow E
+\]
+
+\subsection{Key Property of BFS (Very Important)}
+
+\begin{quote}
+BFS finds the shortest path (minimum edges) in an unweighted graph.
+\end{quote}
+
+Why?
+
+Because:
+\begin{itemize}
+    \item first time we reach a vertex is via the shortest route
+\end{itemize}
+
+This property will return in shortest path algorithms.
+
+\subsection{Time Complexity of BFS}
+
+Using adjacency list:
+\begin{itemize}
+    \item Each vertex visited once → \(O(V)\)
+    \item Each edge explored once → \(O(E)\)
+\end{itemize}
+
+\[
+\boxed{T_{\text{BFS}} = O(V + E)}
+\]
+
+\subsection{Depth-First Search (DFS)}
+
+\subsubsection*{Core Idea}
+
+DFS explores a graph:
+\begin{quote}
+As deep as possible before backtracking.
+\end{quote}
+
+It commits fully to one path before trying alternatives.
+
+\subsection{Human Intuition for DFS}
+
+Imagine exploring a maze:
+\begin{itemize}
+    \item go forward as long as possible
+    \item when stuck, go back
+\end{itemize}
+
+That is DFS.
+
+\subsection{Data Structure Behind DFS}
+
+DFS uses a:
+\begin{itemize}
+    \item stack (explicit), or
+    \item recursion (implicit stack)
+\end{itemize}
+
+\subsection{DFS Algorithm (Idea, Not Code)}
+
+\begin{enumerate}
+    \item Start at a vertex
+    \item Mark it visited
+    \item For each unvisited neighbor:
+    \begin{itemize}
+        \item recursively apply DFS
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Numerical Example (DFS)}
+
+Using the same graph, start from \(A\).
+
+\subsubsection*{Execution}
+
+\begin{itemize}
+    \item Visit \(A\)
+    \item Go to \(B\)
+    \item Go to \(D\)
+    \item Backtrack
+    \item Visit \(E\)
+    \item Backtrack
+    \item Visit \(C\)
+\end{itemize}
+
+\subsubsection*{Order of Visit (One Possible)}
+\[
+A \rightarrow B \rightarrow D \rightarrow E \rightarrow C
+\]
+
+\textbf{Important:}
+DFS order is not unique.
+
+\subsection{Time Complexity of DFS}
+
+Exactly like BFS:
+
+\[
+\boxed{T_{\text{DFS}} = O(V + E)}
+\]
+
+\subsection{BFS vs DFS (Conceptual Difference)}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+Aspect & BFS & DFS \\
+\hline
+Exploration & Level-wise & Depth-wise \\
+Data structure & Queue & Stack / Recursion \\
+Shortest path & Yes (unweighted) & No \\
+Memory & Higher & Lower
+\end{tabular}
+\end{center}
+
+\subsection{Why Both Are Needed}
+
+\begin{itemize}
+    \item BFS is ideal for shortest paths
+    \item DFS is ideal for structure analysis
+\end{itemize}
+
+DFS helps in:
+\begin{itemize}
+    \item cycle detection
+    \item connected components
+    \item topological sorting
+\end{itemize}
+
+\subsection{Handling Disconnected Graphs}
+
+If the graph is disconnected:
+\begin{itemize}
+    \item run BFS/DFS from each unvisited vertex
+\end{itemize}
+
+This ensures:
+\begin{quote}
+All vertices are eventually visited.
+\end{quote}
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item Why do BFS and DFS both take \(O(V + E)\)?
+    \item Why does BFS find shortest paths in unweighted graphs?
+    \item Can DFS find shortest paths? Explain with an example.
+    \item Which traversal would you use to detect cycles? Why?
+    \item Explain BFS and DFS without using the words ``queue'' or ``stack''.
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+BFS explores width, DFS explores depth.
+Both are systematic ways of understanding structure.
+\end{quote}
+\pagebreak
+\section{Shortest Path Algorithms}
+\label{sec:shortest_path}
+
+\subsection*{Why This Section Matters}
+
+Graphs are about relationships.
+Traversal tells us how to explore them.
+
+Now we ask a deeper, more meaningful question:
+
+\begin{quote}
+What is the cheapest way to go from one point to another?
+\end{quote}
+
+This question appears everywhere:
+\begin{itemize}
+    \item shortest route on maps
+    \item minimum latency in networks
+    \item optimal cost in planning problems
+\end{itemize}
+
+This chapter teaches you how to \emph{think optimally on graphs}.
+
+\subsection{The Shortest Path Problem}
+
+Given:
+\begin{itemize}
+    \item a weighted graph \(G = (V, E)\)
+    \item a source vertex \(s\)
+\end{itemize}
+
+Task:
+\begin{quote}
+Find the minimum-cost path from \(s\) to every other vertex.
+\end{quote}
+
+\textbf{Important:}
+Edge weights represent:
+\begin{itemize}
+    \item distance
+    \item cost
+    \item time
+\end{itemize}
+
+\subsection{Why BFS Is No Longer Enough}
+
+BFS worked beautifully because:
+\begin{itemize}
+    \item all edges had equal cost
+\end{itemize}
+
+But now consider:
+\begin{itemize}
+    \item one edge costs 1
+    \item another costs 100
+\end{itemize}
+
+\textbf{Key realization:}
+\begin{quote}
+Few edges does not mean cheap path.
+\end{quote}
+
+We must consider weights.
+
+\subsection{The Central Idea Behind Dijkstra}
+
+Dijkstra's algorithm is based on a very powerful principle:
+
+\begin{quote}
+Always expand the currently cheapest known path.
+\end{quote}
+
+This is a \textbf{greedy algorithm}.
+
+Greedy means:
+\begin{quote}
+Make the best local choice and trust it globally.
+\end{quote}
+
+\subsection{Human Intuition (Very Important)}
+
+Imagine planning a road trip:
+\begin{itemize}
+    \item you know tentative distances to nearby cities
+    \item you first finalize the closest city
+    \item then use it to update distances to others
+\end{itemize}
+
+You would never finalize a farther city before a closer one.
+
+That intuition \emph{is} Dijkstra.
+
+\subsection{What Information Do We Maintain?}
+
+For each vertex \(v\), we store:
+\begin{itemize}
+    \item current best-known distance \(d[v]\)
+    \item whether the distance is finalized
+\end{itemize}
+
+Initially:
+\[
+d[s] = 0, \quad d[\text{others}] = \infty
+\]
+
+\subsection{Dijkstra Algorithm (Idea, Not Code)}
+
+\begin{enumerate}
+    \item Initialize distances from source
+    \item Put all vertices into a priority queue (by distance)
+    \item While queue is not empty:
+    \begin{itemize}
+        \item extract vertex with minimum distance
+        \item finalize its distance
+        \item relax all outgoing edges
+    \end{itemize}
+\end{enumerate}
+
+\subsection{What Does ``Relaxation'' Mean?}
+
+Relaxation is just a careful comparison.
+
+For an edge \(u \rightarrow v\) with weight \(w\):
+
+\[
+\text{If } d[u] + w < d[v],
+\quad \text{then update } d[v]
+\]
+
+\textbf{Interpretation:}
+\begin{quote}
+Did I find a cheaper way to reach \(v\)?
+\end{quote}
+
+\subsection{Numerical Example (Step-by-Step)}
+
+Consider the graph:
+
+\begin{center}
+A ---1--- B ---2--- C \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \\
+  \ \ 4 \ \ \ \ \ \ \ \ \ \ 1 \\
+   \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \\
+    D -------------3-------\end{center}
+
+Start from \(A\).
+
+\subsubsection*{Initialization}
+
+\[
+d[A]=0,\ d[B]=\infty,\ d[C]=\infty,\ d[D]=\infty
+\]
+
+\subsubsection*{Step 1: Finalize A}
+
+Update:
+\[
+d[B]=1,\ d[D]=4
+\]
+
+\subsubsection*{Step 2: Finalize B}
+
+Update:
+\[
+d[C]=3
+\]
+
+\subsubsection*{Step 3: Finalize C}
+
+Update:
+\[
+d[D]=\min(4, 3+1)=4
+\]
+
+\subsubsection*{Final Distances}
+
+\[
+d[A]=0,\ d[B]=1,\ d[C]=3,\ d[D]=4
+\]
+
+\subsection{Why Dijkstra Works (Deep Insight)}
+
+Key invariant:
+\begin{quote}
+Once a vertex is finalized, its shortest distance is correct.
+\end{quote}
+
+Why?
+
+Because:
+\begin{itemize}
+    \item all edge weights are non-negative
+    \item any alternative path must be longer
+\end{itemize}
+
+This is the heart of the correctness proof.
+
+\subsection{Important Limitation (GATE Favorite)}
+
+\begin{quote}
+Dijkstra's algorithm does NOT work with negative edge weights.
+\end{quote}
+
+Why?
+
+Because:
+\begin{itemize}
+    \item a path finalized early could later become cheaper
+    \item greedy choice breaks
+\end{itemize}
+
+\subsection{Time Complexity Analysis}
+
+Using adjacency list + priority queue:
+
+\begin{itemize}
+    \item each vertex extracted once: \(O(V \log V)\)
+    \item each edge relaxed once: \(O(E \log V)\)
+\end{itemize}
+
+\[
+\boxed{T = O((V + E)\log V)}
+\]
+
+\subsection{Connection to BFS}
+
+If all edge weights are equal:
+\begin{itemize}
+    \item priority queue becomes normal queue
+    \item Dijkstra reduces to BFS
+\end{itemize}
+
+\textbf{Beautiful unification.}
+
+\subsection{When Should You Use Dijkstra?}
+
+\begin{itemize}
+    \item weighted graphs
+    \item non-negative weights
+    \item need shortest path from one source
+\end{itemize}
+
+\subsection*{Strang-Style Thinking Exercises}
+
+\begin{enumerate}
+    \item Why does BFS fail on weighted graphs?
+    \item Why does Dijkstra fail with negative edges?
+    \item Explain Dijkstra without using the word ``greedy''.
+    \item What happens if all edges have weight 1?
+    \item Why do we need a priority queue?
+\end{enumerate}
+
+\bigskip
+\textbf{Key takeaway of this chapter:}
+
+\begin{quote}
+Shortest paths come from always trusting the cheapest unfinished route.
+\end{quote}
+\pagebreak
+\section*{Practice Problems}
+\addcontentsline{toc}{section}{Practice Problems}
+
+\subsection*{How to Use These Problems}
+
+These problems are not meant to be rushed.
+
+For every problem:
+\begin{itemize}
+    \item First, predict the answer in words
+    \item Then, reason mathematically
+    \item Finally, check asymptotic behavior
+\end{itemize}
+
+If you jump straight to formulas, stop and restart.
+
+\bigskip
+\textbf{The goal is to learn how to think, not what to memorize.}
+
+% ==========================================================
+\subsection{Chapter 0: Algorithmic Thinking and Asymptotics}
+
+\subsubsection*{Problem 0.1 — Growth Intuition}
+
+An algorithm takes:
+\[
+T(n) = 3n + 100
+\]
+
+\begin{enumerate}
+    \item Compute \(T(10)\), \(T(100)\), and \(T(1000)\)
+    \item Describe in words how runtime changes as \(n\) increases
+    \item What is the Big-O notation?
+    \item Explain why constants do not matter asymptotically
+\end{enumerate}
+
+\subsubsection*{Problem 0.2 — Dominance}
+
+Which function grows faster as \(n \to \infty\)? Explain \emph{why}.
+
+\begin{enumerate}
+    \item \(n \log n\) vs \(n^{1.5}\)
+    \item \(100n\) vs \(n^2\)
+    \item \(\log n\) vs \(\sqrt{n}\)
+\end{enumerate}
+
+You are not allowed to blindly plug values.
+
+\subsubsection*{Problem 0.3 — Doubling Thought Experiment}
+
+If input size doubles, explain what happens to runtime for:
+
+\begin{enumerate}
+    \item Linear-time algorithm
+    \item Quadratic-time algorithm
+    \item Logarithmic-time algorithm
+\end{enumerate}
+
+Use words, not formulas.
+
+\subsubsection*{Problem 0.4 — Upper vs Lower Bounds}
+
+An algorithm is known to run in \(O(n)\).
+
+\begin{enumerate}
+    \item Can it also be \(O(n^2)\)?
+    \item Can it be \(\Omega(n^2)\)?
+    \item Can it be \(\Theta(n)\)?
+\end{enumerate}
+
+Justify each answer.
+
+\subsubsection*{Problem 0.5 — Worst Case Reasoning}
+
+Explain why worst-case analysis is preferred in:
+\begin{itemize}
+    \item operating systems
+    \item real-time systems
+    \item GATE examinations
+\end{itemize}
+
+Give at least one real-world reason.
+
+\subsubsection*{Problem 0.6 — GATE Trap}
+
+Given:
+\[
+T(n) = n + \log n
+\]
+
+Decide whether the function is:
+\begin{itemize}
+    \item \(O(n)\)
+    \item \(O(\log n)\)
+    \item \(\Theta(n)\)
+\end{itemize}
+
+Explain carefully.
+
+\subsubsection*{Problem 0.7 — Lower Bound Thinking}
+
+Why must searching an unsorted array take \(\Omega(n)\) time?
+
+You may not mention any specific algorithm.
+
+\subsubsection*{Problem 0.8 — Misconception Check}
+
+True or False (justify):
+
+\begin{quote}
+If an algorithm has a fast average case, the worst case does not matter.
+\end{quote}
+
+\subsubsection*{Problem 0.9 — Growth Ordering}
+
+Arrange the following in increasing order of growth:
+\[
+\log n,\quad n,\quad n \log n,\quad n^2
+\]
+
+Explain your reasoning.
+
+\subsubsection*{Problem 0.10 — Mental Model}
+
+Explain Big-O, Big-\(\Omega\), and Big-\(\Theta\) using only physical metaphors.
+
+No mathematical symbols allowed.
+
+\subsubsection*{Problem 0.11 — Tight Bound}
+
+An algorithm takes:
+\[
+T(n) = 2n + 3n \log n + 10
+\]
+
+Find the tightest asymptotic bound.
+
+\subsubsection*{Problem 0.12 — Reflection}
+
+Why is asymptotic analysis about growth rates rather than exact running time?
+
+% ==========================================================
+\subsection{Chapter 1: Linear Search}
+
+\subsubsection*{Problem 1.1 — Dry Run}
+
+Given the array:
+\[
+[8, 3, 6, 1, 9]
+\]
+
+Perform linear search for:
+\begin{enumerate}
+    \item 1
+    \item 9
+    \item 7
+\end{enumerate}
+
+Count the number of comparisons in each case.
+
+\subsubsection*{Problem 1.2 — Best vs Worst Case}
+
+Give an example input where:
+\begin{itemize}
+    \item best case occurs
+    \item worst case occurs
+\end{itemize}
+
+Explain why.
+
+\subsubsection*{Problem 1.3 — Average Case Thinking}
+
+Assume the searched element is equally likely to be at any position.
+
+\begin{enumerate}
+    \item What is the expected number of comparisons?
+    \item Why does this not change the Big-O complexity?
+\end{enumerate}
+
+\subsubsection*{Problem 1.4 — Fundamental Limitation}
+
+Why can no algorithm search an unsorted array faster than linear time?
+
+Answer using reasoning, not algorithm names.
+
+\subsubsection*{Problem 1.5 — GATE Style Question}
+
+For linear search on an array of size \(n\), state and explain:
+\begin{itemize}
+    \item Best-case time complexity
+    \item Worst-case time complexity
+    \item Average-case time complexity
+\end{itemize}
+
+\subsubsection*{Problem 1.6 — When Linear Search Is Optimal}
+
+Give two real-world scenarios where linear search is the best possible choice.
+
+\subsubsection*{Problem 1.7 — Trick Question}
+
+If an array is nearly sorted, does linear search become asymptotically faster?
+
+Explain carefully.
+
+\subsubsection*{Problem 1.8 — Tight Bound Reasoning}
+
+Explain why linear search is \(\Theta(n)\) and not just \(O(n)\).
+\pagebreak
+% ==========================================================
+\subsection{Chapter 2: Binary Search}
+
+\subsubsection*{Problem 2.1 — Dry Run}
+
+Given the sorted array:
+\[
+[2, 5, 8, 12, 16, 23, 38, 56]
+\]
+
+Perform binary search for:
+\begin{enumerate}
+    \item 16
+    \item 2
+    \item 40
+\end{enumerate}
+
+Count the number of comparisons in each case.
+
+\subsubsection*{Problem 2.2 — Halving Intuition}
+
+If an array has \(n = 1024\) elements:
+\begin{enumerate}
+    \item How many times can you halve it until one element remains?
+    \item What does this number represent in binary search?
+\end{enumerate}
+
+\subsubsection*{Problem 2.3 — Worst Case}
+
+Explain why the worst-case time of binary search occurs when the element is not present.
+
+\subsubsection*{Problem 2.4 — Growth Thinking}
+
+If input size doubles:
+\begin{enumerate}
+    \item How much extra work does binary search do?
+    \item Why is this fundamentally different from linear search?
+\end{enumerate}
+
+\subsubsection*{Problem 2.5 — Lower Bound}
+
+Why can no comparison-based algorithm search a sorted array faster than \(\Omega(\log n)\)?
+
+Use an information argument.
+
+\subsubsection*{Problem 2.6 — GATE Trap}
+
+Binary search is applied on a linked list.  
+What is the time complexity? Explain why.
+
+\subsubsection*{Problem 2.7 --- \(\Theta\) Reasoning}
+
+Explain why binary search is \(\Theta(\log n)\) and not just \(O(\log n)\).
+
+\subsubsection*{Problem 2.8 — Conceptual}
+
+Explain binary search without using the words:
+\begin{quote}
+array, index, or middle
+\end{quote}
+
+% ==========================================================
+\subsection{Chapter 3: Basic Sorting Algorithms}
+
+\subsubsection*{Problem 3.1 — Selection Sort Counting}
+
+For selection sort on \(n\) elements:
+\begin{enumerate}
+    \item Count the number of comparisons
+    \item Why does input order not matter?
+\end{enumerate}
+
+\subsubsection*{Problem 3.2 — Bubble Sort Behavior}
+
+Why does bubble sort become faster on an already sorted array (optimized version)?
+
+\subsubsection*{Problem 3.3 — Insertion Sort Intuition}
+
+Why is insertion sort efficient on nearly sorted data?
+
+Give a concrete example.
+
+\subsubsection*{Problem 3.4 — Worst Case Construction}
+
+Construct an input of size \(n\) that causes:
+\begin{enumerate}
+    \item worst case for insertion sort
+    \item worst case for bubble sort
+\end{enumerate}
+
+\subsubsection*{Problem 3.5 — Comparison}
+
+Which sorting algorithm would you choose for:
+\begin{itemize}
+    \item sorting exam papers by roll number
+    \item sorting a very small array (size < 20)
+\end{itemize}
+
+Explain your reasoning.
+
+\subsubsection*{Problem 3.6 — GATE Style}
+
+Why do basic sorting algorithms take \(\Theta(n^2)\) time?
+
+Answer without mentioning specific algorithms.
+
+\subsubsection*{Problem 3.7 — Stability}
+
+Explain what stability means in sorting.
+Which of the basic sorting algorithms are stable?
+
+\subsubsection*{Problem 3.8 — Lower Bound Thinking}
+
+Why can no comparison-based sorting algorithm beat \(\Omega(n \log n)\)?
+
+Intuition only.
+
+% ==========================================================
+\subsection{Chapter 4: Divide and Conquer Sorting}
+
+\subsubsection*{Problem 4.1 — Merge Sort Tree}
+
+Draw the recursion tree for merge sort on \(n = 8\) elements and label the cost at each level.
+
+\subsubsection*{Problem 4.2 — Cost per Level}
+
+Why does each level of merge sort cost \(O(n)\)?
+
+\subsubsection*{Problem 4.3 — Total Cost}
+
+Explain why merge sort takes \(n \log n\) time using only words.
+
+\subsubsection*{Problem 4.4 — Worst Case of Quick Sort}
+
+Construct an input where quick sort takes \(\Theta(n^2)\) time.
+
+\subsubsection*{Problem 4.5 — Average Case Thinking}
+
+Why does random pivot selection lead to expected \(n \log n\) time?
+
+\subsubsection*{Problem 4.6 — Comparison}
+
+Why is merge sort preferred in external sorting?
+
+\subsubsection*{Problem 4.7 — Space vs Time}
+
+Which algorithm would you choose if:
+\begin{itemize}
+    \item memory is limited
+    \item stability is required
+\end{itemize}
+
+Explain.
+
+\subsubsection*{Problem 4.8 — $\Theta$ Reasoning}
+
+Why is merge sort \(\Theta(n \log n)\) in all cases?
+
+% ==========================================================
+\subsection{Chapter 5: Graph Basics}
+
+\subsubsection*{Problem 5.1 — Representation Choice}
+
+For a graph with:
+\[
+V = 10^5,\quad E = 10^5
+\]
+Which representation is better and why?
+
+\subsubsection*{Problem 5.2 — Edge Counting}
+
+What is the maximum number of edges in:
+\begin{enumerate}
+    \item an undirected graph
+    \item a directed graph
+\end{enumerate}
+
+\subsubsection*{Problem 5.3 — Sparse vs Dense}
+
+Give one example each of:
+\begin{itemize}
+    \item sparse graph
+    \item dense graph
+\end{itemize}
+
+\subsubsection*{Problem 5.4 — Degree Reasoning}
+
+What is the sum of degrees in an undirected graph with \(E\) edges?
+
+Explain why.
+
+\subsubsection*{Problem 5.5 — Modeling}
+
+Model a real-world system as a graph and describe its vertices and edges.
+
+\subsubsection*{Problem 5.6 — Storage Tradeoff}
+
+Why is adjacency matrix inefficient for sparse graphs?
+
+% ==========================================================
+\subsection{Chapter 6: BFS and DFS}
+
+\subsubsection*{Problem 6.1 — BFS Dry Run}
+
+Perform BFS on a given graph starting from vertex \(s\) and list the order of visitation.
+
+\subsubsection*{Problem 6.2 — Shortest Path}
+
+Why does BFS find shortest paths in unweighted graphs?
+
+\subsubsection*{Problem 6.3 — DFS Order}
+
+Why does DFS traversal order depend on the starting vertex and adjacency list order?
+
+\subsubsection*{Problem 6.4 — Cycle Detection}
+
+Which traversal is better for detecting cycles? Why?
+
+\subsubsection*{Problem 6.5 — Time Complexity}
+
+Explain why both BFS and DFS take \(O(V + E)\) time.
+
+\subsubsection*{Problem 6.6 — Disconnected Graph}
+
+How do you traverse a disconnected graph completely?
+
+% ==========================================================
+\subsection{Chapter 7: Shortest Path (Dijkstra)}
+
+\subsubsection*{Problem 7.1 — BFS vs Dijkstra}
+
+Why does BFS fail on weighted graphs?
+
+\subsubsection*{Problem 7.2 — Relaxation}
+
+Explain the idea of edge relaxation in your own words.
+
+\subsubsection*{Problem 7.3 — Negative Edge}
+
+Give an example where Dijkstra's algorithm fails due to a negative edge.
+
+\subsubsection*{Problem 7.4 — Priority Queue}
+
+Why is a priority queue essential in Dijkstra's algorithm?
+
+\subsubsection*{Problem 7.5 — Complexity Reasoning}
+
+Explain why Dijkstra's algorithm takes \(O((V+E)\log V)\) time.
+
+\subsubsection*{Problem 7.6 — Conceptual}
+
+Explain Dijkstra's algorithm without using the words:
+\begin{quote}
+greedy, shortest, or distance
+\end{quote}
+\pagebreak
+\section{Solved GATE DA Questions (Strang Style)}
+\label{sec:gate_pyq}
+
+\subsection*{How to Read These Solutions}
+
+Each solution follows the same thinking pattern:
+\begin{enumerate}
+    \item Identify the structure of the problem
+    \item Ask what must be true before calculating
+    \item Reason using growth, bounds, or invariants
+    \item Arrive at the answer naturally
+\end{enumerate}
+
+If you understand the reasoning, the answer becomes obvious.
+
+% ==========================================================
+\subsection{PYQ 1 — Searching an Unsorted Array}
+
+\textbf{Question}
+
+Searching for an element in an unsorted array of size \(n\) takes time proportional to:
+
+\begin{enumerate}[label=(\Alph*)]
+    \item \(\log n\)
+    \item \(n\)
+    \item \(n \log n\)
+    \item \(n^2\)
+\end{enumerate}
+
+\textbf{Solution (Strang Style)}
+
+The array is unsorted.  
+There is no structure to exploit.
+
+To be certain that the element is not present, every element must be checked at least once.
+
+This is a fundamental lower bound.
+
+\[
+\text{Time} = \Theta(n)
+\]
+
+\textbf{Answer: (B)}
+
+% ==========================================================
+\subsection{PYQ 2 — Binary Search Comparisons}
+
+\textbf{Question}
+
+What is the maximum number of comparisons needed to search for an element in a sorted array of size 1000 using binary search?
+
+\textbf{Solution}
+
+Binary search repeatedly halves the search space.
+
+We ask:
+\[
+2^k \ge 1000
+\]
+
+Since:
+\[
+2^{10} = 1024
+\]
+
+The maximum number of comparisons is approximately:
+\[
+\log_2 1000 \approx 10
+\]
+
+\textbf{Answer: 10 comparisons}
+
+% ==========================================================
+\subsection{PYQ 3 — Best Case of Bubble Sort}
+
+\textbf{Question}
+
+What is the best-case time complexity of optimized bubble sort?
+
+\begin{enumerate}[label=(\Alph*)]
+    \item \(O(1)\)
+    \item \(O(n)\)
+    \item \(O(n \log n)\)
+    \item \(O(n^2)\)
+\end{enumerate}
+
+\textbf{Solution}
+
+In the best case, the array is already sorted.
+
+Optimized bubble sort still performs one full pass to verify that no swaps are needed.
+
+That pass involves \(n-1\) comparisons.
+
+\[
+T(n) = \Theta(n)
+\]
+
+\textbf{Answer: (B)}
+
+% ==========================================================
+\subsection{PYQ 4 — Insertion Sort Advantage}
+
+\textbf{Question}
+
+Why is insertion sort efficient for nearly sorted arrays?
+
+\textbf{Solution}
+
+Insertion sort cost depends on the number of inversions.
+
+If the array is nearly sorted:
+\begin{itemize}
+    \item very few elements are out of order
+    \item very few shifts are required
+\end{itemize}
+
+Thus, the running time approaches linear.
+
+\textbf{Key idea:}
+\[
+T(n) = \Theta(n + \text{number of inversions})
+\]
+
+% ==========================================================
+\subsection{PYQ 5 — Merge Sort Recurrence}
+
+\textbf{Question}
+
+The recurrence for merge sort is:
+\[
+T(n) = 2T(n/2) + n
+\]
+
+What is the time complexity?
+
+\textbf{Solution}
+
+At each level of recursion:
+\begin{itemize}
+    \item total work done is \(n\)
+\end{itemize}
+
+The depth of the recursion tree is:
+\[
+\log n
+\]
+
+Total work:
+\[
+n \times \log n
+\]
+
+\[
+\boxed{T(n) = \Theta(n \log n)}
+\]
+
+% ==========================================================
+\subsection{PYQ 6 — Worst Case of Quick Sort}
+
+\textbf{Question}
+
+When does quick sort take \(\Theta(n^2)\) time?
+
+\textbf{Solution}
+
+Worst case occurs when partitioning is highly unbalanced.
+
+This happens when:
+\begin{itemize}
+    \item pivot is always smallest or largest element
+    \item array is already sorted
+\end{itemize}
+
+The recurrence becomes:
+\[
+T(n) = T(n-1) + n
+\]
+
+Which solves to:
+\[
+\Theta(n^2)
+\]
+
+% ==========================================================
+\subsection{PYQ 7 — Sparse Graph Representation}
+
+\textbf{Question}
+
+Which representation is best for a sparse graph?
+
+\begin{enumerate}[label=(\Alph*)]
+    \item Adjacency matrix
+    \item Adjacency list
+    \item Incidence matrix
+    \item Edge matrix
+\end{enumerate}
+
+\textbf{Solution}
+
+Sparse graph:
+\[
+E \approx V
+\]
+
+Adjacency matrix uses:
+\[
+O(V^2) \text{ space}
+\]
+
+Adjacency list uses:
+\[
+O(V + E) \text{ space}
+\]
+
+\textbf{Answer: (B)}
+
+% ==========================================================
+\subsection{PYQ 8 — BFS Shortest Path}
+
+\textbf{Question}
+
+Why does BFS find shortest paths in an unweighted graph?
+
+\textbf{Solution}
+
+BFS explores vertices in increasing order of distance from the source.
+
+The first time a vertex is visited:
+\begin{itemize}
+    \item the path used has the minimum number of edges
+\end{itemize}
+
+This property guarantees shortest paths in unweighted graphs.
+
+% ==========================================================
+\subsection{PYQ 9 — BFS and DFS Complexity}
+
+\textbf{Question}
+
+What is the time complexity of BFS using adjacency lists?
+
+\textbf{Solution}
+
+\begin{itemize}
+    \item Each vertex is visited once: \(O(V)\)
+    \item Each edge is explored once: \(O(E)\)
+\end{itemize}
+
+\[
+\boxed{T = O(V + E)}
+\]
+
+The same applies to DFS.
+
+% ==========================================================
+\subsection{PYQ 10 — Dijkstra and Negative Edges}
+
+\textbf{Question}
+
+Why does Dijkstra's algorithm fail in the presence of negative edge weights?
+
+\textbf{Solution}
+
+Dijkstra assumes:
+\begin{quote}
+Once a vertex is finalized, its shortest distance cannot decrease.
+\end{quote}
+
+Negative edge weights violate this assumption.
+
+A path finalized earlier may later become cheaper.
+
+Hence, the algorithm becomes incorrect.
+
+\end{document}
