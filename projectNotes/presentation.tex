@@ -1,0 +1,1880 @@
+\documentclass[12pt,a4paper]{article}
+
+% ================= Packages =================
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\begin{document}
+
+% ================= Title =================
+\begin{center}
+{\Large \textbf{Forward Modeling of Rayleigh Waves}}\\[0.6em]
+{\Large \textbf{Chapter 1: What Physical Problem Are We Solving?}}
+\end{center}
+
+\vspace{1.5em}
+
+% ============================================================
+\section{Why Do We Need a Forward Model at All?}
+
+In wave physics, there are always two distinct problems:
+
+\begin{enumerate}
+\item \textbf{Forward problem:}  
+Given material properties, predict wave motion.
+
+\item \textbf{Inverse problem:}  
+Given observed wave motion, infer material properties.
+\end{enumerate}
+
+This project is entirely concerned with the \textbf{forward problem}.
+
+\medskip
+
+\textbf{In words:}
+
+\begin{quote}
+If we already know how the Earth is layered, what waves will it produce?
+\end{quote}
+
+The answer to this question is essential before attempting inversion.
+If the forward model is incorrect, inversion is meaningless.
+
+\medskip
+
+Therefore, the first goal of this project is:
+
+\begin{center}
+\textbf{Build a physically correct, numerically stable forward model.}
+\end{center}
+
+Everything else comes later.
+
+% ============================================================
+\section{What Type of Waves Are We Modeling?}
+
+There are several types of seismic waves:
+
+\begin{itemize}
+\item Body waves (P-waves and S-waves)
+\item Surface waves (Rayleigh waves and Love waves)
+\end{itemize}
+
+This project focuses exclusively on \textbf{Rayleigh waves}.
+
+\subsection*{What is a Rayleigh Wave?}
+
+A Rayleigh wave is a surface-confined elastic wave that:
+
+\begin{itemize}
+\item propagates along the Earth's surface,
+\item decays exponentially with depth,
+\item involves coupled horizontal and vertical motion.
+\end{itemize}
+
+Physically, particles move in \emph{retrograde ellipses} near the surface.
+
+\medskip
+
+Rayleigh waves are extremely important because:
+
+\begin{itemize}
+\item They dominate near-surface seismic recordings.
+\item They are highly sensitive to shear-wave velocity ($V_S$).
+\item They form the basis of surface-wave inversion methods.
+\end{itemize}
+
+This makes them ideal probes of shallow Earth structure.
+
+% ============================================================
+\section{What Kind of Earth Model Are We Assuming?}
+
+We assume a \textbf{layered elastic Earth}.
+
+This assumption means:
+
+\begin{itemize}
+\item The Earth is composed of horizontal layers.
+\item Each layer is homogeneous.
+\item Material properties change only with depth.
+\end{itemize}
+
+Mathematically, this is written as:
+\[
+\rho = \rho(z), \quad
+V_P = V_P(z), \quad
+V_S = V_S(z)
+\]
+
+There is \emph{no dependence} on horizontal position.
+
+\subsection*{Why This Assumption Is Reasonable}
+
+\begin{itemize}
+\item Sedimentary layers are approximately horizontal.
+\item Many field methods assume lateral homogeneity.
+\item This assumption drastically simplifies the mathematics.
+\end{itemize}
+
+This is not a limitation — it is a deliberate modeling choice.
+
+% ============================================================
+\section{What Is the Fundamental Unknown?}
+
+The fundamental physical unknown is \textbf{displacement}.
+
+At every point in the Earth, particles move slightly when a wave passes.
+
+This motion is described by the displacement vector:
+\[
+\mathbf{u}(x,z,t)
+=
+\begin{bmatrix}
+u_x(x,z,t) \\
+u_z(x,z,t)
+\end{bmatrix}
+\]
+
+where:
+
+\begin{itemize}
+\item $u_x$ is horizontal displacement,
+\item $u_z$ is vertical displacement.
+\end{itemize}
+
+\medskip
+
+Everything else — stress, strain, velocity, energy —
+is derived from $\mathbf{u}$.
+
+Therefore, all code in this project ultimately computes $u_x$ and $u_z$.
+
+% ============================================================
+\section{Why Time-Harmonic Motion Is Assumed}
+
+Instead of arbitrary time signals, we assume \textbf{time-harmonic motion}:
+\[
+\mathbf{u}(x,z,t)
+=
+\mathbf{u}(z)\,e^{i(kx - \omega t)}
+\]
+
+This equation must be understood carefully.
+
+\subsection*{Meaning of Each Symbol}
+
+\begin{itemize}
+\item $\omega$ = angular frequency (rad/s)
+\item $k$ = horizontal wavenumber (rad/m)
+\item $t$ = time
+\item $x$ = horizontal coordinate
+\item $z$ = depth coordinate
+\end{itemize}
+
+\subsection*{Why This Is Not a Restriction}
+
+Any physical wavefield can be written as a sum of harmonic waves using Fourier analysis.
+
+Thus:
+\begin{itemize}
+\item Solving the harmonic problem solves the general problem.
+\item Frequency-domain modeling is mathematically exact.
+\end{itemize}
+
+This is why all seismic dispersion theory is formulated in the frequency domain.
+
+% ============================================================
+\section{Why Complex Numbers Appear Everywhere}
+
+The exponential $e^{i(kx - \omega t)}$ is complex.
+
+This does \emph{not} mean physical displacement is complex.
+
+\medskip
+
+The physical displacement is:
+\[
+\Re\{\mathbf{u}(x,z,t)\}
+\]
+
+Complex numbers are used because they:
+
+\begin{itemize}
+\item turn derivatives into multiplications,
+\item simplify algebraic manipulation,
+\item make boundary conditions easier to enforce.
+\end{itemize}
+
+This is standard practice in wave physics.
+
+% ============================================================
+\section{Why the Problem Becomes One-Dimensional}
+
+Because:
+\begin{itemize}
+\item the Earth varies only with depth,
+\item horizontal dependence is sinusoidal,
+\end{itemize}
+
+the governing partial differential equations reduce to:
+
+\begin{quote}
+\textbf{ordinary differential equations in depth $z$.}
+\end{quote}
+
+This is the most important simplification in the entire project.
+
+\medskip
+
+All numerical work is therefore done on:
+\[
+z \in [0, \infty)
+\]
+
+This is why all depth grids in the code are one-dimensional arrays.
+
+% ============================================================
+\section{What Is the Output of the Forward Model?}
+
+The forward model produces:
+
+\begin{itemize}
+\item Rayleigh-wave phase velocities $c(\omega)$,
+\item Rayleigh-wave eigenfunctions $u_x(z)$ and $u_z(z)$,
+\item apparent phase velocity curves.
+\end{itemize}
+
+Each of these quantities corresponds directly to
+plots you have generated using the experiment scripts.
+
+% ============================================================
+\section{How This Chapter Connects to the Code}
+
+This chapter explains:
+
+\begin{itemize}
+\item Why displacement is the central quantity.
+\item Why frequency-domain methods are used.
+\item Why depth-only modeling is valid.
+\end{itemize}
+
+Every subsequent code file assumes these ideas implicitly.
+
+Without understanding this chapter,
+the mathematics and code would appear mysterious.
+
+% ============================================================
+\section{End-of-Chapter Summary}
+
+At the end of Chapter 1, we understand:
+
+\begin{itemize}
+\item What Rayleigh waves are.
+\item Why a layered Earth model is assumed.
+\item Why displacement is the fundamental unknown.
+\item Why time-harmonic solutions are used.
+\item Why the problem reduces to depth-only equations.
+\end{itemize}
+
+This chapter establishes the physical foundation.
+No numerical methods have been used yet.
+
+\medskip
+
+\begin{center}
+\textbf{Everything that follows builds directly on this foundation.}
+\end{center}
+\pagebreak
+% ================= Title =================
+\begin{center}
+{\Large \textbf{Chapter 2: Elastic Waves and the Origin of P--SV Motion}}
+\end{center}
+
+\vspace{1.5em}
+
+% ============================================================
+\section{What This Chapter Answers}
+
+In Chapter 1 we asked:
+
+\begin{quote}
+\textit{What physical problem are we solving?}
+\end{quote}
+
+Now we ask a deeper question:
+
+\begin{quote}
+\textbf{What equations describe motion inside an elastic Earth?}
+\end{quote}
+
+This chapter explains:
+\begin{itemize}
+\item where the wave equations come from,
+\item why P and S waves appear naturally,
+\item why Rayleigh waves are a coupling of P and SV motion,
+\item why matrix methods become unavoidable.
+\end{itemize}
+
+This chapter explains the \emph{physics behind your Y-matrix}.
+
+% ============================================================
+\section{Newton’s Law Applied to a Solid}
+
+The starting point of all wave motion is \textbf{Newton’s second law}:
+
+\[
+\text{Force} = \text{Mass} \times \text{Acceleration}
+\]
+
+In a solid, force is expressed using \textbf{stress}.
+Mass is expressed using \textbf{density}.
+
+Thus, the equation of motion is:
+\[
+\rho \frac{\partial^2 \mathbf{u}}{\partial t^2}
+=
+\nabla \cdot \boldsymbol{\sigma}
+\]
+
+where:
+\begin{itemize}
+\item $\rho$ is density,
+\item $\mathbf{u}$ is displacement,
+\item $\boldsymbol{\sigma}$ is the stress tensor.
+\end{itemize}
+
+This equation is exact — no approximation yet.
+
+% ============================================================
+\section{What Is Stress?}
+
+Stress measures internal forces inside a solid.
+
+In two dimensions $(x,z)$, stress is written as:
+\[
+\boldsymbol{\sigma}
+=
+\begin{bmatrix}
+\sigma_{xx} & \sigma_{xz} \\
+\sigma_{zx} & \sigma_{zz}
+\end{bmatrix}
+\]
+
+Important facts:
+\begin{itemize}
+\item $\sigma_{xz} = \sigma_{zx}$ (symmetry),
+\item stress relates to deformation, not displacement directly.
+\end{itemize}
+
+Stress is produced when the material is strained.
+
+% ============================================================
+\section{From Displacement to Strain}
+
+Strain measures deformation.
+
+For small motions (which seismic waves always are), strain is:
+\[
+\boldsymbol{\varepsilon}
+=
+\frac{1}{2}
+\left(
+\nabla \mathbf{u} + (\nabla \mathbf{u})^T
+\right)
+\]
+
+Explicitly:
+\[
+\varepsilon_{xx} = \frac{\partial u_x}{\partial x}, \quad
+\varepsilon_{zz} = \frac{\partial u_z}{\partial z}, \quad
+\varepsilon_{xz} =
+\frac{1}{2}
+\left(
+\frac{\partial u_x}{\partial z}
++
+\frac{\partial u_z}{\partial x}
+\right)
+\]
+
+These quantities measure stretching and shearing.
+
+% ============================================================
+\section{Constitutive Law: Hooke’s Law}
+
+Stress is related to strain by Hooke’s law.
+
+For an isotropic elastic solid:
+\[
+\boldsymbol{\sigma}
+=
+\lambda (\nabla \cdot \mathbf{u}) \mathbf{I}
++
+2\mu \boldsymbol{\varepsilon}
+\]
+
+where:
+\begin{itemize}
+\item $\lambda$ and $\mu$ are Lamé parameters,
+\item $\mu$ is the shear modulus,
+\item $\lambda$ controls compressibility.
+\end{itemize}
+
+These parameters are related to seismic velocities:
+\[
+\mu = \rho V_S^2,
+\qquad
+\lambda = \rho V_P^2 - 2\mu
+\]
+
+This is exactly what appears in your code.
+
+% ============================================================
+\section{Substituting Into Newton’s Law}
+
+Substituting stress into the equation of motion gives:
+
+\[
+\rho \frac{\partial^2 \mathbf{u}}{\partial t^2}
+=
+(\lambda + \mu)\nabla(\nabla \cdot \mathbf{u})
++
+\mu \nabla^2 \mathbf{u}
+\]
+
+This is the \textbf{elastic wave equation}.
+
+It is a system of coupled partial differential equations.
+
+% ============================================================
+\section{Why P and S Waves Appear}
+
+This equation can be separated into two independent parts:
+
+\begin{itemize}
+\item Longitudinal (compressional) motion
+\item Transverse (shear) motion
+\end{itemize}
+
+These produce:
+\begin{itemize}
+\item P-waves (speed $V_P$),
+\item S-waves (speed $V_S$).
+\end{itemize}
+
+This is not an assumption.
+It is a mathematical consequence of isotropic elasticity.
+
+% ============================================================
+\section{Why Rayleigh Waves Need Both P and S Waves}
+
+Rayleigh waves:
+\begin{itemize}
+\item propagate along the surface,
+\item decay with depth,
+\item require boundary conditions at the free surface.
+\end{itemize}
+
+Pure P or pure S waves \emph{cannot} satisfy surface conditions alone.
+
+Therefore:
+\begin{center}
+\textbf{Rayleigh waves are coupled P--SV waves.}
+\end{center}
+
+This is why both $V_P$ and $V_S$ appear everywhere in your code.
+
+% ============================================================
+\section{Time-Harmonic Reduction of the PDE}
+
+Assume:
+\[
+\mathbf{u}(x,z,t) = \mathbf{u}(z)e^{i(kx-\omega t)}
+\]
+
+Then derivatives become:
+\[
+\frac{\partial}{\partial t} \rightarrow -i\omega,
+\quad
+\frac{\partial}{\partial x} \rightarrow ik
+\]
+
+The PDE becomes an \textbf{ODE system in depth $z$}.
+
+This is the key mathematical simplification.
+
+% ============================================================
+\section{Vertical Wavenumbers Appear}
+
+Solving the reduced equations yields exponential depth dependence:
+\[
+e^{\pm q_P z}, \quad e^{\pm q_S z}
+\]
+
+where:
+\[
+q_P = \sqrt{k^2 - \frac{\omega^2}{V_P^2}},
+\quad
+q_S = \sqrt{k^2 - \frac{\omega^2}{V_S^2}}
+\]
+
+These are called \textbf{vertical wavenumbers}.
+
+They control how fast motion decays with depth.
+
+This is exactly what your function
+\texttt{vertical\_wavenumber()} computes.
+
+% ============================================================
+\section{Why Matrix Formulation Is Natural}
+
+Inside one layer, the general solution is:
+\[
+\mathbf{u}(z)
+=
+\sum
+\text{(P and S waves with exponential depth dependence)}
+\]
+
+Rather than writing many equations repeatedly,
+we collect everything into matrices.
+
+This leads to the representation:
+\[
+\mathbf{U}(z)
+=
+\mathbf{Y}\mathbf{D}(z)\mathbf{a}
+\]
+
+This is not a trick.
+It is simply linear algebra organizing physics.
+
+% ============================================================
+\section{What This Chapter Has Established}
+
+At the end of this chapter, we now understand:
+
+\begin{itemize}
+\item Where the elastic wave equations come from
+\item Why P and S waves exist
+\item Why Rayleigh waves require coupled P--SV motion
+\item Why exponential depth dependence appears
+\item Why matrices naturally arise
+\end{itemize}
+
+We are now ready to:
+\begin{center}
+\textbf{construct the Y-matrix explicitly.}
+\end{center}
+
+\medskip
+\pagebreak
+% ================= Title =================
+\begin{center}
+{\Large \textbf{Forward Modeling of Rayleigh Waves}}\\[0.6em]
+{\large Extremely Detailed Foundational Notes (Code-Aligned)}\\[1.2em]
+{\Large \textbf{Chapter 3: The State Vector and the Y-Matrix}}
+\end{center}
+
+\vspace{1.5em}
+
+% ============================================================
+\section{What This Chapter Explains}
+
+In Chapter 2 we derived:
+\begin{itemize}
+\item elastic wave equations,
+\item P and S wave decomposition,
+\item exponential depth dependence.
+\end{itemize}
+
+We now answer a crucial question:
+
+\begin{quote}
+\textbf{How do we organize displacement and stress into a form suitable for computation?}
+\end{quote}
+
+The answer is the \textbf{state vector} and the \textbf{Y-matrix}.
+
+These two objects are the backbone of your entire codebase.
+
+% ============================================================
+\section{Why We Need More Than Displacement}
+
+At a layer boundary, physics requires:
+
+\begin{itemize}
+\item displacement continuity,
+\item stress continuity.
+\end{itemize}
+
+Therefore, tracking only displacement is insufficient.
+
+We must track:
+\begin{itemize}
+\item displacement components,
+\item stress components.
+\end{itemize}
+
+This leads directly to the definition of a state vector.
+
+% ============================================================
+\section{Definition of the State Vector}
+
+We define the state vector:
+\[
+\mathbf{U}(z)
+=
+\begin{bmatrix}
+u_x(z) \\
+u_z(z) \\
+\tau_{xz}(z) \\
+\tau_{zz}(z)
+\end{bmatrix}
+\]
+
+Each component has a precise meaning:
+
+\begin{itemize}
+\item $u_x$: horizontal displacement
+\item $u_z$: vertical displacement
+\item $\tau_{xz}$: shear stress on horizontal planes
+\item $\tau_{zz}$: normal stress on horizontal planes
+\end{itemize}
+
+This vector contains \textbf{everything} required to enforce physics.
+
+% ============================================================
+\section{Why the State Vector Has Exactly Four Components}
+
+In 2D elasticity:
+\begin{itemize}
+\item displacement has 2 components,
+\item stress has 3 independent components,
+\end{itemize}
+
+but Rayleigh waves involve only:
+\begin{itemize}
+\item $u_x$, $u_z$,
+\item $\tau_{xz}$, $\tau_{zz}$.
+\end{itemize}
+
+The component $\tau_{xx}$ does not appear in surface conditions.
+
+Thus, four components are both:
+\begin{itemize}
+\item sufficient,
+\item minimal.
+\end{itemize}
+
+This is why your matrices are $4 \times 4$.
+
+% ============================================================
+\section{General Solution Inside One Layer}
+
+Inside a single homogeneous layer, the depth dependence of motion is a superposition of:
+
+\begin{itemize}
+\item downward P-wave,
+\item upward P-wave,
+\item downward S-wave,
+\item upward S-wave.
+\end{itemize}
+
+We introduce four complex amplitudes:
+\[
+\mathbf{a}
+=
+\begin{bmatrix}
+A_P^- \\
+A_P^+ \\
+A_S^- \\
+A_S^+
+\end{bmatrix}
+\]
+
+Each amplitude multiplies an exponential depth factor.
+
+% ============================================================
+\section{Depth Dependence Matrix $\mathbf{D}(z)$}
+
+The exponential depth dependence is written compactly as:
+\[
+\mathbf{D}(z)
+=
+\begin{bmatrix}
+e^{-q_P z} & 0 & 0 & 0 \\
+0 & e^{+q_P z} & 0 & 0 \\
+0 & 0 & e^{-q_S z} & 0 \\
+0 & 0 & 0 & e^{+q_S z}
+\end{bmatrix}
+\]
+
+This matrix:
+\begin{itemize}
+\item contains no material constants,
+\item only controls depth decay or growth.
+\end{itemize}
+
+This separation is intentional and powerful.
+
+% ============================================================
+\section{What the Y-Matrix Does}
+
+The Y-matrix converts abstract wave amplitudes into physical quantities.
+
+It satisfies:
+\[
+\boxed{
+\mathbf{U}(z)
+=
+\mathbf{Y}
+\mathbf{D}(z)
+\mathbf{a}
+}
+\]
+
+Interpretation:
+
+\begin{itemize}
+\item Columns $\rightarrow$ individual wave types
+\item Rows $\rightarrow$ physical quantities
+\end{itemize}
+
+The Y-matrix is determined entirely by:
+\begin{itemize}
+\item elasticity,
+\item kinematics,
+\item constitutive laws.
+\end{itemize}
+
+Nothing in $\mathbf{Y}$ is arbitrary.
+
+% ============================================================
+\section{Explicit Structure of the Y-Matrix}
+
+In your code, the Y-matrix is:
+
+\[
+\mathbf{Y}
+=
+\begin{bmatrix}
+ik & ik & -q_S & q_S \\
+-q_P & q_P & -ik & -ik \\
+\lambda(-k^2+q_P^2)+2\mu q_P^2 &
+\lambda(-k^2+q_P^2)+2\mu q_P^2 &
+-2\mu ik q_S &
+2\mu ik q_S \\
+2\mu ik q_P &
+-2\mu ik q_P &
+-\mu(q_S^2+k^2) &
+-\mu(q_S^2+k^2)
+\end{bmatrix}
+\]
+
+where:
+\[
+\mu = \rho V_S^2,
+\qquad
+\lambda = \rho V_P^2 - 2\mu
+\]
+
+Each entry comes from differentiating displacement
+and applying Hooke’s law.
+
+% ============================================================
+\section{Interpretation Row by Row}
+
+\subsection*{First Row: $u_x$}
+
+This row maps wave amplitudes to horizontal displacement.
+
+Terms involving $ik$ come from $\partial / \partial x$.
+
+Terms involving $q_S$ arise from vertical derivatives.
+
+\subsection*{Second Row: $u_z$}
+
+This row maps wave amplitudes to vertical displacement.
+
+The signs reflect upward and downward propagation.
+
+\subsection*{Third Row: $\tau_{xz}$}
+
+This row encodes shear stress.
+
+It depends on:
+\begin{itemize}
+\item shear modulus $\mu$,
+\item spatial derivatives of displacement.
+\end{itemize}
+
+\subsection*{Fourth Row: $\tau_{zz}$}
+
+This row encodes normal stress.
+
+It involves:
+\begin{itemize}
+\item both $\lambda$ and $\mu$,
+\item compressional and shear contributions.
+\end{itemize}
+
+% ============================================================
+\section{Interpretation Column by Column}
+
+Each column corresponds to one wave component:
+
+\begin{itemize}
+\item Column 1: downward P-wave
+\item Column 2: upward P-wave
+\item Column 3: downward SV-wave
+\item Column 4: upward SV-wave
+\end{itemize}
+
+This correspondence is exact and physical.
+
+% ============================================================
+\section{Why This Matrix Is Central to the Code}
+
+The Y-matrix appears in:
+
+\begin{itemize}
+\item layer propagators,
+\item dispersion equation construction,
+\item eigenfunction reconstruction,
+\item energy computation.
+\end{itemize}
+
+If the Y-matrix is correct, the entire model is correct.
+
+% ============================================================
+\section{What This Chapter Has Achieved}
+
+At the end of this chapter, we understand:
+
+\begin{itemize}
+\item why the state vector has four components,
+\item how wave amplitudes are defined,
+\item how physical quantities are assembled,
+\item why the Y-matrix has its exact structure.
+\end{itemize}
+
+This is the mathematical heart of Rayleigh-wave modeling.
+
+\medskip
+
+The next step is to understand how layers communicate.
+
+\begin{center}
+\textbf{That requires the propagator matrix.}
+\end{center}
+\pagebreak
+% ================= Title =================
+\begin{center}
+{\Large \textbf{Chapter 4: Dispersion, Phase Velocity, and Apparent Velocity}}
+\end{center}
+
+\vspace{1.5em}
+
+% ============================================================
+\section{Why This Chapter Is Extremely Important}
+
+Up to this point, we have:
+
+\begin{itemize}
+\item defined the physical problem,
+\item derived the governing equations,
+\item constructed the Y-matrix,
+\item built wave solutions inside layers.
+\end{itemize}
+
+But now a student might reasonably ask:
+
+\begin{quote}
+\textbf{Why are we doing all this? What do the final plots actually mean?}
+\end{quote}
+
+This chapter answers that question.
+
+It explains:
+\begin{itemize}
+\item what dispersion is,
+\item what phase velocity means,
+\item why velocity depends on frequency,
+\item why we see many curves instead of one,
+\item what apparent velocity really represents.
+\end{itemize}
+
+This chapter connects the mathematics to physical intuition.
+
+% ============================================================
+\section{Start With the Simplest Possible Wave}
+
+Before Rayleigh waves, imagine the simplest wave possible.
+
+Suppose a wave travels a distance $x$ in time $t$.
+
+Then its speed is:
+\[
+\text{speed} = \frac{x}{t}
+\]
+
+If the wave always travels at the same speed, regardless of frequency,
+we say the medium is \textbf{non-dispersive}.
+
+Examples:
+\begin{itemize}
+\item Light in vacuum
+\item Sound in air (approximately)
+\end{itemize}
+
+In such media, one velocity describes everything.
+
+% ============================================================
+\section{What Is Phase Velocity?}
+
+Now consider a sinusoidal wave:
+\[
+u(x,t) = \sin(kx - \omega t)
+\]
+
+A point of constant phase satisfies:
+\[
+kx - \omega t = \text{constant}
+\]
+
+Differentiating:
+\[
+k \frac{dx}{dt} - \omega = 0
+\]
+
+So the speed of that phase point is:
+\[
+\boxed{
+c = \frac{\omega}{k}
+}
+\]
+
+This is called the \textbf{phase velocity}.
+
+\medskip
+
+\textbf{Important:}
+
+Phase velocity is not the speed of energy.
+It is the speed of wave crests.
+
+This is exactly the quantity your code computes.
+
+% ============================================================
+\section{What Is Dispersion? (Very Important)}
+
+A medium is said to be \textbf{dispersive} if:
+
+\begin{center}
+\textbf{Different frequencies travel at different phase velocities.}
+\end{center}
+
+Mathematically:
+\[
+c = c(\omega)
+\]
+
+This means:
+\begin{itemize}
+\item low-frequency waves travel at one speed,
+\item high-frequency waves travel at another.
+\end{itemize}
+
+This is called \textbf{dispersion}.
+
+% ============================================================
+\section{Why a Layered Earth Is Dispersive}
+
+In a layered Earth:
+
+\begin{itemize}
+\item high-frequency waves sample shallow layers,
+\item low-frequency waves sample deeper layers.
+\end{itemize}
+
+Because deeper layers often have different velocities,
+the wave speed changes with frequency.
+
+\medskip
+
+This is the physical origin of Rayleigh-wave dispersion.
+
+\begin{center}
+\textbf{Dispersion = depth sensitivity + velocity contrast}
+\end{center}
+
+% ============================================================
+\section{What We Actually Compute in the Code}
+
+At a fixed frequency $f$:
+
+\begin{itemize}
+\item we guess a phase velocity $c$,
+\item compute $k = \omega / c$,
+\item check if boundary conditions are satisfied.
+\end{itemize}
+
+Only certain values of $c$ work.
+
+Each valid value is a \textbf{Rayleigh mode}.
+
+This process is repeated for many frequencies.
+
+% ============================================================
+\section{Why We Get Many Modes at One Frequency}
+
+This is crucial.
+
+A layered Earth behaves like a waveguide.
+
+Just like:
+\begin{itemize}
+\item a guitar string has harmonics,
+\item a pipe has overtones,
+\end{itemize}
+
+the Earth supports:
+\begin{itemize}
+\item a fundamental Rayleigh mode,
+\item higher-order Rayleigh modes.
+\end{itemize}
+
+Each mode:
+\begin{itemize}
+\item satisfies boundary conditions,
+\item has a different depth structure,
+\item has a different phase velocity.
+\end{itemize}
+
+That is why your plots show \textbf{multiple points at one frequency}.
+
+% ============================================================
+\section{Understanding the “All Modes” Plot}
+
+In your ``all modes'' plots:
+
+\begin{itemize}
+\item x-axis = frequency (Hz),
+\item y-axis = phase velocity (m/s),
+\item each dot = one Rayleigh mode.
+\end{itemize}
+
+At a given frequency:
+\begin{itemize}
+\item lowest dot = fundamental mode,
+\item higher dots = higher modes.
+\end{itemize}
+
+This plot answers:
+\begin{quote}
+\textit{What Rayleigh waves are mathematically allowed?}
+\end{quote}
+
+% ============================================================
+\section{But Experiments Do NOT See All These Modes}
+
+Here is a key experimental fact:
+
+\begin{center}
+\textbf{Real seismic data usually shows one dominant dispersion curve.}
+\end{center}
+
+Why?
+
+Because:
+\begin{itemize}
+\item sources excite many modes,
+\item receivers measure total motion,
+\item modes interfere.
+\end{itemize}
+
+The instrument does not label modes.
+
+It only records motion.
+
+% ============================================================
+\section{What Is Apparent Phase Velocity?}
+
+The \textbf{apparent phase velocity} is:
+
+\begin{quote}
+A single effective velocity that represents the combined contribution
+of all Rayleigh modes at a given frequency.
+\end{quote}
+
+It is not a new physical wave.
+It is a summary statistic.
+
+% ============================================================
+\section{Why Energy Determines Which Modes Matter}
+
+Not all modes contribute equally.
+
+A mode that:
+\begin{itemize}
+\item has large displacement near the surface,
+\item carries more energy,
+\item dominates the recorded signal.
+\end{itemize}
+
+Therefore, energy provides a natural weighting.
+
+This leads to the definition:
+\[
+\boxed{
+c_{\text{app}} =
+\frac{\sum_m E_m c_m}{\sum_m E_m}
+}
+\]
+
+This is exactly what your code implements.
+
+% ============================================================
+\section{Numerical Example (Conceptual)}
+
+Suppose at a given frequency:
+
+\begin{center}
+\begin{tabular}{c c c}
+Mode & Velocity (m/s) & Energy \\
+\hline
+1 & 300 & 0.70 \\
+2 & 450 & 0.25 \\
+3 & 600 & 0.05
+\end{tabular}
+\end{center}
+
+Then:
+\[
+c_{\text{app}} =
+\frac{0.70 \times 300 + 0.25 \times 450}{0.95}
+\approx 345 \text{ m/s}
+\]
+
+Mode 3 contributes very little.
+
+% ============================================================
+\section{Why Energy Thresholding Is Used}
+
+Very weak modes:
+\begin{itemize}
+\item are numerically unstable,
+\item are not physically observable.
+\end{itemize}
+
+So the code discards modes with:
+\[
+E < \epsilon E_{\max}
+\]
+
+This makes the apparent velocity stable and meaningful.
+
+% ============================================================
+\section{Why the Apparent Curve Is Smooth}
+
+The apparent velocity is:
+\begin{itemize}
+\item an average,
+\item dominated by low-order modes,
+\item slowly varying with frequency.
+\end{itemize}
+
+Therefore, smoothing does not change physics —
+it removes numerical noise.
+
+% ============================================================
+\section{How This Chapter Connects to Your Plots}
+
+Now your plots should be understood as:
+
+\begin{itemize}
+\item Gray dots: all mathematically allowed Rayleigh modes
+\item Red curve: what an experiment would actually measure
+\end{itemize}
+
+This is why the apparent curve lies inside the cloud of modes.
+
+% ============================================================
+\section{End-of-Chapter Summary}
+
+At the end of this chapter, we understand:
+
+\begin{itemize}
+\item what dispersion means physically,
+\item what phase velocity is,
+\item why velocity depends on frequency,
+\item why multiple modes exist,
+\item what apparent velocity represents,
+\item why energy weighting is essential.
+\end{itemize}
+
+You now understand what your dispersion plots \emph{mean},
+not just how to generate them.
+
+\medskip
+
+\begin{center}
+\textbf{The forward model is now physically complete.}
+\end{center}
+\pagebreak
+% ================= Title =================
+\begin{center}
+{\Large \textbf{Chapter 5: Rayleigh Eigenfunctions and Energy Localization}}
+\end{center}
+
+\vspace{1.5em}
+
+% ============================================================
+\section{What This Chapter Explains}
+
+In Chapter 4 we learned:
+
+\begin{itemize}
+\item what dispersion is,
+\item why phase velocity depends on frequency,
+\item why multiple Rayleigh modes exist,
+\item what apparent velocity represents.
+\end{itemize}
+
+Now we ask a deeper physical question:
+
+\begin{quote}
+\textbf{What does a Rayleigh wave actually look like inside the Earth?}
+\end{quote}
+
+This chapter explains:
+\begin{itemize}
+\item what eigenfunctions are,
+\item how they are computed,
+\item why they decay with depth,
+\item why some modes dominate observations,
+\item why energy controls everything.
+\end{itemize}
+
+This chapter explains your **eigenfunction plots**.
+
+% ============================================================
+\section{What Is an Eigenfunction? (Very Basic Explanation)}
+
+An \textbf{eigenfunction} is simply:
+
+\begin{quote}
+The shape of the wave as a function of depth.
+\end{quote}
+
+For Rayleigh waves, this means:
+\[
+u_x(z) \quad \text{and} \quad u_z(z)
+\]
+
+These functions tell us:
+\begin{itemize}
+\item how far the wave penetrates,
+\item where motion is strongest,
+\item how particles move at each depth.
+\end{itemize}
+
+Without eigenfunctions, dispersion curves are just numbers.
+
+% ============================================================
+\section{Why Eigenfunctions Depend on Depth}
+
+Rayleigh waves are surface waves.
+
+This means:
+\begin{itemize}
+\item they are strongest at the surface,
+\item they must decay with depth,
+\item they cannot grow infinitely downward.
+\end{itemize}
+
+This decay is enforced mathematically by:
+\[
+e^{-q_P z}, \quad e^{-q_S z}
+\]
+
+These exponentials appear explicitly in your code.
+
+% ============================================================
+\section{How Eigenfunctions Are Computed in the Code}
+
+Eigenfunctions are computed in the file:
+\begin{quote}
+\texttt{eigenfunctions/compute\_modeshape.py}
+\end{quote}
+
+The computation proceeds in four conceptual steps:
+
+\begin{enumerate}
+\item Choose a frequency $f$
+\item Choose a valid Rayleigh velocity $c$
+\item Determine relative wave amplitudes
+\item Reconstruct displacement as a function of depth
+\end{enumerate}
+
+Each step corresponds to a physical idea.
+
+% ============================================================
+\section{Step 1: Fix Frequency and Phase Velocity}
+
+At this stage:
+\begin{itemize}
+\item frequency $f$ is fixed,
+\item phase velocity $c$ is already known from dispersion.
+\end{itemize}
+
+This uniquely determines:
+\[
+\omega = 2\pi f,
+\quad
+k = \frac{\omega}{c}
+\]
+
+No ambiguity remains.
+
+% ============================================================
+\section{Step 2: Enforcing the Free-Surface Condition}
+
+At the Earth's surface:
+\[
+\tau_{xz}(0) = 0,
+\quad
+\tau_{zz}(0) = 0
+\]
+
+These conditions define a homogeneous linear system:
+\[
+\mathbf{A}(k,\omega)\mathbf{a} = \mathbf{0}
+\]
+
+This system has:
+\begin{itemize}
+\item infinitely many scaled solutions,
+\item but only one \emph{direction} in amplitude space.
+\end{itemize}
+
+That direction is the eigenvector.
+
+% ============================================================
+\section{Step 3: Computing the Null Vector}
+
+In the code, the null vector is computed using:
+
+\begin{itemize}
+\item Singular Value Decomposition (SVD),
+\item selecting the smallest singular value direction.
+\end{itemize}
+
+This gives:
+\[
+\mathbf{a}_2 =
+\begin{bmatrix}
+A_P^- \\
+A_S^-
+\end{bmatrix}
+\]
+
+This vector fixes the relative contribution of P and SV motion.
+
+% ============================================================
+\section{Why Only Two Amplitudes Are Needed}
+
+Upward-growing waves are physically forbidden.
+
+Therefore:
+\[
+A_P^+ = 0,
+\quad
+A_S^+ = 0
+\]
+
+The full amplitude vector is:
+\[
+\mathbf{a} =
+\begin{bmatrix}
+A_P^- \\
+0 \\
+A_S^- \\
+0
+\end{bmatrix}
+\]
+
+This guarantees decay with depth.
+
+% ============================================================
+\section{Step 4: Reconstructing the Displacement Field}
+
+Inside each layer:
+\[
+\mathbf{U}(z) =
+\mathbf{Y}
+\mathbf{D}(z)
+\mathbf{a}
+\]
+
+The code extracts:
+\[
+u_x(z) = U_1(z),
+\quad
+u_z(z) = U_2(z)
+\]
+
+This is done:
+\begin{itemize}
+\item layer by layer,
+\item ensuring continuity,
+\item using local depth coordinates.
+\end{itemize}
+
+% ============================================================
+\section{Why Eigenfunctions Are Complex-Valued}
+
+Eigenfunctions are complex because:
+\begin{itemize}
+\item time-harmonic motion uses complex exponentials,
+\item phase information is preserved.
+\end{itemize}
+
+Physical motion is the real part:
+\[
+\Re\{u_x(z)\}, \quad \Re\{u_z(z)\}
+\]
+
+Your plots correctly show only real components.
+
+% ============================================================
+\section{Understanding the Eigenfunction Plots}
+
+In your eigenfunction plots:
+
+\begin{itemize}
+\item vertical axis = depth,
+\item horizontal axis = displacement amplitude,
+\item curves = $u_x(z)$ and $u_z(z)$.
+\end{itemize}
+
+Typical features:
+\begin{itemize}
+\item maximum motion near the surface,
+\item decay with depth,
+\item changes at layer boundaries.
+\end{itemize}
+
+All of these are physically correct.
+
+% ============================================================
+\section{Why Eigenfunctions Are Not Unique Yet}
+
+If $\mathbf{a}$ is a solution, then:
+\[
+\alpha \mathbf{a}
+\]
+is also a solution for any constant $\alpha$.
+
+Thus:
+\begin{itemize}
+\item eigenfunctions have a shape,
+\item but no absolute scale.
+\end{itemize}
+
+This is why normalization is required.
+
+% ============================================================
+\section{Why Energy Is the Right Normalization}
+
+The physically meaningful quantity is energy.
+
+For Rayleigh waves, the modal kinetic energy is:
+\[
+E =
+\int_0^\infty
+\rho(z)
+\left(
+|u_x(z)|^2 + |u_z(z)|^2
+\right) dz
+\]
+
+This integral measures:
+\begin{itemize}
+\item how strong the mode is,
+\item how much motion it produces.
+\end{itemize}
+
+% ============================================================
+\section{Normalization Condition}
+
+The code normalizes eigenfunctions so that:
+\[
+\int_0^\infty
+\rho
+\left(
+|u_x|^2 + |u_z|^2
+\right) dz
+=
+1
+\]
+
+This removes arbitrary scaling while preserving shape.
+
+This is why normalized and unnormalized plots look identical.
+
+% ============================================================
+\section{Why Some Modes Dominate}
+
+Modes with:
+\begin{itemize}
+\item large surface amplitude,
+\item shallow penetration,
+\item high energy,
+\end{itemize}
+
+dominate seismic observations.
+
+Higher modes:
+\begin{itemize}
+\item penetrate deeper,
+\item have smaller surface motion,
+\item carry less energy near receivers.
+\end{itemize}
+
+This explains why fundamental modes dominate apparent velocity.
+
+% ============================================================
+\section{Connection to Apparent Phase Velocity}
+
+The apparent velocity is energy-weighted:
+\[
+c_{\text{app}} =
+\frac{\sum_m E_m c_m}{\sum_m E_m}
+\]
+
+Eigenfunctions determine $E_m$.
+
+Therefore:
+\begin{quote}
+\textbf{Eigenfunctions control which modes matter.}
+\end{quote}
+
+% ============================================================
+\section{What This Chapter Has Achieved}
+
+At the end of this chapter, we understand:
+
+\begin{itemize}
+\item what Rayleigh eigenfunctions are,
+\item how they are computed,
+\item why they decay with depth,
+\item why normalization is necessary,
+\item why energy determines dominance.
+\end{itemize}
+
+This explains the physical meaning of your eigenfunction plots.
+
+\medskip
+
+\begin{center}
+\textbf{Eigenfunctions complete the physical picture of Rayleigh waves.}
+\end{center}
+
+% ================= Title =================
+\begin{center}
+{\Large \textbf{Chapter 6: Validation, Sanity Checks, and Model Readiness}}
+\end{center}
+
+\vspace{1.5em}
+
+% ============================================================
+\section{Why Validation Is Absolutely Necessary}
+
+A forward model is not considered complete just because it runs.
+
+In scientific modeling, correctness requires that:
+
+\begin{itemize}
+\item the equations are physically correct,
+\item the numerical implementation is stable,
+\item the results agree with known physical behavior.
+\end{itemize}
+
+This chapter answers the most important question:
+
+\begin{quote}
+\textbf{How do we know that our Rayleigh-wave forward model is correct?}
+\end{quote}
+
+% ============================================================
+\section{What We Mean by “Sanity Check”}
+
+A sanity check is a test where:
+
+\begin{itemize}
+\item the expected outcome is already known,
+\item the model is tested against that outcome,
+\item agreement builds confidence.
+\end{itemize}
+
+Sanity checks are not optional.
+They are required for scientific credibility.
+
+% ============================================================
+\section{Sanity Check 1: Homogeneous Half-Space}
+
+The simplest possible Earth model is:
+
+\begin{itemize}
+\item infinite,
+\item homogeneous,
+\item isotropic,
+\item elastic.
+\end{itemize}
+
+In this case, Rayleigh-wave theory gives a well-known result:
+
+\[
+c_R \approx 0.92\,V_S
+\]
+
+This result is independent of frequency.
+
+% ============================================================
+\section{Why This Is a Perfect Test}
+
+This test is ideal because:
+
+\begin{itemize}
+\item the result is known analytically,
+\item no numerical ambiguity exists,
+\item failure immediately indicates an error.
+\end{itemize}
+
+If the model cannot reproduce this,
+it cannot be trusted for layered media.
+
+% ============================================================
+\section{What the Code Produces}
+
+When the homogeneous test is run, the code reports:
+
+\begin{itemize}
+\item a constant Rayleigh velocity,
+\item very close to $0.92 V_S$,
+\item independent of frequency.
+\end{itemize}
+
+This confirms:
+
+\begin{itemize}
+\item correct Y-matrix construction,
+\item correct boundary conditions,
+\item correct dispersion equation.
+\end{itemize}
+
+This is the strongest possible validation.
+
+% ============================================================
+\section{Sanity Check 2: Depth Decay of Eigenfunctions}
+
+Rayleigh waves must decay with depth.
+
+This is not optional.
+If eigenfunctions grow downward, the model is unphysical.
+
+\medskip
+
+In all eigenfunction plots, we observe:
+
+\begin{itemize}
+\item maximum displacement at the surface,
+\item exponential decay with depth,
+\item no growth at large depth.
+\end{itemize}
+
+This confirms correct handling of vertical wavenumbers.
+
+% ============================================================
+\section{Sanity Check 3: Continuity at Layer Boundaries}
+
+At every layer interface, physics requires:
+
+\begin{itemize}
+\item displacement continuity,
+\item stress continuity.
+\end{itemize}
+
+In the eigenfunction plots:
+
+\begin{itemize}
+\item $u_x(z)$ is continuous,
+\item $u_z(z)$ is continuous,
+\item slope changes reflect material contrast.
+\end{itemize}
+
+This confirms correct layer propagation.
+
+% ============================================================
+\section{Sanity Check 4: Modal Structure}
+
+For layered models, theory predicts:
+
+\begin{itemize}
+\item multiple Rayleigh modes,
+\item one fundamental mode,
+\item higher-order modes.
+\end{itemize}
+
+Your all-modes dispersion plots show:
+
+\begin{itemize}
+\item distinct branches,
+\item smooth frequency dependence,
+\item physically reasonable velocity ranges.
+\end{itemize}
+
+This confirms correct root-finding and mode identification.
+
+% ============================================================
+\section{Sanity Check 5: Energy Localization}
+
+Physically:
+
+\begin{itemize}
+\item fundamental modes should carry more surface energy,
+\item higher modes should be deeper and weaker.
+\end{itemize}
+
+Your normalized eigenfunctions and energy calculations show exactly this.
+
+This validates the energy integral and normalization scheme.
+
+% ============================================================
+\section{Sanity Check 6: Apparent Phase Velocity}
+
+Experiments typically report one dispersion curve.
+
+Your apparent velocity computation shows:
+
+\begin{itemize}
+\item smooth frequency dependence,
+\item dominance of low-order modes,
+\item physically realistic trends.
+\end{itemize}
+
+The apparent curve lies inside the modal cloud,
+exactly as expected.
+
+% ============================================================
+\section{What the Model Does Correctly}
+
+At this point, the forward model correctly:
+
+\begin{itemize}
+\item solves elastodynamic equations,
+\item enforces free-surface conditions,
+\item handles layered media,
+\item computes all Rayleigh modes,
+\item reconstructs eigenfunctions,
+\item normalizes modes physically,
+\item produces observable dispersion curves.
+\end{itemize}
+
+This is a complete local isotropic forward model.
+
+% ============================================================
+\section{What the Model Does NOT Yet Include}
+
+It is important to be explicit about limitations.
+
+The current model does not yet include:
+
+\begin{itemize}
+\item elastic anisotropy,
+\item nonlocal constitutive behavior,
+\item intrinsic attenuation,
+\item inversion or optimization.
+\end{itemize}
+
+These are not flaws.
+They are planned extensions.
+
+% ============================================================
+\section{Why the Model Is Ready for Extension}
+
+The model is well-suited for extension because:
+
+\begin{itemize}
+\item physics is expressed in matrix form,
+\item layers are modular,
+\item eigenfunctions and energies are available,
+\item the forward operator is explicit.
+\end{itemize}
+
+This makes it ideal for:
+
+\begin{itemize}
+\item anisotropic stiffness tensors,
+\item nonlocal kernel integration,
+\item adjoint-based inversion,
+\item physics-informed neural networks.
+\end{itemize}
+
+% ============================================================
+\section{Connection to the Research Plan}
+
+The completed forward model directly supports the research goal:
+
+\begin{quote}
+\textit{Modeling and inversion of Rayleigh-wave dispersion in layered anisotropic and heterogeneous media, incorporating nonlocal elastic effects and physics-informed neural networks.}
+\end{quote}
+
+The present work establishes the local isotropic baseline.
+
+% ============================================================
+\section{Final Summary of the Entire Forward Model}
+
+The complete forward pipeline is:
+
+\begin{enumerate}
+\item Define layered Earth model
+\item Derive elastic wave equations
+\item Decompose into P--SV motion
+\item Construct Y-matrix
+\item Build propagator matrices
+\item Stack layers
+\item Enforce surface boundary conditions
+\item Solve dispersion equation
+\item Compute eigenfunctions
+\item Normalize by energy
+\item Compute apparent phase velocity
+\end{enumerate}
+
+Each step is physically justified and numerically validated.
+
+% ============================================================
+\section{Final Statement}
+
+We conclude that:
+
+\begin{itemize}
+\item the forward Rayleigh-wave model is correct,
+\item the numerical implementation is stable,
+\item the results agree with theory,
+\item the framework is ready for research extensions.
+\end{itemize}
+
+\medskip
+
+\begin{center}
+\textbf{The forward modeling stage is complete.}
+\end{center}
+
+\end{document}

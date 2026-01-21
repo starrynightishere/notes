@@ -1,0 +1,273 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}           % bold math
+\usepackage{physics}      % \inner, \norm etc.
+\usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
+\usepackage{cleveref}
+\usepackage{enumitem}
+
+% Page layout
+\geometry{margin=1in}
+
+% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Shortcuts
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\lap}{\Delta}
+\newcommand{\inner}[2]{\langle #1, #2\rangle}
+\providecommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\supp}{supp}
+
+% Title
+\title{Eigenfunctions and Eigenvalues:\\ Notes and Examples}
+\author{Anurag Mishra}
+\date{\today}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+Short notes on eigenfunction problems for differential and integral operators, common examples, variational characterization, and discretizations.
+\end{abstract}
+
+\tableofcontents
+\bigskip
+
+
+\section{Computation of Rayleigh Wave Eigenfunctions}
+
+\section{What is an Eigenfunction in This Project?}
+
+In this project, a \textbf{Rayleigh wave eigenfunction} refers to the depth-dependent displacement field
+\[
+\mathbf{u}(z) =
+\begin{bmatrix}
+u_x(z) \\
+u_z(z)
+\end{bmatrix},
+\]
+which describes how particles in the ground move horizontally and vertically as a Rayleigh wave propagates along the surface.
+
+The eigenfunction is not assumed or prescribed. Instead, it is \emph{derived} from:
+\begin{itemize}
+  \item the elastodynamic equations,
+  \item the layered Earth structure,
+  \item traction-free boundary conditions at the surface,
+  \item decay conditions in the half-space.
+\end{itemize}
+
+The code computes this eigenfunction exactly.
+
+\section{Time-Harmonic Representation}
+
+We assume time-harmonic motion:
+\[
+\mathbf{u}(x,z,t)
+=
+\mathbf{u}(z)\,e^{i(kx-\omega t)},
+\]
+where:
+\begin{itemize}
+  \item $\omega = 2\pi f$ is angular frequency,
+  \item $k = \omega/c$ is the horizontal wavenumber,
+  \item $c$ is the Rayleigh phase velocity.
+\end{itemize}
+
+This assumption converts the partial differential equations of elasticity into ordinary differential equations in $z$.
+
+\section{Wave Decomposition Inside a Single Layer}
+
+Inside a homogeneous isotropic elastic layer, the general P--SV solution is a superposition of four waves:
+\[
+\mathbf{u}(z)
+=
+A_P^- \mathbf{u}_P^- e^{-q_P z}
++
+A_P^+ \mathbf{u}_P^+ e^{+q_P z}
++
+A_S^- \mathbf{u}_S^- e^{-q_S z}
++
+A_S^+ \mathbf{u}_S^+ e^{+q_S z},
+\]
+where
+\[
+q_P = \sqrt{k^2 - \frac{\omega^2}{V_p^2}}, \qquad
+q_S = \sqrt{k^2 - \frac{\omega^2}{V_s^2}}.
+\]
+
+These quantities are computed in the code by:
+\begin{verbatim}
+qP = vertical_wavenumber(k, omega, Vp)
+qS = vertical_wavenumber(k, omega, Vs)
+\end{verbatim}
+
+\section{The Y-Matrix: From Wave Amplitudes to Physical Fields}
+
+We collect the wave amplitudes into a vector:
+\[
+\mathbf{a} =
+\begin{bmatrix}
+A_P^- \\
+A_P^+ \\
+A_S^- \\
+A_S^+
+\end{bmatrix}.
+\]
+
+The physical displacement--stress vector is:
+\[
+\mathbf{U}(z) =
+\begin{bmatrix}
+u_x(z) \\
+u_z(z) \\
+\tau_{xz}(z) \\
+\tau_{zz}(z)
+\end{bmatrix}.
+\]
+
+These are related by:
+\[
+\boxed{
+\mathbf{U}(z)
+=
+\mathbf{Y}
+\mathbf{D}(z)
+\mathbf{a}
+}
+\]
+
+The matrix $\mathbf{Y}$ contains material properties and polarization vectors and is implemented in the code as:
+\begin{verbatim}
+Y, qP, qS = Y_matrix(k, omega, rho, Vp, Vs)
+\end{verbatim}
+
+Only the first two rows of $\mathbf{Y}$ are needed to compute displacement.
+
+\section{Exponential Depth Dependence}
+
+The depth dependence is encoded by the diagonal matrix:
+\[
+\mathbf{D}(z) =
+\begin{bmatrix}
+e^{-q_P z} & 0 & 0 & 0 \\
+0 & e^{+q_P z} & 0 & 0 \\
+0 & 0 & e^{-q_S z} & 0 \\
+0 & 0 & 0 & e^{+q_S z}
+\end{bmatrix}.
+\]
+
+In the code, this is implemented as:
+\begin{verbatim}
+expvec = np.vstack([
+    np.exp(-qP * zz),
+    np.exp( qP * zz),
+    np.exp(-qS * zz),
+    np.exp( qS * zz)
+])
+\end{verbatim}
+
+\section{Surface Boundary Condition and Modal Amplitudes}
+
+At the free surface $z=0$, traction must vanish:
+\[
+\tau_{xz}(0) = 0, \qquad \tau_{zz}(0) = 0.
+\]
+
+This leads to a homogeneous linear system:
+\[
+\mathbf{A}
+\begin{bmatrix}
+A_P^- \\
+A_S^-
+\end{bmatrix}
+= \mathbf{0}.
+\]
+
+Non-trivial solutions exist only if $\det \mathbf{A} = 0$, which is the Rayleigh dispersion condition.
+
+Once a valid phase velocity $c$ is known, the \emph{eigenvector} is obtained by computing the null space:
+\begin{verbatim}
+_, _, Vh = np.linalg.svd(A)
+a2 = Vh[-1, :]
+\end{verbatim}
+
+This vector gives the relative P--SV amplitudes at the surface.
+
+\section{Embedding into the Full Wave Vector}
+
+Only decaying waves are allowed in the half-space, so the full amplitude vector is:
+\[
+\mathbf{a} =
+\begin{bmatrix}
+A_P^- \\
+0 \\
+A_S^- \\
+0
+\end{bmatrix}.
+\]
+
+This is implemented as:
+\begin{verbatim}
+a = np.array([a2[0], 0.0, a2[1], 0.0])
+\end{verbatim}
+
+\section{Layer-by-Layer Construction of the Eigenfunction}
+
+For each layer, the displacement is computed as:
+\[
+\begin{bmatrix}
+u_x(z) \\
+u_z(z)
+\end{bmatrix}
+=
+\mathbf{Y}_{1:2}
+\mathbf{D}(z)
+\mathbf{a}.
+\]
+
+In code:
+\begin{verbatim}
+U = Y[:2, :] @ (a[:, None] * expvec)
+ux[mask] = U[0]
+uz[mask] = U[1]
+\end{verbatim}
+
+This procedure is repeated layer by layer, ensuring continuity and correct decay.
+
+\section{Final Interpretation}
+
+The Rayleigh wave eigenfunction produced by the code:
+\begin{itemize}
+  \item satisfies the elastodynamic equations,
+  \item satisfies free-surface boundary conditions,
+  \item decays with depth,
+  \item correctly incorporates layered structure.
+\end{itemize}
+
+\noindent
+It is therefore a true physical eigenfunction, not an assumed shape.
+
+% No bibliography in this document (bibliography intentionally omitted)
+\end{document}
